@@ -18,6 +18,10 @@ export default class DangKi extends Component {
             // dataQuanHuyen = ['']
         this.state = {
             TaiKhoan : '',
+            TinhThanh: '',
+            QuanHuyen: '',
+            dataTinhThanh : '',
+            dataQuanHuyen : ''
 
         }
     }
@@ -36,23 +40,25 @@ export default class DangKi extends Component {
         .then((response) => response.json())
         .then((dataTinh)=> {
             data = JSON.parse(dataTinh);
-            // console.log('datatinh', data)
+            //  console.log('datatinh', data)
             //tạo mảng mới chỉ có TenVung
-            let arr = [];
-            data.Value.forEach((item)=>{
-                arr.push(item.TenVung)
-            })
+            // let arr = [];
+            // data.Value.forEach((item)=>{
+            //     arr.push(item.TenVung)
+            // })
             this.setState({
-                dataTinhThanh: arr,
+                dataTinhThanh: data.Value,
             })
+            console.log('arr', this.state.dataTinhThanh)
             // this.setState({
             //     dataTinhThanh : data.Value
             // })
-            console.log('arr', this.state.dataTinhThanh)
+           
         }).catch((erro)=> {
             console.log('erro',erro);
         })
-        //call api Quận huyện
+    }
+    CallApiQuanHuyen(){
         fetch("http://192.168.1.254:9051/api/location/getdata", {
             method: 'POST',
             headers: {
@@ -60,24 +66,17 @@ export default class DangKi extends Component {
 
             },
             body: JSON.stringify({
-                ma_vung: "01", option: 1, lang_name: "vi_VN"
+                ma_vung: "01", 
+                option: 1,
+                lang_name: "vi_VN"
             })
         })
         .then((response) => response.json())
         .then((dataQuan)=> {
             data1 = JSON.parse(dataQuan);
-            console.log('dataQuan', data1)
-            //tạo mảng mới chỉ có TenVung
-            let arr1 = [];
-            data1.Value.forEach((item1)=>{
-                arr1.push(item1.TenVung)
-            })
             this.setState({
-                dataQuanHuyen: arr1,
+                dataQuanHuyen: data1.Value,
             })
-            // this.setState({
-            //     dataTinhThanh : data.Value
-            // })
             console.log('arr1', this.state.dataQuanHuyen)
         }).catch((erro)=> {
             console.log('erro',erro);
@@ -95,6 +94,7 @@ export default class DangKi extends Component {
             </Picker>
         )
     }
+   
     renderGiaoDien(){
         //gán giá trị data
         let dataTinhThanh = _.values(this.state.dataTinhThanh)
@@ -108,15 +108,18 @@ export default class DangKi extends Component {
                     <View style = {styles.itemBoder}>
                         <Picker
                             selectedValue={this.state.TinhThanh}
-                            onValueChange={(value) => this.setState({selected: TinhThanh})}>
-                            {dataTinhThanh.map((value) => <Picker.Item key ={value} label={value} value={value}/>)}
+                            onValueChange={(value) => 
+                                    this.setState({TinhThanh: value},
+                                    this.CallApiQuanHuyen
+                                )}>
+                            {dataTinhThanh.map((value) => <Picker.Item key = {value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
                         <Picker
-                            selectedValue={this.state.selected}
-                            onValueChange={(value) => this.setState({selected: value})}>
-                            {dataQuanHuyen.map((value) => <Picker.Item key ={value} label={value} value={value}/>)}
+                            selectedValue={this.state.QuanHuyen}
+                            onValueChange={(value) => this.setState({QuanHuyen: value})}>
+                            {dataQuanHuyen.map((value) => <Picker.Item key ={value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
@@ -125,7 +128,7 @@ export default class DangKi extends Component {
                     </View>
                     {/* // listview các tòa nhà  */}
                     <View>
-                        
+
                     </View>
                     <TouchableOpacity onPress = {() => this.props.navigation.navigate('NhapThongTinChiTiet')}>
                         <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
