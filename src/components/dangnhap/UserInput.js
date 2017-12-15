@@ -1,0 +1,72 @@
+import React, { Component } from 'react';
+import Dimensions from 'Dimensions';
+import {
+    StyleSheet,
+    View,
+    TextInput,
+    Image,
+} from 'react-native';
+import images from "../images";
+
+export default class UserInput extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            text: ''
+        }
+
+    }
+    // onChang = (txt)=>{
+    //     this.props.getData(txt);
+    // }
+
+
+    render() {
+        return (
+            <View style = {{marginTop:20}}>
+                <Image source={this.props.source}
+                       style={styles.inlineImg} />
+                <TextInput style={styles.input}
+                           placeholder={this.props.placeholder}
+                           secureTextEntry={this.props.secureTextEntry}
+                           autoCorrect={this.props.autoCorrect}
+                           autoCapitalize={this.props.autoCapitalize}
+                           returnKeyType={this.props.returnKeyType}
+                           placeholderTextColor='white'
+                           underlineColorAndroid='transparent'
+                           onChangeText={this.onChang}
+
+                />
+            </View>
+        );
+    }
+}
+
+
+const DEVICE_WIDTH = Dimensions.get('window').width;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
+
+const styles = StyleSheet.create({
+    input: {
+        // backgroundColor: 'rgba(255, 255, 255, 0.4)',
+        width: DEVICE_WIDTH - 120,
+        height: 40,
+        borderWidth: 1,
+        marginHorizontal: 20,
+        paddingLeft: 45,
+        // borderRadius: 20,
+        // marginTop: 20
+        // color: '#ffffff',
+    },
+    inputWrapper: {
+        flex: 1,
+    },
+    inlineImg: {
+        position: 'absolute',
+        zIndex: 99,
+        width: 22,
+        height: 22,
+        left: 35,
+        top: 9,
+    },
+});
