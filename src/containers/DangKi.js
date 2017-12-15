@@ -7,15 +7,11 @@ import {
     TouchableOpacity,
     StyleSheet
 } from 'react-native'
-import { Dropdown } from 'react-native-material-dropdown';
 import _ from 'lodash';
 
 export default class DangKi extends Component {
     constructor(props){
         super(props)
-        // dataTK = ['Ban quản lí tòa nhà', 'Dân cư', 'Nhà cung cấp dịch vụ hàng hóa']
-            // dataTinhThanh = ['']
-            // dataQuanHuyen = ['']
         this.state = {
             TaiKhoan : '',
             TinhThanh: '',
@@ -49,7 +45,7 @@ export default class DangKi extends Component {
             this.setState({
                 dataTinhThanh: data.Value,
             })
-            console.log('arr', this.state.dataTinhThanh)
+            // console.log('arr', this.state.dataTinhThanh)
             // this.setState({
             //     dataTinhThanh : data.Value
             // })
@@ -58,7 +54,7 @@ export default class DangKi extends Component {
             console.log('erro',erro);
         })
     }
-    CallApiQuanHuyen(){
+    CallApiQuanHuyen(maVung){
         fetch("http://192.168.1.254:9051/api/location/getdata", {
             method: 'POST',
             headers: {
@@ -66,7 +62,7 @@ export default class DangKi extends Component {
 
             },
             body: JSON.stringify({
-                ma_vung: "01", 
+                ma_vung: maVung,
                 option: 1,
                 lang_name: "vi_VN"
             })
@@ -77,14 +73,14 @@ export default class DangKi extends Component {
             this.setState({
                 dataQuanHuyen: data1.Value,
             })
-            console.log('arr1', this.state.dataQuanHuyen)
+            // console.log('arr1', this.state.dataQuanHuyen)
         }).catch((erro)=> {
             console.log('erro',erro);
         })
     }
     renderTaiKhoan(){
         return(
-            <Picker 
+            <Picker
                 selectedValue={this.state.TaiKhoan}
                 onValueChange={(itemValue, itemIndex) => this.setState({TaiKhoan: itemValue})}>
                     <Picker.Item label = {'Chọn loại tài khoản muốn tạo'} value = ''/>
@@ -108,10 +104,10 @@ export default class DangKi extends Component {
                     <View style = {styles.itemBoder}>
                         <Picker
                             selectedValue={this.state.TinhThanh}
-                            onValueChange={(value) => 
-                                    this.setState({TinhThanh: value},
-                                    this.CallApiQuanHuyen
-                                )}>
+                            onValueChange={(value) => {
+                                this.setState({TinhThanh: value});
+                                this.CallApiQuanHuyen(value);
+                            }}>
                             {dataTinhThanh.map((value) => <Picker.Item key = {value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
                         </Picker>
                     </View>
@@ -123,14 +119,15 @@ export default class DangKi extends Component {
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
-                        <TextInput placeholder = 'Tìm kiếm nhanh tên KĐT ở đây'
+                        <TextInput placeholder = 'Nhập tên KĐT'
                                     underlineColorAndroid="transparent"/>
                     </View>
                     {/* // listview các tòa nhà  */}
-                    <View>
+                    <View style = {[styles.itemBoder, {minHeight: 100}]}>
+                            <Text>ListView Các Khu Đô Thị</Text>
 
                     </View>
-                    <TouchableOpacity onPress = {() => this.props.navigation.navigate('NhapThongTinChiTiet')}>
+                    <TouchableOpacity onPress = {() => this.props.navigation.navigate('TaoThongTinKDT')}>
                         <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                             <Text>Tiếp tục</Text>
                         </View>

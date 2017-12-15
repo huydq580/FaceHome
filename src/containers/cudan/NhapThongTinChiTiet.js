@@ -13,7 +13,7 @@ export default class NhapThongTinChiTiet extends Component {
     constructor(props){
         super(props)
         dataTN = ['Ban Quản Lí', 'Cư Dân', 'Nhà Cung Cấp', 'Khách']
-        dataTangLau = ['Ban Quản Lí', 'Cư Dân', 'Nhà Cung Cấp', 'Khách']
+        dataTangLau = ['Ba  n Quản Lí', 'Cư Dân', 'Nhà Cung Cấp', 'Khách']
         this.state = {
             selected:''
         }

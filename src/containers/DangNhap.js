@@ -16,8 +16,6 @@ export default class DangNhap extends Component {
     constructor(props){
         super(props)
         this.state = {
-            lang_name: 'vi_VN',
-            arrName: [''],
         }
     }
     
