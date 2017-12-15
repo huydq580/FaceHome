@@ -14,13 +14,15 @@ export default class DangKi extends Component {
     constructor(props){
         super(props)
         // dataTK = ['Ban quản lí tòa nhà', 'Dân cư', 'Nhà cung cấp dịch vụ hàng hóa']
-            dataTinhThanh = ['']
-            dataQuanHuyen = ['Ý Yên','Giao Thủy', 'Nam Trực']
+            // dataTinhThanh = ['']
+            // dataQuanHuyen = ['']
         this.state = {
-            TaiKhoan : ''
+            TaiKhoan : '',
+
         }
     }
     componentWillMount () {
+        //call api tỉnh
         fetch("http://192.168.1.254:9051/api/location/getdata", {
             method: 'POST',
             headers: {
@@ -35,18 +37,48 @@ export default class DangKi extends Component {
         .then((dataTinh)=> {
             data = JSON.parse(dataTinh);
             // console.log('datatinh', data)
-            // // tạo mảng mới chỉ có TenVung
-            // // let arr = [];
-            // // data.Value.forEach((item)=>{
-            // //     arr.push(item.TenVung)
-            // // })
-            // this.setState({
-            //     dataTinhThanh: dataTinh,
-            // })
-            this.setState({
-                dataTinhThanh : data.Value
+            //tạo mảng mới chỉ có TenVung
+            let arr = [];
+            data.Value.forEach((item)=>{
+                arr.push(item.TenVung)
             })
+            this.setState({
+                dataTinhThanh: arr,
+            })
+            // this.setState({
+            //     dataTinhThanh : data.Value
+            // })
             console.log('arr', this.state.dataTinhThanh)
+        }).catch((erro)=> {
+            console.log('erro',erro);
+        })
+        //call api Quận huyện
+        fetch("http://192.168.1.254:9051/api/location/getdata", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify({
+                ma_vung: "01", option: 1, lang_name: "vi_VN"
+            })
+        })
+        .then((response) => response.json())
+        .then((dataQuan)=> {
+            data1 = JSON.parse(dataQuan);
+            console.log('dataQuan', data1)
+            //tạo mảng mới chỉ có TenVung
+            let arr1 = [];
+            data1.Value.forEach((item1)=>{
+                arr1.push(item1.TenVung)
+            })
+            this.setState({
+                dataQuanHuyen: arr1,
+            })
+            // this.setState({
+            //     dataTinhThanh : data.Value
+            // })
+            console.log('arr1', this.state.dataQuanHuyen)
         }).catch((erro)=> {
             console.log('erro',erro);
         })
@@ -66,7 +98,8 @@ export default class DangKi extends Component {
     renderGiaoDien(){
         //gán giá trị data
         let dataTinhThanh = _.values(this.state.dataTinhThanh)
-        console.log('rendergiaodien', dataTinhThanh)
+        let dataQuanHuyen = _.values(this.state.dataQuanHuyen)
+        // console.log('rendergiaodien', dataTinhThanh)
         //gán giá trị tài khoản
         let TaiKhoan = this.state.TaiKhoan;
         if(TaiKhoan==='key1' || TaiKhoan ==='key2'){
@@ -74,8 +107,8 @@ export default class DangKi extends Component {
                 <View>
                     <View style = {styles.itemBoder}>
                         <Picker
-                            selectedValue={this.state.selected}
-                            onValueChange={(value) => this.setState({selected: value})}>
+                            selectedValue={this.state.TinhThanh}
+                            onValueChange={(value) => this.setState({selected: TinhThanh})}>
                             {dataTinhThanh.map((value) => <Picker.Item key ={value} label={value} value={value}/>)}
                         </Picker>
                     </View>
@@ -89,6 +122,10 @@ export default class DangKi extends Component {
                     <View style = {styles.itemBoder}>
                         <TextInput placeholder = 'Tìm kiếm nhanh tên KĐT ở đây'
                                     underlineColorAndroid="transparent"/>
+                    </View>
+                    {/* // listview các tòa nhà  */}
+                    <View>
+                        
                     </View>
                     <TouchableOpacity onPress = {() => this.props.navigation.navigate('NhapThongTinChiTiet')}>
                         <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
