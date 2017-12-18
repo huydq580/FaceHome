@@ -1,0 +1,37 @@
+import React, { Component } from 'react';
+import {StackNavigator} from 'react-navigation'
+import DangNhap from "../containers/DangNhap";
+import DangKi from "../containers/DangKi";
+import StackBQL from "./banquanli/NavigationBanQuanLy";
+import StackCuDan from "./cudan/NavigationCuDan";
+
+
+const Stack = StackNavigator ({
+    DangNhap: {
+        screen: DangNhap,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    DangKi: {
+        screen: DangKi,
+        navigationOptions: {
+            header: null
+        }
+    },
+    StackBQL: {
+        screen: StackBQL,
+        navigationOptions: {
+            header: null
+        }
+    },
+    StackCuDan: {
+        screen: StackCuDan,
+        navigationOptions: {
+            header: null,
+        }
+    }
+
+
+})
+export default Stack;

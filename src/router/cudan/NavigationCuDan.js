@@ -5,19 +5,19 @@ import NhapThongTinChiTiet from '../../containers/cudan/NhapThongTinChiTiet';
 import NhapMaXacThuc from '../../containers/cudan/NhapMaXacThuc';
 import Tab from './TabNavigatorCuDan';
 import DangNhap from '../../containers/DangNhap';
-const Stack = StackNavigator({
-    DangNhap: {
-        screen: DangNhap,
-        navigationOptions: {
-            header: null
-        }
-    },
-    DangKi: {
-        screen: DangKi,
-        navigationOptions: {
-            header: null
-        }
-    },
+const StackCuDan = StackNavigator({
+    // DangNhap: {
+    //     screen: DangNhap,
+    //     navigationOptions: {
+    //         header: null
+    //     }
+    // },
+    // DangKi: {
+    //     screen: DangKi,
+    //     navigationOptions: {
+    //         header: null
+    //     }
+    // },
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
         navigationOptions: {
@@ -39,4 +39,4 @@ const Stack = StackNavigator({
 
 
 })
-export default Stack;
+export default StackCuDan;

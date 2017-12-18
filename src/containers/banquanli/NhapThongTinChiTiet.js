@@ -52,7 +52,7 @@ export default class NhapThongTinChiTiet extends Component {
                 </View>
 
 
-                <TouchableOpacity onPress = {() => this.props.navigation.navigate('NhapThongTinChiTiet')}>
+                <TouchableOpacity onPress = {() => this.props.navigation.navigate('TrangChuBQL')}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
                     </View>

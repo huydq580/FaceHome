@@ -10,7 +10,7 @@ import {
 import Dimensions from 'Dimensions';
 import UserInput from '../components/dangnhap/UserInput';
 import images from '../components/images'
- 
+
 
 export default class DangNhap extends Component {
     constructor(props){
@@ -18,7 +18,7 @@ export default class DangNhap extends Component {
         this.state = {
         }
     }
-    
+
     render(){
         return (
             <View style = {{flex:1, backgroundColor:'white'}}>
@@ -28,20 +28,20 @@ export default class DangNhap extends Component {
                 <View style = {{flex:5, alignItems: 'center'}}>
                     <Text>Tiếng việt - English</Text>
                     <UserInput source = {images.username}
-                           placeholder='Username'
-                           autoCapitalize={'none'}
-                           returnKeyType={'done'}
-                           autoCorrect={false}
-                           style = {{marginTop: 20}}
+                               placeholder='Username'
+                               autoCapitalize={'none'}
+                               returnKeyType={'done'}
+                               autoCorrect={false}
+                               style = {{marginTop: 20}}
                         //    getData = {getEmail}
-                           />
+                    />
                     <UserInput source={images.password}
                         //    secureTextEntry={this.state.showPass}
-                           placeholder='Password'
-                           returnKeyType={'done'}
-                           autoCapitalize={'none'}
-                           autoCorrect={false}
-                           style = {{marginTop : 20}}
+                               placeholder='Password'
+                               returnKeyType={'done'}
+                               autoCapitalize={'none'}
+                               autoCorrect={false}
+                               style = {{marginTop : 20}}
                         //    getData = {getPass}
                     />
                     <TouchableOpacity>

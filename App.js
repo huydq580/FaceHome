@@ -11,10 +11,8 @@ import {
   Text,
   View
 } from 'react-native';
-import DangNhap from './src/containers/DangNhap'
-import NhapThongTinChiTiet from './src/containers/cudan/NhapThongTinChiTiet'
-import DangKi from './src/containers/DangKi'
-import Stack from './src/router/banquanli/NavigationBanQuanLy'
+import Stack from './src/router/Navigation'
+
 
 
 export default class App extends Component<{}> {
