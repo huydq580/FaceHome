@@ -4,6 +4,7 @@ import DangNhap from "../containers/DangNhap";
 import DangKi from "../containers/DangKi";
 import StackBQL from "./banquanli/NavigationBanQuanLy";
 import StackCuDan from "./cudan/NavigationCuDan";
+import StackNCC from "./nhacungcap/NavigationNCC";
 
 
 const Stack = StackNavigator ({
@@ -27,6 +28,12 @@ const Stack = StackNavigator ({
     },
     StackCuDan: {
         screen: StackCuDan,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    StackNCC: {
+        screen: StackNCC,
         navigationOptions: {
             header: null,
         }
