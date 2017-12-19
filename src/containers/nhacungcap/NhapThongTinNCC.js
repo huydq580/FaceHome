@@ -41,7 +41,7 @@ export default class NhapThongTinNCC extends Component {
                     <TextInput placeholder = 'Số điện thoại liên hệ'
                                underlineColorAndroid="transparent"/>
                 </View>
-                <TouchableOpacity onPress = {() => this.props.navigation.navigate('TrangChuNCC')}>
+                <TouchableOpacity onPress = {() => this.props.navigation.navigate('KDTGanBan')}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Hoàn tất</Text>
                     </View>

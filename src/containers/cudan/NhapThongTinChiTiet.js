@@ -58,7 +58,7 @@ export default class NhapThongTinChiTiet extends Component {
                 </TouchableOpacity>
 
                 
-                <TouchableOpacity onPress = {() => this.props.navigation.navigate('NhapMaXacThuc')}>
+                <TouchableOpacity onPress = {() => this.props.navigation.navigate('SanhChinh')}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
                     </View>

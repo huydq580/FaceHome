@@ -1,23 +1,9 @@
 import React, { Component } from 'react'
 import {StackNavigator} from 'react-navigation';
-import DangKi from '../../containers/DangKi';
 import NhapThongTinChiTiet from '../../containers/cudan/NhapThongTinChiTiet';
 import NhapMaXacThuc from '../../containers/cudan/NhapMaXacThuc';
-import Tab from './TabNavigatorCuDan';
-import DangNhap from '../../containers/DangNhap';
+import TabCuDan from './TabNavigatorCuDan';
 const StackCuDan = StackNavigator({
-    // DangNhap: {
-    //     screen: DangNhap,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
-    // DangKi: {
-    //     screen: DangKi,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
         navigationOptions: {
@@ -31,7 +17,7 @@ const StackCuDan = StackNavigator({
         }
     },
     SideMenu: {
-        screen: Tab,
+        screen: TabCuDan,
         navigationOptions: {
             header: null
         }

@@ -5,7 +5,7 @@ import DichVu from '../../containers/cudan/DichVu';
 import TinNhan from '../../containers/cudan/TinNhan';
 import Notification from '../../containers/cudan/Notification';
 import MenuLeft from '../../containers/cudan/MenuLeft';
-const Tab = TabNavigator ({
+const TabCuDan = TabNavigator ({
     SanhChinh: {
         screen: SanhChinh,
         navigationOptions: {
@@ -50,9 +50,9 @@ const Tab = TabNavigator ({
     animationEnabled: false
 })
 
-const SideMenu = DrawerNavigator ({
+const SideMenuCuDan = DrawerNavigator ({
     Tab: {
-        screen: Tab,
+        screen: TabCuDan,
     }},
     {
         drawerWidth: 300,
@@ -61,4 +61,4 @@ const SideMenu = DrawerNavigator ({
         contentComponent: props => <MenuLeft {...props}/>
     }
 )
-export default SideMenu;
+export default SideMenuCuDan;

@@ -5,10 +5,11 @@ import {
     Picker,
     TextInput,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    FlatList
 } from 'react-native'
 import _ from 'lodash';
-import {URL, URL_GETDATA} from "../components/Api";
+import {URL, URL_GETDATA, URL_SEARCH} from "../components/Api";
 
 export default class DangKi extends Component {
     constructor(props){
@@ -18,9 +19,13 @@ export default class DangKi extends Component {
             TinhThanh: '',
             QuanHuyen: '',
             dataTinhThanh : '',
-            dataQuanHuyen : ''
+            dataQuanHuyen : '',
+            keyword : '',
+            dataKDT: '',
+
 
         }
+        this.ClickItem = this.ClickItem.bind(this);
     }
     componentWillMount () {
         //call api tỉnh
@@ -37,19 +42,10 @@ export default class DangKi extends Component {
             .then((response) => response.json())
             .then((dataTinh)=> {
                 data = JSON.parse(dataTinh);
-                //  console.log('datatinh', data)
-                //tạo mảng mới chỉ có TenVung
-                // let arr = [];
-                // data.Value.forEach((item)=>{
-                //     arr.push(item.TenVung)
-                // })
+
                 this.setState({
                     dataTinhThanh: data.Value,
                 })
-                // console.log('arr', this.state.dataTinhThanh)
-                // this.setState({
-                //     dataTinhThanh : data.Value
-                // })
 
             }).catch((erro)=> {
             console.log('erro',erro);
@@ -79,6 +75,43 @@ export default class DangKi extends Component {
             console.log('erro',erro);
         })
     }
+    CallApiTimKiem(){
+        fetch(URL + URL_SEARCH, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify({
+                sf: {
+                    // keyword: this.state.keyword,
+                    ma_vung: this.state.QuanHuyen,
+                    search_in: 64,
+                    page_size: 100,
+                    page_number: 1,
+                    option: 0
+                },
+                lang_name: "vi_VN"
+            })
+        })
+            .then((response) => response.json())
+            .then((dataSearch)=> {
+                data2 = JSON.parse(dataSearch);
+                this.setState({
+                    dataKDT : data2.Value
+                })
+                // console.log('data3', this.state.dataKDT)
+
+
+            }).catch((erro)=> {
+            console.log('erro',erro);
+        })
+    }
+    ClickItem(item){
+        this.setState({
+            keyword: item.TenKDT
+        })
+    }
     renderTaiKhoan(){
         return(
             <Picker
@@ -91,8 +124,18 @@ export default class DangKi extends Component {
             </Picker>
         )
     }
-
-    renderGiaoDien(){
+    // renderSeparator = () => {
+    //     return (
+    //         <View
+    //             style={{
+    //                 height: 1,
+    //                 backgroundColor: "#CED0CE",
+    //                 marginTop: 10,
+    //             }}
+    //         />
+    //     );
+    // };
+    renderGiaoDienTaiKhoan(){
         //gán giá trị data
         let dataTinhThanh = _.values(this.state.dataTinhThanh)
         let dataQuanHuyen = _.values(this.state.dataQuanHuyen)
@@ -120,15 +163,34 @@ export default class DangKi extends Component {
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
-                        <TextInput placeholder = 'Nhập tên KĐT'
-                                   underlineColorAndroid="transparent"/>
+                        <TextInput
+                                   placeholder = 'Nhập tên KĐT'
+                                   underlineColorAndroid="transparent"
+                                   value={this.state.keyword}
+                                   onChangeText = {(value) => this.setState({value})}
+                        />
                     </View>
                     <View style = {{alignItems: 'center', marginTop: 10}}>
-                        <Text>Tìm kiếm</Text>
+                        <TouchableOpacity onPress = {this.CallApiTimKiem.bind(this)}>
+                            <Text>Tìm kiếm</Text>
+                        </TouchableOpacity>
                     </View>
                     {/* // listview các tòa nhà  */}
-                    <View style = {[styles.itemBoder, {minHeight: 100}]}>
-                        <Text>ListView Các Khu Đô Thị</Text>
+                    <View style = {[styles.itemBoder, {height: 180}]}>
+                        <FlatList
+                            data = {this.state.dataKDT}
+                            renderItem = {({item}) =>
+                                <TouchableOpacity onPress = {()=> this.ClickItem(item)}>
+                                    <View style = {{margin: 10}}>
+                                        <Text>{item.TenKDT}</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+
+                        }
+                            keyExtractor={(item, index) => index}
+                            // ItemSeparatorComponent = {this.renderSeparator}
+                        />
 
                     </View>
 
@@ -156,6 +218,11 @@ export default class DangKi extends Component {
     }
     DangKiGiaoDien(){
         let TaiKhoan = this.state.TaiKhoan;
+        let key= _.values(this.state.keyword);
+        console.log('key', key);
+        let dataKDT = _.values(this.state.dataKDT)
+        console.log('data', dataKDT)
+
         if (TaiKhoan === 'key1'){
             this.props.navigation.navigate('TaoThongTinKDT')
 
@@ -175,7 +242,7 @@ export default class DangKi extends Component {
                 <View style = {styles.itemBoder}>
                     {this.renderTaiKhoan()}
                 </View>
-                {this.renderGiaoDien()}
+                {this.renderGiaoDienTaiKhoan()}
                 <TouchableOpacity onPress = {() => this.DangKiGiaoDien()}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
