@@ -13,10 +13,10 @@ export default class DangKyTaiKhoanBQL extends Component {
         super(props)
         this.state = {
             SoDienThoai:'',
-            MatKhau: ''
+            MatKhau: '',
         }
     }
-    Register(){
+    RegisterBQL(){
         fetch(URL + URL_REGISTER_BQL , {
             method: 'POST',
             headers: {
@@ -36,12 +36,9 @@ export default class DangKyTaiKhoanBQL extends Component {
             })
         })
             .then((response) => response.json())
-            .then((dataSearch)=> {
-                data2 = JSON.parse(dataSearch);
-                this.setState({
-                    dataKDT : data2.Value
-                })
-                // console.log('data3', this.state.dataKDT)
+            .then((dataRes)=> {
+                data = JSON.parse(dataRes);
+                console.log('dataLogin', data)
 
 
             }).catch((erro)=> {
@@ -68,7 +65,7 @@ export default class DangKyTaiKhoanBQL extends Component {
                 <View style = {{alignItems:'center', justifyContent: 'center'}}>
                     <Text>Hiển thị mật khẩu</Text>
                 </View>
-                <TouchableOpacity onPress = {() => this.props.navigation.navigate('SanhChinh')}>
+                <TouchableOpacity onPress = {() => this.RegisterBQL()}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
                     </View>

@@ -11,6 +11,8 @@ export default class NhapThongTinNCC extends Component {
     constructor(props){
         super(props)
         this.state = {
+            SoDienThoai: '',
+            MatKhau: '',
 
         }
     }

@@ -9,7 +9,7 @@ import {
     FlatList
 } from 'react-native'
 import _ from 'lodash';
-import {URL, URL_GETDATA, URL_SEARCH} from "../components/Api";
+import {URL, URL_GETDATA, URL_REGISTER_NCC, URL_SEARCH} from "../components/Api";
 
 export default class DangKi extends Component {
     constructor(props){
@@ -23,6 +23,8 @@ export default class DangKi extends Component {
             keyword : '',
             dataKDT: '',
             item: '',
+            SoDienThoai: '',
+            MatKhau: '',
 
 
         }
@@ -102,6 +104,31 @@ export default class DangKi extends Component {
                     dataKDT : data2.Value
                 })
                 // console.log('data3', this.state.dataKDT)
+
+
+            }).catch((erro)=> {
+            console.log('erro',erro);
+        })
+    }
+    RegisterNCC(){
+        fetch(URL + URL_REGISTER_NCC, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify({
+
+                so_dien_thoai: this.state.SoDienThoai,
+                mat_khau:this.state.MatKhau,
+                lang_name: "vi_VN"
+            })
+        })
+            .then((response) => response.json())
+            .then((dataNCC)=> {
+                dataNCC = JSON.parse(dataNCC);
+                // console.log('dataLogin', dataNCC)
+                if(dataNCC.er)
 
 
             }).catch((erro)=> {
@@ -210,11 +237,13 @@ export default class DangKi extends Component {
                 <View>
                     <View style = {styles.itemBoder}>
                         <TextInput placeholder = 'Nhập số điện thoại'
-                                   underlineColorAndroid="transparent"/>
+                                   underlineColorAndroid="transparent"
+                                    onChangeText = {(SoDienThoai)=> this.setState({SoDienThoai}) }/>
                     </View>
                     <View style = {styles.itemBoder}>
                         <TextInput placeholder = 'Nhập mật khẩu'
-                                   underlineColorAndroid="transparent"/>
+                                   underlineColorAndroid="transparent"
+                                    onChangeText = {(MatKhau)=>this.setState({MatKhau})}/>
                     </View>
                     <View style = {{alignItems:'center', justifyContent: 'center'}}>
                         <Text>Hiển thị mật khẩu</Text>
@@ -255,7 +284,7 @@ export default class DangKi extends Component {
 
         }
         else if (TaiKhoan === 'key3'){
-            this.props.navigation.navigate('NhapThongTinNCC')
+            this.RegisterNCC()
 
         }
     }
