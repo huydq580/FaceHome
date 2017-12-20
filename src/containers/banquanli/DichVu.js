@@ -8,7 +8,7 @@ export default class DichVu extends Component {
     render() {
         return(
             <View>
-                <Tex>Dịch vụ</Tex>
+                <Text>Dịch vụ</Text>
             </View>
         );
     }

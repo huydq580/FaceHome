@@ -22,6 +22,7 @@ export default class DangKi extends Component {
             dataQuanHuyen : '',
             keyword : '',
             dataKDT: '',
+            item: '',
 
 
         }
@@ -109,8 +110,10 @@ export default class DangKi extends Component {
     }
     ClickItem(item){
         this.setState({
-            keyword: item.TenKDT
+            keyword: item.TenKDT,
+            item: item
         })
+        console.log('Keyword', this.state.keyword)
     }
     renderTaiKhoan(){
         return(
@@ -167,7 +170,7 @@ export default class DangKi extends Component {
                                    placeholder = 'Nhập tên KĐT'
                                    underlineColorAndroid="transparent"
                                    value={this.state.keyword}
-                                   onChangeText = {(value) => this.setState({value})}
+                                   onChangeText = {(keyword) => this.setState({keyword})}
                         />
                     </View>
                     <View style = {{alignItems: 'center', marginTop: 10}}>
@@ -193,6 +196,11 @@ export default class DangKi extends Component {
                         />
 
                     </View>
+                    <TouchableOpacity onPress = {() => this.DangKiGiaoDien()}>
+                        <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
+                            <Text>Tiếp tục</Text>
+                        </View>
+                    </TouchableOpacity>
 
                 </View>
             )
@@ -211,24 +219,39 @@ export default class DangKi extends Component {
                     <View style = {{alignItems:'center', justifyContent: 'center'}}>
                         <Text>Hiển thị mật khẩu</Text>
                     </View>
-
+                    <TouchableOpacity onPress = {() => this.DangKiGiaoDien()}>
+                        <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
+                            <Text>Tiếp tục</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             )
         }
     }
     DangKiGiaoDien(){
         let TaiKhoan = this.state.TaiKhoan;
-        let key= _.values(this.state.keyword);
-        console.log('key', key);
+        let key =_.pad(this.state.keyword);
+        let item = _.values(this.state.item)
+        console.log('item', item)
+        // console.log('key', key);
         let dataKDT = _.values(this.state.dataKDT)
         console.log('data', dataKDT)
 
         if (TaiKhoan === 'key1'){
-            this.props.navigation.navigate('TaoThongTinKDT')
+            this.props.navigation.navigate('NhapThongTinChiTiet', {itemKDT: item} )
+            // for(let i = 0; i< dataKDT.length; i++) {
+            //     if (key === dataKDT[i].TenKDT) {
+            //         this.props.navigation.navigate('NhapThongTinChiTiet')
+            //     }
+            //     else {
+            //         this.props.navigation.navigate('TaoThongTinKDT')
+            //     }
+            // }
+
 
         }
         else if (TaiKhoan === 'key2'){
-            this.props.navigation.navigate('NhapThongTinChiTiet')
+            this.props.navigation.navigate('NhapThongTinChiTietCuDan')
 
         }
         else if (TaiKhoan === 'key3'){
@@ -243,11 +266,6 @@ export default class DangKi extends Component {
                     {this.renderTaiKhoan()}
                 </View>
                 {this.renderGiaoDienTaiKhoan()}
-                <TouchableOpacity onPress = {() => this.DangKiGiaoDien()}>
-                    <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
-                        <Text>Tiếp tục</Text>
-                    </View>
-                </TouchableOpacity>
             </View>
         );
     }

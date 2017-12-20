@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import {StackNavigator} from 'react-navigation';
-import NhapThongTinChiTiet from '../../containers/cudan/NhapThongTinChiTiet';
+import NhapThongTinChiTietCuDan from '../../containers/cudan/NhapThongTinChiTietCuDan';
 import NhapMaXacThuc from '../../containers/cudan/NhapMaXacThuc';
-import TabCuDan from './TabNavigatorCuDan';
+import SideMenuCuDan from "./TabNavigatorCuDan";
+
 const StackCuDan = StackNavigator({
-    NhapThongTinChiTiet: {
-        screen: NhapThongTinChiTiet,
+    NhapThongTinChiTietCuDan: {
+        screen: NhapThongTinChiTietCuDan,
         navigationOptions: {
             header: null
         }
@@ -17,7 +18,7 @@ const StackCuDan = StackNavigator({
         }
     },
     SideMenu: {
-        screen: TabCuDan,
+        screen: SideMenuCuDan,
         navigationOptions: {
             header: null
         }

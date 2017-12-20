@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class NhapThongTinChiTiet extends Component {
+export default class NhapThongTinChiTietCuDan extends Component {
     constructor(props){
         super(props)
         dataTN = ['Ban Quản Lí', 'Cư Dân', 'Nhà Cung Cấp', 'Khách']
@@ -19,6 +19,7 @@ export default class NhapThongTinChiTiet extends Component {
         }
     }
     render (){
+        console.log('Cu dan')
         return (
             <View>
                 <View style = {styles.itemBoder}>
@@ -58,7 +59,7 @@ export default class NhapThongTinChiTiet extends Component {
                 </TouchableOpacity>
 
                 
-                <TouchableOpacity onPress = {() => this.props.navigation.navigate('SanhChinh')}>
+                <TouchableOpacity onPress = {() => this.props.navigation.navigate('SideMenu')}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
                     </View>

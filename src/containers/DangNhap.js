@@ -47,7 +47,7 @@ export default class DangNhap extends Component {
                     <TouchableOpacity>
                         <Text>Hiển thị mật khẩu</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress = {() => this.props.navigation.navigate('NhapThongTinNCC')}>
                         <View style = {{backgroundColor:'#2196F3',borderWidth:1,width: DEVICE_WIDTH - 120,  marginHorizontal: 20, marginTop:30, minHeight:40,alignItems:'center', justifyContent: 'center'}}>
                             <Text>Đăng nhập</Text>
                         </View>
