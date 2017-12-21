@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     StyleSheet,
-    FlatList
+    FlatList,
+    Alert
 } from 'react-native'
 import _ from 'lodash';
 import {URL, URL_GETDATA, URL_REGISTER_NCC, URL_SEARCH} from "../components/Api";
@@ -111,24 +112,44 @@ export default class DangKi extends Component {
         })
     }
     RegisterNCC(){
-        fetch(URL + URL_REGISTER_NCC, {
+        fetch(URL + URL_REGISTER_NCC , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
 
             },
             body: JSON.stringify({
-
                 so_dien_thoai: this.state.SoDienThoai,
-                mat_khau:this.state.MatKhau,
+                mat_khau: this.state.MatKhau,
                 lang_name: "vi_VN"
             })
         })
             .then((response) => response.json())
-            .then((dataNCC)=> {
-                dataNCC = JSON.parse(dataNCC);
-                // console.log('dataLogin', dataNCC)
-                if(dataNCC.er)
+            .then((dataRes)=> {
+                data = JSON.parse(dataRes);
+                console.log('dataLogin', data)
+                if(data.IsError === false && data.ErrorCode === "00"){
+                    Alert.alert(
+                        'Alert Title',
+                        'Đăng kí thành công',
+                        [
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('NhapThongTinNCC')}},
+                        ],
+                        { cancelable: false }
+                    )
+                    // this.props.navigation.navigate('SanhChinh')
+                }
+                else {
+                    Alert.alert(
+                        'Error',
+                        'Đăng kí thất bại',
+                        [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+
+                        ],
+                        { cancelable: false }
+                    )
+                }
 
 
             }).catch((erro)=> {
@@ -140,7 +161,7 @@ export default class DangKi extends Component {
             keyword: item.TenKDT,
             item: item
         })
-        console.log('Keyword', this.state.keyword)
+        console.log('Keyword', this.state.item)
     }
     renderTaiKhoan(){
         return(
@@ -260,11 +281,11 @@ export default class DangKi extends Component {
     DangKiGiaoDien(){
         let TaiKhoan = this.state.TaiKhoan;
         let key =_.pad(this.state.keyword);
-        let item = _.values(this.state.item)
-        console.log('item', item)
-        // console.log('key', key);
+        //lodash object
+        let item =_.assign(this.state.item);
+       //lodash arry
         let dataKDT = _.values(this.state.dataKDT)
-        console.log('data', dataKDT)
+        // console.log('data', dataKDT)
 
         if (TaiKhoan === 'key1'){
             this.props.navigation.navigate('NhapThongTinChiTiet', {itemKDT: item} )

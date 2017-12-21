@@ -11,9 +11,6 @@ import {
 export default class NhapThongTinChiTiet extends Component {
     constructor(props){
         super(props)
-        NgaySinh =['Ngày Sinh','0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']
-        GioiTinh = ['Giới Tính', 'Nam', 'Nữ', 'Khác']
-        ChucVu = ['Chức Vụ', 'Trưởng BQL', 'Thành viên BQL','Chủ căn hộ','Thành viên căn hộ']
         this.state = {
             NgaySinh: '',
             GioiTinh:'',
@@ -27,7 +24,6 @@ export default class NhapThongTinChiTiet extends Component {
     }
     render(){
         const { params } = this.props.navigation.state;
-        console.log(params.itemKDT)
         return(
             <View>
                 <View style = {styles.itemBoder}>
@@ -36,24 +32,29 @@ export default class NhapThongTinChiTiet extends Component {
                                onChangeText ={(ten)=> this.setState({ten})}/>
                 </View>
                 <View style = {styles.itemBoder}>
-                    <Picker
-                        selectedValue={this.state.NgaySinh}
-                        onValueChange={(value) => this.setState({NgaySinh: value})}>
-                        {NgaySinh.map((value) => <Picker.Item key = {value} label={value} value={value}/>)}
-                    </Picker>
+                    <TextInput placeholder = 'Ngày Sinh MM/DD/YYYY'
+                               underlineColorAndroid="transparent"
+                               onChangeText ={(NgaySinh)=> this.setState({NgaySinh})}/>
                 </View>
                 <View style = {styles.itemBoder}>
                     <Picker
                         selectedValue={this.state.GioiTinh}
                         onValueChange={(value) => this.setState({GioiTinh: value})}>
-                        {GioiTinh.map((value) => <Picker.Item key = {value} label={value} value={value}/>)}
+                        <Picker.Item label = {'Giới Tính'} value = ''/>
+                        <Picker.Item label = {'Nam'} value ={'0'}/>
+                        <Picker.Item label = {'Nữ'} value ={'1'}/>
+                        <Picker.Item label = {'Khác'} value ={'2'}/>
                     </Picker>
                 </View>
                 <View style = {styles.itemBoder}>
                     <Picker
                         selectedValue={this.state.ChucVu}
                         onValueChange={(value) => this.setState({ChucVu: value})}>
-                        {ChucVu.map((value) => <Picker.Item key = {value} label={value} value={value}/>)}
+                        <Picker.Item label = {'Chức Vụ'} value = ''/>
+                        <Picker.Item label = {'Trưởng BQL'} value ={'1'}/>
+                        <Picker.Item label = {'Thành viên BQL'} value ={'2'}/>
+                        <Picker.Item label = {'Chủ căn hộ'} value ={'3'}/>
+                        <Picker.Item label = {'Thành viên căn hộ'} value ={'4'}/>
                     </Picker>
                 </View>
                 <View style = {styles.itemBoder}>
