@@ -10,7 +10,7 @@ import {
     Alert
 } from 'react-native'
 import _ from 'lodash';
-import {URL, URL_GETDATA, URL_REGISTER_NCC, URL_SEARCH} from "../components/Api";
+import {URL, URL_GETDATA, URL_GETKDT, URL_REGISTER_NCC, URL_SEARCH} from "../components/Api";
 
 export default class DangKi extends Component {
     constructor(props){
@@ -55,6 +55,7 @@ export default class DangKi extends Component {
             console.log('erro',erro);
         })
     }
+    // Call api quan huyen
     CallApiQuanHuyen(maVung){
         fetch(URL + URL_GETDATA, {
             method: 'POST',
@@ -79,6 +80,7 @@ export default class DangKi extends Component {
             console.log('erro',erro);
         })
     }
+    //api tim kiem
     CallApiTimKiem(){
         fetch(URL + URL_SEARCH, {
             method: 'POST',
@@ -111,6 +113,7 @@ export default class DangKi extends Component {
             console.log('erro',erro);
         })
     }
+    // Api dang ki tai khoan ncc
     RegisterNCC(){
         fetch(URL + URL_REGISTER_NCC , {
             method: 'POST',
@@ -142,7 +145,7 @@ export default class DangKi extends Component {
                 else {
                     Alert.alert(
                         'Error',
-                        'Đăng kí thất bại',
+                        data.Message,
                         [
                             {text: 'OK', onPress: () => console.log('OK Pressed')},
 
@@ -155,6 +158,36 @@ export default class DangKi extends Component {
             }).catch((erro)=> {
             console.log('erro',erro);
         })
+    }
+    //call api lay tai khoan thong tin KDT
+    GetKDTParts(){
+        let item =_.assign(this.state.item);
+        fetch(URL + URL_GETKDT , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify({
+                kdt_id: item.KDTID,
+                parent_id: 91,
+                field: "sample string 3",
+                value: "sample string 4",
+                option: 2,
+                lang_name: "vi_VN"
+            })
+        })
+            .then((response) => response.json())
+            .then((dataGetKDT)=> {
+                dataGetKDT = JSON.parse(dataGetKDT);
+                console.log('getKDT', dataGetKDT)
+                this.props.navigation.navigate('StackCuDan', { GetKDT: dataGetKDT, Item: item})
+
+            }).catch((erro)=> {
+            console.log('erro',erro);
+        })
+
+
     }
     ClickItem(item){
         this.setState({
@@ -301,7 +334,7 @@ export default class DangKi extends Component {
 
         }
         else if (TaiKhoan === 'key2'){
-            this.props.navigation.navigate('StackCuDan')
+            this.GetKDTParts()
 
         }
         else if (TaiKhoan === 'key3'){

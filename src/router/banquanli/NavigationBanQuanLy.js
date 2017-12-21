@@ -15,13 +15,13 @@ const StackBQL = StackNavigator({
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
         navigationOptions: {
-            header: null
+            title: 'Nhập thông tin chi tiết'
         }
     },
     DangKyTaiKhoanBQL: {
         screen: DangKyTaiKhoanBQL,
         navigationOptions: {
-            header: null
+            title: 'Bạn đang tạo tài khoản ban quản lí'
         }
     },
     TabBQL: {

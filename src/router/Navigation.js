@@ -17,7 +17,7 @@ const Stack = StackNavigator ({
     DangKi: {
         screen: DangKi,
         navigationOptions: {
-            header: null
+            title: 'Vui lòng chọn loại tài khoản'
         }
     },
 

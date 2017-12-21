@@ -5,7 +5,8 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    Alert
+    Alert,
+    ActivityIndicator,
 } from 'react-native';
 import {URL, URL_REGISTER_BQL} from "../../components/Api";
 
@@ -15,6 +16,8 @@ export default class DangKyTaiKhoanBQL extends Component {
         this.state = {
             SoDienThoai:'',
             MatKhau: '',
+            Loading:true,
+            Error: false,
         }
     }
     RegisterBQL(params){
@@ -42,6 +45,11 @@ export default class DangKyTaiKhoanBQL extends Component {
                 data = JSON.parse(dataRes);
                 console.log('dataLogin', data)
                 if(data.IsError === false && data.ErrorCode === "00"){
+                    // this.setState({
+                    //     Loading: false,
+                    //     Error: false,
+                    // })
+                    // this.props.navigation.navigate('SanhChinh')
                     Alert.alert(
                         'Alert Title',
                         'Đăng kí thành công',
@@ -50,12 +58,16 @@ export default class DangKyTaiKhoanBQL extends Component {
                         ],
                         { cancelable: false }
                     )
-                    // this.props.navigation.navigate('SanhChinh')
+                    this.props.navigation.navigate('SanhChinh')
                 }
                 else {
+                    // this.setState({
+                    //     Loading: false,
+                    //     Error: true
+                    // })
                     Alert.alert(
                         'Error',
-                        'Đăng kí thất bại',
+                        data.Message,
                         [
                             {text: 'OK', onPress: () => console.log('OK Pressed')},
 
@@ -66,10 +78,28 @@ export default class DangKyTaiKhoanBQL extends Component {
 
 
             }).catch((erro)=> {
-            console.log('erro',erro);
+                this.setState({
+                    Loading: false,
+                    Error: true
+                })
         })
     }
     render(){
+        // if(this.state.Loading){
+        //     return(
+        //         <View style={{flex: 1,justifyContent:'center', alignItems: 'center'}}>
+        //             <ActivityIndicator size="large"/>
+        //         </View>
+        //     )
+        // }
+        // else if(this.state.Error){
+        //     return(
+        //         <View>
+        //             <Text>Dang ki that bai</Text>
+        //         </View>
+        //     )
+        // }
+        // else return(<View></View>)
         const { params } = this.props.navigation.state;
         return(
             <View>

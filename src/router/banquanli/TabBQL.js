@@ -8,13 +8,13 @@ const TabBQL = TabNavigator({
     SanhChinh:{
         screen: SanhChinh,
         navigationOptions: {
-            header: null
+            title: 'Sảnh chính'
         }
     },
     QuanLyCuDan: {
         screen: QuanLyCuDan,
         navigationOptions: {
-            header: null
+            title: 'Quản lí cư dân'
         }
     },
     DichVu: {
