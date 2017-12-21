@@ -133,7 +133,7 @@ export default class DangKi extends Component {
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('NhapThongTinNCC')}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('StackNCC')}},
                         ],
                         { cancelable: false }
                     )
@@ -288,7 +288,7 @@ export default class DangKi extends Component {
         // console.log('data', dataKDT)
 
         if (TaiKhoan === 'key1'){
-            this.props.navigation.navigate('NhapThongTinChiTiet', {itemKDT: item} )
+            this.props.navigation.navigate('StackBQL', {itemKDT: item} )
             // for(let i = 0; i< dataKDT.length; i++) {
             //     if (key === dataKDT[i].TenKDT) {
             //         this.props.navigation.navigate('NhapThongTinChiTiet')
@@ -301,7 +301,7 @@ export default class DangKi extends Component {
 
         }
         else if (TaiKhoan === 'key2'){
-            this.props.navigation.navigate('NhapThongTinChiTietCuDan')
+            this.props.navigation.navigate('StackCuDan')
 
         }
         else if (TaiKhoan === 'key3'){

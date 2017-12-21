@@ -30,12 +30,12 @@ const TabCuDan = TabNavigator ({
             header: null
         },
     },
-    MenuLeft: {
-        screen: MenuLeft,
-        navigationOptions: {
-            header: null
-        }
-    }
+    // MenuLeft: {
+    //     screen: MenuLeft,
+    //     navigationOptions: {
+    //         header: null
+    //     }
+    // }
 
 },
 {
@@ -50,15 +50,15 @@ const TabCuDan = TabNavigator ({
     animationEnabled: false
 })
 
-const SideMenuCuDan = DrawerNavigator ({
-    Tab: {
-        screen: TabCuDan,
-    }},
-    {
-        drawerWidth: 300,
-        drawerWidth: 250,
-        drawerPosition: "left",
-        contentComponent: props => <MenuLeft {...props}/>
-    }
-)
-export default SideMenuCuDan;
+// const SideMenuCuDan = DrawerNavigator ({
+//     Tab: {
+//         screen: TabCuDan,
+//     }},
+//     {
+//         drawerWidth: 300,
+//         drawerWidth: 250,
+//         drawerPosition: "left",
+//         contentComponent: props => <MenuLeft {...props}/>
+//     }
+// )
+export default TabCuDan;
