@@ -26,7 +26,7 @@ export default class NhapThongTinChiTietCuDan extends Component {
     RegisterDanCu(){
         const { params } = this.props.navigation.state;
         // console.log('wtf', params.GetKDT.Value)
-        fetch(URL + URL_REGISTER_DANCU , {
+        fetch(URL + URL_REGISTER_DANCU, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

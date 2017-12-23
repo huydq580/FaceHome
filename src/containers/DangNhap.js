@@ -3,22 +3,91 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TextInput,
     StyleSheet
 
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import UserInput from '../components/dangnhap/UserInput';
 import images from '../components/images'
+import {URL, URL_LOGIN} from "../components/Api";
 
 
 export default class DangNhap extends Component {
     constructor(props){
         super(props)
         this.state = {
+            SoDienThoai: '',
+            MatKhau: '',
         }
     }
 
+    Login(){
+        const {} = this.props
+        fetch(URL + URL_LOGIN , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                so_dien_thoai: this.state.SoDienThoai,
+                mat_khau:this.state.MatKhau,
+            })
+        })
+            .then((response) => response.json())
+            .then((dataRes)=> {
+                data = JSON.parse(dataRes);
+                console.log('dataLogin', data.Value)
+                if(data.IsError === false && data.ErrorCode === "00"){
+                    this.setState({
+                        Loading: false,
+                        Error: false,
+                    })
+                    this.props.navigation.navigate('SanhChinh')
+                    Alert.alert(
+                        'Alert Title',
+                        'Đăng kí thành công',
+                        [
+                            {text: 'Ok', onPress: () => {
+                                if (data.Value.Type ===1){
+                                    this.props.navigation.navigate('TabBQL')
+                                }
+                                else if(data.Value.Type ===2){
+                                    this.props.navigation.navigate('TabDanCu')
+                                }
+                                else if (data.Value.Type ===3){
+                                    this.props.navigation.navigate(('TabNCC'))
+                                }
+
+                            }},
+                        ],
+                        { cancelable: false }
+                    )
+                    // this.props.navigation.navigate('SanhChinh')
+                }
+                else {
+                    // this.setState({
+                    //     Loading: false,
+                    //     Error: true
+                    // })
+                    Alert.alert(
+                        'Error',
+                        data.Message,
+                        [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+
+                        ],
+                        { cancelable: false }
+                    )
+                }
+
+
+            }).catch((erro)=> {
+            this.setState({
+                Loading: false,
+                Error: true
+            })
+        })
+    }
     render(){
         return (
             <View style = {{flex:1, backgroundColor:'white'}}>
@@ -28,26 +97,28 @@ export default class DangNhap extends Component {
                 <View style = {{flex:5, alignItems: 'center'}}>
                     <Text>Tiếng việt - English</Text>
                     <UserInput source = {images.username}
-                               placeholder='Username'
+                               placeholder={'Username'}
                                autoCapitalize={'none'}
                                returnKeyType={'done'}
                                autoCorrect={false}
                                style = {{marginTop: 20}}
-                        //    getData = {getEmail}
+                               onChangeText ={(SoDienThoai) => this.setState({SoDienThoai})}
                     />
                     <UserInput source={images.password}
                         //    secureTextEntry={this.state.showPass}
-                               placeholder='Password'
+                               placeholder={'Password'}
                                returnKeyType={'done'}
                                autoCapitalize={'none'}
                                autoCorrect={false}
                                style = {{marginTop : 20}}
-                        //    getData = {getPass}
+                               onChangeText ={(MatKhau) => {
+                                   this.setState({MatKhau})
+                               }}
                     />
                     <TouchableOpacity>
                         <Text>Hiển thị mật khẩu</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress = {() => this.props.navigation.navigate('NhapThongTinNCC')}>
+                    <TouchableOpacity onPress = {() => this.Login()}>
                         <View style = {{backgroundColor:'#2196F3',borderWidth:1,width: DEVICE_WIDTH - 120,  marginHorizontal: 20, marginTop:30, minHeight:40,alignItems:'center', justifyContent: 'center'}}>
                             <Text>Đăng nhập</Text>
                         </View>

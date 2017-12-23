@@ -16,17 +16,14 @@ export default class UserInput extends Component {
         }
 
     }
-    // onChang = (txt)=>{
-    //     this.props.getData(txt);
-    // }
-
-
     render() {
         return (
             <View style = {{marginTop:20}}>
                 <Image source={this.props.source}
                        style={styles.inlineImg} />
-                <TextInput style={styles.input}
+                <TextInput
+                    {...this.props}
+                    style={styles.input}
                            placeholder={this.props.placeholder}
                            secureTextEntry={this.props.secureTextEntry}
                            autoCorrect={this.props.autoCorrect}
@@ -34,7 +31,9 @@ export default class UserInput extends Component {
                            returnKeyType={this.props.returnKeyType}
                            placeholderTextColor='white'
                            underlineColorAndroid='transparent'
-                           onChangeText={this.onChang}
+                           onChangeText={(text)=>{
+                               this.props.onChangeText && this.props.onChangeText(text);
+                           }}
 
                 />
             </View>
@@ -56,17 +55,17 @@ const styles = StyleSheet.create({
         paddingLeft: 45,
         // borderRadius: 20,
         // marginTop: 20
-        // color: '#ffffff',
+        color: 'black',
     },
     inputWrapper: {
         flex: 1,
     },
-    inlineImg: {
-        position: 'absolute',
-        zIndex: 99,
-        width: 22,
-        height: 22,
-        left: 35,
-        top: 9,
-    },
+    // inlineImg: {
+    //     position: 'absolute',
+    //     zIndex: 99,
+    //     width: 22,
+    //     height: 22,
+    //     left: 35,
+    //     top: 9,
+    // },
 });

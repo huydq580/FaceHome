@@ -13,8 +13,8 @@ export default class NhapThongTinChiTiet extends Component {
         super(props)
         this.state = {
             NgaySinh: '',
-            GioiTinh:'',
-            ChucVu:'',
+            GioiTinh: '',
+            ChucVu: '',
             ten: '',
             hotline: '',
         }
@@ -62,8 +62,6 @@ export default class NhapThongTinChiTiet extends Component {
                                underlineColorAndroid="transparent"
                                onChangeText = {(hotline)=>this.setState({hotline})}/>
                 </View>
-
-
                 <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangKyTaiKhoanBQL', {itemKDT: params.itemKDT, NgaySinh:this.state.NgaySinh, GioiTinh: this.state.GioiTinh, ChucVu: this.state.ChucVu, ten: this.state.ten, hotline:this.state.hotline })}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
