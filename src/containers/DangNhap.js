@@ -3,7 +3,8 @@ import {
     View,
     Text,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Alert
 
 } from 'react-native';
 import Dimensions from 'Dimensions';
@@ -36,7 +37,9 @@ export default class DangNhap extends Component {
             .then((response) => response.json())
             .then((dataRes)=> {
                 data = JSON.parse(dataRes);
-                console.log('dataLogin', data.Value)
+                // console.log('data', data)
+                // console.log('dataLogin', data.Value)
+                // console.log('datavalue', data.Value[0].Type)
                 if(data.IsError === false && data.ErrorCode === "00"){
                     this.setState({
                         Loading: false,
@@ -48,13 +51,13 @@ export default class DangNhap extends Component {
                         'Đăng kí thành công',
                         [
                             {text: 'Ok', onPress: () => {
-                                if (data.Value.Type ===1){
+                                if (data.Value[0].Type ===1){
                                     this.props.navigation.navigate('TabBQL')
                                 }
-                                else if(data.Value.Type ===2){
-                                    this.props.navigation.navigate('TabDanCu')
+                                else if(data.Value[0].Type ===2){
+                                    this.props.navigation.navigate('TabCuDan')
                                 }
-                                else if (data.Value.Type ===3){
+                                else if (data.Value[0].Type ===3){
                                     this.props.navigation.navigate(('TabNCC'))
                                 }
 

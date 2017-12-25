@@ -26,9 +26,9 @@ const StackBQL = StackNavigator({
     },
     TabBQL: {
         screen: TabBQL,
-        navigationOptions: {
-            header: null
-        }
+        // navigationOptions: {
+        //     header: null
+        // }
     }
 
 
