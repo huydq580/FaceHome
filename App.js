@@ -12,6 +12,8 @@ import {
   View
 } from 'react-native';
 import Stack from './src/router/Navigation'
+import LoadData from "./src/components/LoadData";
+
 
 
 

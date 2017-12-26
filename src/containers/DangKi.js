@@ -260,7 +260,7 @@ export default class DangKi extends Component {
                         </TouchableOpacity>
                     </View>
                     {/* // listview các tòa nhà  */}
-                    <View style = {[styles.itemBoder, {height: 180}]}>
+                    <View style = {[styles.itemBoder, {height: 150}]}>
                         <FlatList
                             data = {this.state.dataKDT}
                             renderItem = {({item}) =>
