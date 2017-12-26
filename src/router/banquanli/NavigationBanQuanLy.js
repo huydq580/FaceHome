@@ -13,7 +13,7 @@ import ThanhToanHoaDon from "../../containers/banquanli/menuleft/ThanhToanHoaDon
 import NhanDonDangKyDichVu from "../../containers/banquanli/menuleft/NhanDonDangKyDichVu";
 import RaoVat from "../../containers/banquanli/menuleft/RaoVat";
 import GioiThieu from "../../containers/banquanli/menuleft/GioiThieu";
-import ThongTinKhuDoThiBQL from "../../containers/cudan/menuleft/ThongTinKhuDoThiBQL";
+import ThongTinKhuDoThi from "../../containers/banquanli/menuleft/ThongTinKhuDoThi";
 
 const StackBQL = StackNavigator({
     // TaoThongTinKDT: {
@@ -46,8 +46,8 @@ const StackBQL = StackNavigator({
             title: 'Nhà'
         }
     },
-    ThongTinKhuDoThiBQL: {
-        screen: ThongTinKhuDoThiBQL,
+    ThongTinKhuDoThi: {
+        screen: ThongTinKhuDoThi,
         navigationOptions: {
             title: 'Thông tin khu đô thị'
         }

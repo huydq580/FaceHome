@@ -25,7 +25,7 @@ export default class MenuLeftBQL extends Component {
                 />
                 <ItemLeftMenu title ="Thông tin khu đô thị"
                               nameIcon = "account-multiple"
-                              onPress = {() => this.props.navigation.navigate('ThongTinKhuDoThiBQL')}
+                              onPress = {() => this.props.navigation.navigate('ThongTinKhuDoThi')}
                 />
 
                 <ItemLeftMenu title ="Ban quản lý"
@@ -60,11 +60,6 @@ export default class MenuLeftBQL extends Component {
                               nameIcon = "web"
                               onPress = {()=> this.props.navigation.navigate('QuanLyTaiKhoan')}
                 />
-
-                {/*<ItemLeftMenu title ="Giới thiệu"*/}
-                              {/*nameIcon = "information-variant"*/}
-                              {/*onPress = {()=> console.log('log4')}*/}
-                {/*/>*/}
                 <TouchableOpacity
                     onPress={()=> this.props.navigation.navigate('GioiThieu')}
                     style={{flexDirection: 'row',marginTop:20, marginBottom:20}}>

@@ -4,7 +4,8 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    Alert
+    Alert,
+    ActivityIndicator
 
 } from 'react-native';
 import Dimensions from 'Dimensions';
@@ -19,7 +20,10 @@ export default class DangNhap extends Component {
         this.state = {
             SoDienThoai: '',
             MatKhau: '',
+            loading: true,
+            error: false
         }
+        console.log('loading1', this.state.loading)
     }
 
     Login(){
@@ -42,39 +46,40 @@ export default class DangNhap extends Component {
         //         // console.log('datavalue', data.Value[0].Type)
         //         if(data.IsError === false && data.ErrorCode === "00"){
         //             this.setState({
-        //                 Loading: false,
-        //                 Error: false,
+        //                 loading: false,
+        //                 error: false,
         //             })
+        //            console.log('loading2', this.state.loading)
         //             this.props.navigation.navigate('SanhChinh')
-        //             Alert.alert(
-        //                 'Alert Title',
-        //                 'Đăng kí thành công',
-        //                 [
-        //                     {text: 'Ok', onPress: () => {
-        //                         if (data.Value[0].Type ===1){
-        //                             this.props.navigation.navigate('TabBQL')
-        //                         }
-        //                         else if(data.Value[0].Type ===2){
-        //                             this.props.navigation.navigate('TabCuDan')
-        //                         }
-        //                         else if (data.Value[0].Type ===3){
-        //                             this.props.navigation.navigate(('TabNCC'))
-        //                         }
-        //
-        //                     }},
-        //                 ],
-        //                 { cancelable: false }
-        //             )
+        //             // Alert.alert(
+        //             //     'Alert Title',
+        //             //     'Đăng kí thành công',
+        //             //     [
+        //             //         {text: 'Ok', onPress: () => {
+        //             //             if (data.Value[0].Type ===1){
+        //             //                 this.props.navigation.navigate('TabBQL')
+        //             //             }
+        //             //             else if(data.Value[0].Type ===2){
+        //             //                 this.props.navigation.navigate('TabCuDan')
+        //             //             }
+        //             //             else if (data.Value[0].Type ===3){
+        //             //                 this.props.navigation.navigate(('TabNCC'))
+        //             //             }
+        //             //
+        //             //         }},
+        //             //     ],
+        //             //     { cancelable: false }
+        //             // )
         //             // this.props.navigation.navigate('SanhChinh')
         //         }
         //         else {
-        //             // this.setState({
-        //             //     Loading: false,
-        //             //     Error: true
-        //             // })
+        //             this.setState({
+        //                 loading: false,
+        //                 error: true
+        //             })
         //             Alert.alert(
         //                 'Error',
-        //                 data.Message,
+        //                 'Đăng nhập thất bại',
         //                 [
         //                     {text: 'OK', onPress: () => console.log('OK Pressed')},
         //
@@ -86,13 +91,24 @@ export default class DangNhap extends Component {
         //
         //     }).catch((erro)=> {
         //     this.setState({
-        //         Loading: false,
-        //         Error: true
+        //         loading: false,
+        //         error: true
         //     })
         // })
-        this.props.navigation.navigate('TabBQL')
+        this.props.navigation.navigate('TabCuDan')
     }
     render(){
+        console.log('loading3', this.state.loading)
+        // if(this.state.loading){
+        //     return (
+        //         <View style={{flex: 1,justifyContent:'center', alignItems: 'center'}}>
+        //             <ActivityIndicator size="large"/>
+        //         </View>
+        //     )
+        // }
+        // else if(this.state.error){
+        //     return(Alert.alert('Đăng nhập thất bại'))
+        // }
         return (
             <View style = {{flex:1, backgroundColor:'white'}}>
                 <View style = {{flex:2, alignItems:'center',justifyContent: 'center', borderWidth:1}}>

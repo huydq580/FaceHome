@@ -78,9 +78,9 @@ export default class NhapThongTinChiTietCuDan extends Component {
     render (){
         const { params } = this.props.navigation.state;
         // console.log('Cu dan')
-        let dataToaNha = params.GetKDT,
+        // let dataToaNha = params.GetKDT,
             // Item = params.Item,
-            data = dataToaNha.Value;
+            // data = dataToaNha.Value;
             // data1 = dataToaNha.Value[0].Code;
         // console.log('data toa nha', dataToaNha);
         // console.log('Item', Item)
@@ -88,11 +88,11 @@ export default class NhapThongTinChiTietCuDan extends Component {
         return (
             <View>
                 <View style = {styles.itemBoder}>
-                <Picker
-                    selectedValue={this.state.ToaNha}
-                    onValueChange={(value) => this.setState({ToaNha: value})}>
-                    {data.map((value)=><Picker.Item key ={value} label={value.Ten} value={value.Code}/>)}
-                </Picker>
+                {/*<Picker*/}
+                    {/*selectedValue={this.state.ToaNha}*/}
+                    {/*onValueChange={(value) => this.setState({ToaNha: value})}>*/}
+                    {/*{data.map((value)=><Picker.Item key ={value} label={value.Ten} value={value.Code}/>)}*/}
+                {/*</Picker>*/}
                 </View>
                 <View style = {styles.itemBoder}>
                     <Picker
