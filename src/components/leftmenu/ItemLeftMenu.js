@@ -4,22 +4,19 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
-// import Icon from 'react-native-vector-icons/FontAwesome';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class ItemLeftMenu extends Component {
     render(){
         return(
-            <View style={{maxHeight: 50}}>
                 <TouchableOpacity
                     onPress={this.props.onPress}
-                    style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <Icon name={this.props.nameIcon} size={30} color="green"
-                             style={{marginLeft: 10, marginRight: 10}}/>
-                    <Text style={{fontSize:20}}>{this.props.title}</Text>
+                    style={{flexDirection: 'row',marginTop:20}}>
+                    <View style = {{marginLeft: 5, flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <Icon name={this.props.nameIcon} size={25} color="#616161"/>
+                    </View>
+                    <Text style={{flex:5, fontSize:17, color:'#616161'}}>{this.props.title}</Text>
                 </TouchableOpacity>
-            </View>
 
         );
     }

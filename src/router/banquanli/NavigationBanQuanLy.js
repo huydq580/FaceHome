@@ -4,6 +4,7 @@ import TaoThongTinKDT from "../../containers/banquanli/TaoThongTinKDT";
 import NhapThongTinChiTiet from "../../containers/banquanli/NhapThongTinChiTiet";
 import DangKyTaiKhoanBQL from "../../containers/banquanli/DangKyTaiKhoanBQL";
 import TabBQL from "./TabBQL";
+import Nha from "../../containers/banquanli/menuleft/Nha";
 
 const StackBQL = StackNavigator({
     // TaoThongTinKDT: {
@@ -29,6 +30,12 @@ const StackBQL = StackNavigator({
         // navigationOptions: {
         //     header: null
         // }
+    },
+    Nha: {
+        screen: Nha,
+        navigationOptions: {
+            title: 'Trang Nha'
+        }
     }
 
 
