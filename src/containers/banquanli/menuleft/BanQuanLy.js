@@ -6,7 +6,7 @@ import {
 
 export default class BanQuanLy extends Component{
     render(){
-        render(
+        return(
             <View>
                 <Text>Ban quản lý</Text>
             </View>

@@ -10,7 +10,6 @@ const TabBQL = TabNavigator({
         screen: SanhChinh,
         navigationOptions: {
             title: 'Sảnh Chính',
-            tabBarLabel: 'Sanh Chinh',
         }
     },
     QuanLyCuDan: {

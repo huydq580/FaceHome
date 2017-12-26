@@ -23,44 +23,42 @@ export default class MenuLeftBQL extends Component {
                               nameIcon = "home"
                               onPress = {()=> this.props.navigation.navigate('Nha')}
                 />
-                <ItemLeftMenu title ="Hàng xóm"
+                <ItemLeftMenu title ="Thông tin khu đô thị"
                               nameIcon = "account-multiple"
-                              onPress = {() =>console.log('log2')}
+                              onPress = {() => this.props.navigation.navigate('ThongTinKhuDoThiBQL')}
                 />
 
-                <ItemLeftMenu title ="Liên lạc nhanh BQL"
+                <ItemLeftMenu title ="Ban quản lý"
                               nameIcon = "phone-classic"
-                              onPress = {()=>console.log('log3')}
+                              onPress = {()=>this.props.navigation.navigate('BanQuanLy')}
                 />
 
-                <ItemLeftMenu title ="Đăng ký dịch vụ KĐT"
-                              nameIcon = "pencil-circle-outline"
-                              onPress = {()=> console.log('log4')}
-                />
-
-                <ItemLeftMenu title ="Báo cáo sự cố KĐT"
+                <ItemLeftMenu title ="Tiếp nhận sự cố cư dân"
                               nameIcon = "security-home"
-                              onPress = {()=> console.log('log4')}
-                />
-
-                <ItemLeftMenu title ="Thanh toán hóa đơn"
-                              nameIcon = "square-inc-cash"
-                              onPress = {()=> console.log('log4')}
+                              onPress = {()=> this.props.navigation.navigate('TiepNhanSuCoCuDan')}
                 />
 
                 <ItemLeftMenu title ="Cảnh báo cháy nhanh"
                               nameIcon = "phone-in-talk"
-                              onPress = {()=> console.log('log4')}
+                              onPress = {()=> this.props.navigation.navigate('CanhBaoChayNhanh')}
+                />
+                <ItemLeftMenu title ="Thanh toán hóa đơn"
+                              nameIcon = "square-inc-cash"
+                              onPress = {()=> this.props.navigation.navigate('ThanhToanHoaDon')}
+                />
+                <ItemLeftMenu title ="Nhận đơn đăng ký dịch vụ"
+                              nameIcon = "pencil-circle-outline"
+                              onPress = {()=>this.props.navigation.navigate('NhanDonDangKyDichVu')}
                 />
 
                 <ItemLeftMenu title ="Rao vặt"
                               nameIcon = "language-r"
-                              onPress = {()=> console.log('log4')}
+                              onPress = {()=> this.props.navigation.navigate('RaoVat')}
                 />
 
                 <ItemLeftMenu title ="Quản lí tài khoản"
                               nameIcon = "web"
-                              onPress = {()=> console.log('log4')}
+                              onPress = {()=> this.props.navigation.navigate('QuanLyTaiKhoan')}
                 />
 
                 {/*<ItemLeftMenu title ="Giới thiệu"*/}
@@ -68,7 +66,7 @@ export default class MenuLeftBQL extends Component {
                               {/*onPress = {()=> console.log('log4')}*/}
                 {/*/>*/}
                 <TouchableOpacity
-                    onPress={this.props.onPress}
+                    onPress={()=> this.props.navigation.navigate('GioiThieu')}
                     style={{flexDirection: 'row',marginTop:20, marginBottom:20}}>
                     <View style = {{marginLeft: 5, flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                         <Icon1 name = "information-variant" size={25} color="#424242"/>
