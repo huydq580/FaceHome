@@ -46,7 +46,7 @@ export default class DangNhap extends Component {
             .then((response) => response.json())
             .then((dataRes)=> {
                 data = JSON.parse(dataRes);
-                // console.log('data', data)
+                console.log('data', data)
                 // console.log('dataLogin', data.Value)
                 // console.log('datavalue', data.Value[0].Type)
                 if(data.IsError === false && data.ErrorCode === "00"){

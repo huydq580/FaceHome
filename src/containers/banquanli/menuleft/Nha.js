@@ -27,7 +27,7 @@ export default class Nha extends Component {
                     justifyContent:'center'
                 }}>
                     <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
-                    <View style = {{flexDirection:'row', marginLeft:10, fontSize:15}}>
+                    <View style = {{flexDirection:'row', marginLeft:10,}}>
                         <Text style = {{color: 'white', fontSize:15}}>Địa chỉ:</Text>
                         <Text></Text>
                     </View>

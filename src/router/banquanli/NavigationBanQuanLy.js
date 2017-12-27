@@ -15,13 +15,14 @@ import RaoVat from "../../containers/banquanli/menuleft/RaoVat";
 import GioiThieu from "../../containers/banquanli/menuleft/GioiThieu";
 import ThongTinKhuDoThi from "../../containers/banquanli/menuleft/ThongTinKhuDoThi";
 
+
 const StackBQL = StackNavigator({
-    // TaoThongTinKDT: {
-    //     screen: TaoThongTinKDT,
-    //     navigationOptions: {
-    //         header: null
-    //     }
-    // },
+    TaoThongTinKDT: {
+        screen: TaoThongTinKDT,
+        navigationOptions: {
+            header: null
+        }
+    },
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
         navigationOptions: {

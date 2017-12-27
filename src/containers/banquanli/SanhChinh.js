@@ -6,7 +6,6 @@ import {
 
 export default class SanhChinh extends Component {
     render (){
-        console.log('log')
         return (
             <View>
                 <Text>

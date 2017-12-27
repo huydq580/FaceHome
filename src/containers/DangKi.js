@@ -116,7 +116,7 @@ export default class DangKi extends Component {
                 this.setState({
                     dataKDT : data2.Value
                 })
-                // console.log('data3', this.state.dataKDT)
+                console.log('data3', this.state.dataKDT)
 
 
             }).catch((erro)=> {
@@ -180,7 +180,7 @@ export default class DangKi extends Component {
             },
             body: JSON.stringify({
                 kdt_id: item.KDTID,
-                parent_id: 91,
+                // parent_id: 91,
                 field: "sample string 3",
                 value: "sample string 4",
                 option: 2,
@@ -190,7 +190,7 @@ export default class DangKi extends Component {
             .then((response) => response.json())
             .then((dataGetKDT)=> {
                 dataGetKDT = JSON.parse(dataGetKDT);
-                // console.log('getKDT', dataGetKDT)
+                console.log('getKDT', dataGetKDT)
                 this.props.navigation.navigate('StackCuDan', { GetKDT: dataGetKDT, Item: item})
 
             }).catch((erro)=> {
@@ -329,16 +329,19 @@ export default class DangKi extends Component {
     DangKiGiaoDien(){
         let TaiKhoan = this.state.TaiKhoan;
         let key =_.pad(this.state.keyword);
+        // console.log('key',key)
         //lodash object
         let item =_.assign(this.state.item);
        //lodash arry
         let dataKDT = _.values(this.state.dataKDT)
-        // console.log('data', dataKDT)
+        // dataTen = dataKDT.length
+        // console.log('data1', dataKDT)
+        // console.log('data', dataTen)
 
         if (TaiKhoan === 'key1'){
             this.props.navigation.navigate('StackBQL', {itemKDT: item} )
             // for(let i = 0; i< dataKDT.length; i++) {
-            //     if (key === dataKDT[i].TenKDT) {
+            //     if (key === (dataKDT[i].TenKDT)) {
             //         this.props.navigation.navigate('NhapThongTinChiTiet')
             //     }
             //     else {

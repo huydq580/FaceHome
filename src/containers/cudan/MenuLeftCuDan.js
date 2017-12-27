@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-// import Icon1 from 'react-native-vector-icons/Entypo';
 import ItemLeftMenu from "../../components/leftmenu/ItemLeftMenu";
 
 export default class MenuLeftCuDan extends Component {
