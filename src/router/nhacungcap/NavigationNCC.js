@@ -8,7 +8,7 @@ const StackNCC = StackNavigator ({
     NhapThongTinNCC : {
         screen : NhapThongTinNCC,
         navigationOptions: {
-            header: null,
+            title:'Nhập thông tin chi tiết'
         }
     },
     TabNCC : {

@@ -6,19 +6,24 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import stylesContainer from "../../components/style";
 
 export default class NhapThongTinNCC extends Component {
     constructor(props){
         super(props)
         this.state = {
-            SoDienThoai: '',
-            MatKhau: '',
+            TenCuaHang: '',
 
         }
     }
     render(){
         return(
-            <View>
+            <KeyboardAwareScrollView
+                style={stylesContainer.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                scrollEnabled={false}
+            >
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Tên cửa hàng cửa bạn?'
                                underlineColorAndroid="transparent"/>
@@ -40,8 +45,10 @@ export default class NhapThongTinNCC extends Component {
                                underlineColorAndroid="transparent"/>
                 </View>
                 <View style = {styles.itemBoder}>
-                    <TextInput placeholder = 'Số điện thoại liên hệ'
-                               underlineColorAndroid="transparent"/>
+                    <TextInput placeholder = 'Nhập số điện thoại'
+                               underlineColorAndroid="transparent"
+                               keyboardType={'numeric'}
+                               onChangeText = {(SoDienThoai)=>this.setState({SoDienThoai})}/>
                 </View>
                 <TouchableOpacity onPress = {() => this.props.navigation.navigate('TabNCC')}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
@@ -50,7 +57,7 @@ export default class NhapThongTinNCC extends Component {
                 </TouchableOpacity>
 
 
-            </View>
+            </KeyboardAwareScrollView>
         );
     }
 }

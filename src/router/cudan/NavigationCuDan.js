@@ -16,7 +16,7 @@ const StackCuDan = StackNavigator({
     NhapThongTinChiTietCuDan: {
         screen: NhapThongTinChiTietCuDan,
         navigationOptions: {
-            header: null
+            title: 'Nhập thông tin chi tiết'
         }
     },
     // NhapMaXacThuc: {

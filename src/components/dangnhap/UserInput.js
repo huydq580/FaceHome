@@ -7,19 +7,20 @@ import {
     Image,
 } from 'react-native';
 import images from "../images";
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 export default class UserInput extends Component {
     constructor(props){
         super(props)
         this.state = {
-            text: ''
+            text: '',
         }
-
     }
+
     render() {
         return (
             <View style = {{marginTop:20}}>
-                <Image source={this.props.source}
+                <Icon name={this.props.nameIcon} size={20} color="#616161"
                        style={styles.inlineImg} />
                 <TextInput
                     {...this.props}
@@ -29,7 +30,7 @@ export default class UserInput extends Component {
                            autoCorrect={this.props.autoCorrect}
                            autoCapitalize={this.props.autoCapitalize}
                            returnKeyType={this.props.returnKeyType}
-                           placeholderTextColor='white'
+                           // placeholderTextColor='white'
                            underlineColorAndroid='transparent'
                            onChangeText={(text)=>{
                                this.props.onChangeText && this.props.onChangeText(text);
@@ -60,12 +61,12 @@ const styles = StyleSheet.create({
     inputWrapper: {
         flex: 1,
     },
-    // inlineImg: {
-    //     position: 'absolute',
-    //     zIndex: 99,
-    //     width: 22,
-    //     height: 22,
-    //     left: 35,
-    //     top: 9,
-    // },
+    inlineImg: {
+        position: 'absolute',
+        zIndex: 99,
+        width: 22,
+        height: 22,
+        left: 35,
+        top: 9,
+    },
 });

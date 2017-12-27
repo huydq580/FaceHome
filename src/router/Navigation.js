@@ -6,9 +6,16 @@ import StackBQL from "./banquanli/NavigationBanQuanLy";
 import StackCuDan from "./cudan/NavigationCuDan";
 import StackNCC from "./nhacungcap/NavigationNCC";
 import LoadData from "../components/LoadData";
+import Launcher from "../containers/Launcher";
 
 
 const Stack = StackNavigator ({
+    // Launcher: {
+    //     screen: Launcher,
+    //     navigationOptions: {
+    //         header: null,
+    //     }
+    // },
     DangNhap: {
         screen: DangNhap,
         navigationOptions: {
@@ -49,4 +56,14 @@ const Stack = StackNavigator ({
 
 
 })
+// const resetAction = NavigationActions.reset({
+//     index: 1,
+//     actions: [
+//         NavigationActions.navigate({ routeName: 'DangNhap'}),
+//         NavigationActions.navigate({ routeName: 'TabBQL'})
+//     ]
+// })
+// this.props.navigation.dispatch(resetAction)
+//
+
 export default Stack;

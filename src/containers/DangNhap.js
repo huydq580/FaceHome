@@ -5,13 +5,12 @@ import {
     TouchableOpacity,
     StyleSheet,
     Alert,
-    ActivityIndicator
-
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import UserInput from '../components/dangnhap/UserInput';
 import images from '../components/images'
 import {URL, URL_LOGIN} from "../components/Api";
+import { NavigationActions } from 'react-navigation'
 
 
 export default class DangNhap extends Component {
@@ -20,9 +19,18 @@ export default class DangNhap extends Component {
         this.state = {
             SoDienThoai: '',
             MatKhau: '',
+            showPass: true,
+            press: false,
         }
+        this.showPass = this.showPass.bind(this);
     }
 
+    showPass() {
+        this.state.press === false ? this.setState({showPass: false, press: true}) : this.setState({
+            showPass: true,
+            press: false
+        });
+    }
     Login(){
         const {} = this.props
         fetch(URL + URL_LOGIN , {
@@ -43,6 +51,7 @@ export default class DangNhap extends Component {
                 // console.log('datavalue', data.Value[0].Type)
                 if(data.IsError === false && data.ErrorCode === "00"){
                      this.props.navigation.navigate('LoadData', {data: data})
+
                 }
                 else {
                     this.setState({
@@ -76,7 +85,8 @@ export default class DangNhap extends Component {
                 </View>
                 <View style = {{flex:5, alignItems: 'center'}}>
                     <Text>Tiếng việt - English</Text>
-                    <UserInput source = {images.username}
+                    <UserInput nameIcon = "user-circle"
+                               keyboardType={'numeric'}
                                placeholder={'Username'}
                                autoCapitalize={'none'}
                                returnKeyType={'done'}
@@ -84,9 +94,9 @@ export default class DangNhap extends Component {
                                style = {{marginTop: 20}}
                                onChangeText ={(SoDienThoai) => this.setState({SoDienThoai})}
                     />
-                    <UserInput source={images.password}
-                        //    secureTextEntry={this.state.showPass}
-                               placeholder={'Password'}
+                    <UserInput nameIcon = "lock"
+                               secureTextEntry={this.state.showPass}
+                               placeholder='Password'
                                returnKeyType={'done'}
                                autoCapitalize={'none'}
                                autoCorrect={false}
@@ -95,7 +105,8 @@ export default class DangNhap extends Component {
                                    this.setState({MatKhau})
                                }}
                     />
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.showPass}
+                                        style = {{marginTop:10}}>
                         <Text>Hiển thị mật khẩu</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress = {() => this.Login()}>

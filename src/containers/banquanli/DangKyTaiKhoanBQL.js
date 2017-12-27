@@ -9,6 +9,8 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import {URL, URL_REGISTER_BQL} from "../../components/Api";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import stylesContainer from "../../components/style";
 
 export default class DangKyTaiKhoanBQL extends Component {
     constructor(props){
@@ -16,9 +18,17 @@ export default class DangKyTaiKhoanBQL extends Component {
         this.state = {
             SoDienThoai:'',
             MatKhau: '',
-            Loading:true,
-            Error: false,
+            showPass: true,
+            press: false,
+
         }
+        this.showPass = this.showPass.bind(this);
+    }
+    showPass() {
+        this.state.press === false ? this.setState({showPass: false, press: true}) : this.setState({
+            showPass: true,
+            press: false
+        });
     }
     RegisterBQL(params){
         // console.log('params', params.itemKDT)
@@ -45,26 +55,17 @@ export default class DangKyTaiKhoanBQL extends Component {
                 data = JSON.parse(dataRes);
                 console.log('dataLogin', data)
                 if(data.IsError === false && data.ErrorCode === "00"){
-                    // this.setState({
-                    //     Loading: false,
-                    //     Error: false,
-                    // })
-                    // this.props.navigation.navigate('SanhChinh')
                     Alert.alert(
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('SanhChinh')}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('TabBQL')}},
                         ],
                         { cancelable: false }
                     )
-                    this.props.navigation.navigate('SanhChinh')
+                    // this.props.navigation.navigate('SanhChinh')
                 }
                 else {
-                    // this.setState({
-                    //     Loading: false,
-                    //     Error: true
-                    // })
                     Alert.alert(
                         'Error',
                         data.Message,
@@ -102,26 +103,35 @@ export default class DangKyTaiKhoanBQL extends Component {
         // else return(<View></View>)
         const { params } = this.props.navigation.state;
         return(
-            <View>
+            <KeyboardAwareScrollView
+                style={stylesContainer.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                scrollEnabled={false}
+            >
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Nhập số điện thoại'
                                underlineColorAndroid="transparent"
+                               keyboardType={'numeric'}
                                 onChangeText = {(SoDienThoai)=>this.setState({SoDienThoai})}/>
                 </View>
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Nhập mật khẩu'
+                               secureTextEntry={this.state.showPass}
                                underlineColorAndroid="transparent"
                                 onChangeText = {(MatKhau)=>this.setState({MatKhau})}/>
                 </View>
                 <View style = {{alignItems:'center', justifyContent: 'center'}}>
-                    <Text>Hiển thị mật khẩu</Text>
+                    <TouchableOpacity onPress={this.showPass}
+                                      style = {{marginTop:10}}>
+                        <Text>Hiển thị mật khẩu</Text>
+                    </TouchableOpacity>
                 </View>
                 <TouchableOpacity onPress = {() => this.RegisterBQL(params)}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
                     </View>
                 </TouchableOpacity>
-            </View>
+            </KeyboardAwareScrollView>
         );
 
     }

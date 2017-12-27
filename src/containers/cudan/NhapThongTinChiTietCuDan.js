@@ -5,10 +5,13 @@ import {
     TextInput,
     StyleSheet,
     TouchableOpacity,
-    Picker,Alert
+    Picker,Alert,
+    ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {URL, URL_REGISTER_DANCU} from "../../components/Api";
+import stylesContainer from "../../components/style";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default class NhapThongTinChiTietCuDan extends Component {
     constructor(props){
@@ -21,7 +24,16 @@ export default class NhapThongTinChiTietCuDan extends Component {
             hoTen:'',
             soDT:'',
             matKhau:'',
+            showPass: true,
+            press: false,
         }
+        this.showPass = this.showPass.bind(this);
+    }
+    showPass() {
+        this.state.press === false ? this.setState({showPass: false, press: true}) : this.setState({
+            showPass: true,
+            press: false
+        });
     }
     RegisterDanCu(){
         const { params } = this.props.navigation.state;
@@ -78,21 +90,27 @@ export default class NhapThongTinChiTietCuDan extends Component {
     render (){
         const { params } = this.props.navigation.state;
         // console.log('Cu dan')
-        // let dataToaNha = params.GetKDT,
+        let dataToaNha = params.GetKDT,
             // Item = params.Item,
-            // data = dataToaNha.Value;
+            data = dataToaNha.Value;
             // data1 = dataToaNha.Value[0].Code;
-        // console.log('data toa nha', dataToaNha);
+        console.log('data toa nha', dataToaNha);
         // console.log('Item', Item)
         // console.log('data toa', data1)
         return (
-            <View>
+            <KeyboardAwareScrollView
+                style={stylesContainer.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                scrollEnabled={false}
+            >
+                <ScrollView>
+
                 <View style = {styles.itemBoder}>
-                {/*<Picker*/}
-                    {/*selectedValue={this.state.ToaNha}*/}
-                    {/*onValueChange={(value) => this.setState({ToaNha: value})}>*/}
-                    {/*{data.map((value)=><Picker.Item key ={value} label={value.Ten} value={value.Code}/>)}*/}
-                {/*</Picker>*/}
+                    <Picker
+                        selectedValue={this.state.ToaNha}
+                        onValueChange={(value) => this.setState({ToaNha: value})}>
+                        {data.map((value)=><Picker.Item key ={value} label={value.Ten} value={value.Code}/>)}
+                    </Picker>
                 </View>
                 <View style = {styles.itemBoder}>
                     <Picker
@@ -111,21 +129,24 @@ export default class NhapThongTinChiTietCuDan extends Component {
                                underlineColorAndroid="transparent"
                                onChangeText = {(hoTen) => this.setState({hoTen})}/>
                 </View>
-                <View style = {styles.itemBoder}>
-                    <TextInput placeholder = 'Nhập số điện thoại'
-                               underlineColorAndroid="transparent"
-                               onChangeText = {(soDT) => this.setState({soDT})}/>
-                </View>
-                <View style = {styles.itemBoder}>
-                    <TextInput placeholder = 'Nhập mật khẩu'
-                               underlineColorAndroid="transparent"
-                               onChangeText = {(matKhau) => this.setState({matKhau})}/>
-                </View>
-                <TouchableOpacity>
-                    <View style = {{alignItems:'center', justifyContent: 'center', marginTop:10}}>
-                        <Text>Hiển thị mật khẩu</Text>
+                    <View style = {styles.itemBoder}>
+                        <TextInput placeholder = 'Nhập số điện thoại'
+                                   underlineColorAndroid="transparent"
+                                   keyboardType={'numeric'}
+                                   onChangeText = {(soDT)=>this.setState({soDT})}/>
                     </View>
-                </TouchableOpacity>
+                    <View style = {styles.itemBoder}>
+                        <TextInput placeholder = 'Nhập mật khẩu'
+                                   secureTextEntry={this.state.showPass}
+                                   underlineColorAndroid="transparent"
+                                   onChangeText = {(matKhau)=>this.setState({matKhau})}/>
+                    </View>
+                    <View style = {{alignItems:'center', justifyContent: 'center'}}>
+                        <TouchableOpacity onPress={this.showPass}
+                                          style = {{marginTop:10}}>
+                            <Text>Hiển thị mật khẩu</Text>
+                        </TouchableOpacity>
+                    </View>
 
                 
                 <TouchableOpacity onPress = {() => this.RegisterDanCu()}>
@@ -136,7 +157,8 @@ export default class NhapThongTinChiTietCuDan extends Component {
                 <View style = {{alignItems:'center', justifyContent: 'center', marginTop:10}}>
                         <Text>Một mã xác thực sẽ được gửi tới sđt của bạn!</Text>
                 </View>
-            </View>
+                </ScrollView>
+            </KeyboardAwareScrollView>
         )
     }
 }

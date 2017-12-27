@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import _ from 'lodash';
 import {URL, URL_GETDATA, URL_GETKDT, URL_REGISTER_NCC, URL_SEARCH} from "../components/Api";
+import stylesContainer from "../components/style";
 
 export default class DangKi extends Component {
     constructor(props){
@@ -26,10 +27,19 @@ export default class DangKi extends Component {
             item: '',
             SoDienThoai: '',
             MatKhau: '',
+            showPass: true,
+            press: false,
 
 
         }
         this.ClickItem = this.ClickItem.bind(this);
+        this.showPass = this.showPass.bind(this);
+    }
+    showPass() {
+        this.state.press === false ? this.setState({showPass: false, press: true}) : this.setState({
+            showPass: true,
+            press: false
+        });
     }
     componentWillMount () {
         //call api tỉnh
@@ -180,7 +190,7 @@ export default class DangKi extends Component {
             .then((response) => response.json())
             .then((dataGetKDT)=> {
                 dataGetKDT = JSON.parse(dataGetKDT);
-                console.log('getKDT', dataGetKDT)
+                // console.log('getKDT', dataGetKDT)
                 this.props.navigation.navigate('StackCuDan', { GetKDT: dataGetKDT, Item: item})
 
             }).catch((erro)=> {
@@ -292,15 +302,20 @@ export default class DangKi extends Component {
                     <View style = {styles.itemBoder}>
                         <TextInput placeholder = 'Nhập số điện thoại'
                                    underlineColorAndroid="transparent"
-                                    onChangeText = {(SoDienThoai)=> this.setState({SoDienThoai}) }/>
+                                   keyboardType={'numeric'}
+                                   onChangeText = {(SoDienThoai)=>this.setState({SoDienThoai})}/>
                     </View>
                     <View style = {styles.itemBoder}>
                         <TextInput placeholder = 'Nhập mật khẩu'
+                                   secureTextEntry={this.state.showPass}
                                    underlineColorAndroid="transparent"
-                                    onChangeText = {(MatKhau)=>this.setState({MatKhau})}/>
+                                   onChangeText = {(MatKhau)=>this.setState({MatKhau})}/>
                     </View>
                     <View style = {{alignItems:'center', justifyContent: 'center'}}>
-                        <Text>Hiển thị mật khẩu</Text>
+                        <TouchableOpacity onPress={this.showPass}
+                                          style = {{marginTop:10}}>
+                            <Text>Hiển thị mật khẩu</Text>
+                        </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress = {() => this.DangKiGiaoDien()}>
                         <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
@@ -344,7 +359,7 @@ export default class DangKi extends Component {
     }
     render (){
         return(
-            <View>
+            <View style = {stylesContainer.container}>
                 <View style = {styles.itemBoder}>
                     {this.renderTaiKhoan()}
                 </View>

@@ -5,8 +5,12 @@ import {
     StyleSheet,
     Picker,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView
 } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import stylesContainer from "../../components/style";
+
 
 export default class NhapThongTinChiTiet extends Component {
     constructor(props){
@@ -25,7 +29,11 @@ export default class NhapThongTinChiTiet extends Component {
     render(){
         const { params } = this.props.navigation.state;
         return(
-            <View>
+            <KeyboardAwareScrollView
+                style={stylesContainer.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                scrollEnabled={false}
+            >
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Họ tên'
                                underlineColorAndroid="transparent"
@@ -60,6 +68,7 @@ export default class NhapThongTinChiTiet extends Component {
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Số hotline BQL'
                                underlineColorAndroid="transparent"
+                               keyboardType={'numeric'}
                                onChangeText = {(hotline)=>this.setState({hotline})}/>
                 </View>
                 <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangKyTaiKhoanBQL', {itemKDT: params.itemKDT, NgaySinh:this.state.NgaySinh, GioiTinh: this.state.GioiTinh, ChucVu: this.state.ChucVu, ten: this.state.ten, hotline:this.state.hotline })}>
@@ -69,7 +78,7 @@ export default class NhapThongTinChiTiet extends Component {
                 </TouchableOpacity>
 
 
-            </View>
+            </KeyboardAwareScrollView>
         )
     }
 }
