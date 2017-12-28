@@ -59,7 +59,7 @@ export default class DangKyTaiKhoanBQL extends Component {
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('TabBQL')}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('TabNCC')}},
                         ],
                         { cancelable: false }
                     )

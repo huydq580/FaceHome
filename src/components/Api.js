@@ -6,4 +6,5 @@ export const URL_REGISTER_NCC   = "api/Ncc/Register";
 export const URL_REGISTER_DANCU = "api/dancu/register";
 export const URL_GETKDT = "api/kdt/getkdtparts";
 export const URL_LOGIN = "api/Bql/Login";
+export const URL_PROFILE_NCC = "api/Ncc/CreateProfile";
 

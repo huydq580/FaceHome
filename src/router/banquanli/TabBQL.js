@@ -50,6 +50,7 @@ const TabBQL = TabNavigator({
             },
             labelStyle: {
                 fontSize: 12,
+
             },
             style: {
                 backgroundColor: '#ffffff',

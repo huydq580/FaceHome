@@ -17,12 +17,12 @@ import ThongTinKhuDoThi from "../../containers/banquanli/menuleft/ThongTinKhuDoT
 
 
 const StackBQL = StackNavigator({
-    TaoThongTinKDT: {
-        screen: TaoThongTinKDT,
-        navigationOptions: {
-            header: null
-        }
-    },
+    // TaoThongTinKDT: {
+    //     screen: TaoThongTinKDT,
+    //     navigationOptions: {
+    //         header: null
+    //     }
+    // },
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
         navigationOptions: {

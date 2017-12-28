@@ -140,13 +140,13 @@ export default class DangKi extends Component {
             .then((response) => response.json())
             .then((dataRes)=> {
                 data = JSON.parse(dataRes);
-                console.log('dataLogin', data)
+                // console.log('dataLogin', data)
                 if(data.IsError === false && data.ErrorCode === "00"){
                     Alert.alert(
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('StackNCC')}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('StackNCC', {Value:data, SDT: this.state.SoDienThoai})}},
                         ],
                         { cancelable: false }
                     )

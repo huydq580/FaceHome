@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
-import {StackNavigator, TabNavigator} from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import NhapThongTinNCC from "../../containers/nhacungcap/NhapThongTinNCC";
-import TabNCC from "./TabNavigationNCC";
+import TabNCC from "./TabNCC";
 
-
-const StackNCC = StackNavigator ({
-    NhapThongTinNCC : {
-        screen : NhapThongTinNCC,
+const StackNCC = StackNavigator({
+    NhapThongTinNCC: {
+        screen: NhapThongTinNCC,
         navigationOptions: {
-            title:'Nhập thông tin chi tiết'
-        }
+            title: 'Nhập thông tin nhà cung cấp'
+        },
     },
-    TabNCC : {
+    TabNCC: {
         screen: TabNCC,
-        navigationOptions: {
-            header: null
-        }
-    }
 
+    }
 })
 export default StackNCC;
-

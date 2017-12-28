@@ -7,7 +7,9 @@ import {
 export default class KDTGanBan extends Component {
     render (){
         return(
-            <View>Khu đô thị gần bạn</View>
+            <View>
+                <Text>KDT Gần bạn</Text>
+            </View>
         );
     }
 }
