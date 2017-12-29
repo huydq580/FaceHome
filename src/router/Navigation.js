@@ -7,6 +7,9 @@ import StackCuDan from "./cudan/NavigationCuDan";
 import StackNCC from "./nhacungcap/NavigationNCC";
 import LoadData from "../components/LoadData";
 import Launcher from "../containers/Launcher";
+import TabBQL from "./banquanli/TabBQL";
+import TabNCC from "./nhacungcap/TabNCC";
+import TabCuDan from "./cudan/TabNavigatorCuDan";
 
 
 const Stack = StackNavigator ({
@@ -52,6 +55,15 @@ const Stack = StackNavigator ({
         navigationOptions: {
             header: null,
         }
+    },
+    TabBQL: {
+        screen: TabBQL,
+    },
+    TabNCC: {
+        screen: TabNCC
+    },
+    TabCuDan: {
+        screen: TabCuDan
     }
 
 

@@ -10,7 +10,6 @@ import Dimensions from 'Dimensions';
 import UserInput from '../components/dangnhap/UserInput';
 import images from '../components/images'
 import {URL, URL_LOGIN} from "../components/Api";
-import { NavigationActions } from 'react-navigation'
 
 
 export default class DangNhap extends Component {
