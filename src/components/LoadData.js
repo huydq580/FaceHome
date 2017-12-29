@@ -12,7 +12,6 @@ export default class LoadData extends Component {
     constructor(props){
         super(props)
         this.state = {
-
         }
     }
     componentWillMount(){

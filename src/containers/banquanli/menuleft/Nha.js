@@ -6,18 +6,26 @@ import {
     TouchableOpacity,
     TextInput
 } from 'react-native';
+import { NavigationActions } from 'react-navigation'
+
+
 
 export default class Nha extends Component {
+
     render (){
+
+
         return (
+
             <View>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
                     <View style = {styles.circle}>
                         <Text>Avatar</Text>
-                </View>
+                    </View>
                     <Text style = {{color:'red', fontSize: 20}}>Nguyễn Văn A</Text>
                 </View>
-                <TouchableOpacity style = {styles.Touch}>
+                <TouchableOpacity style = {styles.Touch}
+                                    onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanBQL')}>
                     <Text style = {{color: 'white'}}>
                         Nhật ký
                     </Text>

@@ -14,6 +14,7 @@ import NhanDonDangKyDichVu from "../../containers/banquanli/menuleft/NhanDonDang
 import RaoVat from "../../containers/banquanli/menuleft/RaoVat";
 import GioiThieu from "../../containers/banquanli/menuleft/GioiThieu";
 import ThongTinKhuDoThi from "../../containers/banquanli/menuleft/ThongTinKhuDoThi";
+import ThongTinCaNhanBQL from "../../containers/banquanli/menuleft/ThongTinCaNhanBQL";
 
 
 const StackBQL = StackNavigator({
@@ -99,6 +100,12 @@ const StackBQL = StackNavigator({
         screen: GioiThieu,
         navigationOptions: {
             title: "Giới thiệu"
+        }
+    },
+    ThongTinCaNhanBQL: {
+        screen: ThongTinCaNhanBQL,
+        navigationOptions: {
+            title: 'Thông tin cá nhân'
         }
     }
 

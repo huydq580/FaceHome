@@ -133,6 +133,4 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         marginTop:20,
     },
-
-
 })
