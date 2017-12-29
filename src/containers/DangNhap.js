@@ -9,7 +9,7 @@ import {
 import Dimensions from 'Dimensions';
 import UserInput from '../components/dangnhap/UserInput';
 import images from '../components/images'
-import {URL, URL_LOGIN} from "../components/Api";
+import {Login, URL} from "../components/Api";
 
 
 export default class DangNhap extends Component {
@@ -32,7 +32,7 @@ export default class DangNhap extends Component {
     }
     Login(){
         const {} = this.props
-        fetch(URL + URL_LOGIN , {
+        fetch(URL + Login , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

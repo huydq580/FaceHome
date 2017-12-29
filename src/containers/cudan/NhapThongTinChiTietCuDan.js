@@ -9,7 +9,7 @@ import {
     ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {URL, URL_REGISTER_DANCU} from "../../components/Api";
+import {RegisterCuDan, URL} from "../../components/Api";
 import stylesContainer from "../../components/style";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -38,7 +38,7 @@ export default class NhapThongTinChiTietCuDan extends Component {
     RegisterDanCu(){
         const { params } = this.props.navigation.state;
         // console.log('wtf', params.GetKDT.Value)
-        fetch(URL + URL_REGISTER_DANCU, {
+        fetch(URL + RegisterCuDan, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

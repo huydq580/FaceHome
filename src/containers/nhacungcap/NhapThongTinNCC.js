@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import stylesContainer from "../../components/style";
-import {URL, URL_PROFILE_NCC} from "../../components/Api";
+import {CreateProfileNCC, URL} from "../../components/Api";
 
 export default class NhapThongTinNCC extends Component {
     constructor(props){
@@ -28,7 +28,7 @@ export default class NhapThongTinNCC extends Component {
         const { params } = this.props.navigation.state;
         // console.log('value', params.Value);
         // console.log('SoDienThoai',params.SDT)
-        fetch(URL + URL_PROFILE_NCC, {
+        fetch(URL + CreateProfileNCC, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

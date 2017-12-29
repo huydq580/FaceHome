@@ -8,7 +8,7 @@ import {
     Alert,
     ActivityIndicator,
 } from 'react-native';
-import {URL, URL_REGISTER_BQL} from "../../components/Api";
+import {RegisterBQL, URL,} from "../../components/Api";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import stylesContainer from "../../components/style";
 
@@ -32,7 +32,7 @@ export default class DangKyTaiKhoanBQL extends Component {
     }
     RegisterBQL(params){
         // console.log('params', params.itemKDT)
-        fetch(URL + URL_REGISTER_BQL , {
+        fetch(URL + RegisterBQL , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export default class DangKyTaiKhoanBQL extends Component {
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('TabNCC')}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('TabBQL')}},
                         ],
                         { cancelable: false }
                     )

@@ -10,7 +10,9 @@ import {
     Alert
 } from 'react-native'
 import _ from 'lodash';
-import {URL, URL_GETDATA, URL_GETKDT, URL_REGISTER_NCC, URL_SEARCH} from "../components/Api";
+import {
+    GetData, GetKDTParts, RegisterNCC, Search, URL,
+} from "../components/Api";
 import stylesContainer from "../components/style";
 
 export default class DangKi extends Component {
@@ -43,7 +45,7 @@ export default class DangKi extends Component {
     }
     componentWillMount () {
         //call api tỉnh
-        fetch( URL + URL_GETDATA,  {
+        fetch( URL + GetData,  {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +69,7 @@ export default class DangKi extends Component {
     }
     // Call api quan huyen
     CallApiQuanHuyen(maVung){
-        fetch(URL + URL_GETDATA, {
+        fetch(URL + GetData, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +94,7 @@ export default class DangKi extends Component {
     }
     //api tim kiem
     CallApiTimKiem(){
-        fetch(URL + URL_SEARCH, {
+        fetch(URL + Search, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -125,7 +127,7 @@ export default class DangKi extends Component {
     }
     // Api dang ki tai khoan ncc
     RegisterNCC(){
-        fetch(URL + URL_REGISTER_NCC , {
+        fetch(URL + RegisterNCC , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -172,7 +174,7 @@ export default class DangKi extends Component {
     //call api lay tai khoan thong tin KDT
     GetKDTParts(){
         let item =_.assign(this.state.item);
-        fetch(URL + URL_GETKDT , {
+        fetch(URL + GetKDTParts , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
