@@ -13,6 +13,10 @@ import {
 } from 'react-native';
 import Stack from './src/router/Navigation'
 import LoadData from "./src/components/LoadData";
+import SanhChinh from "./src/containers/banquanli/SanhChinh";
+import SoanTin from "./src/containers/banquanli/SoanTin";
+import ThongTinKhuDoThi from "./src/containers/banquanli/menuleft/ThongTinKhuDoThi";
+import BanQuanLy from "./src/containers/banquanli/menuleft/BanQuanLy";
 
 
 

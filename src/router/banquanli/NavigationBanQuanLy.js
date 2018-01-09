@@ -15,6 +15,9 @@ import RaoVat from "../../containers/banquanli/menuleft/RaoVat";
 import GioiThieu from "../../containers/banquanli/menuleft/GioiThieu";
 import ThongTinKhuDoThi from "../../containers/banquanli/menuleft/ThongTinKhuDoThi";
 import ThongTinCaNhanBQL from "../../containers/banquanli/menuleft/ThongTinCaNhanBQL";
+import SoanTin from "../../containers/banquanli/SoanTin";
+import ChiTietThanhVienBQL from "../../containers/banquanli/menuleft/ChiTietThanhVienBQL";
+import TaoThanhVienBQL from "../../containers/banquanli/menuleft/TaoThanhVienBQL";
 
 
 const StackBQL = StackNavigator({
@@ -106,6 +109,24 @@ const StackBQL = StackNavigator({
         screen: ThongTinCaNhanBQL,
         navigationOptions: {
             title: 'Thông tin cá nhân'
+        }
+    },
+    SoanTin: {
+        screen: SoanTin,
+        navigationOptions: {
+            title: 'Tạo bài viết'
+        }
+    },
+    ChiTietThanhVienBQL: {
+        screen: ChiTietThanhVienBQL,
+        navigationOptions: {
+            title: 'Chi tiết thành viên'
+        }
+    },
+    TaoThanhVienBQL: {
+        screen: TaoThanhVienBQL,
+        navigationOptions:  {
+            title: 'Tạo thành viên BQL'
         }
     }
 
