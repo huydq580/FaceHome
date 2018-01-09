@@ -12,7 +12,6 @@ export default class ThongTinCaNhanBQL extends Component {
         super(props)
         this.state = {
             edit: false,
-            underline : 'transparent',
             Ten: 'Nguyễn Văn A',
             ChucVu: 'Thành viên BQL',
             NgaySinh: '03/01/1995',
