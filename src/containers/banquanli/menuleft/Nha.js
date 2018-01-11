@@ -6,18 +6,35 @@ import {
     TouchableOpacity,
     TextInput
 } from 'react-native';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import {callApiNha} from "../../../actions/NhaActions";
+import stylesContainer from "../../../components/style";
 
 
 
-export default class Nha extends Component {
-
+class Nha extends Component {
+    componentWillMount() {
+        data = this.props.UserBQL[0].dataLogin
+        data = JSON.parse(data);
+        // console.log('wtf', data.Value[0].UserID)
+        // console.log('hihi', this.props.UserBQL[0].dataLogin)
+        const {callApiNha} = this.props;
+        callApiNha(data.Value[0].UserID, data.Value[0].Type).then(dataNha => {
+            dataNhaBQL = JSON.parse(dataNha);
+            // console.log('data', dataNhaBQL)
+        })
+    }
     render (){
-
+        // console.log("infoBQL", this.props.infoBQL)
+        dataInfoBQL= this.props.infoBQL;
+        console.log('dataInfo', dataInfoBQL)
+        // console.log('data Details', dataInfoBQL[0].dataNha)
 
         return (
 
-            <View>
+            <View style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
                     <View style = {styles.circle}>
                         <Text>Avatar</Text>
@@ -67,6 +84,23 @@ export default class Nha extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
+        infoBQL: state.NhaBQLReducers
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // addTodo: bindActionCreators(addTodo, dispatch),
+        callApiNha: bindActionCreators(callApiNha, dispatch)
+    }
+};
+
+Nha = connect(mapStateToProps, mapDispatchToProps)(Nha);
+export default Nha;
 const styles = StyleSheet.create({
     circle: {
         marginTop: 15,

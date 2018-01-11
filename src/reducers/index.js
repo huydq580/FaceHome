@@ -1,7 +1,10 @@
-import { combineReducers } from 'redux';
-import isLogin from './LoginReducers';
+import { combineReducers } from 'redux'
+import LoginReducers from './LoginReducers';
+import NhaBQLReducers from './NhaBQLReducers';
 
-const appReducer = combineReducers({
-    isLogin
+const appStore = combineReducers({
+    LoginReducers,
+    NhaBQLReducers,
 })
-export default rootReducer;
+
+export default appStore

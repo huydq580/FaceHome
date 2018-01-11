@@ -11,6 +11,8 @@ import {
   Text,
   View
 } from 'react-native';
+import { Provider } from 'react-redux'
+import store from './src/store'
 import Stack from './src/router/Navigation'
 import LoadData from "./src/components/LoadData";
 import SanhChinh from "./src/containers/banquanli/SanhChinh";
@@ -22,9 +24,12 @@ import BanQuanLy from "./src/containers/banquanli/menuleft/BanQuanLy";
 
 
 export default class App extends Component<{}> {
+
   render() {
     return (
-      <Stack/>
+        <Provider store={store}>
+          <Stack/>
+        </Provider>
     );
   }
 }

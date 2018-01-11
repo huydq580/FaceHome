@@ -1,37 +1,29 @@
-import {Login, URL} from "../components/Api";
+import { GetProfileBQL, URL } from "../components/Api";
 
 let nextTodoId = 0
-export const addTodo = text => {
-    return {
-        type: 'LOGIN',
-        id: nextTodoId++,
-        text
-    }
-}
 
 
-export const callApiLogin = (sdt, mk) => {
+export const callApiNha = (user_id, user_type) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL+Login, {
+            fetch(URL+GetProfileBQL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    so_dien_thoai: sdt,
-                    mat_khau: mk,
+                    user_id: user_id,
+                    user_type: user_type,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                // console.log('data response', data);
                 dispatch({
-                    type: 'LOGIN',
+                    type: 'NHA_BQL',
                     id: nextTodoId++,
                     text: 'call api',
-                    dataLogin: data
+                    dataNha: data,
                 })
                 resolve(data);
             }).catch(e => {

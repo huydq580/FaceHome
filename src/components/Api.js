@@ -9,7 +9,7 @@ export const CreateKDT = "api/KDT/CreateKDT"
 
 //BQL
 export const RegisterBQL = "api/bql/register";
-
+export const GetProfileBQL = "api/BQL/GetProfile";
 
 //NCC
 export const RegisterNCC   = "api/Ncc/Register";
