@@ -10,6 +10,8 @@ import Launcher from "../containers/Launcher";
 import TabBQL from "./banquanli/TabBQL";
 import TabNCC from "./nhacungcap/TabNCC";
 import TabCuDan from "./cudan/TabNavigatorCuDan";
+import NhapThongTinChiTiet from "../containers/banquanli/NhapThongTinChiTiet";
+import DangKyTaiKhoanBQL from "../containers/banquanli/DangKyTaiKhoanBQL";
 
 
 const Stack = StackNavigator ({
@@ -30,6 +32,18 @@ const Stack = StackNavigator ({
         screen: DangKi,
         navigationOptions: {
             title: 'Vui lòng chọn loại tài khoản'
+        }
+    },
+    NhapThongTinChiTiet: {
+        screen: NhapThongTinChiTiet,
+        navigationOptions: {
+            title: 'Nhập thông tin chi tiết'
+        }
+    },
+    DangKyTaiKhoanBQL: {
+        screen: DangKyTaiKhoanBQL,
+        navigationOptions: {
+            title: 'Bạn đang tạo tài khoản ban quản lí'
         }
     },
     LoadData: {

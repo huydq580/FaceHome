@@ -27,18 +27,18 @@ const StackBQL = StackNavigator({
     //         header: null
     //     }
     // },
-    NhapThongTinChiTiet: {
-        screen: NhapThongTinChiTiet,
-        navigationOptions: {
-            title: 'Nhập thông tin chi tiết'
-        }
-    },
-    DangKyTaiKhoanBQL: {
-        screen: DangKyTaiKhoanBQL,
-        navigationOptions: {
-            title: 'Bạn đang tạo tài khoản ban quản lí'
-        }
-    },
+    // NhapThongTinChiTiet: {
+    //     screen: NhapThongTinChiTiet,
+    //     navigationOptions: {
+    //         title: 'Nhập thông tin chi tiết'
+    //     }
+    // },
+    // DangKyTaiKhoanBQL: {
+    //     screen: DangKyTaiKhoanBQL,
+    //     navigationOptions: {
+    //         title: 'Bạn đang tạo tài khoản ban quản lí'
+    //     }
+    // },
     TabBQL: {
         screen: TabBQL,
         // navigationOptions: {

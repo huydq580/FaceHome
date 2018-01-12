@@ -27,6 +27,7 @@ class Nha extends Component {
         })
     }
     render (){
+        console.log('render')
         // console.log("infoBQL", this.props.infoBQL)
         dataInfoBQL= this.props.infoBQL;
         console.log('dataInfo', dataInfoBQL)
