@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import stylesContainer from "../../components/style";
+import PickerImage from "../../components/PickerImage"
 
 export default class SoanTin extends Component {
     static navigationOptions = ({navigation}) => {
@@ -23,10 +24,31 @@ export default class SoanTin extends Component {
     constructor(props){
         super (props)
         this.state = {
-            Status:''
+            Status:'',
+            avatarSource: null,
+            dataImage: null
         }
     }
+    show(){
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}));
+    }
+    // upload(){
+    //     uploadFile([
+    //         { name : 'info', data : 'KhoaPham'},
+    //         { name: 'avatar', filename: 'avatar.png', data: this.state.data }
+    //     ])
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err))
+    // }
+    upload (){
+        console.log('dataImage', this.state.dataImage)
+    }
     render () {
+        let img = this.state.avatarSource == null? null:
+            <Image
+                source={this.state.avatarSource}
+                style={{height: 200, width: 200}}
+            />
         return (
             <View style = {stylesContainer.container}>
                 <View>
@@ -46,7 +68,16 @@ export default class SoanTin extends Component {
                                    placeholderTextSize = "20"/>
                     </View>
                 </View>
+                <TouchableOpacity onPress={this.show.bind(this)}>
+                    <Text>Show Image Picker</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.upload.bind(this)}>
+                    <Text>Upload</Text>
+                </TouchableOpacity>
+                <Text>hihi</Text>
+                {img}
             </View>
         );
     }
+
 }
