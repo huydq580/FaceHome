@@ -4,7 +4,7 @@ import TaoThongTinKDT from "../../containers/banquanli/TaoThongTinKDT";
 import NhapThongTinChiTiet from "../../containers/banquanli/NhapThongTinChiTietBQL";
 import DangKyTaiKhoanBQL from "../../containers/banquanli/DangKyTaiKhoanBQL";
 import TabBQL from "./TabBQL";
-import Nha from "../../containers/banquanli/menuleft/NhaBQL";
+import NhaBQL from "../../containers/banquanli/menuleft/NhaBQL";
 import QuanLyTaiKhoan from "../../containers/banquanli/menuleft/QuanLyTaiKhoan";
 import BanQuanLy from "../../containers/banquanli/menuleft/BanQuanLy";
 import TiepNhanSuCoCuDan from "../../containers/banquanli/menuleft/TiepNhanSuCoCuDan";

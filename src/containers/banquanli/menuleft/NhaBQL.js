@@ -30,7 +30,7 @@ class NhaBQL extends Component {
         // console.log("infoBQL", this.props.infoBQL)
         dataInfoBQL= this.props.infoBQL;
         console.log('dataInfo', dataInfoBQL)
-        // console.log('data Details', dataInfoBQL[0].dataNha)
+        console.log('data Details', dataInfoBQL[0].dataNha)
 
         return (
 
