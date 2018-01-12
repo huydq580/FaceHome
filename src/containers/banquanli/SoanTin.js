@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
+import ImageResizer from 'react-native-image-resizer';
 
 export default class SoanTin extends Component {
     static navigationOptions = ({navigation}) => {
@@ -26,7 +27,8 @@ export default class SoanTin extends Component {
         this.state = {
             Status:'',
             avatarSource: null,
-            dataImage: null
+            dataImage: null,
+            resizedImageUri: '',
         }
     }
     show(){
@@ -41,7 +43,22 @@ export default class SoanTin extends Component {
     //         .catch(err => console.log(err))
     // }
     upload (){
-        console.log('dataImage', this.state.dataImage)
+        // console.log('dataImage', this.state.dataImage)
+    }
+    resize() {
+        ImageResizer.createResizedImage(this.state.dataImage.uri, 800, 600, 'JPEG', 80)
+            .then(({uri}) => {
+                this.setState({
+                    resizedImageUri: uri,
+                });
+            }).catch((err) => {
+            console.log(err);
+            return Alert.alert('Unable to resize the photo',
+                'Check the console for full the error message');
+        });
+    }
+    LogResize(){
+        console.log('resize', this.state.resizedImageUri)
     }
     render () {
         let img = this.state.avatarSource == null? null:
@@ -69,10 +86,16 @@ export default class SoanTin extends Component {
                     </View>
                 </View>
                 <TouchableOpacity onPress={this.show.bind(this)}>
-                    <Text>Show Image Picker</Text>
+                    <Text  style = {{fontSize: 30}}>Show Image Picker</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.upload.bind(this)}>
-                    <Text>Upload</Text>
+                    <Text style = {{fontSize: 30}}>Upload</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.resize.bind(this)}>
+                    <Text style = {{fontSize: 30}}>resize</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.LogResize.bind(this)}>
+                    <Text style = {{fontSize: 30}}>resizeLog</Text>
                 </TouchableOpacity>
                 <Text>hihi</Text>
                 {img}
