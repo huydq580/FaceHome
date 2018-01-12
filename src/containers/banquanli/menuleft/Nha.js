@@ -25,12 +25,13 @@ class Nha extends Component {
             dataNhaBQL = JSON.parse(dataNha);
             // console.log('data', dataNhaBQL)
         })
+        dataInfoBQL= this.props.infoBQL;
+        console.log('dataInfo', dataInfoBQL)
     }
     render (){
         console.log('render')
         // console.log("infoBQL", this.props.infoBQL)
-        dataInfoBQL= this.props.infoBQL;
-        console.log('dataInfo', dataInfoBQL)
+
         // console.log('data Details', dataInfoBQL[0].dataNha)
 
         return (
