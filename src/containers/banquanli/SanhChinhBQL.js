@@ -13,7 +13,7 @@ import images from "../../components/images"
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-export default class SanhChinh extends Component {
+export default class SanhChinhBQL extends Component {
     render (){
         return (
             <ScrollView style = {stylesContainer.container}>

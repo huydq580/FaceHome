@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {TabNavigator, DrawerNavigator} from 'react-navigation'
 import SanhChinh from '../../containers/cudan/SanhChinh';
-import DichVu from '../../containers/cudan/DichVu';
-import TinNhan from '../../containers/cudan/TinNhan';
-import Notification from '../../containers/cudan/Notification';
+import DichVu from '../../containers/cudan/DichVuCuDan';
+import TinNhan from '../../containers/cudan/TinNhanCuDan';
+import Notification from '../../containers/cudan/NotificationCuDan';
 import MenuLeftCuDan from "../../containers/cudan/MenuLeftCuDan";
 
 

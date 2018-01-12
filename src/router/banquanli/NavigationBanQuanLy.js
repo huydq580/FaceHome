@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {StackNavigator} from 'react-navigation';
 import TaoThongTinKDT from "../../containers/banquanli/TaoThongTinKDT";
-import NhapThongTinChiTiet from "../../containers/banquanli/NhapThongTinChiTiet";
+import NhapThongTinChiTiet from "../../containers/banquanli/NhapThongTinChiTietBQL";
 import DangKyTaiKhoanBQL from "../../containers/banquanli/DangKyTaiKhoanBQL";
 import TabBQL from "./TabBQL";
-import Nha from "../../containers/banquanli/menuleft/Nha";
+import Nha from "../../containers/banquanli/menuleft/NhaBQL";
 import QuanLyTaiKhoan from "../../containers/banquanli/menuleft/QuanLyTaiKhoan";
 import BanQuanLy from "../../containers/banquanli/menuleft/BanQuanLy";
 import TiepNhanSuCoCuDan from "../../containers/banquanli/menuleft/TiepNhanSuCoCuDan";
@@ -46,7 +46,7 @@ const StackBQL = StackNavigator({
         // }
     },
     Nha: {
-        screen: Nha,
+        screen: NhaBQL,
         navigationOptions: {
             title: 'Nhà'
         }

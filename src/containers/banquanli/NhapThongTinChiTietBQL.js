@@ -12,7 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import stylesContainer from "../../components/style";
 
 
-export default class NhapThongTinChiTiet extends Component {
+export default class NhapThongTinChiTietBQL extends Component {
     constructor(props){
         super(props)
         this.state = {

@@ -1,7 +1,7 @@
 import {TabNavigator} from 'react-navigation'
 import KDTGanBan from "../../containers/nhacungcap/KDTGanBan";
-import RaoVat from "../../containers/nhacungcap/RaoVat";
-import TinNhan from "../../containers/nhacungcap/TinNhan";
+import RaoVat from "../../containers/nhacungcap/RaoVatNCC";
+import TinNhan from "../../containers/nhacungcap/TinNhanNCC";
 
 const TabNCC = TabNavigator({
     KDTGanBan: {

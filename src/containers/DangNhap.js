@@ -78,10 +78,13 @@ class DangNhap extends Component {
     //     })
     //     // this.props.navigation.navigate('TabCuDan')
     // }
+
     Login() {
         const { callApiLogin } = this.props;
         callApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
             data = JSON.parse(dataLogin);
+            
+
             // console.log('Log2', this.props.USER[0].dataLogin)
             // console.log('data', data.Value[0].UserID)
             if(data.IsError === false && data.ErrorCode === "00"){
@@ -102,7 +105,8 @@ class DangNhap extends Component {
                     { cancelable: false }
                 )
             }
-        })
+        },
+            )
 
     }
     render(){

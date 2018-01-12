@@ -14,7 +14,7 @@ import stylesContainer from "../../../components/style";
 
 
 
-class Nha extends Component {
+class NhaBQL extends Component {
     componentWillMount() {
         data = this.props.UserBQL[0].dataLogin
         data = JSON.parse(data);
@@ -99,8 +99,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-Nha = connect(mapStateToProps, mapDispatchToProps)(Nha);
-export default Nha;
+NhaBQL = connect(mapStateToProps, mapDispatchToProps)(NhaBQL);
+export default NhaBQL;
 const styles = StyleSheet.create({
     circle: {
         marginTop: 15,

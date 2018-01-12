@@ -4,7 +4,7 @@ import {
     Text,
 } from 'react-native'
 
-export default class DichVu extends Component {
+export default class DichVuCuDan extends Component {
     render(){
         return(
             <View>

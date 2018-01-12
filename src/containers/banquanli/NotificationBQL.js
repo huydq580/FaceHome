@@ -3,11 +3,12 @@ import {
     View,
     Text
 } from 'react-native';
-export default class RaoVat extends Component {
+
+export default class NotificationBQL extends Component {
     render (){
-        return(
+        return (
             <View>
-                <Text>Rao vặt</Text>
+                <Text>Notification</Text>
             </View>
         );
     }

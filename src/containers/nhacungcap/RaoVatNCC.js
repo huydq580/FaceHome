@@ -3,14 +3,12 @@ import {
     View,
     Text
 } from 'react-native';
-
-export default class TinNhan extends Component {
+export default class RaoVatNCC extends Component {
     render (){
-        return (
+        return(
             <View>
-                <Text>Tin nhắn</Text>
+                <Text>Rao vặt</Text>
             </View>
         );
-
     }
 }

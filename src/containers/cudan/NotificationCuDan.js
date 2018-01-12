@@ -4,11 +4,11 @@ import {
     Text,
 } from 'react-native'
 
-export default class TinNhan extends Component {
+export default class NotificationCuDan extends Component {
     render(){
         return(
             <View>
-                <Text>Tin Nhan</Text>
+                <Text>Notification</Text>
                 <Text></Text>
             </View>
         )

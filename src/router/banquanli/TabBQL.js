@@ -1,8 +1,8 @@
 import {TabNavigator} from 'react-navigation'
-import SanhChinh from "../../containers/banquanli/SanhChinh";
+import SanhChinh from "../../containers/banquanli/SanhChinhBQL";
 import QuanLyCuDan from "../../containers/banquanli/QuanLyCuDan";
-import DichVu from "../../containers/banquanli/DichVu";
-import Notification from "../../containers/banquanli/Notification";
+import DichVu from "../../containers/banquanli/DichVuBQL";
+import Notification from "../../containers/banquanli/NotificationBQL";
 import MenuLeftBQL from "../../containers/banquanli/MenuLeftBQL";
 
 const TabBQL = TabNavigator({

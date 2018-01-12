@@ -4,12 +4,13 @@ import {
     Text
 } from 'react-native';
 
-export default class Notification extends Component {
+export default class TinNhanNCC extends Component {
     render (){
         return (
             <View>
-                <Text>Notification</Text>
+                <Text>Tin nhắn</Text>
             </View>
         );
+
     }
 }
