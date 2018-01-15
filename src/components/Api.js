@@ -23,3 +23,6 @@ export const SearchDanCu = "api/DanCu/SearchDanCu";
 export const ChuyenDiaDiem = "api/DanCu/ChuyenDiaDiem";
 export const ChangePasswordCuDan = "api/DanCu/ChangePassword";
 export const UpdateProfileCuDan = "api/DanCu/UpdateProfile";
+
+//AroundKDT
+export const AroundKdtInfo = "api/AroundKDT/AroundKdtInfo";

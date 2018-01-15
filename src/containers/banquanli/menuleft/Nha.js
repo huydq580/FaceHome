@@ -16,32 +16,31 @@ import stylesContainer from "../../../components/style";
 
 class Nha extends Component {
     componentWillMount() {
-        data = this.props.UserBQL[0].dataLogin
-        data = JSON.parse(data);
-        // console.log('wtf', data.Value[0].UserID)
-        // console.log('hihi', this.props.UserBQL[0].dataLogin)
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        // console.log('userbql', UserBQL.payload[0].UserID)
         const {callApiNha} = this.props;
-        callApiNha(data.Value[0].UserID, data.Value[0].Type).then(dataNha => {
-            dataNhaBQL = JSON.parse(dataNha);
+        callApiNha(UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
+            // dataNhaBQL = JSON.parse(dataNha);
             // console.log('data', dataNhaBQL)
         })
-        dataInfoBQL= this.props.infoBQL;
-        console.log('dataInfo', dataInfoBQL)
     }
     render (){
         console.log('render')
-        // console.log("infoBQL", this.props.infoBQL)
-
-        // console.log('data Details', dataInfoBQL[0].dataNha)
-
+        const { infoBQL } = this.props;
+        if (infoBQL.length <= 0) {
+            return null;
+        }
+        console.log('infoBQL', infoBQL[0].FullName)
         return (
-
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
                     <View style = {styles.circle}>
                         <Text>Avatar</Text>
                     </View>
-                    <Text style = {{color:'red', fontSize: 20}}>Nguyễn Văn A</Text>
+                    <Text style = {{color:'red', fontSize: 20}}>{infoBQL[0].FullName}</Text>
                 </View>
                 <TouchableOpacity style = {styles.Touch}
                                     onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanBQL')}>
@@ -55,12 +54,12 @@ class Nha extends Component {
                 }}>
                     <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
                     <View style = {{flexDirection:'row', marginLeft:10,}}>
-                        <Text style = {{color: 'white', fontSize:15}}>Địa chỉ:</Text>
-                        <Text></Text>
+                        <Text style = {{color: 'white', fontSize:15}}>Tên:</Text>
+                        <Text>{infoBQL[0].FullName}</Text>
                     </View>
                     <View style = {{flexDirection:'row', marginLeft:10, }}>
                         <Text style = {{color: 'white',fontSize:15}}>Số điện thoại:</Text>
-                        <Text></Text>
+                        <Text>{infoBQL[0].Phone}</Text>
                     </View>
                 </View>
                 <View style = {styles.viewItem}>

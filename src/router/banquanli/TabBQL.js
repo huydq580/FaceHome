@@ -4,6 +4,8 @@ import QuanLyCuDan from "../../containers/banquanli/QuanLyCuDan";
 import DichVu from "../../containers/banquanli/DichVu";
 import Notification from "../../containers/banquanli/Notification";
 import MenuLeftBQL from "../../containers/banquanli/MenuLeftBQL";
+const DEVICE_WIDTH = Dimensions.get('window').width;
+import Dimensions from 'Dimensions';
 
 const TabBQL = TabNavigator({
     SanhChinh:{
@@ -40,6 +42,7 @@ const TabBQL = TabNavigator({
     {
         tabBarPosition: 'bottom',
         animationEnabled: true,
+        scrollEnable: true,
         tabBarOptions: {
             upperCaseLabel: false,
             // showIcon: true,
@@ -55,6 +58,10 @@ const TabBQL = TabNavigator({
             style: {
                 backgroundColor: '#ffffff',
             },
+            tabStyle: {
+                width:DEVICE_WIDTH/5,
+            }
+
         }
     }
 )

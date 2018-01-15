@@ -1,16 +1,11 @@
 const LoginReducers = (state = [], action) => {
     switch (action.type) {
         case 'LOGIN':
-            return [
-                ...state,
-                {
-                    id: action.id,
-                    text: action.text,
-                    dataLogin: action.dataLogin,
-                    completed: false,
+            return {
+
+                    payload: action.payload,
 
                 }
-            ]
         default:
             return state
     }

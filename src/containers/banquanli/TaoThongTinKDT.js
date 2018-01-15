@@ -8,7 +8,7 @@ import {
     FlatList,
     TouchableOpacity
 } from 'react-native'
-
+import { connect} from 'react-redux'
 export default class TaoThongTinKDT extends Component {
     constructor(props){
         super(props)

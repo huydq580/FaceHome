@@ -1,12 +1,12 @@
-import { URL } from "../components/Api";
+import {AroundKdtInfo, URL} from "../components/Api";
 
 let nextTodoId = 0
 
 
-export const callApiInfoKDT = (page_size, page_index, kdt_id, type,keyword, option) => {
+export const callApiInfoKDT = (page_size, page_index, kdt_id, type , option) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL+GetProfileBQL, {
+            fetch(URL+ AroundKdtInfo, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -16,7 +16,6 @@ export const callApiInfoKDT = (page_size, page_index, kdt_id, type,keyword, opti
                     page_index: page_index,
                     kdt_id: kdt_id,
                     type: type,
-                    keyword: keyword,
                     option: option,
                     lang_name: "vi_VN"
                 })
@@ -24,7 +23,7 @@ export const callApiInfoKDT = (page_size, page_index, kdt_id, type,keyword, opti
                 return response.json();
             }).then(data => {
                 dispatch({
-                    type: 'INFO_KDT',
+                    type: 'KDT_INFO',
                     id: nextTodoId++,
                     text: 'call api',
                     dataKDTInfo: data,

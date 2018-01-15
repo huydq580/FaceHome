@@ -4,11 +4,14 @@ import {
     Text,
     Image,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView
 } from 'react-native';
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
 import ImageResizer from 'react-native-image-resizer';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default class SoanTin extends Component {
     static navigationOptions = ({navigation}) => {
@@ -34,31 +37,8 @@ export default class SoanTin extends Component {
     show(){
         PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}));
     }
-    // upload(){
-    //     uploadFile([
-    //         { name : 'info', data : 'KhoaPham'},
-    //         { name: 'avatar', filename: 'avatar.png', data: this.state.data }
-    //     ])
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err))
-    // }
     upload (){
-        // console.log('dataImage', this.state.dataImage)
-    }
-    resize() {
-        ImageResizer.createResizedImage(this.state.dataImage.uri, 800, 600, 'JPEG', 80)
-            .then(({uri}) => {
-                this.setState({
-                    resizedImageUri: uri,
-                });
-            }).catch((err) => {
-            console.log(err);
-            return Alert.alert('Unable to resize the photo',
-                'Check the console for full the error message');
-        });
-    }
-    LogResize(){
-        console.log('resize', this.state.resizedImageUri)
+        console.log('dataImage', this.state.dataImage)
     }
     render () {
         let img = this.state.avatarSource == null? null:
@@ -91,14 +71,26 @@ export default class SoanTin extends Component {
                 <TouchableOpacity onPress={this.upload.bind(this)}>
                     <Text style = {{fontSize: 30}}>Upload</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.resize.bind(this)}>
+                <TouchableOpacity>
                     <Text style = {{fontSize: 30}}>resize</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.LogResize.bind(this)}>
+                <TouchableOpacity>
                     <Text style = {{fontSize: 30}}>resizeLog</Text>
                 </TouchableOpacity>
                 <Text>hihi</Text>
                 {img}
+                <KeyboardAvoidingView
+                    // style={styles.container}
+                    // behavior="padding"
+                />
+                <View style = {{flexDirection:'row', marginTop:50}}>
+                    <Text style = {{flex:2}}>Thêm vào bài viết của bạn</Text>
+                    <Icon name="md-images" size={30} color="#900"
+                        style = {{flex:1}}/>
+
+
+                </View>
+                {/*</KeyboardAvoidingView>*/}
             </View>
         );
     }

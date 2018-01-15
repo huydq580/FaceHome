@@ -1,6 +1,5 @@
 import { GetProfileBQL, URL } from "../components/Api";
 
-let nextTodoId = 0
 
 
 export const callApiNha = (user_id, user_type) => {
@@ -19,11 +18,11 @@ export const callApiNha = (user_id, user_type) => {
             }).then((response) => {
                 return response.json();
             }).then(data => {
+                // console.log('datanha1', data)
+                data1 = JSON.parse(data);
                 dispatch({
                     type: 'NHA_BQL',
-                    id: nextTodoId++,
-                    text: 'call api',
-                    dataNha: data,
+                    payload: data1.Value,
                 })
                 resolve(data);
             }).catch(e => {

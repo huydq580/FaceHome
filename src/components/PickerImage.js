@@ -5,6 +5,10 @@ var options = {
     customButtons: [
         {name: 'fb', title: 'Choose Photo from Facebook'},
     ],
+    // title: 'Chọn ảnh',
+    quality: 0.85,
+    maxWidth: 768,
+    maxHeight: 768,
     storageOptions: {
         skipBackup: true,
         path: 'images'

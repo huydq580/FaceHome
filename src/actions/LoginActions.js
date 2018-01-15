@@ -1,13 +1,13 @@
 import {Login, URL} from "../components/Api";
 
-let nextTodoId = 0
-export const addTodo = text => {
-    return {
-        type: 'LOGIN',
-        id: nextTodoId++,
-        text
-    }
-}
+// let nextTodoId = 0
+// export const addTodo = text => {
+//     return {
+//         type: 'LOGIN',
+//         id: nextTodoId++,
+//         text
+//     }
+// }
 
 
 export const callApiLogin = (sdt, mk) => {
@@ -26,12 +26,12 @@ export const callApiLogin = (sdt, mk) => {
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                // console.log('data response', data);
+                data1 = JSON.parse(data);
+                // console.log('data response', data1);
+                // console.log('data response', data.IsError);
                 dispatch({
                     type: 'LOGIN',
-                    id: nextTodoId++,
-                    text: 'call api',
-                    dataLogin: data
+                    payload: data1.Value
                 })
                 resolve(data);
             }).catch(e => {

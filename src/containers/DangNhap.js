@@ -32,59 +32,23 @@ class DangNhap extends Component {
             press: false
         });
     }
-    // Login(){
-    //     const {} = this.props
-    //     fetch(URL + Login , {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify({
-    //             so_dien_thoai: this.state.SoDienThoai,
-    //             mat_khau:this.state.MatKhau,
-    //         })
-    //     })
-    //         .then((response) => response.json())
-    //         .then((dataRes)=> {
-    //             data = JSON.parse(dataRes);
-    //             console.log('data', data)
-    //             // console.log('dataLogin', data.Value)
-    //             // console.log('datavalue', data.Value[0].Type)
-    //             if(data.IsError === false && data.ErrorCode === "00"){
-    //                  this.props.navigation.navigate('LoadData', {data: data})
-    //
-    //             }
-    //             else {
-    //                 this.setState({
-    //                     loading: false,
-    //                     error: true
-    //                 })
-    //                 Alert.alert(
-    //                     'Error',
-    //                     'Đăng nhập thất bại',
-    //                     [
-    //                         {text: 'OK', onPress: () => console.log('OK Pressed')},
-    //                     ],
-    //                     { cancelable: false }
-    //                 )
-    //             }
-    //
-    //
-    //         }).catch((erro)=> {
-    //         this.setState({
-    //             loading: false,
-    //             error: true
-    //         })
-    //     })
-    //     // this.props.navigation.navigate('TabCuDan')
-    // }
+   componentDidMount(){
+       //  console.log('component did mount')
+       //  const { User } = this.props;
+       //  console.log('user', User)
+       // if (User.length <= 0) {
+       //     return null;
+       // }
+
+   }
     Login() {
         const { callApiLogin } = this.props;
         callApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
             data = JSON.parse(dataLogin);
             // console.log('Log2', this.props.USER[0].dataLogin)
-            // console.log('data', data.Value[0].UserID)
+            console.log('data', data)
             if(data.IsError === false && data.ErrorCode === "00"){
+
                 this.props.navigation.navigate('LoadData', {data: data})
 
             }
@@ -109,7 +73,6 @@ class DangNhap extends Component {
         return (
             <View style = {{flex:1, backgroundColor:'white'}}>
                 <View style = {{flex:2, alignItems:'center',justifyContent: 'center', borderWidth:1}}>
-                    <Text>Banner ảnh</Text>
                     <Text>Banner ảnh</Text>
                 </View>
                 <View style = {{flex:5, alignItems: 'center'}}>
@@ -164,7 +127,7 @@ class DangNhap extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        // USER: state.LoginReducers
+        User: state.LoginReducers
     }
 };
 

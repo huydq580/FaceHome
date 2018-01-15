@@ -23,9 +23,6 @@ export default class NhapThongTinChiTiet extends Component {
             hotline: '',
         }
     }
-    TiepTuc(){
-
-    }
     render(){
         const { params } = this.props.navigation.state;
         return(
