@@ -1,11 +1,11 @@
-import {TabNavigator} from 'react-navigation'
+import {TabNavigator} from 'react-navigation';
+import { Dimensions } from 'react-native';
 import SanhChinh from "../../containers/banquanli/SanhChinh";
 import QuanLyCuDan from "../../containers/banquanli/QuanLyCuDan";
 import DichVu from "../../containers/banquanli/DichVu";
 import Notification from "../../containers/banquanli/Notification";
 import MenuLeftBQL from "../../containers/banquanli/MenuLeftBQL";
 const DEVICE_WIDTH = Dimensions.get('window').width;
-import Dimensions from 'Dimensions';
 
 const TabBQL = TabNavigator({
     SanhChinh:{
@@ -59,7 +59,7 @@ const TabBQL = TabNavigator({
                 backgroundColor: '#ffffff',
             },
             tabStyle: {
-                width:DEVICE_WIDTH/5,
+                width: DEVICE_WIDTH/5,
             }
 
         }

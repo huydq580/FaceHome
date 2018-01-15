@@ -5,32 +5,55 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native';
+import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
 
-export default class ThongTinCaNhanBQL extends Component {
+class ThongTinCaNhanBQL extends Component {
     constructor(props) {
         super(props)
         this.state = {
             edit: false,
-            Ten: 'Nguyễn Văn A',
-            ChucVu: 'Thành viên BQL',
-            NgaySinh: '03/01/1995',
-            GioiTinh: 'Nam',
-            SoCMT: '163313240',
-            SoDT: '0963250395',
-            Email: 'anhhieuuet@gmail.com',
-            SoHotlineQBL: '12345678',
-            NgayThamGia: '08/10/2017',
+            Ten: '',
+            ChucVu: '',
+            NgaySinh: '',
+            GioiTinh: '',
+            SoCMT: '',
+            SoDT: '',
+            Email: '',
+            SoHotlineQBL: '',
+            NgayThamGia: '',
         }
     }
+    componentWillMount(){
+        const { infoBQL } = this.props;
+        if (infoBQL.length <= 0) {
+            return null;
+        }
+        this.setState({
+            Ten: infoBQL[0].FullName ,
+            ChucVu: infoBQL[0].FullName,
+            NgaySinh: infoBQL[0].BirdDate,
+            GioiTinh: infoBQL[0].FullName,
+            SoCMT: infoBQL[0].CMND,
+            SoDT: infoBQL[0].Phone,
+            Email: infoBQL[0].Email,
+            SoHotlineQBL: infoBQL[0].HotLine,
+            NgayThamGia: infoBQL[0].CreatedTime,
+        })
+    }
     render (){
+        const { infoBQL } = this.props;
+        if (infoBQL.length <= 0) {
+            return null;
+        }
+        console.log('infoBQL', infoBQL[0])
         return(
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
                     <View style = {styles.circle}>
                         <Text>Avatar</Text>
                     </View>
-                    <Text style = {{color:'red', fontSize: 20}}>Nguyễn Văn A</Text>
+                    <Text style = {{color:'red', fontSize: 20}}>{infoBQL[0].FullName}</Text>
                 </View>
                 <View style = {styles.viewcon}>
                     <Text style = {styles.textL}>Tên: </Text>
@@ -119,6 +142,21 @@ export default class ThongTinCaNhanBQL extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        infoBQL: state.NhaBQLReducers
+    }
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         // addTodo: bindActionCreators(addTodo, dispatch),
+//         callApiNha: bindActionCreators(callApiNha, dispatch)
+//     }
+// };
+
+ThongTinCaNhanBQL = connect(mapStateToProps)(ThongTinCaNhanBQL);
+export default ThongTinCaNhanBQL;
 const styles = StyleSheet.create({
     circle: {
         marginTop: 15,

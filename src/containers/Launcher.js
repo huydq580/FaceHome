@@ -5,8 +5,9 @@ import {
     Image,
     AsyncStorage
 } from 'react-native';
+import { connect } from 'react-redux'
 
-export default class Launcher extends Component{
+class Launcher extends Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -14,6 +15,11 @@ export default class Launcher extends Component{
         }
     }
     componentWillMount(){
+        // const { UserBQL } = this.props;
+        // if (UserBQL.length <= 0) {
+        //     return null;
+        // }
+        // console.log('userblq', UserBQL)
         setTimeout(()=> {
             this.setState({
                 isTime: true
@@ -23,12 +29,13 @@ export default class Launcher extends Component{
 
     }
     pushScreen(){
-        AsyncStorage.getItem('token').then((value)=>{
+        AsyncStorage.getItem('UserID').then((value)=>{
+            console.log('value', value)
             if(value){
-                this.props.navigation.navigate('Tab')
+                this.props.navigation.navigate('LoadData')
             }
             else {
-                this.props.navigation.navigate(('Login'))
+                this.props.navigation.navigate(('DangNhap'))
             }
         })
     }
@@ -41,3 +48,11 @@ export default class Launcher extends Component{
 
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
+        // infoBQL: state.NhaBQLReducers
+    }
+};
+Launcher = connect(mapStateToProps)(Launcher);
+export default Launcher

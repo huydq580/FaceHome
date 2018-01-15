@@ -6,18 +6,25 @@ import {
     Alert,
     TouchableOpacity
 } from 'react-native';
+import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-export default class LoadData extends Component {
+class LoadData extends Component {
     constructor(props){
         super(props)
         this.state = {
         }
     }
     componentWillMount(){
-        const {params} = this.props.navigation.state;
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        // console.log('userblq', UserBQL.payload[0].Type)
+
+        // const {params} = this.props.navigation.state;
         setTimeout(()=> {
-            if (params.data.Value[0].Type ===1){
+            if (UserBQL.payload[0].Type ===1){
                 // this.props.navigation.navigate('TabBQL')
                 const resetAction = NavigationActions.reset({
                     index: 0,
@@ -29,7 +36,7 @@ export default class LoadData extends Component {
                 });
                 this.props.navigation.dispatch(resetAction)
             }
-            else if(params.data.Value[0].Type ===2){
+            else if(UserBQL.payload[0].Type ===2){
                 // this.props.navigation.navigate('TabCuDan')
                 const resetAction = NavigationActions.reset({
                     index: 0,
@@ -41,7 +48,7 @@ export default class LoadData extends Component {
                 });
                 this.props.navigation.dispatch(resetAction)
             }
-            else if (params.data.Value[0].Type ===3){
+            else if (UserBQL.payload[0].Type ===3){
                 // this.props.navigation.navigate(('TabNCC'))
                 const resetAction = NavigationActions.reset({
                     index: 0,
@@ -66,3 +73,11 @@ export default class LoadData extends Component {
     }
 
 }
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
+        // infoBQL: state.NhaBQLReducers
+    }
+};
+LoadData = connect(mapStateToProps)(LoadData);
+export default LoadData

@@ -28,12 +28,12 @@ class Nha extends Component {
         })
     }
     render (){
-        console.log('render')
+        // console.log('render')
         const { infoBQL } = this.props;
         if (infoBQL.length <= 0) {
             return null;
         }
-        console.log('infoBQL', infoBQL[0].FullName)
+        // console.log('infoBQL', infoBQL[0].FullName)
         return (
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
