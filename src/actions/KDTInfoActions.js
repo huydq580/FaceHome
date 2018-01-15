@@ -1,6 +1,5 @@
 import {AroundKdtInfo, URL} from "../components/Api";
 
-let nextTodoId = 0
 
 
 export const callApiInfoKDT = (page_size, page_index, kdt_id, type , option) => {
@@ -24,9 +23,7 @@ export const callApiInfoKDT = (page_size, page_index, kdt_id, type , option) => 
             }).then(data => {
                 dispatch({
                     type: 'KDT_INFO',
-                    id: nextTodoId++,
-                    text: 'call api',
-                    dataKDTInfo: data,
+                    payload: data,
                 })
                 resolve(data);
             }).catch(e => {

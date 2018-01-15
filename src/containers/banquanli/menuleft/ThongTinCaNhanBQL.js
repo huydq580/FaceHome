@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
     viewcon: {
         flexDirection: 'row',
         marginTop: 20,
+        alignItems: 'center'
     },
     textL: {
         marginLeft: 15,

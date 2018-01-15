@@ -12,14 +12,17 @@ import { callApiInfoKDT } from "../../../actions/KDTInfoActions";
 
 class ThongTinKhuDoThi extends Component {
     GetInfoKDT (){
-        data = this.props.UserBQL[0].dataLogin
-        data = JSON.parse(data);
-        console.log('KDTID',data.Value[0].KDTID )
-        console.log('Type',data.Value[0].Type )
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        // console.log('userbql', UserBQL.payload[0])
         const { callApiInfoKDT } = this.props;
-        callApiInfoKDT(100, 1, data.Value[0].KDTID, data.Value[0].Type, 0).then(dataKDTInfo => {
+        callApiInfoKDT(100, 1, UserBQL.payload[0].KDTID, UserBQL.payload[0].Type, 0).then(dataKDTInfo => {
             console.log('dataInfo', dataKDTInfo)
+
         })
+        this.props.navigation.navigate('ChiTietThongTinKDT')
     }
     render (){
         return (

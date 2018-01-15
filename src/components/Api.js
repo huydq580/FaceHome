@@ -10,6 +10,11 @@ export const CreateKDT = "api/KDT/CreateKDT"
 //BQL
 export const RegisterBQL = "api/bql/register";
 export const GetProfileBQL = "api/BQL/GetProfile";
+export const CreateAcc = "api/BQL/CreateAcc";
+export const SearchBql = "api/BQL/SearchBql";
+export const ChangePassword = "api/BQL/ChangePassword";
+export const UpdateProfile = "api/BQL/UpdateProfile";
+
 
 //NCC
 export const RegisterNCC   = "api/Ncc/Register";

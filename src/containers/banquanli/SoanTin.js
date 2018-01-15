@@ -65,28 +65,24 @@ export default class SoanTin extends Component {
                                    placeholderTextSize = "20"/>
                     </View>
                 </View>
-                <TouchableOpacity onPress={this.show.bind(this)}>
-                    <Text  style = {{fontSize: 30}}>Show Image Picker</Text>
-                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={this.show.bind(this)}>*/}
+                    {/*<Text  style = {{fontSize: 30}}>Show Image Picker</Text>*/}
+                {/*</TouchableOpacity>*/}
                 <TouchableOpacity onPress={this.upload.bind(this)}>
                     <Text style = {{fontSize: 30}}>Upload</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style = {{fontSize: 30}}>resize</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style = {{fontSize: 30}}>resizeLog</Text>
-                </TouchableOpacity>
-                <Text>hihi</Text>
+
                 {img}
                 <KeyboardAvoidingView
                     // style={styles.container}
                     // behavior="padding"
                 />
-                <View style = {{flexDirection:'row', marginTop:50}}>
+                <View style = {{flexDirection:'row', marginTop:50, minHeight:50}}>
                     <Text style = {{flex:2}}>Thêm vào bài viết của bạn</Text>
-                    <Icon name="md-images" size={30} color="#900"
-                        style = {{flex:1}}/>
+                    <TouchableOpacity onPress={this.show.bind(this)}>
+                        <Icon name="md-images" size={30} color="#900"
+                             style = {{flex:1}}/>
+                    </TouchableOpacity>
 
 
                 </View>

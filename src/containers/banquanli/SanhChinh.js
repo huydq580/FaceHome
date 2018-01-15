@@ -6,14 +6,82 @@ import {
     TextInput,
     ScrollView,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList
 } from 'react-native';
 import stylesContainer from "../../components/style";
 import images from "../../components/images"
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon1 from 'react-native-vector-icons/EvilIcons';
 
 
 export default class SanhChinh extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            dataItem :
+                [
+                    {
+                        "status": "Một con vit xòe ra 2 cái cánh",
+                        "like": "11",
+                        'comment': '30',
+                    },
+                    {
+                        "status": "Bà ơi bà cháu yêu bà lắm, tóc bà trắng màu trắng màu trắng như mây, cháu yêu bà cháu nắm bàn tay.",
+                        "like": "55",
+                        'comment': '20',
+                    },
+                    {
+                        "status": "wtf",
+                        "like": "66",
+                        'comment': '10',
+                    },
+
+                ],
+
+        }
+    }
+    CommentItem = ({item}) => (
+        <View>
+            <View>
+                <View style  = {{flexDirection:'row', marginTop: 15}}>
+                    <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                           style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
+                    </Image>
+                    <View style = {{marginLeft: 10}}>
+                        <Text style = {{color: 'black'}}>Nguyễn Văn A</Text>
+                        <Text>1 giờ trước</Text>
+                    </View>
+                </View>
+                <View style = {{marginHorizontal: 10, marginTop:10}}>
+                    <Text>{item.status}</Text>
+                </View>
+                <View style = {{flexDirection:'row', marginTop:20}}>
+                    <View style = {{flex:1, flexDirection:'row'}}>
+                        <Icon1 name="like" size={25} color="#424242" />
+                        <Text>{item.like}</Text>
+                    </View>
+                    <View style = {{flex:1, flexDirection:'row'}}>
+                        {/*<Icon1 name="comment" size={25} color="#424242" />*/}
+                        <Text>bình luận</Text>
+                    </View>
+
+                </View>
+                <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
+                <View style ={{flexDirection:'row', marginTop:5}}>
+                    <View style = {{flex:1, flexDirection:'row'}}>
+                        <Icon1 name="like" size={25} color="#424242" />
+                        <Text>Thích</Text>
+                    </View>
+                    <View style = {{flex:1, flexDirection:'row'}}>
+                        <Icon1 name="comment" size={25} color="#424242" />
+                        <Text>Bình luận</Text>
+                    </View>
+                </View>
+            </View>
+            <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
+        </View>
+    )
     render (){
         return (
             <ScrollView style = {stylesContainer.container}>
@@ -24,11 +92,11 @@ export default class SanhChinh extends Component {
                 {/*</View>*/}
                 {/*<View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>*/}
                 <View>
-                    <View style  = {{flexDirection:'row', marginTop: 15, justifyContent:'center'}}>
+                    <View style  = {{flexDirection:'row', marginTop: 15}}>
                         <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
                                style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
                         </Image>
-                        <View style = {{marginLeft: 10, borderWidth: 1, justifyContent:'center', borderColor: '#cccccc', borderRadius:20}}>
+                        <View style = {{marginLeft: 10, borderWidth: 1, borderColor: '#cccccc', borderRadius:20, flex:1,justifyContent:'center' ,alignItems:'center'}}>
                             <TouchableOpacity onPress = {()=>this.props.navigation.navigate('SoanTin')}>
                                 <Text>Soạn đăng bản tin cho KĐT</Text>
                             </TouchableOpacity>
@@ -37,102 +105,12 @@ export default class SanhChinh extends Component {
                     </View>
                 </View>
                 <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
-                <View>
-                    <View style  = {{flexDirection:'row', marginTop: 15}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                                style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
-                        </Image>
-                        <View style = {{marginLeft: 10}}>
-                            <Text style = {{color: 'black'}}>Nguyễn Văn A</Text>
-                            <Text>1 giờ trước</Text>
-                        </View>
-                    </View>
-                    <View style = {{marginHorizontal: 10, marginTop:10}}>
-                        <Text>Chân anh lang thang kiếm em ở khắp chốn, nước mắt trào biết em giờ ở nơi đâu, đôi khi cô đơn giết anh từng cơn em hỡi</Text>
-                    </View>
-                </View>
-                <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
-                <View>
-                    <View style  = {{flexDirection:'row', marginTop: 15}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                               style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
-                        </Image>
-                        <View style = {{marginLeft: 10}}>
-                            <Text style = {{color: 'black'}}>Nguyễn Thị C</Text>
-                            <Text>1 giờ trước</Text>
-                        </View>
-                    </View>
-                    <View style = {{marginHorizontal: 10, marginTop:10}}>
-                        <Text>Anh ước gì cánh tay mình đừng buông ra, chạy theo em ở nơi trời xa, chạy đi đâu để có niềm vui vùi chôn nỗi buồn</Text>
-                    </View>
-                </View>
-                <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
-                <View>
-                    <View style  = {{flexDirection:'row', marginTop: 15}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                               style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
-                        </Image>
-                        <View style = {{marginLeft: 10}}>
-                            <Text style = {{color: 'black'}}>Nguyễn Văn B</Text>
-                            <Text>1 giờ trước</Text>
-                        </View>
-                    </View>
-                    <View style = {{marginHorizontal: 10, marginTop:10}}>
-                        <Text>Lá kia sao lòng em vậy thay, anh ở lại để ôm một mình nhớ thương, ngày không em lòng anh tựa đông, giá băng theo chiều tan màu mưa.</Text>
-                    </View>
-                </View>
-                <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
-                <View>
-                    <View style  = {{flexDirection:'row', marginTop: 15}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                               style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
-                        </Image>
-                        <View style = {{marginLeft: 10}}>
-                            <Text style = {{color: 'black'}}>Nguyễn Văn D</Text>
-                            <Text>1 giờ trước</Text>
-                        </View>
-                    </View>
-                    <View style = {{marginHorizontal: 10, marginTop:10}}>
-                        <Text>Bà ơi bà cháu yêu bà lắm, tóc bà trắng, màu trắng như mây, cháu yêu bà cháu nắm bàn tay khi cháu vâng lời cháu biết bà vui</Text>
-                    </View>
-                </View>
+                <FlatList
+                    data = {this.state.dataItem}
+                    renderItem={this.CommentItem}
+                    keyExtractor={(item, index) => index}
+                />
 
-
-
-
-                {/*<View style = {[styles.viewItem, {marginTop:20}]}>*/}
-                    {/*<Text>Bản tin số 1</Text>*/}
-                {/*</View>*/}
-                {/*<View style = {styles.viewItem}>*/}
-                    {/*<Text>Bản tin số 2</Text>*/}
-                {/*</View>*/}
-                {/*<View style = {styles.viewItem}>*/}
-                    {/*<Text>Bản tin số 3</Text>*/}
-                {/*</View>*/}
-                {/*<View style = {styles.viewItem}>*/}
-                    {/*<TextInput placeholder = 'Soạn bài đăng cho KĐT tại đây '*/}
-                               {/*underlineColorAndroid="transparent"*/}
-                               {/*style = {{flex:5}}*/}
-                               {/*/>*/}
-                    {/*<View style = {{flex:1,borderWidth:1, backgroundColor: '#42A5F5', width:100,height:40,*/}
-                        {/*alignItems:'center', justifyContent:'center'}}>*/}
-                        {/*<Text>Đăng</Text>*/}
-                    {/*</View>*/}
-                {/*</View>*/}
-                {/*<Text style = {{marginLeft:20}}>+Tạo sự kiện</Text>*/}
-
-                {/*<View style = {[styles.viewItem, {marginTop:20}]}>*/}
-                    {/*<Text>Bài đăng của cư dân trong KĐT</Text>*/}
-                {/*</View>*/}
-                {/*<View style = {styles.viewItem}>*/}
-                    {/*<Text>Bài đăng của cư dân trong KĐT</Text>*/}
-                {/*</View>*/}
-                {/*<View style = {styles.viewItem}>*/}
-                    {/*<Text>Bài đăng của cư dân trong KĐT</Text>*/}
-                {/*</View>*/}
-                {/*<View style = {styles.viewItem}>*/}
-                    {/*<Text>Bài đăng của cư dân trong KĐT</Text>*/}
-                {/*</View>*/}
 
 
 
