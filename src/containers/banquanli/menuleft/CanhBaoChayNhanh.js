@@ -11,7 +11,7 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Communications from 'react-native-communications';
-import {callApiCanhBaoChay} from "../../../actions/CanhBaoChayNhanhActions";
+import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/CanhBaoChayNhanhActions";
 
 class CanhBaoChayNhanh extends Component {
     constructor(props){
@@ -20,37 +20,22 @@ class CanhBaoChayNhanh extends Component {
             CanhBao: '',
             UserBQL1:'',
             placeholdeText: '',
-            data: [
-                {
-                    stt: '1',
-                    ngay: '16/01/2018',
-                    hoten: 'Nguyen Van A'
-                },
-                {
-                    stt: '2',
-                    ngay: '19/01/2018',
-                    hoten: 'Nguyen Van B'
-                },
-                {
-                    stt: '3',
-                    ngay: '26/01/1995',
-                    hoten: 'Nguyen Van C'
-                },
-
-
-            ]
+            data: []
 
         }
     }
     componentWillMount(){
-        const { UserBQL } = this.props;
+        const { UserBQL, callApiSearchCanhBaoChay } = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
-        // this.setState({
-        //     UserBQL1: UserBQL.payload[0]
-        // })
-        // console.log('userbbql', UserBQL)
+        callApiSearchCanhBaoChay(UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID).then((dataSearch) => {
+            dataSearch1 = JSON.parse(dataSearch);
+            console.log('dataSearch', dataSearch1)
+            this.setState({
+                data: dataSearch1.Value
+            })
+        })
     }
     BaoChay () {
         const { UserBQL } = this.props;
@@ -72,12 +57,11 @@ class CanhBaoChayNhanh extends Component {
                 )
 
             }
-
-
-            console.log('dataCanhBaoChay', data)
         })
     }
     render(){
+        const {navigate} = this.props.navigation;
+        // console.log('navigation', this.props.navigation)
         return(
             <View>
                 <View style = {[styles.itemBoder, {minHeight:120}]}>
@@ -101,17 +85,17 @@ class CanhBaoChayNhanh extends Component {
                 <FlatList
                     data = {this.state.data}
                     renderItem = {({item}) =>
-                        <TouchableOpacity onPress = {()=> navigate('ThongTinBaoChay')}>
+                        <TouchableOpacity onPress = {()=> navigate('ChiTietCanhBaoChay')}>
                             <View style = {{flexDirection:'row', marginTop:10}}>
                                 <Text style = {{marginLeft:15}}>
-                                    {item.stt}
+                                    {item.RowNum}
                                 </Text>
                                 <Text style = {{marginLeft:15}}>Ngày </Text>
                                 <Text>
-                                    {item.ngay}
+                                    {item.CreatedDate}
                                 </Text>
                                 <Text style = {{marginLeft:20, color:'red'}}>
-                                    {item.hoten}
+                                    {item.FullName}
                                 </Text>
 
                             </View>
@@ -137,7 +121,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // addTodo: bindActionCreators(addTodo, dispatch),
-        callApiCanhBaoChay: bindActionCreators(callApiCanhBaoChay, dispatch)
+        callApiCanhBaoChay: bindActionCreators(callApiCanhBaoChay, dispatch),
+        callApiSearchCanhBaoChay: bindActionCreators(callApiSearchCanhBaoChay, dispatch)
     }
 };
 
