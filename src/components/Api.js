@@ -31,3 +31,10 @@ export const UpdateProfileCuDan = "api/DanCu/UpdateProfile";
 
 //AroundKDT
 export const AroundKdtInfo = "api/AroundKDT/AroundKdtInfo";
+
+//FireAlarm
+export const PostCanhBaoChay = "api/FireAlarm/PostCanhBaoChay";
+export const SearchCanhBaoChay = "api/FireAlarm/SearchCanhBaoChay";
+export const GetDetail = "api/FireAlarm/GetDetail";
+export const UpdateStatus = "api/FireAlarm/UpdateStatus";
+
