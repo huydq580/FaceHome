@@ -20,6 +20,7 @@ import ChiTietThanhVienBQL from "../../containers/banquanli/menuleft/ChiTietThan
 import TaoThanhVienBQL from "../../containers/banquanli/menuleft/TaoThanhVienBQL";
 import ChiTietThongTinKDT from "../../containers/banquanli/menuleft/ChiTietThongTinKDT";
 import ChiTietCanhBaoChay from "../../containers/banquanli/menuleft/ChiTietCanhBaoChay";
+import ThayDoiMatKhau from "../../containers/banquanli/menuleft/ThayDoiMatKhau";
 
 
 const StackBQL = StackNavigator({
@@ -141,6 +142,12 @@ const StackBQL = StackNavigator({
         screen: ChiTietCanhBaoChay,
         navigationOptions: {
             title: 'Chi tiet canh bao chay'
+        }
+    },
+    ThayDoiMatKhau: {
+        screen: ThayDoiMatKhau,
+        navigationOptions: {
+            title: 'Thay đổi mật khẩu'
         }
     }
 

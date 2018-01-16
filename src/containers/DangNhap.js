@@ -34,15 +34,12 @@ class DangNhap extends Component {
         });
     }
    componentDidMount(){
-       //  console.log('component did mount')
-       //  const { User } = this.props;
-       //  console.log('user', User)
-       // if (User.length <= 0) {
-       //     return null;
-       // }
+
+
 
    }
     Login() {
+        AsyncStorage.setItem('SoDienThoai', this.state.SoDienThoai)
         const { callApiLogin } = this.props;
         callApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
             data = JSON.parse(dataLogin);

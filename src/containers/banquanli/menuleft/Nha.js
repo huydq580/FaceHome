@@ -4,7 +4,8 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    AsyncStorage
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -20,6 +21,7 @@ class Nha extends Component {
         if (UserBQL.length <= 0) {
             return null;
         }
+
         // console.log('userbql', UserBQL.payload[0].UserID)
         const {callApiNha} = this.props;
         callApiNha(UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
