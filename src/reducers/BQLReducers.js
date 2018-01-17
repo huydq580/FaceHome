@@ -1,7 +1,9 @@
 const BQLReducers = (state = [], action) => {
     switch (action.type) {
         case 'BQL':
-            return action.payload;
+            return {
+                payload: action.payload
+            }
         default:
             return state
     }

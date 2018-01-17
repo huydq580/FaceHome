@@ -24,7 +24,7 @@ class Nha extends Component {
 
         // console.log('userbql', UserBQL.payload[0].UserID)
         const {callApiNha} = this.props;
-        callApiNha(UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
+        callApiNha(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
             // dataNhaBQL = JSON.parse(dataNha);
             // console.log('data', dataNhaBQL)
         })

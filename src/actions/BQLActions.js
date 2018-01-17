@@ -21,9 +21,10 @@ export const callApiGetBQL = (kdt_id) => {
             }).then((response) => {
                 return response.json();
             }).then(data => {
+                data1 = JSON.parse(data);
                 dispatch({
                     type: 'BQL',
-                    payload: data.Value
+                    payload: data1.Value
                 })
                 resolve(data);
             }).catch(e => {

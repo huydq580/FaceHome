@@ -6,8 +6,10 @@ import {
     TextInput
 } from 'react-native';
 import stylesContainer from "../../../components/style";
-import {callApiGetBQL} from "../../../actions/BQLActions";
+// import {callApiGetBQL} from "../../../actions/BQLActions";
 import { connect } from 'react-redux'
+import {callApiNha} from "../../../actions/NhaActions";
+import { bindActionCreators } from 'redux'
 
 class ChiTietThanhVienBQL extends Component {
     constructor(props) {
@@ -15,19 +17,36 @@ class ChiTietThanhVienBQL extends Component {
         this.state = {
             edit: false,
             underline : 'transparent',
-            TaiKhoan : '0963250395',
-            Ten: 'Nguyễn Văn A',
-            NgaySinh: '16/01/1995',
-            SoCMT: '163313240',
-            GioiTinh: 'Nam',
-            Email: 'anhhieuuet@gmail.com',
-            ChucVu: 'Thành viên BQL',
-            SoDienThoai: '01682380248',
-            NgayTao: '16/01/2017',
+            TaiKhoan : '',
+            Ten: '',
+            NgaySinh: '',
+            SoCMT: '',
+            GioiTinh: '',
+            Email: '',
+            ChucVu: '',
+            SoDienThoai: '',
+            NgayTao: '',
         }
     }
 
-
+componentWillMount(){
+    const { UserBQL } = this.props;
+    if (UserBQL.length <= 0) {
+        return null;
+    }
+    this.setState({
+        TaiKhoan: UserBQL[0].Phone,
+        Ten: UserBQL[0].FullName,
+        NgaySinh: UserBQL[0].BirdDate,
+        SoCMT: UserBQL[0].CMND,
+        GioiTinh: UserBQL[0].Gender,
+        Email: UserBQL[0].Email,
+        ChucVu: UserBQL[0].Position,
+        SoDienThoai: UserBQL[0].Phone,
+        NgayTao: UserBQL[0].CreatedTime,
+    })
+    // console.log('userid', UserBQL)
+}
 render (){
         return(
             <View style = {stylesContainer.container}>
@@ -118,19 +137,13 @@ render (){
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
-        infoBQL: state.NhaBQLReducers
+        UserBQL: state.NhaBQLReducers
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // addTodo: bindActionCreators(addTodo, dispatch),
-        callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch)
-    }
-};
 
-ChiTietThanhVienBQL = connect(mapStateToProps, mapDispatchToProps)(ChiTietThanhVienBQL);
+
+ChiTietThanhVienBQL = connect(mapStateToProps)(ChiTietThanhVienBQL);
 export default ChiTietThanhVienBQL;
 const styles = StyleSheet.create({
     circle: {

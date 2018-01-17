@@ -2,7 +2,7 @@ import { GetProfileBQL, URL } from "../components/Api";
 
 
 
-export const callApiNha = (user_id, user_type) => {
+export const callApiNha = (profile_id, user_id, user_type) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL+GetProfileBQL, {
@@ -11,6 +11,7 @@ export const callApiNha = (user_id, user_type) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    profile_id: profile_id,
                     user_id: user_id,
                     user_type: user_type,
                     lang_name: "vi_VN"

@@ -29,6 +29,7 @@ class ThongTinCaNhanBQL extends Component {
         if (infoBQL.length <= 0) {
             return null;
         }
+
         this.setState({
             Ten: infoBQL[0].FullName ,
             ChucVu: infoBQL[0].FullName,
@@ -46,7 +47,7 @@ class ThongTinCaNhanBQL extends Component {
         if (infoBQL.length <= 0) {
             return null;
         }
-        console.log('infoBQL', infoBQL[0])
+        // console.log('infoBQL', infoBQL[0])
         return(
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
@@ -144,7 +145,8 @@ class ThongTinCaNhanBQL extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        infoBQL: state.NhaBQLReducers
+        infoBQL: state.NhaBQLReducers,
+        dm: state.BQLReducers
     }
 };
 
