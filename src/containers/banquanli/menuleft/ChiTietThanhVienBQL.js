@@ -6,8 +6,10 @@ import {
     TextInput
 } from 'react-native';
 import stylesContainer from "../../../components/style";
+import {callApiGetBQL} from "../../../actions/BQLActions";
+import { connect } from 'react-redux'
 
-export default class ChiTietThanhVienBQL extends Component {
+class ChiTietThanhVienBQL extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -114,6 +116,22 @@ render (){
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
+        infoBQL: state.NhaBQLReducers
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // addTodo: bindActionCreators(addTodo, dispatch),
+        callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch)
+    }
+};
+
+ChiTietThanhVienBQL = connect(mapStateToProps, mapDispatchToProps)(ChiTietThanhVienBQL);
+export default ChiTietThanhVienBQL;
 const styles = StyleSheet.create({
     circle: {
         marginTop: 15,

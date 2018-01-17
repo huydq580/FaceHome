@@ -6,21 +6,34 @@ import {
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
+import {callApiGetBQL} from "../../../actions/BQLActions";
 
-export default class BanQuanLy extends Component{
+class BanQuanLy extends Component{
     constructor(props){
         super(props)
         this.state = {
-            data : [
-                {stt: 1, Ten: 'Nguyễn Văn A', ChucVu: 'Thành viên BQL', Status: 'Hoạt động'},
-                {stt: 2, Ten: 'Nguyễn Văn B', ChucVu: 'Trưởng BQL', Status: 'Hoạt động'},
-                {stt: 3, Ten: 'Nguyễn Văn C', ChucVu: 'Trưởng BQL', Status: 'Hoạt động'},
-                {stt: 4, Ten: 'Nguyễn Văn D', ChucVu: 'Thành viên BQL', Status: 'Dừng hoạt '}
-                ],
+            data : [],
 
 
         }
+    }
+    componentWillMount() {
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        const { callApiGetBQL } = this.props;
+        callApiGetBQL(UserBQL.payload[0].KDTID).then(dataGetBQL => {
+            dataGetBQL = JSON.parse(dataGetBQL)
+            dataGetBQL = dataGetBQL.Value
+            this.setState({
+                data: dataGetBQL
+            })
+            console.log('datagetBQL', dataGetBQL)
+        })
     }
     render(){
         const { navigate } = this.props.navigation;
@@ -36,16 +49,16 @@ export default class BanQuanLy extends Component{
                         <TouchableOpacity onPress = {()=> navigate('ChiTietThanhVienBQL')}>
                             <View style = {{flexDirection:'row', marginTop: 30,}}>
                                 <View style = {{flex:1, justifyContent:'center'}}>
-                                    <Text style = {styles.textItem}>{item.stt}</Text>
+                                    <Text style = {styles.textItem}>{item.RowNum}</Text>
                                 </View>
                                 <View style = {{flex:3, justifyContent:'center'}}>
-                                    <Text style = {styles.textItem}>{item.Ten}</Text>
+                                    <Text style = {styles.textItem}>{item.FullName}</Text>
                                 </View>
                                 <View style = {{flex:3, justifyContent:'center'}}>
-                                    <Text style = {styles.textItem}>{item.ChucVu}</Text>
+                                    <Text style = {styles.textItem}>{item.Position}</Text>
                                 </View>
                                 <View style = {{flex:3, justifyContent:'center'}}>
-                                    <Text style = {styles.textItem}>{item.Status}</Text>
+                                    <Text style = {styles.textItem}>{item.RowNum}</Text>
                                 </View>
 
                             </View>
@@ -64,6 +77,21 @@ export default class BanQuanLy extends Component{
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // addTodo: bindActionCreators(addTodo, dispatch),
+        callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch)
+    }
+};
+
+BanQuanLy = connect(mapStateToProps, mapDispatchToProps)(BanQuanLy);
+export default BanQuanLy;
 const styles = StyleSheet.create({
     textItem: {
         color: 'black',

@@ -9,7 +9,6 @@ import stylesContainer from "../../../components/style";
 
 export default class QuanLyTaiKhoan extends Component {
     render (){
-        console.log('quan li tai khoan')
         return (
             <View style = {[stylesContainer.container,{justifyContent:'center'}]}>
                 <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ThayDoiMatKhau')}>

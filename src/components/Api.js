@@ -16,6 +16,7 @@ export const ChangePassword = "api/BQL/ChangePassword";
 export const UpdateProfile = "api/BQL/UpdateProfile";
 
 
+
 //NCC
 export const RegisterNCC   = "api/Ncc/Register";
 export const CreateProfileNCC = "api/Ncc/CreateProfile";
