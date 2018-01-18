@@ -5,7 +5,8 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Button
 } from 'react-native';
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
@@ -15,18 +16,28 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 
 export default class SoanTin extends Component {
-    static navigationOptions = ({navigation}) => {
-        const {state} = navigation;
+    // static navigationOptions = ({navigation}) => {
+    //     const {state} = navigation;
+    //     return {
+    //
+    //         headerRight: <TouchableOpacity style = {{marginRight:10}}>
+    //             <Text style = {{color: "#1565C0"}}>Chia sẻ</Text>
+    //         </TouchableOpacity>
+    //     }
+    //
+    //
+    // }
+    static navigationOptions = ({ navigation }) => {
+        const {params = {}} = navigation.state
+
         return {
-
-            headerRight: <TouchableOpacity style = {{marginRight:10}}>
-                <Text style = {{color: "#1565C0"}}>Chia sẻ</Text>
-            </TouchableOpacity>
+            headerRight: <TouchableOpacity style = {{marginRight:10}}
+                                           onPress={() => params.handleSave()}>
+                            <Text style = {{color: "#1565C0"}}>Chia sẻ</Text>
+                         </TouchableOpacity>
         }
-
-
     }
-    constructor(props){
+            constructor(props){
         super (props)
         this.state = {
             Status:'',
@@ -35,6 +46,13 @@ export default class SoanTin extends Component {
             resizedImageUri: '',
         }
     }
+    saveDetails() {
+        console.log('hhhh')
+    }
+    componentDidMount() {
+        this.props.navigation.setParams({ handleSave: this.saveDetails });
+    }
+
     show(){
         PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}));
     }
