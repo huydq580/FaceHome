@@ -7,14 +7,16 @@ import LienLacNhanhBQL from "../../containers/cudan/menuleft/LienLacNhanhBQL";
 import DangKyDichVuKDT from "../../containers/cudan/menuleft/DangKyDichVuKDT";
 import BaoSuCoKDT from "../../containers/cudan/menuleft/BaoSuCoKDT";
 import ThanhToanHoaDon from "../../containers/cudan/menuleft/ThanhToanHoaDon";
-import CanhBaoChayNhanh from "../../containers/cudan/menuleft/CanhBaoChayNhanh";
-import QuanLyTaiKhoan from "../../containers/cudan/menuleft/QuanLyTaiKhoan";
+import CanhBaoChayNhanhCuDan from "../../containers/cudan/menuleft/CanhBaoChayNhanhCuDan";
+import QuanLyTaiKhoanCuDan from "../../containers/cudan/menuleft/QuanLyTaiKhoanCuDan";
 import GioiThieu from "../../containers/cudan/menuleft/GioiThieu";
 import NhaCuDan from "../../containers/cudan/menuleft/NhaCuDan";
 import HangXom from "../../containers/cudan/menuleft/HangXom";
 import RaoVatCuDan from "../../containers/cudan/menuleft/RaoVatCuDan";
 import ThongTinKDTCuDan from "../../containers/cudan/menuleft/ThongTinKDTCuDan";
 import ThongTinCaNhanCuDan from "../../containers/cudan/menuleft/ThongTinCaNhanCuDan";
+import ThayDoiMatKhauCuDan from "../../containers/cudan/menuleft/ThayDoiMatKhauCuDan";
+import ChiTietCanhBaoChayCuDan from "../../containers/cudan/menuleft/ChiTietCanhBaoChayCuDan";
 
 const StackCuDan = StackNavigator({
     // NhapMaXacThuc: {
@@ -68,7 +70,7 @@ const StackCuDan = StackNavigator({
         }
     },
     CanhBaoChayNhanhCuDan: {
-        screen: CanhBaoChayNhanh,
+        screen: CanhBaoChayNhanhCuDan,
         navigationOptions: {
             title: 'Cảnh báo cháy nhanh'
         }
@@ -80,7 +82,7 @@ const StackCuDan = StackNavigator({
         }
     },
     QuanLyTaiKhoanCuDan: {
-        screen: QuanLyTaiKhoan,
+        screen: QuanLyTaiKhoanCuDan,
         navigationOptions: {
             title: 'Quản lý tài khoản'
         }
@@ -101,6 +103,18 @@ const StackCuDan = StackNavigator({
         screen: ThongTinCaNhanCuDan,
         navigationOptions: {
             title: 'Thông tin cá nhân'
+        }
+    },
+    ThayDoiMatKhauCuDan: {
+        screen: ThayDoiMatKhauCuDan,
+        navigationOptions: {
+            title: 'Thay đổi mật khẩu'
+        }
+    },
+    ChiTietCanhBaoChayCuDan: {
+        screen: ChiTietCanhBaoChayCuDan,
+        navigationOptions: {
+            title: 'Chi tiết cảnh báo cháy'
         }
     }
 
