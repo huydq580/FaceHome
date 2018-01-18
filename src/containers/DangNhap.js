@@ -44,7 +44,7 @@ class DangNhap extends Component {
         callApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
             data = JSON.parse(dataLogin);
             // console.log('Log2', this.props.USER[0].dataLogin)
-            console.log('data', data.Value[0].UserID)
+            // console.log('data', data.Value[0].UserID)
             if(data.IsError === false && data.ErrorCode === "00"){
                 AsyncStorage.setItem('UserID', data.Value[0].UserID)
                 this.props.navigation.navigate('LoadData')

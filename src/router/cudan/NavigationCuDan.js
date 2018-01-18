@@ -14,6 +14,7 @@ import NhaCuDan from "../../containers/cudan/menuleft/NhaCuDan";
 import HangXom from "../../containers/cudan/menuleft/HangXom";
 import RaoVatCuDan from "../../containers/cudan/menuleft/RaoVatCuDan";
 import ThongTinKDTCuDan from "../../containers/cudan/menuleft/ThongTinKDTCuDan";
+import ThongTinCaNhanCuDan from "../../containers/cudan/menuleft/ThongTinCaNhanCuDan";
 
 const StackCuDan = StackNavigator({
     // NhapMaXacThuc: {
@@ -94,6 +95,12 @@ const StackCuDan = StackNavigator({
         screen: ThongTinKDTCuDan,
         navigationOptions: {
             title: 'Thông tin khu đô thị'
+        }
+    },
+    ThongTinCaNhanCuDan: {
+        screen: ThongTinCaNhanCuDan,
+        navigationOptions: {
+            title: 'Thông tin cá nhân'
         }
     }
 

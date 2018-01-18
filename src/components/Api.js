@@ -24,7 +24,7 @@ export const UpdateProfileNCC = "api/Ncc/UpdateProfile"
 //CuDan
 
 export const RegisterCuDan = "api/dancu/register";
-export const GetProfile = "api/DanCu/GetProfile";
+export const GetProfileCuDan = "api/DanCu/GetProfile";
 export const SearchDanCu = "api/DanCu/SearchDanCu";
 export const ChuyenDiaDiem = "api/DanCu/ChuyenDiaDiem";
 export const ChangePasswordCuDan = "api/DanCu/ChangePassword";

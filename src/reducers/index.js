@@ -5,6 +5,7 @@ import KDTInfoReducers from './reducersBQl/KDTInfoReducers'
 import CanhBaoChayNhanhReducers from './reducersBQl/CanhBaoChayNhanhReducers'
 import BQLReducers from './reducersBQl/BQLReducers'
 import QLDanCuReducers from './reducersBQl/QLDanCuReducers'
+import NhaCuDanReducers from './reducersCuDan/NhaCuDanReducers'
 
 const appStore = combineReducers({
     LoginReducers,
@@ -13,6 +14,7 @@ const appStore = combineReducers({
     CanhBaoChayNhanhReducers,
     BQLReducers,
     QLDanCuReducers,
+    NhaCuDanReducers,
 
 })
 
