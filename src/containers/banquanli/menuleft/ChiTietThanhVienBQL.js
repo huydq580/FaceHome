@@ -6,10 +6,6 @@ import {
     TextInput
 } from 'react-native';
 import stylesContainer from "../../../components/style";
-// import {callApiGetBQL} from "../../../actions/BQLActions";
-import { connect } from 'react-redux'
-import {callApiNha} from "../../../actions/NhaActions";
-import { bindActionCreators } from 'redux'
 
 class ChiTietThanhVienBQL extends Component {
     constructor(props) {
@@ -30,22 +26,19 @@ class ChiTietThanhVienBQL extends Component {
     }
 
 componentWillMount(){
-    const { UserBQL } = this.props;
-    if (UserBQL.length <= 0) {
-        return null;
-    }
+    const {params} = this.props.navigation.state;
+    // console.log('data', params.dataBQL)
     this.setState({
-        TaiKhoan: UserBQL[0].Phone,
-        Ten: UserBQL[0].FullName,
-        NgaySinh: UserBQL[0].BirdDate,
-        SoCMT: UserBQL[0].CMND,
-        GioiTinh: UserBQL[0].Gender,
-        Email: UserBQL[0].Email,
-        ChucVu: UserBQL[0].Position,
-        SoDienThoai: UserBQL[0].Phone,
-        NgayTao: UserBQL[0].CreatedTime,
+        TaiKhoan: params.dataBQL[0].Phone,
+        Ten:  params.dataBQL[0].FullName,
+        NgaySinh:  params.dataBQL[0].BirdDate,
+        SoCMT:  params.dataBQL[0].CMND,
+        GioiTinh:  params.dataBQL[0].Gender,
+        Email:  params.dataBQL[0].Email,
+        ChucVu:  params.dataBQL[0].Position,
+        SoDienThoai:  params.dataBQL[0].Phone,
+        NgayTao:  params.dataBQL[0].CreatedTime,
     })
-    // console.log('userid', UserBQL)
 }
 render (){
         return(
@@ -135,15 +128,7 @@ render (){
         );
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        UserBQL: state.NhaBQLReducers
-    }
-};
 
-
-
-ChiTietThanhVienBQL = connect(mapStateToProps)(ChiTietThanhVienBQL);
 export default ChiTietThanhVienBQL;
 const styles = StyleSheet.create({
     circle: {

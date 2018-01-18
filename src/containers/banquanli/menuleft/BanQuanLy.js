@@ -39,20 +39,6 @@ class BanQuanLy extends Component{
             // console.log('datagetBQL', dataGetBQL)
         })
     }
-    ChitietBQL({item}) {
-
-        const {chiTietBQL, callApiNha} = this.props
-        if (chiTietBQL.length <= 0) {
-            return null;
-        }
-        console.log('chitietBQL', chiTietBQL)
-        console.log('chitietBQL1', chiTietBQL.payload[0])
-        console.log('chitietBQL', chiTietBQL.payload[{item}])
-        console.log('item', chiTietBQL[item])
-        // callApiNha().then(dataChitietBQL => {
-        //     console.log('dataChitietBQL', dataChitietBQL)
-        // })
-    }
 
 
     render(){
@@ -71,14 +57,16 @@ class BanQuanLy extends Component{
                             if (chiTietBQL.length <= 0) {
                                 return null;
                             }
+                            //lay a  = item = stt - 1
                             a = item.RowNum-1;
-                            console.log('a', a)
+                            // console.log('a', a)
                             // console.log('wtf', chiTietBQL.payload[a])
                             callApiNha(chiTietBQL.payload[a].ProfileID,chiTietBQL.payload[a].UserID).then(dataChitietBQL => {
                                 dataChitietBQL = JSON.parse(dataChitietBQL)
-                                console.log('dataChitietBQL', dataChitietBQL)
+                                this.props.navigation.navigate("ChiTietThanhVienBQL", {dataBQL: dataChitietBQL.Value})
+                                // console.log('dataChitietBQL', dataChitietBQL)
                             })
-                            this.props.navigation.navigate("ChiTietThanhVienBQL")
+
                         }}>
                             <View style = {{flexDirection:'row', marginTop: 30,}}>
                                 <View style = {{flex:1, justifyContent:'center'}}>
