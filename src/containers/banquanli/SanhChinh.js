@@ -68,8 +68,8 @@ export default class SanhChinh extends Component {
 
                 </View>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
-                <View style ={{flexDirection:'row', marginTop:5}}>
-                    <View style = {{flex:1, flexDirection:'row'}}>
+                <View style ={{flexDirection:'row', marginTop:5, justifyContent: 'flex-start'}}>
+                    <View style = {{flex:1, flexDirection:'row', }}>
                         <Icon1 name="like" size={25} color="#424242" />
                         <Text>Thích</Text>
                     </View>

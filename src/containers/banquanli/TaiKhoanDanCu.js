@@ -5,55 +5,51 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native';
-import stylesContainer from "../../../components/style";
+import stylesContainer from "../../components/style";
 
-class ChiTietThanhVienBQL extends Component {
+
+class TaiKhoanDanCu extends Component {
     constructor(props) {
         super(props)
         this.state = {
             edit: false,
             underline : 'transparent',
-            TaiKhoan : '',
-            Ten: '',
-            NgaySinh: '',
-            SoCMT: '',
-            GioiTinh: '',
-            Email: '',
-            ChucVu: '',
-            SoDienThoai: '',
-            NgayTao: '',
+            Ten : '',
+            SoNha : '',
+            Tang : '',
+            Toa : '',
+            QuanHe: '',
+            LoaiHinhNhaO: '',
+            SoDienThoai : '',
+            SoCMT : '',
+            GioiTinh : '',
+            NgaySinh : '',
+            NgayTao : '',
         }
     }
 
-componentWillMount(){
-    const {params} = this.props.navigation.state;
-    // console.log('data', params.dataBQL)
-    this.setState({
-        TaiKhoan: params.dataBQL[0].Phone,
-        Ten:  params.dataBQL[0].FullName,
-        NgaySinh:  params.dataBQL[0].FullName,
-        SoCMT:  params.dataBQL[0].CMND,
-        GioiTinh:  params.dataBQL[0].Gender,
-        Email:  params.dataBQL[0].Email,
-        ChucVu:  '',
-        SoDienThoai:  params.dataBQL[0].Phone,
-        NgayTao:  params.dataBQL[0].CreatedTime,
-    })
-}
-render (){
+    componentWillMount(){
+        const {params} = this.props.navigation.state;
+        // console.log('data', params.dataCuDan)
+        this.setState({
+            Ten : params.dataCuDan[0].FullName,
+            SoNha : '1002',
+            Tang : 'Tầng 1',
+            Toa : "Tòa 17T1",
+            QuanHe: "",
+            LoaiHinhNhaO: "",
+            SoDienThoai : params.dataCuDan[0].Phone,
+            SoCMT : params.dataCuDan[0].CMND,
+            GioiTinh : params.dataCuDan[0].Gender,
+            NgaySinh : params.dataCuDan[0].BirdDate,
+            NgayTao : params.dataCuDan[0].CreatedTime,
+        })
+    }
+    render (){
         return(
             <View style = {stylesContainer.container}>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Tài khoản: </Text>
-                    <TextInput
-                        value = {this.state.TaiKhoan}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
-                </View>
-                <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Họ tên: </Text>
+                    <Text style = {styles.textL}>Tên: </Text>
                     <TextInput
                         value = {this.state.Ten}
                         underlineColorAndroid={this.state.underline}
@@ -62,16 +58,61 @@ render (){
                         style = {styles.textinput}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Ngày Sinh: </Text>
+                    <Text style = {styles.textL}>Số nhà: </Text>
                     <TextInput
-                        value = {this.state.NgaySinh}
+                        value = {this.state.SoNha}
                         underlineColorAndroid={this.state.underline}
                         editable={false}
                         selectTextOnFocus={false}
                         style = {styles.textinput}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Số CMT: </Text>
+                    <Text style = {styles.textL}>Tầng/Lầu: </Text>
+                    <TextInput
+                        value = {this.state.Tang}
+                        underlineColorAndroid={this.state.underline}
+                        editable={false}
+                        selectTextOnFocus={false}
+                        style = {styles.textinput}/>
+                </View>
+                <View style = {styles.viewcon}>
+                    <Text style = {styles.textL}>Tòa: </Text>
+                    <TextInput
+                        value = {this.state.Toa}
+                        underlineColorAndroid={this.state.underline}
+                        editable={false}
+                        selectTextOnFocus={false}
+                        style = {styles.textinput}/>
+                </View>
+                <View style = {styles.viewcon}>
+                    <Text style = {styles.textL}>QuanHe: </Text>
+                    <TextInput
+                        value = {this.state.QuanHe}
+                        underlineColorAndroid={this.state.underline}
+                        editable={false}
+                        selectTextOnFocus={false}
+                        style = {styles.textinput}/>
+                </View>
+                <View style = {styles.viewcon}>
+                    <Text style = {styles.textL}>Loại hình nhà ở: </Text>
+                    <TextInput
+                        value = {this.state.LoaiHinhNhaO}
+                        underlineColorAndroid={this.state.underline}
+                        editable={false}
+                        selectTextOnFocus={false}
+                        style = {styles.textinput}/>
+                </View>
+                <View style = {styles.viewcon}>
+                    <Text style = {styles.textL}>Số điện thoại: </Text>
+                    <TextInput
+                        value = {this.state.SoDienThoai}
+                        underlineColorAndroid={this.state.underline}
+                        editable={false}
+                        selectTextOnFocus={false}
+                        style = {styles.textinput}/>
+                </View>
+                <View style = {styles.viewcon}>
+                    <Text style = {styles.textL}>Số CMT - Hộ chiếu: </Text>
                     <TextInput
                         value = {this.state.SoCMT}
                         underlineColorAndroid={this.state.underline}
@@ -89,34 +130,16 @@ render (){
                         style = {styles.textinput}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Email: </Text>
+                    <Text style = {styles.textL}>Ngày sinh: </Text>
                     <TextInput
-                        value = {this.state.Email}
+                        value = {this.state.NgaySinh}
                         underlineColorAndroid={this.state.underline}
                         editable={false}
                         selectTextOnFocus={false}
                         style = {styles.textinput}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Chức vụ: </Text>
-                    <TextInput
-                        value = {this.state.ChucVu}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
-                </View>
-                <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Số điện thoại: </Text>
-                    <TextInput
-                        value = {this.state.SoDienThoai}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
-                </View>
-                <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Ngày tạo: </Text>
+                    <Text style = {styles.textL}>Ngày tạo tài khoản: </Text>
                     <TextInput
                         value = {this.state.NgayTao}
                         underlineColorAndroid={this.state.underline}
@@ -124,12 +147,12 @@ render (){
                         selectTextOnFocus={false}
                         style = {styles.textinput}/>
                 </View>
-             </View>
+            </View>
         );
     }
 }
 
-export default ChiTietThanhVienBQL;
+export default TaiKhoanDanCu;
 const styles = StyleSheet.create({
     circle: {
         marginTop: 15,

@@ -1,6 +1,6 @@
 const QLDanCuReducers = (state = [], action) => {
     switch (action.type) {
-        case 'BQL':
+        case 'INFO_CUDAN':
             return {
                 payload: action.payload
             }

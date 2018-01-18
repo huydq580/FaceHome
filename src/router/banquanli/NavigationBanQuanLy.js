@@ -21,6 +21,7 @@ import TaoThanhVienBQL from "../../containers/banquanli/menuleft/TaoThanhVienBQL
 import ChiTietThongTinKDT from "../../containers/banquanli/menuleft/ChiTietThongTinKDT";
 import ChiTietCanhBaoChay from "../../containers/banquanli/menuleft/ChiTietCanhBaoChay";
 import ThayDoiMatKhau from "../../containers/banquanli/menuleft/ThayDoiMatKhau";
+import TaiKhoanDanCu from "../../containers/banquanli/TaiKhoanDanCu";
 
 
 const StackBQL = StackNavigator({
@@ -148,6 +149,12 @@ const StackBQL = StackNavigator({
         screen: ThayDoiMatKhau,
         navigationOptions: {
             title: 'Thay đổi mật khẩu'
+        }
+    },
+    TaiKhoanDanCu: {
+        screen: TaiKhoanDanCu,
+        navigationOptions: {
+            title: 'Tài khoản dân cư'
         }
     }
 

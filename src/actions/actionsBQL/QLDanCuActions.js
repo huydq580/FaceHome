@@ -24,9 +24,10 @@ export const callApiSearchDanCu = (kdt_id) => {
                 return response.json();
             }).then(data => {
                 data1 = JSON.parse(data);
+                // console.log('hhh', data1.Value)
                 dispatch({
-                    type: 'BQL',
-                    payload: data.Value
+                    type: 'INFO_CUDAN',
+                    payload: data1.Value
                 })
                 resolve(data);
             }).catch(e => {
