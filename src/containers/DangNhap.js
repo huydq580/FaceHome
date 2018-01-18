@@ -13,7 +13,7 @@ import images from '../components/images'
 import {Login, URL} from "../components/Api";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {callApiLogin} from "../actions/LoginActions";
+import {callApiLogin} from "../actions/actionsBQL/LoginActions";
 
 class DangNhap extends Component {
     constructor(props){

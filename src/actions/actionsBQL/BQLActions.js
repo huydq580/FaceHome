@@ -1,29 +1,30 @@
-import {AroundKdtInfo, URL} from "../components/Api";
+import {SearchBql, URL} from "../../components/Api";
 
-
-
-export const callApiInfoKDT = (page_size, page_index, kdt_id, type , option) => {
+export const callApiGetBQL = (kdt_id) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL+ AroundKdtInfo, {
+            fetch(URL + SearchBql, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    page_size: page_size,
-                    page_index: page_index,
                     kdt_id: kdt_id,
-                    type: type,
-                    option: option,
+                    page_size: 100,
+                    page_index: 1,
+                    from_date: "",
+                    to_date: "",
+                    keyword: "",
+                    status: 255,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {
                 return response.json();
             }).then(data => {
+                data1 = JSON.parse(data);
                 dispatch({
-                    type: 'KDT_INFO',
-                    payload: data,
+                    type: 'BQL',
+                    payload: data1.Value
                 })
                 resolve(data);
             }).catch(e => {

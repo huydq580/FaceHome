@@ -11,7 +11,7 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../components/style";
-import {callApiSearchDanCu} from "../../actions/QLDanCuActions";
+import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 
 class QuanLyCuDan extends Component {
     constructor(props){

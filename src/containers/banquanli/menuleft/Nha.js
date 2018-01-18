@@ -10,7 +10,7 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import {callApiNha} from "../../../actions/NhaActions";
+import {callApiNha} from "../../../actions/actionsBQL/NhaActions";
 import stylesContainer from "../../../components/style";
 
 

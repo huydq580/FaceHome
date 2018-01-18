@@ -1,20 +1,22 @@
-import {SearchBql, URL} from "../components/Api";
+import { SearchDanCu, URL} from "../../components/Api";
 
-export const callApiGetBQL = (kdt_id) => {
+export const callApiSearchDanCu = (kdt_id) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL + SearchBql, {
+            fetch(URL + SearchDanCu, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    kdt_id: kdt_id,
+                    kdt_id: 50,
                     page_size: 100,
                     page_index: 1,
                     from_date: "",
                     to_date: "",
                     keyword: "",
+                    block_id: "",
+                    floor_id: "",
                     status: 255,
                     lang_name: "vi_VN"
                 })
@@ -24,7 +26,7 @@ export const callApiGetBQL = (kdt_id) => {
                 data1 = JSON.parse(data);
                 dispatch({
                     type: 'BQL',
-                    payload: data1.Value
+                    payload: data.Value
                 })
                 resolve(data);
             }).catch(e => {

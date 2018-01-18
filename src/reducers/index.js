@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import LoginReducers from './LoginReducers';
-import NhaBQLReducers from './NhaBQLReducers';
-import KDTInfoReducers from './KDTInfoReducers'
-import CanhBaoChayNhanhReducers from './CanhBaoChayNhanhReducers'
-import BQLReducers from './BQLReducers'
-import QLDanCuReducers from './QLDanCuReducers'
+import LoginReducers from './reducersBQl/LoginReducers';
+import NhaBQLReducers from './reducersBQl/NhaBQLReducers';
+import KDTInfoReducers from './reducersBQl/KDTInfoReducers'
+import CanhBaoChayNhanhReducers from './reducersBQl/CanhBaoChayNhanhReducers'
+import BQLReducers from './reducersBQl/BQLReducers'
+import QLDanCuReducers from './reducersBQl/QLDanCuReducers'
 
 const appStore = combineReducers({
     LoginReducers,

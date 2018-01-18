@@ -1,4 +1,4 @@
-import { GetProfileBQL, URL } from "../components/Api";
+import { GetProfileBQL, URL } from "../../components/Api";
 
 
 

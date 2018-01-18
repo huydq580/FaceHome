@@ -11,7 +11,7 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Communications from 'react-native-communications';
-import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/CanhBaoChayNhanhActions";
+import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/actionsBQL/CanhBaoChayNhanhActions";
 
 class CanhBaoChayNhanh extends Component {
     constructor(props){

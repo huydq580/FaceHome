@@ -1,37 +1,29 @@
-import {Login, URL} from "../components/Api";
-
-// let nextTodoId = 0
-// export const addTodo = text => {
-//     return {
-//         type: 'LOGIN',
-//         id: nextTodoId++,
-//         text
-//     }
-// }
+import {AroundKdtInfo, URL} from "../../components/Api";
 
 
-export const callApiLogin = (sdt, mk) => {
+
+export const callApiInfoKDT = (page_size, page_index, kdt_id, type , option) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL+Login, {
+            fetch(URL+ AroundKdtInfo, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    so_dien_thoai: sdt,
-                    mat_khau: mk,
+                    page_size: page_size,
+                    page_index: page_index,
+                    kdt_id: kdt_id,
+                    type: type,
+                    option: option,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                data1 = JSON.parse(data);
-                // console.log('data response', data1);
-                // console.log('data response', data.IsError);
                 dispatch({
-                    type: 'LOGIN',
-                    payload: data1.Value
+                    type: 'KDT_INFO',
+                    payload: data,
                 })
                 resolve(data);
             }).catch(e => {

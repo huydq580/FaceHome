@@ -8,7 +8,7 @@ import {
 import stylesContainer from "../../../components/style";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { callApiInfoKDT } from "../../../actions/KDTInfoActions";
+import { callApiInfoKDT } from "../../../actions/actionsBQL/KDTInfoActions";
 
 class ThongTinKhuDoThi extends Component {
     GetInfoKDT (){

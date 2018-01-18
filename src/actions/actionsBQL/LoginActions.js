@@ -1,32 +1,37 @@
-import { SearchDanCu, URL} from "../components/Api";
+import {Login, URL} from "../../components/Api";
 
-export const callApiSearchDanCu = (kdt_id) => {
+// let nextTodoId = 0
+// export const addTodo = text => {
+//     return {
+//         type: 'LOGIN',
+//         id: nextTodoId++,
+//         text
+//     }
+// }
+
+
+export const callApiLogin = (sdt, mk) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL + SearchDanCu, {
+            fetch(URL+Login, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    kdt_id: 50,
-                    page_size: 100,
-                    page_index: 1,
-                    from_date: "",
-                    to_date: "",
-                    keyword: "",
-                    block_id: "",
-                    floor_id: "",
-                    status: 255,
+                    so_dien_thoai: sdt,
+                    mat_khau: mk,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {
                 return response.json();
             }).then(data => {
                 data1 = JSON.parse(data);
+                // console.log('data response', data1);
+                // console.log('data response', data.IsError);
                 dispatch({
-                    type: 'BQL',
-                    payload: data.Value
+                    type: 'LOGIN',
+                    payload: data1.Value
                 })
                 resolve(data);
             }).catch(e => {

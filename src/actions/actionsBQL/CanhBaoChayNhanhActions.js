@@ -1,4 +1,4 @@
-import {PostCanhBaoChay, SearchCanhBaoChay, URL} from "../components/Api";
+import {PostCanhBaoChay, SearchCanhBaoChay, URL} from "../../components/Api";
 
 
 
