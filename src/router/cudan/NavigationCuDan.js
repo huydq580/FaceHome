@@ -3,7 +3,6 @@ import {StackNavigator} from 'react-navigation';
 import NhapThongTinChiTietCuDan from '../../containers/cudan/NhapThongTinChiTietCuDan';
 import NhapMaXacThuc from '../../containers/cudan/NhapMaXacThuc';
 import TabCuDan from "./TabNavigatorCuDan";
-import ThongTinCanBiet from "../../containers/cudan/menuleft/ThongTinCanBiet";
 import LienLacNhanhBQL from "../../containers/cudan/menuleft/LienLacNhanhBQL";
 import DangKyDichVuKDT from "../../containers/cudan/menuleft/DangKyDichVuKDT";
 import BaoSuCoKDT from "../../containers/cudan/menuleft/BaoSuCoKDT";
@@ -11,14 +10,12 @@ import ThanhToanHoaDon from "../../containers/cudan/menuleft/ThanhToanHoaDon";
 import CanhBaoChayNhanh from "../../containers/cudan/menuleft/CanhBaoChayNhanh";
 import QuanLyTaiKhoan from "../../containers/cudan/menuleft/QuanLyTaiKhoan";
 import GioiThieu from "../../containers/cudan/menuleft/GioiThieu";
+import NhaCuDan from "../../containers/cudan/menuleft/NhaCuDan";
+import HangXom from "../../containers/cudan/menuleft/HangXom";
+import RaoVatCuDan from "../../containers/cudan/menuleft/RaoVatCuDan";
+import ThongTinKDTCuDan from "../../containers/cudan/menuleft/ThongTinKDTCuDan";
 
 const StackCuDan = StackNavigator({
-    NhapThongTinChiTietCuDan: {
-        screen: NhapThongTinChiTietCuDan,
-        navigationOptions: {
-            title: 'Nhập thông tin chi tiết'
-        }
-    },
     // NhapMaXacThuc: {
     //     screen: NhapMaXacThuc,
     //     navigationOptions: {
@@ -30,10 +27,17 @@ const StackCuDan = StackNavigator({
         navigationOptions: {
         }
     },
-    ThongTinCanBiet: {
-        screen: ThongTinCanBiet,
+    NhaCuDan: {
+        screen: NhaCuDan,
         navigationOptions: {
-            title: 'Thông tin cần biết'
+            title: 'Nhà'
+
+        }
+    },
+    HangXom: {
+        screen: HangXom,
+        navigationOptions: {
+            title: 'Hàng xóm'
         }
     },
     LienLacNhanhBQL: {
@@ -68,6 +72,12 @@ const StackCuDan = StackNavigator({
             title: 'Cảnh báo cháy nhanh'
         }
     },
+    RaoVatCuDan: {
+        screen: RaoVatCuDan,
+        navigationOptions: {
+            title: 'Rao vặt'
+        }
+    },
     QuanLyTaiKhoanCuDan: {
         screen: QuanLyTaiKhoan,
         navigationOptions: {
@@ -78,6 +88,12 @@ const StackCuDan = StackNavigator({
         screen: GioiThieu,
         navigationOptions: {
             title: 'Giới thiệu'
+        }
+    },
+    ThongTinKDTCuDan: {
+        screen: ThongTinKDTCuDan,
+        navigationOptions: {
+            title: 'Thông tin khu đô thị'
         }
     }
 

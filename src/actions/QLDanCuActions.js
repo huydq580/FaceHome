@@ -26,7 +26,7 @@ export const callApiSearchDanCu = (kdt_id) => {
                 data1 = JSON.parse(data);
                 dispatch({
                     type: 'BQL',
-                    payload: data1.Value
+                    payload: data.Value
                 })
                 resolve(data);
             }).catch(e => {

@@ -12,6 +12,7 @@ import TabNCC from "./nhacungcap/TabNCC";
 import TabCuDan from "./cudan/TabNavigatorCuDan";
 import NhapThongTinChiTiet from "../containers/banquanli/NhapThongTinChiTiet";
 import DangKyTaiKhoanBQL from "../containers/banquanli/DangKyTaiKhoanBQL";
+import NhapThongTinChiTietCuDan from "../containers/cudan/NhapThongTinChiTietCuDan";
 
 
 const Stack = StackNavigator ({
@@ -36,6 +37,12 @@ const Stack = StackNavigator ({
     },
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
+        navigationOptions: {
+            title: 'Nhập thông tin chi tiết'
+        }
+    },
+    NhapThongTinChiTietCuDan: {
+        screen: NhapThongTinChiTietCuDan,
         navigationOptions: {
             title: 'Nhập thông tin chi tiết'
         }

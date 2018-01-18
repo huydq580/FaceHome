@@ -18,9 +18,17 @@ export default class MenuLeftCuDan extends Component {
                     <Text style = {{fontSize: 25, fontWeight: 'bold', color: '#212121', marginTop:10}}>Nguyễn Văn A</Text>
                 </View>
                 <View style = {{height:1, backgroundColor:'#cccccc', marginTop:8}}/>
-                <ItemLeftMenu title ="Thông tin cần biết"
-                              nameIcon = "information-outline"
-                              onPress = {()=> this.props.navigation.navigate('ThongTinCanBiet')}
+                <ItemLeftMenu title ="Nhà [Tên căn hộ]"
+                              nameIcon = "home"
+                              onPress = {()=> this.props.navigation.navigate('NhaCuDan')}
+                />
+                <ItemLeftMenu title ="Hàng xóm"
+                              nameIcon = "home"
+                              onPress = {()=> this.props.navigation.navigate('HangXom')}
+                />
+                <ItemLeftMenu title ="Thông tin khu đô thị"
+                              nameIcon = "account-multiple"
+                              onPress = {() => this.props.navigation.navigate('ThongTinKDTCuDan')}
                 />
                 <ItemLeftMenu title ="Liên lạc nhanh BQL"
                               nameIcon = "contacts"
@@ -44,6 +52,10 @@ export default class MenuLeftCuDan extends Component {
                 <ItemLeftMenu title ="Cảnh báo cháy nhanh"
                               nameIcon = "phone-in-talk"
                               onPress = {()=> this.props.navigation.navigate('CanhBaoChayNhanhCuDan')}
+                />
+                <ItemLeftMenu title ="Rao vặt"
+                              nameIcon = "language-r"
+                              onPress = {()=> this.props.navigation.navigate('RaoVatCuDan')}
                 />
 
                 <ItemLeftMenu title ="Quản lí tài khoản"
