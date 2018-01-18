@@ -5,6 +5,7 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native';
+import moment from 'moment';
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
 
@@ -33,13 +34,14 @@ class ThongTinCaNhanBQL extends Component {
         this.setState({
             Ten: infoBQL[0].FullName ,
             ChucVu: infoBQL[0].FullName,
-            NgaySinh: infoBQL[0].BirdDate,
+            NgaySinh: moment(new Date(infoBQL[0].BirdDate)).format("L"),
             GioiTinh: infoBQL[0].FullName,
             SoCMT: infoBQL[0].CMND,
             SoDT: infoBQL[0].Phone,
             Email: infoBQL[0].Email,
             SoHotlineQBL: infoBQL[0].HotLine,
-            NgayThamGia: infoBQL[0].CreatedTime,
+            NgayThamGia: moment(new Date(infoBQL[0].CreatedTime)).format("L"),
+
         })
     }
     render (){

@@ -6,6 +6,7 @@ import {
     TextInput
 } from 'react-native';
 import stylesContainer from "../../../components/style";
+import moment from 'moment';
 
 class ChiTietThanhVienBQL extends Component {
     constructor(props) {
@@ -37,7 +38,8 @@ componentWillMount(){
         Email:  params.dataBQL[0].Email,
         ChucVu:  '',
         SoDienThoai:  params.dataBQL[0].Phone,
-        NgayTao:  params.dataBQL[0].CreatedTime,
+        NgayTao: moment(new Date(params.dataBQL[0].CreatedTime)).format("L"),
+
     })
 }
 render (){

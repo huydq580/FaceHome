@@ -8,6 +8,7 @@ import {
     StyleSheet,
     Alert
 } from 'react-native';
+import moment from 'moment';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Communications from 'react-native-communications';
@@ -92,7 +93,7 @@ class CanhBaoChayNhanh extends Component {
                                 </Text>
                                 <Text style = {{marginLeft:15}}>Ngày </Text>
                                 <Text>
-                                    {item.CreatedDate}
+                                    {moment(new Date(item.CreatedDate)).format("L")}
                                 </Text>
                                 <Text style = {{marginLeft:20, color:'red'}}>
                                     {item.FullName}

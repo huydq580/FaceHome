@@ -5,6 +5,7 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native';
+import moment from 'moment';
 import stylesContainer from "../../components/style";
 
 
@@ -42,7 +43,7 @@ class TaiKhoanDanCu extends Component {
             SoCMT : params.dataCuDan[0].CMND,
             GioiTinh : params.dataCuDan[0].Gender,
             NgaySinh : params.dataCuDan[0].BirdDate,
-            NgayTao : params.dataCuDan[0].CreatedTime,
+            NgayTao : moment(new Date(params.dataCuDan[0].CreatedTime)).format("L"),
         })
     }
     render (){

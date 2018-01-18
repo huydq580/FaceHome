@@ -13,6 +13,7 @@ import ImageResizer from 'react-native-image-resizer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+
 export default class SoanTin extends Component {
     static navigationOptions = ({navigation}) => {
         const {state} = navigation;
