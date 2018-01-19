@@ -7,7 +7,8 @@ import {
     ScrollView,
     Image,
     TouchableOpacity,
-    FlatList
+    FlatList,
+    Button
 } from 'react-native';
 import stylesContainer from "../../components/style";
 import images from "../../components/images"
@@ -16,6 +17,14 @@ import Icon1 from 'react-native-vector-icons/EvilIcons';
 
 
 export default class SanhChinh extends Component {
+    static navigationOptions = ({navigation}) => {
+        const {state} = navigation;
+        return {
+            headerRight: <Button onPress={() => {navigation.navigate('TinNhanBQL')}}
+                title = 'Tin nhắn'
+                style = {{marginRight:10}}/>
+        }
+    }
     constructor(props){
         super(props)
         this.state = {

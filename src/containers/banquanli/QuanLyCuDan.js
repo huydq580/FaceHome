@@ -6,7 +6,8 @@ import {
     StyleSheet,
     Picker,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    Button
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -15,6 +16,14 @@ import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 import {callApiNhaCuDan} from "../../actions/actionsCuDan/NhaCuDanActions";
 
 class QuanLyCuDan extends Component {
+    static navigationOptions = ({navigation}) => {
+        const {state} = navigation;
+        return {
+            headerRight: <Button onPress={() => {navigation.navigate('TinNhanBQL')}}
+                                 title = 'Tin nhắn'
+                                 style = {{marginRight:10}}/>
+        }
+    }
     constructor(props){
         super(props)
         this.state = {
