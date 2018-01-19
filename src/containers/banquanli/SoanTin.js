@@ -6,27 +6,30 @@ import {
     TextInput,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Alert,
     Button
 } from 'react-native';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
 import ImageResizer from 'react-native-image-resizer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {callApiCreatePost, callApiUploadImage} from "../../actions/SoanTinActions";
 
 
-export default class SoanTin extends Component {
-    // static navigationOptions = ({navigation}) => {
-    //     const {state} = navigation;
-    //     return {
-    //
-    //         headerRight: <TouchableOpacity style = {{marginRight:10}}>
-    //             <Text style = {{color: "#1565C0"}}>Chia sẻ</Text>
-    //         </TouchableOpacity>
-    //     }
-    //
-    //
-    // }
+class SoanTin extends Component {
+    constructor(props){
+        super (props)
+        this.state = {
+            Status:'',
+            avatarSource: null,
+            dataImage: null,
+            resizedImageUri: '',
+        }
+    }
+    //handle event header
     static navigationOptions = ({ navigation }) => {
         const {params = {}} = navigation.state
 
@@ -37,27 +40,56 @@ export default class SoanTin extends Component {
                          </TouchableOpacity>
         }
     }
-            constructor(props){
-        super (props)
-        this.state = {
-            Status:'',
-            avatarSource: null,
-            dataImage: null,
-            resizedImageUri: '',
+    // function header
+    share() {
+        const {UserBQL, callApiCreatePost} = this.props;
+        if (UserBQL.length <=0){
+            return null
         }
-    }
-    saveDetails() {
-        console.log('hhhh')
-    }
-    componentDidMount() {
-        this.props.navigation.setParams({ handleSave: this.saveDetails });
+        // console.log('dfd', UserBQL.payload[0].KDTID)
+        callApiCreatePost(UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, this.state.Status).then(dataPost => {
+            data = JSON.parse(dataPost);
+            if(data.ErrorCode==="00") {
+                Alert.alert(
+                    'Alert',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => this.props.navigation.goBack()},
+                    ],
+                    { cancelable: false }
+                )
+            }
+            else {
+                Alert.alert(
+                    'Alert',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: false }
+                )
+            }
+
+        })
+
     }
 
+    componentDidMount() {
+        // call function SaveDetails
+        this.props.navigation.setParams({ handleSave: this.share.bind(this) });
+    }
+    //call function PickerImage component(upload image local)
     show(){
         PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}));
     }
     upload (){
-        console.log('dataImage', this.state.dataImage)
+        const {UserBQL, callApiUploadImage} = this.props;
+        if (UserBQL.length <=0){
+            return null
+        }
+        callApiUploadImage(UserBQL.payload[0].UserID, this.state.dataImage).then(dataImg => {
+            console.log('dataImage1', dataImg)
+        })
     }
     render () {
         let img = this.state.avatarSource == null? null:
@@ -111,3 +143,18 @@ export default class SoanTin extends Component {
     }
 
 }
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
+        callApiCreatePost: bindActionCreators(callApiCreatePost, dispatch)
+    }
+};
+
+SoanTin = connect(mapStateToProps, mapDispatchToProps)(SoanTin);
+export default SoanTin;

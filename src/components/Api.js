@@ -39,3 +39,11 @@ export const SearchCanhBaoChay = "api/FireAlarm/SearchCanhBaoChay";
 export const GetDetail = "api/FireAlarm/GetDetail";
 export const UpdateStatus = "api/FireAlarm/UpdateStatus";
 
+//Post
+export const CreatePost = "api/Post/CreatePost";
+export const GetTopPost = "api/Post/GetTopPost";
+export const SearchPost = "api/Post/SearchPost";
+
+
+//FaceHomeIO
+export const UploadImage = "api/FaceHomeIO/UploadImage"
