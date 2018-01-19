@@ -7,7 +7,8 @@ import {
     Picker,
     FlatList,
     TouchableOpacity,
-    Button
+    Button,
+    Keyboard
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -31,6 +32,18 @@ class QuanLyCuDan extends Component {
             Tang:'',
             dataCuDan: [ ],
         }
+    }
+    componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow.bind(this));
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    }
+
+    _keyboardDidShow() {
+        console.log('Keyboard Shown');
+    }
+
+    _keyboardDidHide() {
+        console.log('Keyboard Hidden');
     }
     componentWillMount(){
         const { UserBQL } = this.props;

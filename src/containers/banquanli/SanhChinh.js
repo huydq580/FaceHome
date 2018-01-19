@@ -84,7 +84,9 @@ export default class SanhChinh extends Component {
                     </View>
                     <View style = {{flex:1, flexDirection:'row'}}>
                         <Icon1 name="comment" size={25} color="#424242" />
-                        <Text>Bình luận</Text>
+                        <TouchableOpacity onPress = {this.props.navigation.navigate('BinhLuanBQL')}>
+                            <Text>Bình luận</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

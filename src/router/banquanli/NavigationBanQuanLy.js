@@ -24,6 +24,7 @@ import ThayDoiMatKhau from "../../containers/banquanli/menuleft/ThayDoiMatKhau";
 import TaiKhoanDanCu from "../../containers/banquanli/TaiKhoanDanCu";
 import TinNhan from "../../containers/banquanli/TinNhan";
 import TinNhanDetails from "../../containers/banquanli/TinNhanDetails";
+import BinhLuanBQL from "../../containers/banquanli/BinhLuanBQL";
 
 
 const StackBQL = StackNavigator({
@@ -169,6 +170,12 @@ const StackBQL = StackNavigator({
         screen: TinNhanDetails,
         navigationOptions: {
             title: 'Chi tiết tin nhắn'
+        }
+    },
+    BinhLuanBQL: {
+        screen: BinhLuanBQL,
+        navigationOptions: {
+            header : null,
         }
     }
 
