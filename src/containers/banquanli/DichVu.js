@@ -4,6 +4,8 @@ import {
     Text,
     Button
 } from 'react-native';
+import TabDichVu from '../../router/banquanli/TabDichVu'
+import stylesContainer from "../../components/style";
 
 export default class DichVu extends Component {
     static navigationOptions = ({navigation}) => {
@@ -16,8 +18,8 @@ export default class DichVu extends Component {
     }
     render() {
         return(
-            <View>
-                <Text>Dịch vụ</Text>
+            <View style = {stylesContainer.container}>
+                <TabDichVu/>
             </View>
         );
     }
