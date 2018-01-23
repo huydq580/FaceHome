@@ -18,6 +18,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiTinh} from "../actions/TinhThanhActions";
 import {callApiQuanHuyen} from "../actions/QuanHuyenActions";
+import {callApiSearchKDT} from "../actions/KDTActions";
 
 class DangKi extends Component {
     constructor(props){
@@ -68,35 +69,12 @@ class DangKi extends Component {
     }
     //api tim kiem
     CallApiTimKiem(){
-        fetch(URL + Search, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({
-                sf: {
-                    // keyword: this.state.keyword,
-                    ma_vung: this.state.QuanHuyen,
-                    search_in: 64,
-                    page_size: 100,
-                    page_number: 1,
-                    option: 0
-                },
-                lang_name: "vi_VN"
+        const { callApiSearchKDT } = this.props;
+        callApiSearchKDT(this.state.keyword,this.state.QuanHuyen,).then(dataRes  => {
+            data2 = JSON.parse(dataRes);
+            this.setState({
+                dataKDT : data2.Value
             })
-        })
-            .then((response) => response.json())
-            .then((dataSearch)=> {
-                data2 = JSON.parse(dataSearch);
-                this.setState({
-                    dataKDT : data2.Value
-                })
-                console.log('data3', this.state.dataKDT)
-
-
-            }).catch((erro)=> {
-            console.log('erro',erro);
         })
     }
     // Api dang ki tai khoan ncc
@@ -211,8 +189,8 @@ class DangKi extends Component {
             return null
         }
 
-        TinhThanh = dataLocationTinh.payload;
-        QuanHuyen = this.state.dataQuanHuyen;
+        dataTinhThanh = dataLocationTinh.payload;
+        dataQuanHuyen = this.state.dataQuanHuyen;
         // console.log('tinhthanh', TinhThanh)
         // console.log('quanhuyen', this.state.dataQuanHuyen)
         let TaiKhoan = this.state.TaiKhoan;
@@ -226,14 +204,14 @@ class DangKi extends Component {
                                 this.setState({TinhThanh: value});
                                 this.CallApiQuanHuyen(value);
                             }}>
-                            {TinhThanh.map((value) => <Picker.Item key = {value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
+                            {dataTinhThanh.map((value) => <Picker.Item key = {value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
                         <Picker
                             selectedValue={this.state.QuanHuyen}
                             onValueChange={(value) => this.setState({QuanHuyen: value})}>
-                            {QuanHuyen.map((value) => <Picker.Item key ={value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
+                            {dataQuanHuyen.map((value) => <Picker.Item key ={value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
@@ -362,7 +340,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiTinh: bindActionCreators(callApiTinh, dispatch),
-        callApiQuanHuyen: bindActionCreators(callApiQuanHuyen, dispatch)
+        callApiQuanHuyen: bindActionCreators(callApiQuanHuyen, dispatch),
+        callApiSearchKDT: bindActionCreators(callApiSearchKDT, dispatch)
     }
 };
 

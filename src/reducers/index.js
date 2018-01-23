@@ -9,6 +9,7 @@ import NhaCuDanReducers from './reducersCuDan/NhaCuDanReducers'
 import SoanTinReducers from './SoanTinReducers'
 import TinhThanhReducers from './TinhThanhReducers'
 import QuanHuyenReducers from './QuanHuyenReducers'
+import KDTReducers from './KDTReducers'
 
 const appStore = combineReducers({
     LoginReducers,
@@ -21,7 +22,7 @@ const appStore = combineReducers({
     SoanTinReducers,
     TinhThanhReducers,
     QuanHuyenReducers,
-
+    KDTReducers,
 
 })
 
