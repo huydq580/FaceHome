@@ -14,8 +14,12 @@ import {
     GetData, GetKDTParts, RegisterNCC, Search, URL,
 } from "../components/Api";
 import stylesContainer from "../components/style";
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import {callApiTinh} from "../actions/TinhThanhActions";
+import {callApiQuanHuyen} from "../actions/QuanHuyenActions";
 
-export default class DangKi extends Component {
+class DangKi extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -23,7 +27,7 @@ export default class DangKi extends Component {
             TinhThanh: '',
             QuanHuyen: '',
             dataTinhThanh : '',
-            dataQuanHuyen : '',
+            dataQuanHuyen : [{MaVung: "", TenVung: 'Chọn Quận/Huyện'}],
             keyword : '',
             dataKDT: '',
             item: '',
@@ -43,53 +47,23 @@ export default class DangKi extends Component {
             press: false
         });
     }
-    componentWillMount () {
+    componentWillMount() {
         //call api tỉnh
-        fetch( URL + GetData,  {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({
-                ma_vung: "", option: 0, lang_name: "vi_VN"
-            })
+        const { callApiTinh } = this.props;
+        callApiTinh().then(dataTinh => {
+            dataTinh = JSON.parse(dataTinh);
+            console.log('dataTinh', dataTinh)
         })
-            .then((response) => response.json())
-            .then((dataTinh)=> {
-                data = JSON.parse(dataTinh);
 
-                this.setState({
-                    dataTinhThanh: data.Value,
-                })
-
-            }).catch((erro)=> {
-            console.log('erro',erro);
-        })
     }
-    // Call api quan huyen
     CallApiQuanHuyen(maVung){
-        fetch(URL + GetData, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({
-                ma_vung: maVung,
-                option: 1,
-                lang_name: "vi_VN"
+        const { callApiQuanHuyen } = this.props;
+        callApiQuanHuyen(maVung).then(dataQuanHuyen => {
+            dataQuanHuyen = JSON.parse(dataQuanHuyen);
+            dataQuanHuyen1 = dataQuanHuyen.Value;
+            this.setState({
+                dataQuanHuyen: dataQuanHuyen1
             })
-        })
-            .then((response) => response.json())
-            .then((dataQuan)=> {
-                data1 = JSON.parse(dataQuan);
-                this.setState({
-                    dataQuanHuyen: data1.Value,
-                })
-                // console.log('arr1', this.state.dataQuanHuyen)
-            }).catch((erro)=> {
-            console.log('erro',erro);
         })
     }
     //api tim kiem
@@ -232,11 +206,15 @@ export default class DangKi extends Component {
     //     );
     // };
     renderGiaoDienTaiKhoan(){
-        //gán giá trị data
-        let dataTinhThanh = _.values(this.state.dataTinhThanh)
-        let dataQuanHuyen = _.values(this.state.dataQuanHuyen)
-        // console.log('rendergiaodien', dataTinhThanh)
-        //gán giá trị tài khoản
+        const { dataLocationTinh } = this.props;
+        if(dataLocationTinh.length <= 0 ){
+            return null
+        }
+
+        TinhThanh = dataLocationTinh.payload;
+        QuanHuyen = this.state.dataQuanHuyen;
+        // console.log('tinhthanh', TinhThanh)
+        // console.log('quanhuyen', this.state.dataQuanHuyen)
         let TaiKhoan = this.state.TaiKhoan;
         if(TaiKhoan==='key1' || TaiKhoan ==='key2'){
             return(
@@ -248,14 +226,14 @@ export default class DangKi extends Component {
                                 this.setState({TinhThanh: value});
                                 this.CallApiQuanHuyen(value);
                             }}>
-                            {dataTinhThanh.map((value) => <Picker.Item key = {value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
+                            {TinhThanh.map((value) => <Picker.Item key = {value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
                         <Picker
                             selectedValue={this.state.QuanHuyen}
                             onValueChange={(value) => this.setState({QuanHuyen: value})}>
-                            {dataQuanHuyen.map((value) => <Picker.Item key ={value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
+                            {QuanHuyen.map((value) => <Picker.Item key ={value.MaVung} label={value.TenVung} value={value.MaVung}/>)}
                         </Picker>
                     </View>
                     <View style = {styles.itemBoder}>
@@ -373,6 +351,23 @@ export default class DangKi extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        dataLocationTinh: state.TinhThanhReducers,
+        dataLocationHuyen: state.QuanHuyenReducers,
+        // infoBQL: state.NhaBQLReducers
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiTinh: bindActionCreators(callApiTinh, dispatch),
+        callApiQuanHuyen: bindActionCreators(callApiQuanHuyen, dispatch)
+    }
+};
+
+DangKi = connect(mapStateToProps, mapDispatchToProps)(DangKi);
+export default DangKi;
 const styles = StyleSheet.create({
     itemBoder: {
         borderWidth:1,
