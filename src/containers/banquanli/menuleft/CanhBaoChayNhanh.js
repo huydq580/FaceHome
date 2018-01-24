@@ -6,7 +6,8 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 import moment from 'moment';
 import { bindActionCreators } from 'redux'
@@ -64,7 +65,7 @@ class CanhBaoChayNhanh extends Component {
         const {navigate} = this.props.navigation;
         // console.log('navigation', this.props.navigation)
         return(
-            <View>
+            <ScrollView>
                 <View style = {[styles.itemBoder, {minHeight:120}]}>
                     <TextInput placeholder = 'Ban quản lí nhập thông tin tại đây '
                                underlineColorAndroid="transparent"
@@ -107,7 +108,7 @@ class CanhBaoChayNhanh extends Component {
                     keyExtractor={(item, index) => index}
                     ItemSeparatorComponent = {this.renderSeparator}
                 />
-            </View>
+            </ScrollView>
         )
     }
 }

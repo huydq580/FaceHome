@@ -94,8 +94,9 @@ class Nha extends Component {
                         <Text>{infoBQL[0].Phone}</Text>
                     </View>
                 </View>
+                <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>
                 <View>
-                    <View style  = {{flexDirection:'row', marginTop: 15}}>
+                    <View style  = {{flexDirection:'row', marginTop: 20}}>
                         <Image source={require('../../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
                                style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
                         </Image>

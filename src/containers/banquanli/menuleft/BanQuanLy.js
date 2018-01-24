@@ -4,7 +4,8 @@ import {
     Text,
     FlatList,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    ScrollView
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -44,7 +45,7 @@ class BanQuanLy extends Component{
     render(){
         const { navigate } = this.props.navigation;
         return(
-            <View style = {stylesContainer.container}>
+            <ScrollView style = {stylesContainer.container}>
                 <View style = {{alignItems:'center', marginTop: 30}}>
                     <Text style = {{color:'red'}}>Danh sách ban quản lí KĐT[ABC]</Text>
                 </View>
@@ -94,7 +95,7 @@ class BanQuanLy extends Component{
                         <Text style = {{color: 'red'}}>Tạo tài khoản thành viên BQL</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }
