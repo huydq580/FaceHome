@@ -19,7 +19,7 @@ export default class DichVu extends Component {
     render() {
         return(
             <View style = {stylesContainer.container}>
-                <TabDichVu/>
+                {/*<TabDichVu/>*/}
             </View>
         );
     }

@@ -14,6 +14,7 @@ import stylesContainer from "../../components/style";
 import images from "../../components/images"
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
+import StatusItems from "../../components/StatusItems";
 
 
 export default class SanhChinh extends Component {
@@ -50,49 +51,7 @@ export default class SanhChinh extends Component {
 
         }
     }
-    CommentItem = ({item}) => (
-        <View>
-            <View>
-                <View style  = {{flexDirection:'row', marginTop: 15}}>
-                    <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                           style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
-                    </Image>
-                    <View style = {{marginLeft: 10}}>
-                        <Text style = {{color: 'black'}}>Nguyễn Văn A</Text>
-                        <Text>1 giờ trước</Text>
-                    </View>
-                </View>
-                <View style = {{marginHorizontal: 10, marginTop:10}}>
-                    <Text>{item.status}</Text>
-                </View>
-                <View style = {{flexDirection:'row', marginTop:20}}>
-                    <View style = {{flex:1, flexDirection:'row'}}>
-                        <Icon1 name="like" size={25} color="#424242" />
-                        <Text>{item.like}</Text>
-                    </View>
-                    <View style = {{flex:1, flexDirection:'row'}}>
-                        {/*<Icon1 name="comment" size={25} color="#424242" />*/}
-                        <Text>bình luận</Text>
-                    </View>
 
-                </View>
-                <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
-                <View style ={{flexDirection:'row', marginTop:5, justifyContent: 'flex-start'}}>
-                    <View style = {{flex:1, flexDirection:'row', }}>
-                        <Icon1 name="like" size={25} color="#424242" />
-                        <Text>Thích</Text>
-                    </View>
-                    <View style = {{flex:1, flexDirection:'row'}}>
-                        <Icon1 name="comment" size={25} color="#424242" />
-                        <TouchableOpacity onPress = {() => this.props.navigation.navigate('BinhLuanBQL')}>
-                            <Text>Bình luận</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-            <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
-        </View>
-    )
     render (){
         return (
             <ScrollView style = {stylesContainer.container}>
@@ -118,13 +77,15 @@ export default class SanhChinh extends Component {
                 <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
                 <FlatList
                     data = {this.state.dataItem}
-                    renderItem={this.CommentItem}
+                    renderItem={(item) => {
+                        return (
+                            <StatusItems
+                                dataItem={item}/>
+                        )
+                    }
+                    }
                     keyExtractor={(item, index) => index}
                 />
-
-
-
-
             </ScrollView>
         );
     }
