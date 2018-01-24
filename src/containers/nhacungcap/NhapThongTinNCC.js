@@ -56,7 +56,7 @@ export default class NhapThongTinNCC extends Component {
                         'Alert Title',
                         'Cập nhập thông tin thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('TabNCC')}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('DangNhap')}},
                         ],
                         { cancelable: false }
                     )

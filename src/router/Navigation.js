@@ -13,6 +13,7 @@ import TabCuDan from "./cudan/TabNavigatorCuDan";
 import NhapThongTinChiTiet from "../containers/banquanli/NhapThongTinChiTiet";
 import DangKyTaiKhoanBQL from "../containers/banquanli/DangKyTaiKhoanBQL";
 import NhapThongTinChiTietCuDan from "../containers/cudan/NhapThongTinChiTietCuDan";
+import NhapThongTinNCC from "../containers/nhacungcap/NhapThongTinNCC";
 
 
 const Stack = StackNavigator ({
@@ -52,6 +53,12 @@ const Stack = StackNavigator ({
         navigationOptions: {
             title: 'Bạn đang tạo tài khoản ban quản lí'
         }
+    },
+    NhapThongTinNCC: {
+        screen: NhapThongTinNCC,
+        navigationOptions: {
+            title: 'Nhập thông tin nhà cung cấp'
+        },
     },
     LoadData: {
         screen: LoadData,

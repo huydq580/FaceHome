@@ -36,7 +36,7 @@ export const callApiSearchKDT = (keyword,ma_vung ) => {
         })
     }
 }
-export const callApiGetKDT = (kdt_id,option ,parent_id) => {
+export const callApiGetKDT = (kdt_id, option, parent_id) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + GetKDTParts, {
@@ -46,8 +46,8 @@ export const callApiGetKDT = (kdt_id,option ,parent_id) => {
                 },
                 body: JSON.stringify({
                     kdt_id: kdt_id,
-                    option: option,
-                    parent_id:  parent_id,
+                    option: 2,
+                    parent_id:  '',
                     field: "",
                     value: "",
                     lang_name: "vi_VN"
@@ -57,7 +57,7 @@ export const callApiGetKDT = (kdt_id,option ,parent_id) => {
                 return response.json();
             }).then(data => {
                 data1 = JSON.parse(data);
-                console.log('data1', data1)
+                // console.log('data1', data1)
                 dispatch({
                     type: 'GET_KDT',
                     payload1: data1.Value

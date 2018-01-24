@@ -18,7 +18,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiTinh} from "../actions/TinhThanhActions";
 import {callApiQuanHuyen} from "../actions/QuanHuyenActions";
-import {callApiSearchKDT} from "../actions/KDTActions";
+import {callApiGetKDT, callApiSearchKDT} from "../actions/KDTActions";
 
 class DangKi extends Component {
     constructor(props){
@@ -53,10 +53,11 @@ class DangKi extends Component {
         const { callApiTinh } = this.props;
         callApiTinh().then(dataTinh => {
             dataTinh = JSON.parse(dataTinh);
-            console.log('dataTinh', dataTinh)
+            // console.log('dataTinh', dataTinh)
         })
 
     }
+    //call api Quan huyen
     CallApiQuanHuyen(maVung){
         const { callApiQuanHuyen } = this.props;
         callApiQuanHuyen(maVung).then(dataQuanHuyen => {
@@ -67,7 +68,8 @@ class DangKi extends Component {
             })
         })
     }
-    //api tim kiem
+
+    //api tim kiem KDT
     CallApiTimKiem(){
         const { callApiSearchKDT } = this.props;
         callApiSearchKDT(this.state.keyword,this.state.QuanHuyen,).then(dataRes  => {
@@ -83,7 +85,6 @@ class DangKi extends Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-
             },
             body: JSON.stringify({
                 so_dien_thoai: this.state.SoDienThoai,
@@ -100,7 +101,7 @@ class DangKi extends Component {
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('StackNCC', {Value:data, SDT: this.state.SoDienThoai})}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('NhapThongTinNCC', {Value:data, SDT: this.state.SoDienThoai})}},
                         ],
                         { cancelable: false }
                     )
@@ -123,43 +124,31 @@ class DangKi extends Component {
             console.log('erro',erro);
         })
     }
-    //call api lay tai khoan thong tin KDT
+    //call api lay thong tin KDT
     GetKDTParts(){
         let item =_.assign(this.state.item);
-        fetch(URL + GetKDTParts , {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+        console.log('kdt',item.KDTID )
+        const { callApiGetKDT } = this.props
+        callApiGetKDT(item.KDTID).then(dataRes => {
+            dataGetKDT = JSON.parse(dataRes);
+            dataGetKDT = dataGetKDT.Value;
+            console.log('hihi', dataGetKDT)
+            this.props.navigation.navigate('NhapThongTinChiTietCuDan', { GetKDT: dataGetKDT, Item: item})
 
-            },
-            body: JSON.stringify({
-                kdt_id: item.KDTID,
-                // parent_id: 91,
-                field: "sample string 3",
-                value: "sample string 4",
-                option: 2,
-                lang_name: "vi_VN"
-            })
-        })
-            .then((response) => response.json())
-            .then((dataGetKDT)=> {
-                dataGetKDT = JSON.parse(dataGetKDT);
-                console.log('getKDT', dataGetKDT)
-                this.props.navigation.navigate('StackCuDan', { GetKDT: dataGetKDT, Item: item})
-
-            }).catch((erro)=> {
-            console.log('erro',erro);
         })
 
 
     }
+    //click item
     ClickItem(item){
         this.setState({
+            item: item,
             keyword: item.TenKDT,
-            item: item
+
         })
-        console.log('Keyword', this.state.item)
+        // console.log('Keyword', this.state.item)
     }
+    //chon 1 trong 3 loai tai khoan bql, ncc, dan cu
     renderTaiKhoan(){
         return(
             <Picker
@@ -183,6 +172,7 @@ class DangKi extends Component {
     //         />
     //     );
     // };
+    //giao dien dang ki bql hoac cu dan
     renderGiaoDienTaiKhoan(){
         const { dataLocationTinh } = this.props;
         if(dataLocationTinh.length <= 0 ){
@@ -254,6 +244,7 @@ class DangKi extends Component {
                 </View>
             )
         }
+        //giao dien tai khoan nha cung cap
         else if(TaiKhoan ==='key3'){
             return(
                 <View>
@@ -284,20 +275,12 @@ class DangKi extends Component {
             )
         }
     }
+
     DangKiGiaoDien(){
         let TaiKhoan = this.state.TaiKhoan;
-        let key =_.pad(this.state.keyword);
-        // console.log('key',key)
-        //lodash object
         let item =_.assign(this.state.item);
-       //lodash arry
-        let dataKDT = _.values(this.state.dataKDT)
-        // dataTen = dataKDT.length
-        // console.log('data1', dataKDT)
-        // console.log('data', dataTen)
-
         if (TaiKhoan === 'key1'){
-            this.props.navigation.navigate('StackBQL', {itemKDT: item} )
+            this.props.navigation.navigate('NhapThongTinChiTiet',{itemKDT: item})
             // for(let i = 0; i< dataKDT.length; i++) {
             //     if (key === (dataKDT[i].TenKDT)) {
             //         this.props.navigation.navigate('NhapThongTinChiTiet')
@@ -341,7 +324,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         callApiTinh: bindActionCreators(callApiTinh, dispatch),
         callApiQuanHuyen: bindActionCreators(callApiQuanHuyen, dispatch),
-        callApiSearchKDT: bindActionCreators(callApiSearchKDT, dispatch)
+        callApiSearchKDT: bindActionCreators(callApiSearchKDT, dispatch),
+        callApiGetKDT: bindActionCreators(callApiGetKDT, dispatch)
     }
 };
 

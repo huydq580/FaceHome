@@ -18,6 +18,7 @@ export default class NhapThongTinChiTietCuDan extends Component {
         super(props)
         dataTangLau = ['Chọn Tầng Lầu','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
         this.state = {
+            dataToa: [{Code: "", Ten:"Chọn tòa nhà"}],
             ToaNha:'',
             Tang:'',
             soNha:'',
@@ -64,7 +65,7 @@ export default class NhapThongTinChiTietCuDan extends Component {
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('TabCuDan')}},
+                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('DangNhap')}},
                         ],
                         { cancelable: false }
                     )
@@ -87,16 +88,17 @@ export default class NhapThongTinChiTietCuDan extends Component {
             console.log('erro',erro);
         })
     }
-    render (){
+    componentWillMount(){
         const { params } = this.props.navigation.state;
-        // console.log('Cu dan')
-        // let dataToaNha = params.GetKDT,
-        //     // Item = params.Item,
-        //     data = dataToaNha.Value;
-        //     // data1 = dataToaNha.Value[0].Code;
-        // console.log('data toa nha', dataToaNha);
-        // console.log('Item', Item)
-        // console.log('data toa', data1)
+        dataToaNha = params.GetKDT
+        this.setState({
+            dataToa: dataToaNha
+        })
+    }
+    render (){
+       dataToa = this.state.dataToa;
+       console.log('dataToa', dataToa)
+
         return (
             <KeyboardAwareScrollView
                 style={stylesContainer.container}
@@ -104,14 +106,14 @@ export default class NhapThongTinChiTietCuDan extends Component {
                 scrollEnabled={false}
             >
                 <ScrollView>
-
-                {/*<View style = {styles.itemBoder}>*/}
-                    {/*<Picker*/}
-                        {/*selectedValue={this.state.ToaNha}*/}
-                        {/*onValueChange={(value) => this.setState({ToaNha: value})}>*/}
-                        {/*{data.map((value)=><Picker.Item key ={value} label={value.Ten} value={value.Code}/>)}*/}
-                    {/*</Picker>*/}
-                {/*</View>*/}
+                    {/*khong co du lieu se co loi*/}
+                <View style = {styles.itemBoder}>
+                    <Picker
+                        selectedValue={this.state.ToaNha}
+                        onValueChange={(value) => this.setState({ToaNha: value})}>
+                        {dataToa.map((value)=><Picker.Item key ={value} label={value.Ten} value={value.Code}/>)}
+                    </Picker>
+                </View>
                 <View style = {styles.itemBoder}>
                     <Picker
                         selectedValue={this.state.Tang}
@@ -148,7 +150,7 @@ export default class NhapThongTinChiTietCuDan extends Component {
                         </TouchableOpacity>
                     </View>
 
-                
+
                 <TouchableOpacity onPress = {() => this.RegisterDanCu()}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tiếp tục</Text>
@@ -160,6 +162,12 @@ export default class NhapThongTinChiTietCuDan extends Component {
                 </ScrollView>
             </KeyboardAwareScrollView>
         )
+        // return (
+        //     <View>
+        //         <Text>dm</Text>
+        //         <Text>dm</Text>
+        //     </View>
+        // )
     }
 }
 const styles = StyleSheet.create({
