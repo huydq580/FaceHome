@@ -3,11 +3,16 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput
+    TextInput,
+    ScrollView,
+    TouchableOpacity,
 } from 'react-native';
 import moment from 'moment';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import stylesContainer from "../../../components/style";
+import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 
 class ThongTinCaNhanBQL extends Component {
     constructor(props) {
@@ -23,7 +28,9 @@ class ThongTinCaNhanBQL extends Component {
             Email: '',
             SoHotlineQBL: '',
             NgayThamGia: '',
+            editable: false
         }
+        this.toggleEditable = this.toggleEditable.bind(this)
     }
     componentWillMount(){
         const { infoBQL } = this.props;
@@ -44,6 +51,25 @@ class ThongTinCaNhanBQL extends Component {
 
         })
     }
+    toggleEditable() {
+        this.setState({
+            editable: !this.state.editable
+        })
+
+
+
+    }
+    UpdateProfle(){
+        const { callApiUpdateProfile,  UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        console.log('user', UserBQL)
+
+        callApiUpdateProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID,'FullPath', this.state.Ten).then(dataRes => {
+            console.log('datathongbao', dataRes)
+        })
+    }
     render (){
         const { infoBQL } = this.props;
         if (infoBQL.length <= 0) {
@@ -51,7 +77,7 @@ class ThongTinCaNhanBQL extends Component {
         }
         // console.log('infoBQL', infoBQL[0])
         return(
-            <View style = {stylesContainer.container}>
+            <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
                     <View style = {styles.circle}>
                         <Text>Avatar</Text>
@@ -59,107 +85,138 @@ class ThongTinCaNhanBQL extends Component {
                     <Text style = {{color:'red', fontSize: 20}}>{infoBQL[0].FullName}</Text>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Tên: </Text>
-                    <TextInput
-                        value = {this.state.Ten}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center'}}>
+                        <Text style = {styles.textL}>Tên: </Text>
+                        <TextInput
+                            value = {this.state.Ten}
+                            underlineColorAndroid={this.state.underline}
+                            editable={this.state.editable}
+                            placeholder={this.state.Ten}
+                            // selectTextOnFocus={false}
+                            style = {styles.textinput}
+                            onChangeText = {(Ten) => this.setState({Ten})}/>
+                    </View>
+                    <TouchableOpacity onPress = {this.toggleEditable}>
+                        <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
+                    </TouchableOpacity>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Chức vụ: </Text>
-                    <TextInput
-                        value = {this.state.ChucVu}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Chức vụ: </Text>
+                        <TextInput
+                            value = {this.state.ChucVu}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Ngày Sinh: </Text>
-                    <TextInput
-                        value = {this.state.NgaySinh}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Ngày Sinh: </Text>
+                        <TextInput
+                            value = {this.state.NgaySinh}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Giới tính: </Text>
-                    <TextInput
-                        value = {this.state.GioiTinh}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Giới tính: </Text>
+                        <TextInput
+                            value = {this.state.GioiTinh}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Số CMT: </Text>
-                    <TextInput
-                        value = {this.state.SoCMT}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Số CMT: </Text>
+                        <TextInput
+                            value = {this.state.SoCMT}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Số điện thoại: </Text>
-                    <TextInput
-                        value = {this.state.SoDT}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Số điện thoại: </Text>
+                        <TextInput
+                            value = {this.state.SoDT}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Email: </Text>
-                    <TextInput
-                        value = {this.state.Email}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Email: </Text>
+                        <TextInput
+                            value = {this.state.Email}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Số Hotline BQL: </Text>
-                    <TextInput
-                        value = {this.state.SoHotlineQBL}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Số Hotline BQL: </Text>
+                        <TextInput
+                            value = {this.state.SoHotlineQBL}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
                 <View style = {styles.viewcon}>
-                    <Text style = {styles.textL}>Ngày tham gia: </Text>
-                    <TextInput
-                        value = {this.state.NgayThamGia}
-                        underlineColorAndroid={this.state.underline}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        style = {styles.textinput}/>
+                    <View style = {{flexDirection:'row', alignItems: 'center',}}>
+                        <Text style = {styles.textL}>Ngày tham gia: </Text>
+                        <TextInput
+                            value = {this.state.NgayThamGia}
+                            underlineColorAndroid={this.state.underline}
+                            editable={false}
+                            selectTextOnFocus={false}
+                            style = {styles.textinput}/>
+                    </View>
+                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
                 </View>
 
 
-            </View>
+            </ScrollView>
         );
     }
 }
 const mapStateToProps = (state) => {
     return {
+        UserBQL: state.LoginReducers,
         infoBQL: state.NhaBQLReducers,
         dm: state.BQLReducers
     }
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         // addTodo: bindActionCreators(addTodo, dispatch),
-//         callApiNha: bindActionCreators(callApiNha, dispatch)
-//     }
-// };
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiUpdateProfile: bindActionCreators(callApiUpdateProfile, dispatch)
+    }
+};
 
-ThongTinCaNhanBQL = connect(mapStateToProps)(ThongTinCaNhanBQL);
+ThongTinCaNhanBQL = connect(mapStateToProps, mapDispatchToProps)(ThongTinCaNhanBQL);
 export default ThongTinCaNhanBQL;
 const styles = StyleSheet.create({
     circle: {
@@ -175,7 +232,8 @@ const styles = StyleSheet.create({
     viewcon: {
         flexDirection: 'row',
         marginTop: 20,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent:'space-between'
     },
     textL: {
         marginLeft: 15,

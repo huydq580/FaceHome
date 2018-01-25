@@ -120,9 +120,6 @@ class Nha extends Component {
                     }
                     keyExtractor={(item, index) => index}
                 />
-
-
-
             </ScrollView>
         )
     }
