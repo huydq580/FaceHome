@@ -68,11 +68,11 @@ class Nha extends Component {
         // console.log('infoBQL', infoBQL[0].FullName)
         return (
             <ScrollView style = {stylesContainer.container}>
-                <View style = {{flexDirection:'row', alignItems:'center'}}>
+                <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
                     <View style = {styles.circle}>
                         <Text>Avatar</Text>
                     </View>
-                    <Text style = {{color:'red', fontSize: 20}}>{infoBQL[0].FullName}</Text>
+                    <Text style = {{marginTop:20, fontSize: 20}}>{infoBQL[0].FullName}</Text>
                 </View>
                 <TouchableOpacity style = {styles.Touch}
                                     onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanBQL')}>
@@ -86,12 +86,12 @@ class Nha extends Component {
                 }}>
                     <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
                     <View style = {{flexDirection:'row', marginLeft:10,}}>
-                        <Text style = {{color: 'white', fontSize:15}}>Tên:</Text>
-                        <Text>{infoBQL[0].FullName}</Text>
+                        <Text style = {{color: 'white', fontSize:15}}>Tên:  </Text>
+                        <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].FullName}</Text>
                     </View>
                     <View style = {{flexDirection:'row', marginLeft:10, }}>
-                        <Text style = {{color: 'white',fontSize:15}}>Số điện thoại:</Text>
-                        <Text>{infoBQL[0].Phone}</Text>
+                        <Text style = {{color: 'white',fontSize:15}}>Số điện thoại: </Text>
+                        <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].Phone}</Text>
                     </View>
                 </View>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>

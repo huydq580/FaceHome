@@ -52,7 +52,7 @@ class BanQuanLy extends Component{
                 <FlatList
                     style = {{marginTop:20}}
                     data = {this.state.data}
-                    renderItem = {({item}) =>
+                    renderItem = {({item}) => (
                         <TouchableOpacity onPress = {() => {
                             const {chiTietBQL, callApiNha} = this.props
                             if (chiTietBQL.length <= 0) {
@@ -69,28 +69,40 @@ class BanQuanLy extends Component{
                             })
 
                         }}>
-                            <View style = {{flexDirection:'row', marginTop: 30,}}>
-                                <View style = {{flex:1, justifyContent:'center'}}>
+                            <View style = {{flexDirection:'row', marginTop: 20,}}>
+                                <View style = {{flex:1, alignItems:'center'}}>
                                     <Text style = {styles.textItem}>{item.RowNum}</Text>
                                 </View>
-                                <View style = {{flex:3, justifyContent:'center'}}>
+                                <View style = {{flex:4, justifyContent:'center'}}>
                                     <Text style = {styles.textItem}>{item.FullName}</Text>
                                 </View>
                                 <View style = {{flex:3, justifyContent:'center'}}>
-                                    <Text style = {styles.textItem}>{item.Position}</Text>
+                                    <Text style = {styles.textItem}>
+                                        {
+                                            item.Position === 1 ? <Text>Trưởng BQL</Text> : item.Position === 2 ? <Text>Thành vien BQL</Text> : null
+                                        }
+                                        </Text>
                                 </View>
                                 <View style = {{flex:3, justifyContent:'center'}}>
-                                    <Text style = {styles.textItem}>{item.RowNum}</Text>
+                                    <Text style = {[styles.textItem, {marginLeft:5}]}>
+                                        {
+                                            item.Status === 0 ? <Text>Đang chờ</Text> :
+                                                item.Status === 1 ? <Text>Hoạt động</Text> :
+                                                    item.Status === 2 ? <Text>Dừng hoạt động</Text> :
+                                                            null
+                                        }
+                                    </Text>
                                 </View>
 
                             </View>
 
                         </TouchableOpacity>
+                    )
 
                     }
                     keyExtractor={(item, index) => index}
                 />
-                <View style = {{marginBottom:200, marginLeft:150}}>
+                <View style = {{marginTop:20, marginLeft:150}}>
                     <TouchableOpacity onPress = {()=> navigate('TaoThanhVienBQL')}>
                         <Text style = {{color: 'red'}}>Tạo tài khoản thành viên BQL</Text>
                     </TouchableOpacity>

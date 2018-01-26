@@ -14,11 +14,20 @@ export default class Notification extends Component {
                                  style = {{marginRight:10}}/>
         }
     }
+    constructor(props) {
+        super(props)
+        this.state = {
+            status : 2
+        }
+    }
     render (){
         return (
-            <View>
-                <Text>Notification</Text>
-            </View>
+           <View>
+               <Text>hihi</Text>
+               {
+
+               }
+           </View>
         );
     }
 }

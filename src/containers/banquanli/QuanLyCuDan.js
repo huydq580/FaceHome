@@ -33,18 +33,6 @@ class QuanLyCuDan extends Component {
             dataCuDan: [ ],
         }
     }
-    componentDidMount() {
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow.bind(this));
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-    }
-
-    _keyboardDidShow() {
-        console.log('Keyboard Shown');
-    }
-
-    _keyboardDidHide() {
-        console.log('Keyboard Hidden');
-    }
     componentWillMount(){
         const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
@@ -151,6 +139,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         marginHorizontal: 30,
         marginTop:20,
+
     },
     picker: {
         width: 120,

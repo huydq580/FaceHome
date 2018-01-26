@@ -29,12 +29,15 @@ class ChiTietThanhVienBQL extends Component {
 componentWillMount(){
     const {params} = this.props.navigation.state;
     // console.log('data', params.dataBQL)
+    {
+        params.dataBQL[0].Gender = 0 ? this.setState({GioiTinh: 'Nam'}) :
+            params.dataBQL[0].Gender = 1 ? this.setState({GioiTinh: 'Nữ'}) : null
+    }
     this.setState({
         TaiKhoan: params.dataBQL[0].Phone,
         Ten:  params.dataBQL[0].FullName,
-        NgaySinh:  params.dataBQL[0].FullName,
+        NgaySinh:  moment(new Date(params.dataBQL[0].BirdDate)).format("L"),
         SoCMT:  params.dataBQL[0].CMND,
-        GioiTinh:  params.dataBQL[0].Gender,
         Email:  params.dataBQL[0].Email,
         ChucVu:  '',
         SoDienThoai:  params.dataBQL[0].Phone,

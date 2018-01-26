@@ -6,7 +6,9 @@ import {
     TextInput,
     ScrollView,
     TouchableOpacity,
+    Image
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import moment from 'moment';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -37,12 +39,18 @@ class ThongTinCaNhanBQL extends Component {
         if (infoBQL.length <= 0) {
             return null;
         }
+        {
+            infoBQL[0].Gender = 0 ? this.setState({GioiTinh: 'Nữ'}) :
+                infoBQL[0].Gender = 1 ? this.setState({GioiTinh: 'Nam'}) : null
+        }
+        {
+            infoBQL[0].Position = 1 ? this.setState({ChucVu: 'Trưởng BQL'}) :
+                infoBQL[0].Position = 2 ? this.setState({ChucVu: 'Thành viên BQL'}) : null
+        }
 
         this.setState({
             Ten: infoBQL[0].FullName ,
-            ChucVu: infoBQL[0].FullName,
             NgaySinh: moment(new Date(infoBQL[0].BirdDate)).format("L"),
-            GioiTinh: infoBQL[0].FullName,
             SoCMT: infoBQL[0].CMND,
             SoDT: infoBQL[0].Phone,
             Email: infoBQL[0].Email,
@@ -78,12 +86,18 @@ class ThongTinCaNhanBQL extends Component {
         // console.log('infoBQL', infoBQL[0])
         return(
             <ScrollView style = {stylesContainer.container}>
-                <View style = {{flexDirection:'row', alignItems:'center'}}>
-                    <View style = {styles.circle}>
-                        <Text>Avatar</Text>
-                    </View>
-                    <Text style = {{color:'red', fontSize: 20}}>{infoBQL[0].FullName}</Text>
+                <View style = {{flexDirection:'column', alignItems:'center'}}>
+                    <Image style={styles.image_circle}
+
+                           source={{
+                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
+                           }}
+                           resizeMode="cover"
+                    >
+                    </Image>
+                    <Text style = {{marginTop:10, fontSize: 20}}>{infoBQL[0].FullName}</Text>
                 </View>
+                <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>
                 <View style = {styles.viewcon}>
                     <View style = {{flexDirection:'row', alignItems: 'center'}}>
                         <Text style = {styles.textL}>Tên: </Text>
@@ -218,16 +232,27 @@ const mapDispatchToProps = (dispatch) => {
 
 ThongTinCaNhanBQL = connect(mapStateToProps, mapDispatchToProps)(ThongTinCaNhanBQL);
 export default ThongTinCaNhanBQL;
+const DEVICE_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-    circle: {
-        marginTop: 15,
-        marginLeft: 15,
-        width: 100,
-        height: 100,
-        borderRadius: 100/2,
-        backgroundColor: '#42A5F5',
-        alignItems: 'center',
-        justifyContent:'center'
+    // circle: {
+    //     marginTop: 15,
+    //     marginLeft: 15,
+    //     width: 100,
+    //     height: 100,
+    //     borderRadius: 100/2,
+    //     backgroundColor: '#42A5F5',
+    //     alignItems: 'center',
+    //     justifyContent:'center'
+    // },
+    image_circle: {
+        height: DEVICE_WIDTH / 3,
+        width: DEVICE_WIDTH / 3,
+        borderRadius: DEVICE_WIDTH / 6,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10,
+        marginTop: 10
+
     },
     viewcon: {
         flexDirection: 'row',
