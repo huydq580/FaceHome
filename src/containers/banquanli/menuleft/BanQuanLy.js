@@ -79,7 +79,9 @@ class BanQuanLy extends Component{
                                 <View style = {{flex:3, justifyContent:'center'}}>
                                     <Text style = {styles.textItem}>
                                         {
-                                            item.Position === 1 ? <Text>Trưởng BQL</Text> : item.Position === 2 ? <Text>Thành vien BQL</Text> : null
+                                            item.Position === 1 ? <Text>Trưởng BQL</Text> :
+                                                item.Position === 2 ? <Text>Thành vien BQL</Text> :
+                                                    null
                                         }
                                         </Text>
                                 </View>
@@ -89,7 +91,7 @@ class BanQuanLy extends Component{
                                             item.Status === 0 ? <Text>Đang chờ</Text> :
                                                 item.Status === 1 ? <Text>Hoạt động</Text> :
                                                     item.Status === 2 ? <Text>Dừng hoạt động</Text> :
-                                                            null
+                                                        null
                                         }
                                     </Text>
                                 </View>

@@ -13,6 +13,7 @@ import moment from 'moment';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon1 from 'react-native-vector-icons/Entypo';
 import stylesContainer from "../../../components/style";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 
@@ -30,9 +31,13 @@ class ThongTinCaNhanBQL extends Component {
             Email: '',
             SoHotlineQBL: '',
             NgayThamGia: '',
-            editable: false
+            editable: false,
+            check: true
+
+
         }
         this.toggleEditable = this.toggleEditable.bind(this)
+        this.UpdateProfile = this.UpdateProfile.bind(this)
     }
     componentWillMount(){
         const { infoBQL } = this.props;
@@ -61,22 +66,28 @@ class ThongTinCaNhanBQL extends Component {
     }
     toggleEditable() {
         this.setState({
-            editable: !this.state.editable
+            check: false,
+            editable: true
         })
 
 
 
     }
-    UpdateProfle(){
+    UpdateProfile(){
+        this.setState({
+            check: true,
+            editable: true
+        })
         const { callApiUpdateProfile,  UserBQL } = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
         console.log('user', UserBQL)
 
-        callApiUpdateProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID,'FullPath', this.state.Ten).then(dataRes => {
+        callApiUpdateProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID,'FullName', this.state.Ten).then(dataRes => {
             console.log('datathongbao', dataRes)
         })
+        console.log('ten', this.state.Ten)
     }
     render (){
         const { infoBQL } = this.props;
@@ -110,9 +121,17 @@ class ThongTinCaNhanBQL extends Component {
                             style = {styles.textinput}
                             onChangeText = {(Ten) => this.setState({Ten})}/>
                     </View>
-                    <TouchableOpacity onPress = {this.toggleEditable}>
-                        <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
-                    </TouchableOpacity>
+
+                        {
+                            this.state.check ?
+                                <TouchableOpacity onPress = {this.toggleEditable}>
+                                    <Icon name="drag" size={25} color="#424242" style = {{marginRight:15}}/>
+                                </TouchableOpacity> :
+                                <TouchableOpacity onPress = {this.UpdateProfile}>
+                                    <Icon name="check" size={25} color="#424242" style = {{marginRight:15}}/>
+                                </TouchableOpacity>
+
+                        }
                 </View>
                 <View style = {styles.viewcon}>
                     <View style = {{flexDirection:'row', alignItems: 'center',}}>
