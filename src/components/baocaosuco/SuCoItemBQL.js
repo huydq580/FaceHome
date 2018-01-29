@@ -19,7 +19,7 @@ class SuCoItemBQL extends Component {
         const {navigation} = this.props;
         return (
             <View style = {{flex:1, marginTop: 20}}>
-                <TouchableOpacity onPress = {() => navigation.navigate('ChiTietSuCoCuDan')}>
+                <TouchableOpacity onPress = {() => navigation.navigate('ChiTietSuCo')}>
                     <View style = {{flexDirection:'row', height:100, alignItems:'center'}}>
                         <Image style = {styles.Img}
                                source={{
