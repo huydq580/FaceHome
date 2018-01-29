@@ -7,35 +7,34 @@ import {
     Picker,
     TouchableOpacity
 } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import SuCoItemCuDan from "../../../components/baocaosuco/SuCoItemCuDan";
 import stylesContainer from "../../../components/style";
+import {callApiSearchSuCo} from "../../../actions/SuCoActions";
 
-export default class BaoSuCoKDT extends Component {
+class BaoSuCoKDT extends Component {
     constructor(props){
         super(props)
         this.state  = {
             SuCo: '',
-            dataSuCo: [
-                {
-                    noidung: '1002 Chay',
-                    gio: '10h:20',
-                    ngay: '20-10-2017',
-                    status: 'Đang xử lý',
-                },
-                {
-                    noidung: '1022 Chay',
-                    gio: '10h:20',
-                    ngay: '20-10-2017',
-                    status: 'Đã xử lý',
-                },
-                {
-                    noidung: '1002 Chay',
-                    gio: '10h:20',
-                    ngay: '20-10-2017',
-                    status: 'Đang xử lý',
-                }
-            ]
+            dataSuCo: []
         }
+    }
+    componentWillMount(){
+        const { callApiSearchSuCo,UserCuDan  } = this.props;
+        if (UserCuDan.length<=0){
+            return null;
+        }
+        callApiSearchSuCo(UserCuDan.payload[0].KDTID , UserCuDan.payload[0].UserID, this.state.SuCo).then(dataRes => {
+            dataRes = JSON.parse(dataRes)
+            dataRes = dataRes.Value,
+                this.setState({
+                    dataSuCo:dataRes,
+                })
+            console.log('datasuco', dataRes.Value)
+        })
+
     }
     render(){
         const {navigation} = this.props;
@@ -69,3 +68,18 @@ export default class BaoSuCoKDT extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        UserCuDan: state.LoginReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // addTodo: bindActionCreators(addTodo, dispatch),
+        callApiSearchSuCo: bindActionCreators(callApiSearchSuCo, dispatch)
+    }
+};
+
+BaoSuCoKDT = connect(mapStateToProps, mapDispatchToProps)(BaoSuCoKDT);
+export default BaoSuCoKDT;

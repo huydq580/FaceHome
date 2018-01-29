@@ -6,11 +6,14 @@ import {
     TouchableOpacity,
     FlatList,
     ScrollView
-} from 'react-native'
+} from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import stylesContainer from "../../components/style";
 import StatusItems from "../../components/StatusItems";
+import { callApiNhaCuDan } from "../../actions/actionsCuDan/NhaCuDanActions";
 
-export default class SanhChinh extends Component {
+class SanhChinh extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -36,6 +39,19 @@ export default class SanhChinh extends Component {
 
                 ],
         }
+    }
+    componentWillMount() {
+        const { UserCuDan } = this.props;
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
+
+        // console.log('userbql', UserCuDan.payload)
+        const {callApiNhaCuDan} = this.props;
+        callApiNhaCuDan(UserCuDan.payload[0].ProfileID, UserCuDan.payload[0].UserID, UserCuDan.payload[0].Type).then(dataNha => {
+            dataNhaCuDan = JSON.parse(dataNha);
+            console.log('data1', dataNhaCuDan)
+        })
     }
     render(){
         return(
@@ -69,3 +85,19 @@ export default class SanhChinh extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        UserCuDan: state.LoginReducers,
+        infoCuDan: state.NhaCuDanReducers
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // addTodo: bindActionCreators(addTodo, dispatch),
+        callApiNhaCuDan: bindActionCreators(callApiNhaCuDan, dispatch)
+    }
+};
+
+SanhChinh = connect(mapStateToProps, mapDispatchToProps)(SanhChinh);
+export default SanhChinh;

@@ -6,8 +6,14 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-
+import moment from 'moment';
 class SuCoItemCuDan extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+
+        }
+    }
     render (){
         const {item} = this.props.dataItem;
         const {navigation} = this.props;
@@ -22,16 +28,19 @@ class SuCoItemCuDan extends Component {
                                resizeMode="cover"></Image>
                         <View style = {{flexDirection:'column', flex:2, marginLeft:20, justifyContent:'center'}}>
                             <Text>
-                                {item.noidung}
+                                {item.Content}
                             </Text>
                             <Text style = {{marginTop:5}}>
-                                {item.gio}
+                                {moment(new Date(item.CreatedDate)).format("LT")}
                             </Text>
                             <Text style = {{marginTop:5}}>
-                                {item.ngay}
+                                {moment(new Date(item.CreatedDate)).format("L")}
                             </Text>
                             <Text style = {{marginTop:5}}>
-                                {item.status}
+                                {/*{*/}
+                                    {/*item.Status = 0 ? this.setState({GioiTinh: 'Nam'}) :*/}
+                                        {/*params.dataBQL[0].Gender = 1 ? this.setState({GioiTinh: 'Nữ'}) : null*/}
+                                {/*}*/}
                             </Text>
 
 

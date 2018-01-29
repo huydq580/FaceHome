@@ -45,20 +45,6 @@ class NhaCuDan extends Component {
 
         }
     }
-
-    componentWillMount() {
-        const { UserCuDan } = this.props;
-        if (UserCuDan.length <= 0) {
-            return null;
-        }
-
-        // console.log('userbql', UserCuDan.payload)
-        const {callApiNhaCuDan} = this.props;
-        callApiNhaCuDan(UserCuDan.payload[0].ProfileID, UserCuDan.payload[0].UserID, UserCuDan.payload[0].Type).then(dataNha => {
-            dataNhaCuDan = JSON.parse(dataNha);
-            console.log('data1', dataNhaCuDan)
-        })
-    }
     render (){
         // console.log('render')
         const { infoCuDan } = this.props;

@@ -5,7 +5,7 @@ export const GetData = "api/location/getdata";
 //KDT
 export const Search = "api/kdt/search";
 export const GetKDTParts = "api/kdt/getkdtparts";
-export const CreateKDT = "api/KDT/CreateKDT"
+export const CreateKDT = "api/KDT/CreateKDT";
 
 //BQL
 export const RegisterBQL = "api/bql/register";
@@ -20,7 +20,7 @@ export const UpdateProfile = "api/BQL/UpdateProfile";
 //NCC
 export const RegisterNCC   = "api/Ncc/Register";
 export const CreateProfileNCC = "api/Ncc/CreateProfile";
-export const UpdateProfileNCC = "api/Ncc/UpdateProfile"
+export const UpdateProfileNCC = "api/Ncc/UpdateProfile";
 //CuDan
 
 export const RegisterCuDan = "api/dancu/register";
@@ -46,4 +46,12 @@ export const SearchPost = "api/Post/SearchPost";
 
 
 //FaceHomeIO
-export const UploadImage = "api/FaceHomeIO/UploadImage"
+export const UploadImage = "api/FaceHomeIO/UploadImage";
+
+//SuCo
+export const PostSuco = "api/SuCo/PostSuco";
+export const SearchSuCo = "api/SuCo/SearchSuCo";
+export const GetDetailSuCo = "api/SuCo/GetDetail";
+export const UpdateStatusSuCo = "api/SuCo/UpdateStatus";
+export const GetComment = "api/SuCo/GetComment";
+export const SaveComment = "api/SuCo/SaveComment";
