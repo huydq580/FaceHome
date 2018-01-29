@@ -21,6 +21,7 @@ import ThongTinKhuDoThi from "./src/containers/banquanli/menuleft/ThongTinKhuDoT
 import BanQuanLy from "./src/containers/banquanli/menuleft/BanQuanLy";
 import QuanLyCuDan from "./src/containers/banquanli/QuanLyCuDan";
 import SuCoItem from "./src/components/baocaosuco/SuCoItemCuDan";
+import SuCoItemBQL from "./src/components/baocaosuco/SuCoItemBQL";
 
 
 

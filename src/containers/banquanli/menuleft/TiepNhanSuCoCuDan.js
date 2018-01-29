@@ -2,57 +2,83 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    Picker,
+    FlatList,
     Image,
-    StyleSheet
+    Picker,
+    TouchableOpacity
 } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
+import {callApiSearchSuCo} from "../../../actions/SuCoActions";
+import SuCoItemBQL from "../../../components/baocaosuco/SuCoItemBQL";
 
-export default class TiepNhanSuCoCuDan extends Component{
+class TiepNhanSuCoCuDan extends Component {
     constructor(props){
         super(props)
-        this.state = {
+        this.state  = {
             SuCo: '',
-
+            dataSuCo: []
         }
     }
-    render (){
+    componentWillMount(){
+        const { callApiSearchSuCo, UserBQL  } = this.props;
+        if (UserBQL.length<=0){
+            return null;
+        }
+        callApiSearchSuCo(UserBQL.payload[0].KDTID , UserBQL.payload[0].UserID, this.state.SuCo).then(dataRes => {
+            dataRes = JSON.parse(dataRes)
+            dataRes = dataRes.Value
+            this.setState({
+                dataSuCo: dataRes,
+            })
+        })
+
+    }
+    render(){
+        const {navigation} = this.props;
         return(
             <View style = {stylesContainer.container}>
+                <TouchableOpacity onPress = { () => this.props.navigation.navigate('BaoSuCoMoi')}>
+                    <Text style = {{color: 'black', textDecorationLine: "underline", marginTop:10, marginBottom:10, marginRight: 20}}>
+                        Báo sự cố mớii
+                    </Text>
+                </TouchableOpacity>
                 <Picker
                     selectedValue={this.state.SuCo}
                     onValueChange={(itemValue, itemIndex) => this.setState({SuCo: itemValue})}>
                     <Picker.Item label = {'Tất cả'} value = ''/>
-                    <Picker.Item label = {'Ban quản lý'} value ={'key1'}/>
-                    <Picker.Item label = {'Dân Cư'} value ={'key2'}/>
+                    <Picker.Item label = {'Nhà riêng'} value ={'key1'}/>
+                    <Picker.Item label = {'Công cộng'} value ={'key2'}/>
                 </Picker>
-                <View style ={{flexDirection:'row', alignItems:'center'}}>
-                    <Image style = {styles.Img}
-                           source={{
-                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                           }}
-                           resizeMode="cover"></Image>
-                    <View style = {{flexDirection:'column'}}>
-                        <Text>
-                            Nội dung sự cố
-                        </Text>
-                        <View style = {{flexDirection:'row'}}>
-                            <Text>Nguyễn Trọng Đại</Text>
-                            <Text>1002</Text>
-                        </View>
-
-                    </View>
-                    <View>
-                        <Text>Ngày tháng năm</Text>
-                    </View>
-                </View>
+                <FlatList
+                    data = {this.state.dataSuCo}
+                    renderItem={(item) => {
+                        return (
+                            <SuCoItemBQL
+                                dataItem={item}
+                                navigation={navigation}
+                            />
+                        )
+                    }}
+                    keyExtractor={(item, index) => index}
+                />
             </View>
-        );
+        )
     }
 }
-const styles = StyleSheet.create({
-    Img : {
-        width:70,
-        height:70,
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
     }
-})
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // addTodo: bindActionCreators(addTodo, dispatch),
+        callApiSearchSuCo: bindActionCreators(callApiSearchSuCo, dispatch)
+    }
+};
+
+TiepNhanSuCoCuDan = connect(mapStateToProps, mapDispatchToProps)(TiepNhanSuCoCuDan);
+export default TiepNhanSuCoCuDan;
