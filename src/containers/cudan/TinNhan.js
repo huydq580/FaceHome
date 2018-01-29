@@ -62,7 +62,7 @@ export default class TinNhan extends Component {
                         )
                     }}
                     keyExtractor={(item, index) => index}
-                    ItemSeparatorComponent={this.renderSeparator}
+                    // ItemSeparatorComponent={this.renderSeparator}
                 />
             </View>
         );

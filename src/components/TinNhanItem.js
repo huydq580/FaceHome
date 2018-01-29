@@ -11,7 +11,6 @@ import Dimensions from 'Dimensions';
 
 
 export default class TinNhanItem extends Component {
-
     constructor(props) {
         super(props);
         this.state = {

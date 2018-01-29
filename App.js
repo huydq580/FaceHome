@@ -20,6 +20,7 @@ import SoanTin from "./src/containers/banquanli/SoanTin";
 import ThongTinKhuDoThi from "./src/containers/banquanli/menuleft/ThongTinKhuDoThi";
 import BanQuanLy from "./src/containers/banquanli/menuleft/BanQuanLy";
 import QuanLyCuDan from "./src/containers/banquanli/QuanLyCuDan";
+import SuCoItem from "./src/components/baocaosuco/SuCoItemCuDan";
 
 
 

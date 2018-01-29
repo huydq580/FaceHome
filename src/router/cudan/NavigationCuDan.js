@@ -17,6 +17,7 @@ import ThongTinKDTCuDan from "../../containers/cudan/menuleft/ThongTinKDTCuDan";
 import ThongTinCaNhanCuDan from "../../containers/cudan/menuleft/ThongTinCaNhanCuDan";
 import ThayDoiMatKhauCuDan from "../../containers/cudan/menuleft/ThayDoiMatKhauCuDan";
 import ChiTietCanhBaoChayCuDan from "../../containers/cudan/menuleft/ChiTietCanhBaoChayCuDan";
+import ChiTietSuCoCuDan from "../../containers/cudan/menuleft/ChiTietSuCoCuDan";
 
 const StackCuDan = StackNavigator({
     // NhapMaXacThuc: {
@@ -115,6 +116,12 @@ const StackCuDan = StackNavigator({
         screen: ChiTietCanhBaoChayCuDan,
         navigationOptions: {
             title: 'Chi tiết cảnh báo cháy'
+        }
+    },
+    ChiTietSuCoCuDan: {
+        screen: ChiTietSuCoCuDan,
+        navigationOptions: {
+            title: 'Chi tiet su co'
         }
     }
 

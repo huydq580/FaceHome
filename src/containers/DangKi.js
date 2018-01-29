@@ -134,10 +134,7 @@ class DangKi extends Component {
             dataGetKDT = dataGetKDT.Value;
             console.log('hihi', dataGetKDT)
             this.props.navigation.navigate('NhapThongTinChiTietCuDan', { GetKDT: dataGetKDT, Item: item})
-
         })
-
-
     }
     //click item
     ClickItem(item){
