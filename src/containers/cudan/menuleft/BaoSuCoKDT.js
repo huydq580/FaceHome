@@ -4,9 +4,11 @@ import {
     Text,
     FlatList,
     Image,
-    Picker
+    Picker,
+    TouchableOpacity
 } from 'react-native'
 import SuCoItemCuDan from "../../../components/baocaosuco/SuCoItemCuDan";
+import stylesContainer from "../../../components/style";
 
 export default class BaoSuCoKDT extends Component {
     constructor(props){
@@ -38,13 +40,18 @@ export default class BaoSuCoKDT extends Component {
     render(){
         const {navigation} = this.props;
         return(
-            <View>
+            <View style = {stylesContainer.container}>
+                <TouchableOpacity onPress = { () => this.props.navigation.navigate('BaoSuCoMoi')}>
+                    <Text style = {{color: 'black', textDecorationLine: "underline", marginTop:10, marginBottom:10, marginRight: 20}}>
+                        Báo sự cố mới
+                    </Text>
+                </TouchableOpacity>
                 <Picker
                     selectedValue={this.state.SuCo}
                     onValueChange={(itemValue, itemIndex) => this.setState({SuCo: itemValue})}>
                     <Picker.Item label = {'Tất cả'} value = ''/>
-                    <Picker.Item label = {'Ban quản lý'} value ={'key1'}/>
-                    <Picker.Item label = {'Dân Cư'} value ={'key2'}/>
+                    <Picker.Item label = {'Nhà riêng'} value ={'key1'}/>
+                    <Picker.Item label = {'Công cộng'} value ={'key2'}/>
                 </Picker>
                 <FlatList
                     data = {this.state.dataSuCo}
