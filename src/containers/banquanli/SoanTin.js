@@ -23,6 +23,7 @@ class SoanTin extends Component {
     constructor(props){
         super (props)
         this.state = {
+            linkImg:'http://192.168.1.254:9051',
             Status:'',
             avatarSource: null,
             dataImage: null,
@@ -47,7 +48,8 @@ class SoanTin extends Component {
             return null
         }
         // console.log('dfd', UserBQL.payload[0].KDTID)
-        callApiCreatePost(UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, this.state.Status).then(dataPost => {
+        // console.log('linkimg', this.state.linkImg)
+        callApiCreatePost(UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, this.state.Status , this.state.linkImg).then(dataPost => {
             data = JSON.parse(dataPost);
             if(data.ErrorCode==="00") {
                 Alert.alert(
@@ -88,7 +90,12 @@ class SoanTin extends Component {
             return null
         }
         callApiUploadImage(UserBQL.payload[0].UserID, this.state.dataImage).then(dataImg => {
-            console.log('dataImage1', dataImg)
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            // console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: 'http://192.168.1.254:9051'+dataImg
+            })
         })
     }
     render () {
@@ -98,7 +105,7 @@ class SoanTin extends Component {
                 style={{height: 200, width: 200}}
             />
         return (
-            <View style = {stylesContainer.container}>
+            <View style = {[stylesContainer.container, {justifyContent: 'space-between'}]}>
                 <View>
                     <View style  = {{flexDirection:'row', marginTop: 15}}>
                         <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
@@ -116,28 +123,20 @@ class SoanTin extends Component {
                                    placeholderTextSize = "20"/>
                     </View>
                 </View>
-                {/*<TouchableOpacity onPress={this.show.bind(this)}>*/}
-                    {/*<Text  style = {{fontSize: 30}}>Show Image Picker</Text>*/}
+                {/*<TouchableOpacity onPress={this.upload.bind(this)}>*/}
+                    {/*<Text style = {{fontSize: 30}}>Upload</Text>*/}
                 {/*</TouchableOpacity>*/}
-                <TouchableOpacity onPress={this.upload.bind(this)}>
-                    <Text style = {{fontSize: 30}}>Upload</Text>
-                </TouchableOpacity>
 
                 {img}
-                <KeyboardAvoidingView
-                    // style={styles.container}
-                    // behavior="padding"
-                />
-                <View style = {{flexDirection:'row', marginTop:50, minHeight:50}}>
-                    <Text style = {{flex:2}}>Thêm vào bài viết của bạn</Text>
+
+                <View style = {{flexDirection:'row', marginTop:50, minHeight:30,  justifyContent: 'space-between', alignItems:'center'}}>
+                    <Text>Thêm vào bài viết của bạn</Text>
                     <TouchableOpacity onPress={this.show.bind(this)}>
                         <Icon name="md-images" size={30} color="#900"
                              style = {{flex:1}}/>
                     </TouchableOpacity>
 
-
                 </View>
-                {/*</KeyboardAvoidingView>*/}
             </View>
         );
     }

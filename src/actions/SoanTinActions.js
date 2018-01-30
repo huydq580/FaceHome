@@ -45,7 +45,7 @@ export const callApiCreatePost = (kdt_id, user_id, user_type, full_name, post_co
                     user_type: user_type,
                     full_name: full_name,
                     post_content: post_content,
-                    images: "",
+                    images: images,
                     avatar: "",
                     videos: "",
                     pin: 1,
