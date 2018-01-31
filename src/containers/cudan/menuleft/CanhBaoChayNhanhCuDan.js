@@ -6,10 +6,12 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import moment from 'moment';
 import Communications from 'react-native-communications';
 import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/actionsBQL/CanhBaoChayNhanhActions";
 
@@ -63,7 +65,7 @@ class CanhBaoChayNhanhCuDan extends Component {
         const {navigate} = this.props.navigation;
         // console.log('navigation', this.props.navigation)
         return(
-            <View>
+            <ScrollView>
                 <View style = {[styles.itemBoder, {minHeight:120}]}>
                     <TextInput placeholder = 'Ban quản lí nhập thông tin tại đây '
                                underlineColorAndroid="transparent"
@@ -92,7 +94,8 @@ class CanhBaoChayNhanhCuDan extends Component {
                                 </Text>
                                 <Text style = {{marginLeft:15}}>Ngày </Text>
                                 <Text>
-                                    {item.CreatedDate}
+                                    {/*{item.CreatedDate}*/}
+                                    {moment(new Date(item.CreatedDate)).format("L")}
                                 </Text>
                                 <Text style = {{marginLeft:20, color:'red'}}>
                                     {item.FullName}
@@ -106,7 +109,7 @@ class CanhBaoChayNhanhCuDan extends Component {
                     keyExtractor={(item, index) => index}
                     ItemSeparatorComponent = {this.renderSeparator}
                 />
-            </View>
+            </ScrollView>
         )
     }
 }

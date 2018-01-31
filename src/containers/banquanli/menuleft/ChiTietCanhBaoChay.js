@@ -9,7 +9,7 @@ class ChiTietCanhBaoChay extends Component {
     render (){
         return(
             <View style = {stylesContainer.container}>
-                <Text>Chi Tiet Canh Bao Chay</Text>>
+                <Text> Chi Tiet Canh Bao Chay </Text>
             </View>
         )
     }

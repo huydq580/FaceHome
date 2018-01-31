@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     Alert,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 import moment from 'moment';
 import { bindActionCreators } from 'redux'

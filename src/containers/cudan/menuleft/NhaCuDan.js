@@ -73,11 +73,11 @@ class NhaCuDan extends Component {
                     <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
                     <View style = {{flexDirection:'row', marginLeft:10,}}>
                         <Text style = {{color: 'white', fontSize:15}}>Tên:</Text>
-                        <Text>{infoCuDan[0].FullName}</Text>
+                        <Text style = {{color:'white'}}>{infoCuDan[0].FullName}</Text>
                     </View>
                     <View style = {{flexDirection:'row', marginLeft:10, }}>
                         <Text style = {{color: 'white',fontSize:15}}>Số điện thoại:</Text>
-                        <Text>{infoCuDan[0].Phone}</Text>
+                        <Text style = {{color: 'white'}}>{infoCuDan[0].Phone}</Text>
                     </View>
                 </View>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>

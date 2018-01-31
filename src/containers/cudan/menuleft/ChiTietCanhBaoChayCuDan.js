@@ -6,10 +6,10 @@ import {
 import stylesContainer from "../../../components/style";
 
 class ChiTietCanhBaoChayCuDan extends Component {
-    render (){
+    render() {
         return(
             <View style = {stylesContainer.container}>
-                <Text>Chi Tiet Canh Bao Chay</Text>>
+                <Text>Chi Tiet Canh Bao Chay</Text>
             </View>
         )
     }

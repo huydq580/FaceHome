@@ -6,6 +6,7 @@ import {
     TextInput
 } from 'react-native';
 import { connect } from 'react-redux'
+import moment from 'moment';
 import stylesContainer from "../../../components/style";
 
 class ThongTinCaNhanCuDan extends Component {
@@ -29,17 +30,22 @@ class ThongTinCaNhanCuDan extends Component {
         if (infoCuDan.length <= 0) {
             return null;
         }
-
+        {
+            infoCuDan[0].Gender = 0 ? this.setState({GioiTinh: 'Nữ'}) :
+                infoCuDan[0].Gender = 1 ? this.setState({GioiTinh: 'Nam'}) : null
+        }
+        {
+            infoCuDan[0].Position = 1 ? this.setState({ChucVu: 'Trưởng BQL'}) :
+                infoCuDan[0].Position = 2 ? this.setState({ChucVu: 'Thành viên BQL'}) : null
+        }
         this.setState({
             Ten: infoCuDan[0].FullName ,
-            ChucVu: infoCuDan[0].FullName,
-            NgaySinh: infoCuDan[0].BirdDate,
-            GioiTinh: infoCuDan[0].FullName,
+            NgaySinh: moment(new Date(infoCuDan[0].BirdDate)).format("L"),
             SoCMT: infoCuDan[0].CMND,
             SoDT: infoCuDan[0].Phone,
             Email: infoCuDan[0].Email,
             SoHotlineQBL: infoCuDan[0].HotLine,
-            NgayThamGia: infoCuDan[0].CreatedTime,
+            NgayThamGia: moment(new Date(infoCuDan[0].CreatedTime)).format("L"),
         })
     }
     render (){
