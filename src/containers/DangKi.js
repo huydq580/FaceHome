@@ -27,7 +27,7 @@ class DangKi extends Component {
             TaiKhoan : '',
             TinhThanh: '',
             QuanHuyen: '',
-            dataTinhThanh : '',
+            dataTinhThanh :  [{MaVung: "", TenVung: 'Chọn Tỉnh Thành'}],
             dataQuanHuyen : [{MaVung: "", TenVung: 'Chọn Quận/Huyện'}],
             keyword : '',
             dataKDT: '',
@@ -53,7 +53,11 @@ class DangKi extends Component {
         const { callApiTinh } = this.props;
         callApiTinh().then(dataTinh => {
             dataTinh = JSON.parse(dataTinh);
-            // console.log('dataTinh', dataTinh)
+            dataTinh1 = dataTinh.Value;
+            dataTinh1.unshift({MaVung: "", TenVung: 'Chọn Tỉnh/Thành'});
+            this.setState({
+                dataTinhThanh: dataTinh1
+            })
         })
 
     }
@@ -63,6 +67,7 @@ class DangKi extends Component {
         callApiQuanHuyen(maVung).then(dataQuanHuyen => {
             dataQuanHuyen = JSON.parse(dataQuanHuyen);
             dataQuanHuyen1 = dataQuanHuyen.Value;
+            dataQuanHuyen1.unshift({MaVung: "", TenVung: 'Chọn Quận/Huyện'});
             this.setState({
                 dataQuanHuyen: dataQuanHuyen1
             })
@@ -158,28 +163,10 @@ class DangKi extends Component {
             </Picker>
         )
     }
-    // renderSeparator = () => {
-    //     return (
-    //         <View
-    //             style={{
-    //                 height: 1,
-    //                 backgroundColor: "#CED0CE",
-    //                 marginTop: 10,
-    //             }}
-    //         />
-    //     );
-    // };
     //giao dien dang ki bql hoac cu dan
     renderGiaoDienTaiKhoan(){
-        const { dataLocationTinh } = this.props;
-        if(dataLocationTinh.length <= 0 ){
-            return null
-        }
-
-        dataTinhThanh = dataLocationTinh.payload;
         dataQuanHuyen = this.state.dataQuanHuyen;
-        // console.log('tinhthanh', TinhThanh)
-        // console.log('quanhuyen', this.state.dataQuanHuyen)
+        dataTinhThanh = this.state.dataTinhThanh;
         let TaiKhoan = this.state.TaiKhoan;
         if(TaiKhoan==='key1' || TaiKhoan ==='key2'){
             return(

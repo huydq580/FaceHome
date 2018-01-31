@@ -9,6 +9,7 @@ import {
     ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { NavigationActions } from 'react-navigation'
 import {RegisterCuDan, URL} from "../../components/Api";
 import stylesContainer from "../../components/style";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -65,7 +66,17 @@ export default class NhapThongTinChiTietCuDan extends Component {
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('DangNhap')}},
+                            {text: 'Ok', onPress: () => {
+                                const resetAction = NavigationActions.reset({
+                                    index: 0,
+                                    actions: [
+                                        NavigationActions.navigate({
+                                            routeName: 'DangNhap',
+                                        }),
+                                    ]
+                                });
+                                this.props.navigation.dispatch(resetAction)
+                            }},
                         ],
                         { cancelable: false }
                     )
@@ -91,6 +102,7 @@ export default class NhapThongTinChiTietCuDan extends Component {
     componentWillMount(){
         const { params } = this.props.navigation.state;
         dataToaNha = params.GetKDT
+        dataToaNha.unshift({Code: "", Ten:"Chọn tòa nhà"});
         this.setState({
             dataToa: dataToaNha
         })
