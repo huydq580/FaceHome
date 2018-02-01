@@ -4,11 +4,11 @@ import {
     Text,
 } from 'react-native'
 
-export default class ThanhToanHoaDon extends Component {
+export default class GioiThieuCuDan extends Component {
     render(){
         return(
             <View>
-                <Text>Thanh Toan Hoa Don</Text>
+                <Text>Gioi Thieu</Text>
                 <Text></Text>
             </View>
         )
