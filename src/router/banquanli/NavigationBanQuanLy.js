@@ -102,12 +102,12 @@ const StackBQL = StackNavigator({
             title: "Rao vặt"
         }
     },
-    QuanLyTaiKhoan: {
-        screen: QuanLyTaiKhoan,
-        navigationOptions: {
-            title: 'Quản lý tài khoản'
-        }
-    },
+    // QuanLyTaiKhoan: {
+    //     screen: QuanLyTaiKhoan,
+    //     navigationOptions: {
+    //         title: 'Quản lý tài khoản'
+    //     }
+    // },
     GioiThieu: {
         screen: GioiThieu,
         navigationOptions: {
@@ -186,12 +186,12 @@ const StackBQL = StackNavigator({
             title: 'Chi tiết sự cố'
         }
     },
-    DangNhap: {
-        screen: DangNhap,
-        navigationOptions: {
-            header: null
-        }
-    }
+    // DangNhap: {
+    //     screen: DangNhap,
+    //     navigationOptions: {
+    //         header: null
+    //     }
+    // }
 
 
 

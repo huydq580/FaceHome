@@ -83,12 +83,12 @@ const StackCuDan = StackNavigator({
             title: 'Rao vặt'
         }
     },
-    QuanLyTaiKhoanCuDan: {
-        screen: QuanLyTaiKhoanCuDan,
-        navigationOptions: {
-            title: 'Quản lý tài khoản'
-        }
-    },
+    // QuanLyTaiKhoanCuDan: {
+    //     screen: QuanLyTaiKhoanCuDan,
+    //     navigationOptions: {
+    //         title: 'Quản lý tài khoản'
+    //     }
+    // },
     GioiThieuCuDan: {
         screen: GioiThieu,
         navigationOptions: {

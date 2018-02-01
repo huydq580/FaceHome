@@ -14,6 +14,8 @@ import NhapThongTinChiTiet from "../containers/banquanli/NhapThongTinChiTiet";
 import DangKyTaiKhoanBQL from "../containers/banquanli/DangKyTaiKhoanBQL";
 import NhapThongTinChiTietCuDan from "../containers/cudan/NhapThongTinChiTietCuDan";
 import NhapThongTinNCC from "../containers/nhacungcap/NhapThongTinNCC";
+import QuanLyTaiKhoan from "../containers/banquanli/menuleft/QuanLyTaiKhoan";
+import QuanLyTaiKhoanCuDan from "../containers/cudan/menuleft/QuanLyTaiKhoanCuDan";
 
 
 const Stack = StackNavigator ({
@@ -92,7 +94,19 @@ const Stack = StackNavigator ({
     },
     TabCuDan: {
         screen: TabCuDan
-    }
+    },
+    QuanLyTaiKhoan: {
+        screen: QuanLyTaiKhoan,
+        navigationOptions: {
+            title: 'Quản lý tài khoản'
+        }
+    },
+    QuanLyTaiKhoanCuDan: {
+        screen: QuanLyTaiKhoanCuDan,
+        navigationOptions: {
+            title: 'Quản lý tài khoản'
+        }
+    },
 
 
 })

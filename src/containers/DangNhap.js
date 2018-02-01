@@ -77,7 +77,7 @@ class DangNhap extends Component {
                     <Text>Tiếng việt - English</Text>
                     <UserInput nameIcon = "user-circle"
                                keyboardType={'numeric'}
-                               placeholder={'Username'}
+                               placeholder={'Nhập số điện thoại'}
                                autoCapitalize={'none'}
                                returnKeyType={'done'}
                                autoCorrect={false}
@@ -86,7 +86,7 @@ class DangNhap extends Component {
                     />
                     <UserInput nameIcon = "lock"
                                secureTextEntry={this.state.showPass}
-                               placeholder='Password'
+                               placeholder='Nhập mật khẩu'
                                returnKeyType={'done'}
                                autoCapitalize={'none'}
                                autoCorrect={false}

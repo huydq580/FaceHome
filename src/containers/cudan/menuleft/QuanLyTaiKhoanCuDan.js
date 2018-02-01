@@ -5,9 +5,21 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import stylesContainer from "../../../components/style";
 
 export default class QuanLyTaiKhoanCuDan extends Component {
+    Logout() {
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({
+                    routeName: 'DangNhap',
+                }),
+            ]
+        });
+        this.props.navigation.dispatch(resetAction)
+    }
     render (){
         return (
             <View style = {[stylesContainer.container,{justifyContent:'center'}]}>
@@ -41,7 +53,7 @@ export default class QuanLyTaiKhoanCuDan extends Component {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {this.Logout.bind(this)}>
                     <View style = {styles.viewitem}>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10, }}>
                             Đăng xuất
