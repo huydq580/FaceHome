@@ -56,7 +56,17 @@ export default class NhapThongTinNCC extends Component {
                         'Alert Title',
                         'Cập nhập thông tin thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('DangNhap')}},
+                            {text: 'Ok', onPress: () => {
+                                const resetAction = NavigationActions.reset({
+                                    index: 0,
+                                    actions: [
+                                        NavigationActions.navigate({
+                                            routeName: 'DangNhap',
+                                        }),
+                                    ]
+                                });
+                                this.props.navigation.dispatch(resetAction)
+                            }},
                         ],
                         { cancelable: false }
                     )

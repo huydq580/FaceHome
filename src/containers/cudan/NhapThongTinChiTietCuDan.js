@@ -17,9 +17,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 export default class NhapThongTinChiTietCuDan extends Component {
     constructor(props){
         super(props)
-        dataTangLau = ['Chọn Tầng Lầu','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
+        dataTangLau = ['Chọn Tầng/Lầu','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15']
         this.state = {
-            dataToa: [{Code: "", Ten:"Chọn tòa nhà"}],
+            dataToa: [{Code: "", Ten:"Chọn Tòa/Nhà"}],
             ToaNha:'',
             Tang:'',
             soNha:'',
@@ -101,11 +101,16 @@ export default class NhapThongTinChiTietCuDan extends Component {
     }
     componentWillMount(){
         const { params } = this.props.navigation.state;
-        dataToaNha = params.GetKDT
-        dataToaNha.unshift({Code: "", Ten:"Chọn tòa nhà"});
+        dataToaNha = params.GetKDT;
+        if (dataToaNha === null){
+            dataToaNha = [];
+        }
+        else {
+        dataToaNha.unshift({Code: "", Ten:"Chọn Tòa/Nhà"});
         this.setState({
             dataToa: dataToaNha
         })
+        }
     }
     render (){
        dataToa = this.state.dataToa;

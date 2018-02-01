@@ -26,6 +26,7 @@ import TinNhan from "../../containers/banquanli/TinNhan";
 import TinNhanDetails from "../../containers/banquanli/TinNhanDetails";
 import BinhLuanBQL from "../../containers/banquanli/BinhLuanBQL";
 import ChiTietSuCo from "../../containers/banquanli/menuleft/ChiTietSuCo";
+import DangNhap from "../../containers/DangNhap";
 
 
 const StackBQL = StackNavigator({
@@ -183,6 +184,12 @@ const StackBQL = StackNavigator({
         screen: ChiTietSuCo,
         navigationOptions: {
             title: 'Chi tiết sự cố'
+        }
+    },
+    DangNhap: {
+        screen: DangNhap,
+        navigationOptions: {
+            header: null
         }
     }
 

@@ -11,6 +11,7 @@ import {
 import {RegisterBQL, URL,} from "../../components/Api";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import stylesContainer from "../../components/style";
+import { NavigationActions } from 'react-navigation';
 
 export default class DangKyTaiKhoanBQL extends Component {
     constructor(props){
@@ -59,7 +60,17 @@ export default class DangKyTaiKhoanBQL extends Component {
                         'Alert Title',
                         'Đăng kí thành công',
                         [
-                            {text: 'Ok', onPress: () => {this.props.navigation.navigate('DangNhap')}},
+                            {text: 'Ok', onPress: () => {
+                                const resetAction = NavigationActions.reset({
+                                    index: 0,
+                                    actions: [
+                                        NavigationActions.navigate({
+                                            routeName: 'DangNhap',
+                                        }),
+                                    ]
+                                });
+                                this.props.navigation.dispatch(resetAction)
+                            }},
                         ],
                         { cancelable: false }
                     )
