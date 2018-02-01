@@ -131,6 +131,9 @@ const Stack = StackNavigator ({
     TabCuDan: {
         screen: TabCuDan
     },
+
+
+    //Stack BQL
     Nha: {
         screen: Nha,
         navigationOptions: {
@@ -263,6 +266,8 @@ const Stack = StackNavigator ({
             title: 'Chi tiết sự cố'
         }
     },
+
+    //Stack Cu Dan
     NhaCuDan: {
         screen: NhaCuDan,
         navigationOptions: {

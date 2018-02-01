@@ -11,11 +11,12 @@ import Icon1 from 'react-native-vector-icons/EvilIcons';
 class StatusItems extends Component {
     render (){
         const {item} = this.props.dataItem;
+        const {navigation} = this.props;
         return (
                 <View>
                     <View>
                         <View style  = {{flexDirection:'row', marginTop: 15}}>
-                            <Image source={require('../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                            <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
                                    style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
                             </Image>
                             <View style = {{marginLeft: 10}}>
@@ -47,7 +48,7 @@ class StatusItems extends Component {
                             </View>
                             <View style = {{flexDirection:'row', marginRight:20}}>
                                 <Icon1 name="comment" size={25} color="#424242" />
-                                <TouchableOpacity onPress = {() => this.props.navigation.navigate('BinhLuanBQL')}>
+                                <TouchableOpacity onPress = {() => navigation.navigate('BinhLuanBQL')}>
                                     <Text style = {{color: '#424242'}}>Bình luận</Text>
                                 </TouchableOpacity>
                             </View>

@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import stylesContainer from "../../../components/style";
 import {callApiNhaCuDan} from "../../../actions/actionsCuDan/NhaCuDanActions";
-import StatusItems from "../../../components/StatusItems";
+import StatusItems from "../../../components/status/StatusItems";
 
 
 

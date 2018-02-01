@@ -14,7 +14,7 @@ import stylesContainer from "../../components/style";
 import images from "../../components/images"
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
-import StatusItems from "../../components/StatusItems";
+import StatusItems from "../../components/status/StatusItems";
 
 
 export default class SanhChinh extends Component {
@@ -53,6 +53,7 @@ export default class SanhChinh extends Component {
     }
 
     render (){
+        const {navigation} = this.props;
         return (
             <ScrollView style = {stylesContainer.container}>
                 {/*<View style={{alignItems:'center', justifyContent:'center'}}>*/}
@@ -80,7 +81,9 @@ export default class SanhChinh extends Component {
                     renderItem={(item) => {
                         return (
                             <StatusItems
-                                dataItem={item}/>
+                                dataItem={item}
+                                navigation={navigation}/>
+
                         )
                     }
                     }
