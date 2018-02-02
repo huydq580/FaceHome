@@ -12,6 +12,7 @@ import QuanHuyenReducers from './QuanHuyenReducers'
 import KDTReducers from './KDTReducers';
 import UpdateProfileReducers from './reducersBQl/UpdateProfileReducers'
 import SuCoReducers from './SuCoReducers'
+import SocketReducers from './SocketReducers'
 
 const appStore = combineReducers({
     LoginReducers,
@@ -27,6 +28,7 @@ const appStore = combineReducers({
     KDTReducers,
     UpdateProfileReducers,
     SuCoReducers,
+    SocketReducers,
 })
 
 export default appStore

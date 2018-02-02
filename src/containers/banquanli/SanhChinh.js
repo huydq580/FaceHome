@@ -10,14 +10,18 @@ import {
     FlatList,
     Button
 } from 'react-native';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import stylesContainer from "../../components/style";
 import images from "../../components/images"
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
 import StatusItems from "../../components/status/StatusItems";
+import SocketIOClient from 'socket.io-client';
+import {connectToSocket, disConnectToSocket, joinToChat} from "../../actions/SocketActions";
 
 
-export default class SanhChinh extends Component {
+class SanhChinh extends Component {
     static navigationOptions = ({navigation}) => {
         const {state} = navigation;
         return {
@@ -50,6 +54,18 @@ export default class SanhChinh extends Component {
                 ],
 
         }
+        this.socket = SocketIOClient('http://192.168.1.254');
+        console.log('socket', this.socket)
+        // const {callConnectSocket, callJoinToChat, listenDisconnectSocket} = this.props;
+        // console.log("call connect socket", this.socket);
+        // callConnectSocket(this.socket).then(() => {
+        //     if (this.props.SocketRef.socket && this.props.SocketRef.socket.connected) {
+        //         console.log("call join to chat");
+        //         callJoinToChat(this.props.SocketRef.socket);
+        //     }
+        //
+        //
+        // });
     }
 
     render (){
@@ -93,6 +109,25 @@ export default class SanhChinh extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        SocketRef: state.SocketReducers
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        callConnectSocket: bindActionCreators(connectToSocket, dispatch),
+        callJoinToChat: bindActionCreators(joinToChat, dispatch),
+        listenDisconnectSocket: bindActionCreators(disConnectToSocket, dispatch)
+
+    }
+};
+
+SanhChinh = connect(mapStateToProps, mapDispatchToProps)(SanhChinh);
+
+export default SanhChinh
 const styles = StyleSheet.create({
     viewItem: {
         flexDirection: 'row',
