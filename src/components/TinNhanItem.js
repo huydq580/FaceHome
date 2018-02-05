@@ -50,10 +50,10 @@ export default class TinNhanItem extends Component {
                     <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, marginTop: 10, marginBottom: 10}}>
                         <View style={{flex: 1, flexDirection: 'row'}}>
                             <Text style={{flex: 2}} numberOfLines={1}
-                                  ellipsizeMode={'tail'}>{item.firstName + " " + item.lastName}</Text>
-                            <Text style={{flex: 1}}>{item.lastTime}</Text>
+                                  ellipsizeMode={'tail'}>{item.FullName}</Text>
+                            <Text style={{flex: 1}}>17/01/2018</Text>
                         </View>
-                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.email}</Text>
+                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.UserID}</Text>
                     </View>
                 </View>
 

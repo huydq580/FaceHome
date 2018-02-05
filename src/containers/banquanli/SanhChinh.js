@@ -54,18 +54,14 @@ class SanhChinh extends Component {
                 ],
 
         }
-        this.socket = SocketIOClient('http://192.168.1.254');
-        console.log('socket', this.socket)
-        // const {callConnectSocket, callJoinToChat, listenDisconnectSocket} = this.props;
-        // console.log("call connect socket", this.socket);
-        // callConnectSocket(this.socket).then(() => {
-        //     if (this.props.SocketRef.socket && this.props.SocketRef.socket.connected) {
-        //         console.log("call join to chat");
-        //         callJoinToChat(this.props.SocketRef.socket);
-        //     }
-        //
-        //
-        // });
+        // this.socket = SocketIOClient('http://192.168.1.254:8080/', { transports: ['websocket'] });
+        // console.log('socketsanhchinh', this.socket)
+        // this.socket.on('connect', (data) => {
+        //     console.log('data',data)
+        // })
+
+
+
     }
 
     render (){
@@ -118,9 +114,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        callConnectSocket: bindActionCreators(connectToSocket, dispatch),
-        callJoinToChat: bindActionCreators(joinToChat, dispatch),
-        listenDisconnectSocket: bindActionCreators(disConnectToSocket, dispatch)
+        connectToSocket: bindActionCreators(connectToSocket, dispatch),
+        joinToChat: bindActionCreators(joinToChat, dispatch),
+        disConnectToSocket: bindActionCreators(disConnectToSocket, dispatch)
 
     }
 };

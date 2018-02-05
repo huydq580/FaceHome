@@ -7,34 +7,33 @@ import {
 import TinNhanItem from "../../components/TinNhanItem";
 import Dimensions from 'Dimensions';
 import stylesContainer from "../../components/style";
+import {callApiGetUser} from "../../actions/MessagesActions";
 const DEVICE_WIDTH = Dimensions.get('window').width;
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import SocketIOClient from 'socket.io-client';
 
 
 class TinNhan extends Component {
     constructor(props){
+        // console.log('constructor')
         super(props)
         this.state = {
-            dataMSG: [
-                {
-                    firstName: 'Giáp',
-                    lastName: 'Đoàn',
-                    lastTime: '16/01/2018',
-                    email: 'giapdv@pateco.vn'
-                },
-                {
-                    firstName: 'Hiệu',
-                    lastName: 'Nguyễn',
-                    lastTime: '15/01/2018',
-                    email: 'hieunv@pateco.vn'
-                },
-                {
-                    firstName: 'Tân',
-                    lastName: 'Duy',
-                    lastTime: '18/01/2018',
-                    email: 'duydt@pate.vn'
-                },
-            ]
+            dataUser: '',
+
         }
+
+
+    }
+    componentWillMount(){
+        const { callApiGetUser } = this.props;
+        callApiGetUser().then(dataRes => {
+            dataUser = dataRes.ObjectResult
+            this.setState({
+                dataUser: dataUser,
+            })
+            // console.log('datauser', this.state.dataUser)
+        })
     }
     renderSeparator = () => {
         return (
@@ -54,7 +53,7 @@ class TinNhan extends Component {
         return (
             <View style = {stylesContainer.container}>
                 <FlatList
-                    data={this.state.dataMSG}
+                    data={this.state.dataUser}
                     renderItem={(item) => {
                         return (
                             <TinNhanItem
@@ -70,4 +69,21 @@ class TinNhan extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        SocketRef: state.SocketReducers,
+        dataUser: state.MessageReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiGetUser: bindActionCreators(callApiGetUser, dispatch),
+        // connectToSocket: bindActionCreators(connectToSocket, dispatch),
+        // joinToChat: bindActionCreators(joinToChat, dispatch),
+        // disConnectToSocket: bindActionCreators(disConnectToSocket, dispatch)
+    }
+};
+
+TinNhan = connect(mapStateToProps, mapDispatchToProps)(TinNhan);
 export default TinNhan;
