@@ -54,11 +54,6 @@ class SanhChinh extends Component {
                 ],
 
         }
-        // this.socket = SocketIOClient('http://192.168.1.254:8080/', { transports: ['websocket'] });
-        // console.log('socketsanhchinh', this.socket)
-        // this.socket.on('connect', (data) => {
-        //     console.log('data',data)
-        // })
 
 
 
@@ -96,8 +91,8 @@ class SanhChinh extends Component {
                                 dataItem={item}
                                 navigation={navigation}/>
 
-                        )
-                    }
+                            )
+                        }
                     }
                     keyExtractor={(item, index) => index}
                 />

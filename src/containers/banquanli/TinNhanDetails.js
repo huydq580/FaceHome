@@ -26,7 +26,7 @@ class TinNhanDetails extends Component {
 
         }
         this.input_msg = '';
-        this.socket = SocketIOClient('http://192.168.1.15:8080/', { transports: ['websocket'] });
+        this.socket = SocketIOClient('http://192.168.1.254:8080/', { transports: ['websocket'] });
         console.log('Socket', this.socket)
 
         this.socket.on('connect', () => {
@@ -36,19 +36,37 @@ class TinNhanDetails extends Component {
             console.log("login ok")
         })
         console.log('Socket1', this.socket)
-        this.socket.on('receive', () => {
+        this.getOldMSG();
+        this.socket.on('receive', (dataReceive) => {
             console.log('receive ok')
-            // console.log('receive', dataReceive)
-            // let newMsg = this.state.dataChat;
-            // newMsg.push(dataMessage);
-            // this.setState({dataChat: newMsg});
+            console.log('receive', dataReceive)
+            dataMess = dataReceive.Content;
+            console.log('dataMes', dataMess)
+            let newMsg = this.state.dataChat;
+            console.log('newMsg', newMsg)
+            newMsg.push({
+                Avartar: "",
+                Content: dataMess,
+                CreatedDate: "2018-02-05T09:29:35.383Z",
+                DayFlag: 20180205,
+                FullName: "thailh",
+                KDTID: 1,
+                MessageID: "07D12F89-FFDB-48E6-B9F9-6CD60051B171",
+                MsgGroupID: "1",
+                RefAvartar: "",
+                RefName: "",
+                RefUserID: "",
+                UserID: "uet",
+                rowNumber: "1"
+            });
+            this.setState({dataChat: newMsg});
         })
 
 
 
 
     }
-    componentWillMount() {
+    getOldMSG = ()=>  {
         const { callApiGetMessage } = this.props;
         callApiGetMessage().then(dataRes => {
             dataMessage = dataRes.ObjectResult;
@@ -93,7 +111,7 @@ render () {
                         return (
                             <View style = {{flex:1}}>
                                 {
-                                    item.UserID === 'uet' ?
+                                    item.UserID === 'udt' ?
                                         <View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
 
                                             <Image style={myStyle.image_circle}
@@ -155,17 +173,18 @@ render () {
                         )
                     }}
                     keyExtractor={(item, index) => index}
-                    // onEndReachedThreshold={100}
-                    // showsVerticalScrollIndicator={false}
-                    // ref={ref => this.flatList = ref}
-                    // onContentSizeChange={() => {
-                    //     // console.log("on size change");
-                    //     this.flatList.scrollToEnd({animated: true})
-                    // }}
-                    // onLayout={() => {
-                    //     // console.log("got to onlayout");
-                    //     this.flatList.scrollToEnd({animated: true})
-                    // }
+                    onEndReachedThreshold={100}
+                    showsVerticalScrollIndicator={false}
+                    ref={ref => this.flatList = ref}
+                    onContentSizeChange={() => {
+                         // console.log("on size change");
+                         this.flatList.scrollToEnd({animated: true})
+                    }}
+                    onLayout={() => {
+                        // console.log("got to onlayout");
+                        this.flatList.scrollToEnd({animated: true})
+                        }
+                    }
 
 
                 />
