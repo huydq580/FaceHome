@@ -23,6 +23,7 @@ import QuanLyCuDan from "./src/containers/banquanli/QuanLyCuDan";
 import SuCoItem from "./src/components/baocaosuco/SuCoItemCuDan";
 import SuCoItemBQL from "./src/components/baocaosuco/SuCoItemBQL";
 import CmtItem from "./src/components/status/CmtItem";
+import SoanTinMoi from "./src/containers/banquanli/SoanTinMoi";
 
 
 

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import TinNhanItem from "../../components/TinNhanItem";
 import Dimensions from 'Dimensions';
@@ -52,6 +53,13 @@ class TinNhan extends Component {
         const {navigation} = this.props;
         return (
             <View style = {stylesContainer.container}>
+                <TouchableOpacity onPress = {()=> this.props.navigation.navigate('SoanTinMoi')}>
+                    <Text style = {{textDecorationLine: "underline",
+                        marginTop:15,
+                        textDecorationColor:'#BDBDBD',
+                        marginLeft:250,
+                        marginBottom:10}}>Soạn tin mới</Text>
+                </TouchableOpacity>
                 <FlatList
                     data={this.state.dataUser}
                     renderItem={(item) => {
@@ -64,6 +72,7 @@ class TinNhan extends Component {
                     }}
                     keyExtractor={(item, index) => index}
                     ItemSeparatorComponent={this.renderSeparator}
+                    style = {{marginTop:8}}
                 />
             </View>
         );

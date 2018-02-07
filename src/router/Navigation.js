@@ -52,6 +52,7 @@ import ThayDoiMatKhauCuDan from "../containers/cudan/menuleft/ThayDoiMatKhauCuDa
 import ChiTietCanhBaoChayCuDan from "../containers/cudan/menuleft/ChiTietCanhBaoChayCuDan";
 import ChiTietSuCoCuDan from "../containers/cudan/menuleft/ChiTietSuCoCuDan";
 import BaoSuCoMoi from "../containers/cudan/menuleft/BaoSuCoMoi";
+import SoanTinMoi from "../containers/banquanli/SoanTinMoi";
 
 
 const Stack = StackNavigator ({
@@ -365,6 +366,12 @@ const Stack = StackNavigator ({
         screen: BaoSuCoMoi,
         navigationOptions: {
             title: 'Báo sự cố mới'
+        }
+    },
+    SoanTinMoi: {
+        screen: SoanTinMoi,
+        navigationOptions: {
+            title: 'Soạn tin mới'
         }
     }
 
