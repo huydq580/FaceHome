@@ -8,15 +8,25 @@ import {
     TextInput,
     StyleSheet
 } from 'react-native';
-// import ChatItem from "../../components/ChatItem";
 import SocketIOClient from 'socket.io-client';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiGetMessage} from "../../actions/MessagesActions";
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
+import Icon from 'react-native-vector-icons/dist/Entypo'
 
 class TinNhanDetails extends Component {
+    static navigationOptions = ({navigation}) => {
+        const {state} = navigation;
+        return {
+            headerRight: <Icon name="menu" size={30} style={{marginLeft: 7}} color="white"/>,
+            headerStyle: { backgroundColor: '#23b34c' },
+            headerTitleStyle:{ color: 'white'},
+
+        }
+
+    }
     constructor(props){
         console.log('constructor')
         super(props)

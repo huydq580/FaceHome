@@ -39,7 +39,7 @@ export default class TinNhanItem extends Component {
             >
                 <View key={item.index}
                       style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-                    <Image style={myStyle.image_circle}
+                    <Image style={styles.image_circle}
 
                            source={{
                                uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
@@ -61,7 +61,7 @@ export default class TinNhanItem extends Component {
     }
 };
 const DEVICE_WIDTH = Dimensions.get('window').width;
-const myStyle = StyleSheet.create({
+const styles = StyleSheet.create({
     image_circle: {
         height: DEVICE_WIDTH / 6,
         width: DEVICE_WIDTH / 6,

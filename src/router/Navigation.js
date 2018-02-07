@@ -53,6 +53,7 @@ import ChiTietCanhBaoChayCuDan from "../containers/cudan/menuleft/ChiTietCanhBao
 import ChiTietSuCoCuDan from "../containers/cudan/menuleft/ChiTietSuCoCuDan";
 import BaoSuCoMoi from "../containers/cudan/menuleft/BaoSuCoMoi";
 import SoanTinMoi from "../containers/banquanli/SoanTinMoi";
+import Contact from "../containers/banquanli/Contact";
 
 
 const Stack = StackNavigator ({
@@ -372,6 +373,12 @@ const Stack = StackNavigator ({
         screen: SoanTinMoi,
         navigationOptions: {
             title: 'Soạn tin mới'
+        }
+    },
+    Contact: {
+        screen: Contact,
+        navigationOptions: {
+            title: 'Contact'
         }
     }
 
