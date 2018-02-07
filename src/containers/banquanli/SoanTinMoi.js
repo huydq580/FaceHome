@@ -22,6 +22,7 @@ class SoanTinMoi extends Component {
         this.state = {
             search: true,
             SearchItem:'',
+            dataCuDan:'',
         }
     }
     componentWillMount(){
@@ -50,6 +51,17 @@ class SoanTinMoi extends Component {
             search: true
         })
     }
+    SearchUser(input){
+        data = this.state.dataCuDan
+        let inputSearch  = data.filter((text)=>{
+            if(text.FullName.indexOf(input)>0){
+                return text;
+            }
+        })
+        this.setState({
+            dataCuDan: inputSearch
+        })
+    }
     render () {
         return (
             <View style = {stylesContainer.container}>
@@ -66,7 +78,7 @@ class SoanTinMoi extends Component {
                         <View style = {styles.containerNavbarS}>
                             <TextInput  placeholder = 'Search'
                                         underlineColorAndroid="transparent"
-                                        onChangeText = {(SearchItem) => this.setState({SearchItem})}/>
+                                        onChangeText = {this.SearchUser.bind(this)}/>
                         </View>
                         <TouchableOpacity onPress = {this.Cancel}>
                             <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>
@@ -76,6 +88,7 @@ class SoanTinMoi extends Component {
                 <FlatList
                     data = {this.state.dataCuDan}
                     renderItem = {({item}) =>
+                        <TouchableOpacity onPress = {()=>this.props.navigation.navigate("TinNhanDetails")}>
                             <View style = {{flexDirection:'row', alignItems:"center"}}>
                                 <Image style={styles.image_circle}
 
@@ -87,6 +100,7 @@ class SoanTinMoi extends Component {
                                 </Image>
                                 <Text style = {{flex:3, fontSize:20}}>{item.FullName}</Text>
                             </View>
+                        </TouchableOpacity>
                     }
                     keyExtractor={(item, index) => index}
                 />

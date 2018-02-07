@@ -10,17 +10,20 @@ import {
 } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import {callApiGetMessage} from "../../actions/MessagesActions";
+import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/Entypo'
+import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
 
 class TinNhanDetails extends Component {
     static navigationOptions = ({navigation}) => {
         const {state} = navigation;
         return {
-            headerRight: <Icon name="menu" size={30} style={{marginLeft: 7}} color="white"/>,
+            headerRight:
+            <TouchableOpacity>
+                <Icon name="menu" size={30} style={{marginLeft: 7}} color="white"/>
+            </TouchableOpacity>,
             headerStyle: { backgroundColor: '#23b34c' },
             headerTitleStyle:{ color: 'white'},
 
@@ -35,6 +38,13 @@ class TinNhanDetails extends Component {
             UserID: '',
 
         }
+        this.getOldMSG();
+        //con doan nay thi ko chay duoc code
+        // const { Message } = this.props;
+        // if ( Message.length <= 0 ){
+        //     return null
+        // };
+
         this.input_msg = '';
         this.socket = SocketIOClient('http://192.168.1.254:8080/', { transports: ['websocket'] });
         console.log('Socket', this.socket)
@@ -42,11 +52,11 @@ class TinNhanDetails extends Component {
         this.socket.on('connect', () => {
             this.socket.emit('load', (1))
             console.log("load ok")
-            this.socket.emit('login',{MsgGroupID:"1",UserID:"uet",FullName:"thailh",Avartar:""})
+            this.socket.emit('login',{MsgGroupID:"1",UserID:"uet", FullName:"thailh", Avartar:""})
             console.log("login ok")
         })
-        console.log('Socket1', this.socket)
-        this.getOldMSG();
+        // console.log('Socket1', this.socket)
+
         this.socket.on('receive', (dataReceive) => {
             console.log('receive ok')
             console.log('receive', dataReceive)
@@ -76,11 +86,14 @@ class TinNhanDetails extends Component {
 
 
     }
+    componentWillMount(){
+
+    }
     getOldMSG = ()=>  {
         const { callApiGetMessage } = this.props;
         callApiGetMessage().then(dataRes => {
             dataMessage = dataRes.ObjectResult;
-            console.log('message', dataMessage)
+            // console.log('message', dataMessage)
             this.setState({
                 dataChat: dataMessage
             })
@@ -252,12 +265,11 @@ render () {
 }
 const mapStateToProps = (state) => {
     return {
-        // SocketRef: state.SocketReducers
+        Message: state.MessagesDetailsReducers
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-
     return {
         callApiGetMessage: bindActionCreators(callApiGetMessage, dispatch),
 

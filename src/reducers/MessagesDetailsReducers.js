@@ -1,6 +1,6 @@
-const MessagesReducers = (state = [], action) => {
+const MessagesDetailsReducers = (state = [], action) => {
     switch (action.type) {
-        case 'MESSAGE':
+        case 'MESSAGE_DETAILS':
             return {
                 payload : action.payload,
             }
@@ -9,4 +9,4 @@ const MessagesReducers = (state = [], action) => {
     }
 }
 
-export default MessagesReducers
+export default MessagesDetailsReducers
