@@ -15,9 +15,8 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
-import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
 
-class TinNhanDetails extends Component {
+class TinNhanDetails1 extends Component {
     static navigationOptions = ({ navigation }) => {
 
         const { params = {} } = navigation.state
@@ -43,26 +42,33 @@ class TinNhanDetails extends Component {
             UserID: '',
 
         }
+        const { callApiGetMessage } = this.props;
+        callApiGetMessage().then(dataRes => {
+            dataMessage = dataRes.ObjectResult;
+            console.log('message', dataMessage)
+            this.setState({
+                dataChat: dataMessage
+            })
+            console.log('messageggg', dataMessage)
+        })
+
         this.input_msg = '';
-
-
         this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
-        // console.log('Socket', this.socket)
-        this.getOldMSG();
+        console.log('Socket', this.socket)
+
         this.socket.on('connect', () => {
             this.socket.emit('load', (1))
             console.log("load ok")
-            this.socket.emit('login',{MsgGroupID:"F6E85F0F-240A-4206-8630-DCAC7460A1A7",UserID:"115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C", FullName:"Doan Van Giap", Avartar:""})
+            this.socket.emit('login',{MsgGroupID:"1",UserID:"uet", FullName:"thailh", Avartar:""})
             console.log("login ok")
         })
         // console.log('Socket1', this.socket)
 
         this.socket.on('receive', (dataReceive) => {
-            // console.log('receive ok')
-            console.log('receive', dataReceive)
+            console.log('receive ok')
             console.log('receive', dataReceive)
             dataMess = dataReceive.Content;
-            // console.log('dataMes', dataMess)
+            console.log('dataMes', dataMess)
             let newMsg = this.state.dataChat;
             console.log('newMsg', newMsg)
             newMsg.push({
@@ -70,14 +76,14 @@ class TinNhanDetails extends Component {
                 Content: dataMess,
                 CreatedDate: "2018-02-05T09:29:35.383Z",
                 DayFlag: 20180205,
-                FullName: "Doan Van Giap",
+                FullName: "thailh",
                 KDTID: 1,
-                MessageID: "",
-                MsgGroupID: "F6E85F0F-240A-4206-8630-DCAC7460A1A7",
+                MessageID: "07D12F89-FFDB-48E6-B9F9-6CD60051B171",
+                MsgGroupID: "1",
                 RefAvartar: "",
                 RefName: "",
                 RefUserID: "",
-                UserID: "",
+                UserID: "uet",
                 rowNumber: "1"
             });
             this.setState({dataChat: newMsg});
@@ -93,19 +99,12 @@ class TinNhanDetails extends Component {
     componentDidMount() {
         // call function SaveDetails
         this.props.navigation.setParams({ handleSave: this.Custom.bind(this) });
-
-    }
-    componentWillMount () {
-        // const { callApiMsgGroupID } = this.props;
-        // callApiMsgGroupID().then(dataRes=> {
-        //     console.log('dataMsgGroupID',dataRes)
-        // })
-
     }
     getOldMSG = ()=>  {
         const { callApiGetMessage } = this.props;
-        callApiGetMessage("115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C", "F6E85F0F-240A-4206-8630-DCAC7460A1A7").then(dataRes => {
+        callApiGetMessage().then(dataRes => {
             dataMessage = dataRes.ObjectResult;
+            // console.log('message', dataMessage)
             this.setState({
                 dataChat: dataMessage
             })
@@ -133,7 +132,7 @@ class TinNhanDetails extends Component {
         console.log('send ok')
     };
 
-render () {
+    render () {
         // console.log('datamessage', this.state.data)
         return (
             <View style={{flex: 1}}>
@@ -212,13 +211,13 @@ render () {
                     showsVerticalScrollIndicator={false}
                     ref={ref => this.flatList = ref}
                     onContentSizeChange={() => {
-                         // console.log("on size change");
-                         this.flatList.scrollToEnd({animated: true})
+                        // console.log("on size change");
+                        this.flatList.scrollToEnd({animated: true})
                     }}
                     onLayout={() => {
                         // console.log("got to onlayout");
                         this.flatList.scrollToEnd({animated: true})
-                        }
+                    }
                     }
 
 
@@ -284,21 +283,20 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiGetMessage: bindActionCreators(callApiGetMessage, dispatch),
-        callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
 
     }
 };
 
-TinNhanDetails = connect(mapStateToProps, mapDispatchToProps)(TinNhanDetails);
+TinNhanDetails1 = connect(mapStateToProps, mapDispatchToProps)(TinNhanDetails1);
 
-export default TinNhanDetails
+export default TinNhanDetails1
 const myStyle = StyleSheet.create({
-        image_circle: {
-            height: DEVICE_WIDTH / 8,
-            width: DEVICE_WIDTH / 8,
-            borderRadius: DEVICE_WIDTH / 16,
-            marginLeft: 10,
-            marginRight: 10,
+    image_circle: {
+        height: DEVICE_WIDTH / 8,
+        width: DEVICE_WIDTH / 8,
+        borderRadius: DEVICE_WIDTH / 16,
+        marginLeft: 10,
+        marginRight: 10,
 
-        }
-    })
+    }
+})

@@ -16,6 +16,7 @@ import stylesContainer from "../../components/style";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
+import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
 class SoanTinMoi extends Component {
     constructor(props){
         super(props)
@@ -62,6 +63,9 @@ class SoanTinMoi extends Component {
             dataCuDan: inputSearch
         })
     }
+    ClickItem(){
+
+    }
     render () {
         return (
             <View style = {stylesContainer.container}>
@@ -88,7 +92,17 @@ class SoanTinMoi extends Component {
                 <FlatList
                     data = {this.state.dataCuDan}
                     renderItem = {({item}) =>
-                        <TouchableOpacity onPress = {()=>this.props.navigation.navigate("TinNhanDetails")}>
+                        <TouchableOpacity onPress = {()=>{
+                            const { UserBQL } = this.props;
+                            if (UserBQL.length <= 0) {
+                                return null;
+                            }
+                            const { callApiMsgGroupID } = this.props;
+                            callApiMsgGroupID(UserBQL.payload[0].KDTID,item.UserID,  item.FullName, UserBQL.payload[0].UserID, UserBQL.payload[0].FullName).then(dataRes=> {
+                                console.log('dataMsgGroupID',dataRes)
+                            })
+                            this.props.navigation.navigate("TinNhanDetails", {title:item.FullName})
+                        }}>
                             <View style = {{flexDirection:'row', alignItems:"center"}}>
                                 <Image style={styles.image_circle}
 
@@ -123,6 +137,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchDanCu: bindActionCreators(callApiSearchDanCu, dispatch),
+        callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
     }
 };
 

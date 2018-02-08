@@ -27,8 +27,12 @@ class TinNhan extends Component {
 
     }
     componentWillMount(){
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
         const { callApiGetUser } = this.props;
-        callApiGetUser().then(dataRes => {
+        callApiGetUser(UserBQL.payload[0].UserID).then(dataRes => {
             dataUser = dataRes.ObjectResult
             this.setState({
                 dataUser: dataUser,
@@ -80,6 +84,7 @@ class TinNhan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
+        UserBQL: state.LoginReducers,
         SocketRef: state.SocketReducers,
         dataUser: state.MessageReducers,
     }

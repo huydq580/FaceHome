@@ -12,11 +12,12 @@ import Dimensions from 'Dimensions';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon1 from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import stylesContainer from "../../components/style";
 
 class Contact extends Component {
     render () {
         return(
-            <View>
+            <View style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row'}}>
                     <Image style={styles.image_circle}
 

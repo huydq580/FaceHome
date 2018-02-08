@@ -14,7 +14,8 @@ import UpdateProfileReducers from './reducersBQl/UpdateProfileReducers'
 import SuCoReducers from './SuCoReducers'
 import SocketReducers from './SocketReducers';
 import MessagesReducers from './MessagesReducers';
-import MessagesDetailsReducers from './MessagesDetailsReducers'
+import MessagesDetailsReducers from './MessagesDetailsReducers';
+import MsgGroupIDReducers from './MsgGroupIDReducers'
 
 const appStore = combineReducers({
     LoginReducers,
@@ -32,7 +33,8 @@ const appStore = combineReducers({
     SuCoReducers,
     SocketReducers,
     MessagesReducers,
-    MessagesDetailsReducers
+    MessagesDetailsReducers,
+    MsgGroupIDReducers
 })
 
 export default appStore
