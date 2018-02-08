@@ -253,7 +253,6 @@ const Stack = StackNavigator ({
     TinNhanDetails: {
         screen: TinNhanDetails,
         navigationOptions: {
-            title: 'Chi tiết tin nhắn'
         }
     },
     BinhLuanBQL: {

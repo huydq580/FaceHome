@@ -13,23 +13,27 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
-import Icon from 'react-native-vector-icons/dist/Entypo'
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
 
 class TinNhanDetails extends Component {
-    static navigationOptions = ({navigation}) => {
-        const {state} = navigation;
-        return {
-            headerRight:
-            <TouchableOpacity>
-                <Icon name="menu" size={30} style={{marginLeft: 7}} color="white"/>
-            </TouchableOpacity>,
-            headerStyle: { backgroundColor: '#23b34c' },
-            headerTitleStyle:{ color: 'white'},
+    static navigationOptions = ({ navigation }) => {
 
+        const { params = {} } = navigation.state
+
+        return {
+            title: `${navigation.state.params.title}`,
+            headerTitleStyle : {textAlign: 'center',alignSelf:'center'},
+            headerStyle:{
+                backgroundColor:'white',
+            },
+            headerRight: <TouchableOpacity style = {{marginRight:10}}
+                                           onPress={() => params.handleSave()}>
+                <Icon name = "dots-vertical" size={25} color="#424242"/>
+            </TouchableOpacity>
         }
 
-    }
+    };
     constructor(props){
         console.log('constructor')
         super(props)
@@ -86,8 +90,12 @@ class TinNhanDetails extends Component {
 
 
     }
-    componentWillMount(){
-
+    Custom(){
+        this.props.navigation.navigate('Contact')
+    }
+    componentDidMount() {
+        // call function SaveDetails
+        this.props.navigation.setParams({ handleSave: this.Custom.bind(this) });
     }
     getOldMSG = ()=>  {
         const { callApiGetMessage } = this.props;
