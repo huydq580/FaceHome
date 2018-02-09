@@ -8,7 +8,7 @@ import {
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-export default class ChatItem extends Component {
+export default class ChatItemCuDan extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -105,12 +105,12 @@ export default class ChatItem extends Component {
 
 }
 const myStyle = StyleSheet.create({
-        image_circle: {
-            height: DEVICE_WIDTH / 8,
-            width: DEVICE_WIDTH / 8,
-            borderRadius: DEVICE_WIDTH / 16,
-            marginLeft: 10,
-            marginRight: 10,
+    image_circle: {
+        height: DEVICE_WIDTH / 8,
+        width: DEVICE_WIDTH / 8,
+        borderRadius: DEVICE_WIDTH / 16,
+        marginLeft: 10,
+        marginRight: 10,
 
-        }
-    })
+    }
+})

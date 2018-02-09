@@ -1,6 +1,6 @@
 import {MsgGroupID, URL_SOCKET} from "../components/Api";
 
-export const callApiMsgGroupID = (KDTID,UserID1,FullName1,UserID, FullName ) => {
+export const callApiMsgGroupID = (KDTID,UserID, FullName,UserID1,FullName1,UserID2, FullName2 ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL_SOCKET + MsgGroupID, {
@@ -12,26 +12,27 @@ export const callApiMsgGroupID = (KDTID,UserID1,FullName1,UserID, FullName ) => 
                     MsgGroupID: "",
                     KDTID: KDTID,
                     PartID: "",
-                    GroupMembers: JSON.stringify({
+                    GroupMembers: JSON.stringify([
+                        {
+                            UserID: UserID,
+                            FullName: FullName,
+                            Avartar: "",
+                            LinkProfile: "",
+                            LinkMsg: ""
+                        },
+                        {
                             UserID: UserID1,
                             FullName: FullName1,
                             Avartar: "",
                             LinkProfile: "",
                             LinkMsg: ""
-                        },
-                        // {
-                        //     UserID: "udt",
-                        //     FullName: "Trần Trân",
-                        //     Avartar: "test",
-                        //     LinkProfile: "https://google.com",
-                        //     LinkMsg: "https://google.com/vn"
-                        // }
+                        }]
                     ),
                     GroupName: null,
                     CreatedDate: "2017-11-10T00:00:00.000Z",
                     DayFlag: 20171110,
-                    UserID: UserID,
-                    FullName: FullName,
+                    UserID: UserID2,
+                    FullName: FullName2,
                     Avartar: null,
                     Status: 1,
                     LastMessage: null

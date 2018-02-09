@@ -15,8 +15,10 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
+import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
+import ChatItemCuDan from "../../components/ChatItemCuDan";
 
-class TinNhanDetails1 extends Component {
+class TinNhanDetailsCuDan extends Component {
     static navigationOptions = ({ navigation }) => {
 
         const { params = {} } = navigation.state
@@ -42,48 +44,47 @@ class TinNhanDetails1 extends Component {
             UserID: '',
 
         }
-        const { callApiGetMessage } = this.props;
-        callApiGetMessage().then(dataRes => {
-            dataMessage = dataRes.ObjectResult;
-            console.log('message', dataMessage)
-            this.setState({
-                dataChat: dataMessage
-            })
-            console.log('messageggg', dataMessage)
-        })
-
         this.input_msg = '';
+        const { params } = this.props.navigation.state
+        const { UserCuDan } = this.props;
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
+        // console.log('usercudan', UserCuDan)
+        // console.log('params',params.MsgGroupID)
+        //connect socket
         this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
-        console.log('Socket', this.socket)
+        console.log('socket', this.socket)
+        //get old message
+        this.getOldMSG();
 
         this.socket.on('connect', () => {
-            this.socket.emit('load', (1))
-            console.log("load ok")
-            this.socket.emit('login',{MsgGroupID:"1",UserID:"uet", FullName:"thailh", Avartar:""})
-            console.log("login ok")
-        })
-        // console.log('Socket1', this.socket)
 
+            // this.socket.emit('load', (params.MsgGroupID))
+            //join room
+            this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserCuDan.payload[0].UserID, FullName:UserCuDan.payload[0].FullName, Avartar:""})
+            console.log('login ok')
+        })
+        //receive message to sender
         this.socket.on('receive', (dataReceive) => {
-            console.log('receive ok')
-            console.log('receive', dataReceive)
+            // console.log('receive', dataReceive)
             dataMess = dataReceive.Content;
-            console.log('dataMes', dataMess)
+            //set newMsg = messga receive
             let newMsg = this.state.dataChat;
-            console.log('newMsg', newMsg)
+            //add message to array
             newMsg.push({
                 Avartar: "",
                 Content: dataMess,
                 CreatedDate: "2018-02-05T09:29:35.383Z",
                 DayFlag: 20180205,
-                FullName: "thailh",
-                KDTID: 1,
-                MessageID: "07D12F89-FFDB-48E6-B9F9-6CD60051B171",
-                MsgGroupID: "1",
+                FullName: UserCuDan.payload[0].FullName,
+                KDTID: 50,
+                MessageID: "",
+                MsgGroupID: params.MsgGroupID,
                 RefAvartar: "",
                 RefName: "",
                 RefUserID: "",
-                UserID: "uet",
+                UserID: "",
                 rowNumber: "1"
             });
             this.setState({dataChat: newMsg});
@@ -93,32 +94,53 @@ class TinNhanDetails1 extends Component {
 
 
     }
+    //custom message details
     Custom(){
         this.props.navigation.navigate('Contact')
     }
     componentDidMount() {
         // call function SaveDetails
         this.props.navigation.setParams({ handleSave: this.Custom.bind(this) });
+
     }
+    componentWillMount () {
+        // const { callApiMsgGroupID } = this.props;
+        // callApiMsgGroupID().then(dataRes=> {
+        //     console.log('dataMsgGroupID',dataRes)
+        // })
+
+    }
+    //get old msg
     getOldMSG = ()=>  {
+        const { params } = this.props.navigation.state
+        const { UserCuDan } = this.props;
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
         const { callApiGetMessage } = this.props;
-        callApiGetMessage().then(dataRes => {
+        callApiGetMessage(UserCuDan.payload[0].UserID, params.MsgGroupID).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
-            // console.log('message', dataMessage)
             this.setState({
                 dataChat: dataMessage
             })
         })
     }
+    //socket event send message
     sendMessage = () => {
+        const { params } = this.props.navigation.state
+        const { UserCuDan } = this.props;
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
         if (this.input_msg === "")
             return;
         this.textInput.clear();
         // console.log("msg:", this.input_msg);
+        //object need send to server
         let dataSend = {
-            MsgGroupID:1,
-            UserID:"uet",
-            FullName:"thailh",
+            MsgGroupID:params.MsgGroupID,
+            UserID: UserCuDan.payload[0].UserID,
+            FullName: UserCuDan.payload[0].FullName,
             Avartar:"",
             RefUserID:"",
             RefName:"",
@@ -126,84 +148,29 @@ class TinNhanDetails1 extends Component {
             Content:this.input_msg,
             CreatedDate:"",
             DayFlag:"",
-            KDTID:1,
+            KDTID:UserCuDan.payload[0].KDTID,
         }
         this.socket.emit("msg", dataSend);
-        console.log('send ok')
+        // console.log('send ok')
     };
 
     render () {
-        // console.log('datamessage', this.state.data)
+        const { UserCuDan } = this.props;
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
         return (
             <View style={{flex: 1}}>
                 <FlatList
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
                     data={this.state.dataChat}
-                    // extraData={this.state.dataChat}
-
                     renderItem={({item}) => {
+                        // console.log('item', item)
                         return (
-                            <View style = {{flex:1}}>
-                                {
-                                    item.UserID === 'udt' ?
-                                        <View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
-
-                                            <Image style={myStyle.image_circle}
-
-                                                   source={{
-                                                       uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                                                   }}
-                                                   resizeMode="cover"
-                                            >
-                                            </Image>
-                                            <View>
-                                                <View style={{marginRight: DEVICE_WIDTH / 3}}>
-                                                    <Text style={{
-                                                        borderRadius: 10,
-                                                        backgroundColor: '#FAFAFA',
-                                                        justifyContent: 'flex-start',
-                                                        alignSelf: 'flex-start',
-                                                        paddingLeft: 10,
-                                                        paddingRight: 10,
-                                                        paddingTop: 10,
-                                                        paddingBottom: 10
-                                                    }}>{item.Content}</Text>
-
-                                                </View>
-                                                {/*<Text style={{flex: 1, justifyContent: 'flex-start'}}>{this.props.dataItem.createdAt}</Text>*/}
-                                            </View>
-
-                                        </View> :
-                                        <View style={{
-                                            flex: 1,
-                                            marginLeft: DEVICE_WIDTH / 3,
-                                            // minHeight: 50,
-                                            justifyContent: 'flex-end',
-                                            marginTop: 10
-                                        }}>
-
-                                            <Text style={{
-                                                borderRadius: 10,
-                                                alignSelf: 'flex-end',
-                                                backgroundColor: '#64B5F6',
-                                                justifyContent: 'flex-end',
-                                                paddingLeft: 10,
-                                                paddingRight: 10,
-                                                paddingTop: 10,
-                                                paddingBottom: 10,
-                                                marginRight: 10
-                                            }}>{item.Content}</Text>
-                                            {/*<Text style={{*/}
-                                            {/*justifyContent: 'center',*/}
-                                            {/*alignSelf: 'flex-end',*/}
-                                            {/*marginRight: 10*/}
-                                            {/*}}>{this.props.dataItem.createdAt}</Text>*/}
-
-                                        </View>
-
-
-                                }
-                            </View>
+                            <ChatItemCuDan
+                                dataItem={item}
+                                myName={UserCuDan.payload[0].UserID}
+                            />
                         )
                     }}
                     keyExtractor={(item, index) => index}
@@ -276,20 +243,23 @@ class TinNhanDetails1 extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        Message: state.MessagesDetailsReducers
+        Message: state.MessagesDetailsReducers,
+        // UserBQL: state.LoginReducers,
+        UserCuDan: state.LoginReducers,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiGetMessage: bindActionCreators(callApiGetMessage, dispatch),
+        callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
 
     }
 };
 
-TinNhanDetails1 = connect(mapStateToProps, mapDispatchToProps)(TinNhanDetails1);
+TinNhanDetailsCuDan = connect(mapStateToProps, mapDispatchToProps)(TinNhanDetailsCuDan);
 
-export default TinNhanDetails1
+export default TinNhanDetailsCuDan
 const myStyle = StyleSheet.create({
     image_circle: {
         height: DEVICE_WIDTH / 8,

@@ -16,28 +16,31 @@ import stylesContainer from "../../components/style";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
+import {callApiGetBQL} from "../../actions/actionsBQL/BQLActions";
 import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
-class SoanTinMoi extends Component {
+class SoanTinMoiCuDan extends Component {
     constructor(props){
         super(props)
         this.state = {
             search: true,
             SearchItem:'',
-            dataCuDan:'',
+            dataBQL:'',
         }
     }
     componentWillMount(){
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { UserCuDan } = this.props;
+        if (UserCuDan.length <= 0) {
             return null;
         }
 
-        const { callApiSearchDanCu } = this.props;
-        callApiSearchDanCu(UserBQL.payload[0].KDTID).then(dataSearchDanCu => {
-            dataSearchDanCu = JSON.parse(dataSearchDanCu)
-            dataSearchDanCu = dataSearchDanCu.Value
+        // console.log('user',UserCuDan)
+
+        const { callApiGetBQL } = this.props;
+        callApiGetBQL(UserCuDan.payload[0].KDTID).then(dataGetBQL => {
+            dataGetBQL = JSON.parse(dataGetBQL)
+            dataGetBQL = dataGetBQL.Value
             this.setState({
-                dataCuDan: dataSearchDanCu
+                dataBQL: dataGetBQL
             })
         })
 
@@ -53,16 +56,17 @@ class SoanTinMoi extends Component {
         })
     }
     SearchUser(input){
-        data = this.state.dataCuDan
+        data = this.state.dataBQL
         let inputSearch  = data.filter((text)=>{
             if(text.FullName.indexOf(input)>0){
                 return text;
             }
         })
         this.setState({
-            dataCuDan: inputSearch
+            dataBQL: inputSearch
         })
     }
+
     render () {
         return (
             <View style = {stylesContainer.container}>
@@ -76,36 +80,37 @@ class SoanTinMoi extends Component {
 
                             </View>
                         </TouchableOpacity> : <View style = {{ flexDirection:'row', marginTop:10}}>
-                        <View style = {styles.containerNavbarS}>
-                            <TextInput  placeholder = 'Search'
-                                        underlineColorAndroid="transparent"
-                                        onChangeText = {this.SearchUser.bind(this)}/>
+                            <View style = {styles.containerNavbarS}>
+                                <TextInput  placeholder = 'Search'
+                                            underlineColorAndroid="transparent"
+                                            onChangeText = {this.SearchUser.bind(this)}/>
+                            </View>
+                            <TouchableOpacity onPress = {this.Cancel}>
+                                <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>
+                            </TouchableOpacity>
                         </View>
-                        <TouchableOpacity onPress = {this.Cancel}>
-                            <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>
-                        </TouchableOpacity>
-                    </View>
                 }
                 <FlatList
-                    data = {this.state.dataCuDan}
+                    data = {this.state.dataBQL}
                     renderItem = {({item}) =>
                         <TouchableOpacity onPress = {()=>{
-                            const { UserBQL } = this.props;
-                            if (UserBQL.length <= 0) {
+                            const { UserCuDan } = this.props;
+                            if (UserCuDan.length <= 0) {
                                 return null;
                             }
-                            // console.log('KDTID', UserBQL.payload[0].KDTID)
-                            // console.log('UserID', UserBQL.payload[0].UserID)
-                            // console.log('FullName', UserBQL.payload[0].FullName)
-                            // console.log('UserID1', item.UserID)
-                            // console.log('FullName1', item.FullName)
+                            console.log('UsercuDan111', UserCuDan)
+                            console.log('KDTID',UserCuDan.payload[0].KDTID )
+                            console.log('UserID',UserCuDan.payload[0].UserID )
+                            console.log('FullName',UserCuDan.payload[0].FullName )
+                            console.log('user1',item.UserID)
+                            console.log('FullName1',item.FullName)
                             const { callApiMsgGroupID } = this.props;
-                            callApiMsgGroupID(UserBQL.payload[0].KDTID,UserBQL.payload[0].UserID, UserBQL.payload[0].FullName, item.UserID,  item.FullName, UserBQL.payload[0].UserID, UserBQL.payload[0].FullName).then(dataRes=> {
+                            callApiMsgGroupID(UserCuDan.payload[0].KDTID,UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName, item.UserID,  item.FullName, UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),
                                     // console.log('gui ok')
-                                this.props.navigation.navigate("TinNhanDetails", {title:item.FullName, MsgGroupID: dataMsgGroupID})
+                                    this.props.navigation.navigate("TinNhanDetails", {title:item.FullName, MsgGroupID: dataMsgGroupID})
                             })
 
                         }}>
@@ -135,20 +140,19 @@ class SoanTinMoi extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
-        infoCuDan: state.QLDanCuReducers
+        UserCuDan: state.LoginReducers,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        callApiSearchDanCu: bindActionCreators(callApiSearchDanCu, dispatch),
+        callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch),
         callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
     }
 };
 
-SoanTinMoi = connect(mapStateToProps, mapDispatchToProps)(SoanTinMoi);
-export default SoanTinMoi;
+SoanTinMoiCuDan = connect(mapStateToProps, mapDispatchToProps)(SoanTinMoiCuDan);
+export default SoanTinMoiCuDan;
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({

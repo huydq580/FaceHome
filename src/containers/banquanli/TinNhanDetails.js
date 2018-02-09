@@ -16,6 +16,7 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
 import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
+import ChatItem from "../../components/ChatItem";
 
 class TinNhanDetails extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -57,7 +58,7 @@ class TinNhanDetails extends Component {
 
         this.socket.on('connect', () => {
 
-            this.socket.emit('load', (params.MsgGroupID))
+            // this.socket.emit('load', (params.MsgGroupID))
             //join room
             this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserBQL.payload[0].UserID, FullName:UserBQL.payload[0].FullName, Avartar:""})
         })
@@ -160,71 +161,13 @@ render () {
                 <FlatList
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
                     data={this.state.dataChat}
-                    // extraData={this.state.dataChat}
-
                     renderItem={({item}) => {
+                        // console.log('item', item)
                         return (
-                            <View style = {{flex:1}}>
-                                {
-                                    item.UserID === UserBQL.payload[0].UserID ?
-                                        <View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
-
-                                            <Image style={myStyle.image_circle}
-
-                                                   source={{
-                                                       uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                                                   }}
-                                                   resizeMode="cover"
-                                            >
-                                            </Image>
-                                            <View>
-                                                <View style={{marginRight: DEVICE_WIDTH / 3}}>
-                                                    <Text style={{
-                                                        borderRadius: 10,
-                                                        backgroundColor: '#FAFAFA',
-                                                        justifyContent: 'flex-start',
-                                                        alignSelf: 'flex-start',
-                                                        paddingLeft: 10,
-                                                        paddingRight: 10,
-                                                        paddingTop: 10,
-                                                        paddingBottom: 10
-                                                    }}>{item.Content}</Text>
-
-                                                </View>
-                                                {/*<Text style={{flex: 1, justifyContent: 'flex-start'}}>{this.props.dataItem.createdAt}</Text>*/}
-                                            </View>
-
-                                        </View> :
-                                        <View style={{
-                                            flex: 1,
-                                            marginLeft: DEVICE_WIDTH / 3,
-                                            // minHeight: 50,
-                                            justifyContent: 'flex-end',
-                                            marginTop: 10
-                                        }}>
-
-                                            <Text style={{
-                                                borderRadius: 10,
-                                                alignSelf: 'flex-end',
-                                                backgroundColor: '#64B5F6',
-                                                justifyContent: 'flex-end',
-                                                paddingLeft: 10,
-                                                paddingRight: 10,
-                                                paddingTop: 10,
-                                                paddingBottom: 10,
-                                                marginRight: 10
-                                            }}>{item.Content}</Text>
-                                            {/*<Text style={{*/}
-                                            {/*justifyContent: 'center',*/}
-                                            {/*alignSelf: 'flex-end',*/}
-                                            {/*marginRight: 10*/}
-                                            {/*}}>{this.props.dataItem.createdAt}</Text>*/}
-
-                                        </View>
-
-
-                                }
-                            </View>
+                            <ChatItem
+                                dataItem={item}
+                                myName={UserBQL.payload[0].UserID}
+                            />
                         )
                     }}
                     keyExtractor={(item, index) => index}

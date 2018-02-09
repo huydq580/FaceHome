@@ -25,6 +25,7 @@ import SuCoItemBQL from "./src/components/baocaosuco/SuCoItemBQL";
 import CmtItem from "./src/components/status/CmtItem";
 import SoanTinMoi from "./src/containers/banquanli/SoanTinMoi";
 import Contact from "./src/containers/banquanli/Contact";
+import DangNhap from "./src/containers/DangNhap";
 
 
 

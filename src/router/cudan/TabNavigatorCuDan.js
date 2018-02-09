@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {TabNavigator, DrawerNavigator} from 'react-navigation'
 import SanhChinh from '../../containers/cudan/SanhChinh';
 import DichVu from '../../containers/cudan/DichVu';
-import TinNhan from '../../containers/cudan/TinNhan';
+import TinNhanCuDan from '../../containers/cudan/TinNhanCuDan';
 import Notification from '../../containers/cudan/Notification';
 import MenuLeftCuDan from "../../containers/cudan/MenuLeftCuDan";
 
@@ -20,8 +20,8 @@ const TabCuDan = TabNavigator ({
             title: 'Dịch vụ'
         }
     },
-    TinNhan: {
-        screen: TinNhan,
+    TinNhanCuDan: {
+        screen: TinNhanCuDan,
         navigationOptions: {
             title: 'Tin nhắn'
         }
