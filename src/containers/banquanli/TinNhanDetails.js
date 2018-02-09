@@ -51,7 +51,7 @@ class TinNhanDetails extends Component {
             return null;
         }
         //connect socket
-        this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://192.168.0.103:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
 
         //get old message
         this.getOldMSG();

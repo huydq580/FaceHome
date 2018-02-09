@@ -50,10 +50,10 @@ export default class TinNhanItemCuDan extends Component {
                     <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, marginTop: 10, marginBottom: 10}}>
                         <View style={{flex: 1, flexDirection: 'row'}}>
                             <Text style={{flex: 2}} numberOfLines={1}
-                                  ellipsizeMode={'tail'}>{item.FullName}</Text>
+                                  ellipsizeMode={'tail'}>{item.FullNameOrGroupName}</Text>
                             <Text style={{flex: 1}}>17/01/2018</Text>
                         </View>
-                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.UserID}</Text>
+                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.Content}</Text>
                     </View>
                 </View>
 

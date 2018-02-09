@@ -53,7 +53,7 @@ class TinNhanDetailsCuDan extends Component {
         // console.log('usercudan', UserCuDan)
         // console.log('params',params.MsgGroupID)
         //connect socket
-        this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://192.168.0.103:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
         console.log('socket', this.socket)
         //get old message
         this.getOldMSG();
@@ -62,6 +62,7 @@ class TinNhanDetailsCuDan extends Component {
 
             // this.socket.emit('load', (params.MsgGroupID))
             //join room
+            // die when send fullname
             this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserCuDan.payload[0].UserID, FullName:UserCuDan.payload[0].FullName, Avartar:""})
             console.log('login ok')
         })
