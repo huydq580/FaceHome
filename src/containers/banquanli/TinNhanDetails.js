@@ -44,36 +44,39 @@ class TinNhanDetails extends Component {
 
         }
         this.input_msg = '';
-
-
+        const { params } = this.props.navigation.state
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        //connect socket
         this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
-        // console.log('Socket', this.socket)
-        this.getOldMSG();
-        this.socket.on('connect', () => {
-            this.socket.emit('load', (1))
-            console.log("load ok")
-            this.socket.emit('login',{MsgGroupID:"F6E85F0F-240A-4206-8630-DCAC7460A1A7",UserID:"115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C", FullName:"Doan Van Giap", Avartar:""})
-            console.log("login ok")
-        })
-        // console.log('Socket1', this.socket)
 
+        //get old message
+        this.getOldMSG();
+
+        this.socket.on('connect', () => {
+
+            this.socket.emit('load', (params.MsgGroupID))
+            //join room
+            this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserBQL.payload[0].UserID, FullName:UserBQL.payload[0].FullName, Avartar:""})
+        })
+        //receive message to sender
         this.socket.on('receive', (dataReceive) => {
-            // console.log('receive ok')
-            console.log('receive', dataReceive)
-            console.log('receive', dataReceive)
+            // console.log('receive', dataReceive)
             dataMess = dataReceive.Content;
-            // console.log('dataMes', dataMess)
+            //set newMsg = messga receive
             let newMsg = this.state.dataChat;
-            console.log('newMsg', newMsg)
+            //add message to array
             newMsg.push({
                 Avartar: "",
                 Content: dataMess,
                 CreatedDate: "2018-02-05T09:29:35.383Z",
                 DayFlag: 20180205,
-                FullName: "Doan Van Giap",
-                KDTID: 1,
+                FullName: UserBQL.payload[0].FullName,
+                KDTID: 50,
                 MessageID: "",
-                MsgGroupID: "F6E85F0F-240A-4206-8630-DCAC7460A1A7",
+                MsgGroupID: params.MsgGroupID,
                 RefAvartar: "",
                 RefName: "",
                 RefUserID: "",
@@ -87,6 +90,7 @@ class TinNhanDetails extends Component {
 
 
     }
+    //custom message details
     Custom(){
         this.props.navigation.navigate('Contact')
     }
@@ -102,24 +106,37 @@ class TinNhanDetails extends Component {
         // })
 
     }
+    //get old msg
     getOldMSG = ()=>  {
+        const { params } = this.props.navigation.state
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
         const { callApiGetMessage } = this.props;
-        callApiGetMessage("115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C", "F6E85F0F-240A-4206-8630-DCAC7460A1A7").then(dataRes => {
+        callApiGetMessage(UserBQL.payload[0].UserID, params.MsgGroupID).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
                 dataChat: dataMessage
             })
         })
     }
+    //socket event send message
     sendMessage = () => {
+        const { params } = this.props.navigation.state
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
         if (this.input_msg === "")
             return;
         this.textInput.clear();
         // console.log("msg:", this.input_msg);
+        //object need send to server
         let dataSend = {
-            MsgGroupID:1,
-            UserID:"uet",
-            FullName:"thailh",
+            MsgGroupID:params.MsgGroupID,
+            UserID: UserBQL.payload[0].UserID,
+            FullName: UserBQL.payload[0].FullName,
             Avartar:"",
             RefUserID:"",
             RefName:"",
@@ -127,15 +144,18 @@ class TinNhanDetails extends Component {
             Content:this.input_msg,
             CreatedDate:"",
             DayFlag:"",
-            KDTID:1,
+            KDTID:UserBQL.payload[0].KDTID,
         }
         this.socket.emit("msg", dataSend);
-        console.log('send ok')
+        // console.log('send ok')
     };
 
 render () {
-        // console.log('datamessage', this.state.data)
-        return (
+    const { UserBQL } = this.props;
+    if (UserBQL.length <= 0) {
+        return null;
+    }
+    return (
             <View style={{flex: 1}}>
                 <FlatList
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
@@ -146,7 +166,7 @@ render () {
                         return (
                             <View style = {{flex:1}}>
                                 {
-                                    item.UserID === 'udt' ?
+                                    item.UserID === UserBQL.payload[0].UserID ?
                                         <View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
 
                                             <Image style={myStyle.image_circle}
@@ -277,7 +297,8 @@ render () {
 }
 const mapStateToProps = (state) => {
     return {
-        Message: state.MessagesDetailsReducers
+        Message: state.MessagesDetailsReducers,
+        UserBQL: state.LoginReducers,
     }
 };
 

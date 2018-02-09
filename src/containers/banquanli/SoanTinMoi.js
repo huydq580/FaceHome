@@ -99,9 +99,12 @@ class SoanTinMoi extends Component {
                             }
                             const { callApiMsgGroupID } = this.props;
                             callApiMsgGroupID(UserBQL.payload[0].KDTID,item.UserID,  item.FullName, UserBQL.payload[0].UserID, UserBQL.payload[0].FullName).then(dataRes=> {
-                                console.log('dataMsgGroupID',dataRes)
+                                // console.log('dataMsgGroupID',dataRes)
+                                dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
+                                // console.log('dataMsgGroupID',dataMsgGroupID)
+                                this.props.navigation.navigate("TinNhanDetails", {title:item.FullName, MsgGroupID: dataMsgGroupID})
                             })
-                            this.props.navigation.navigate("TinNhanDetails", {title:item.FullName})
+
                         }}>
                             <View style = {{flexDirection:'row', alignItems:"center"}}>
                                 <Image style={styles.image_circle}
