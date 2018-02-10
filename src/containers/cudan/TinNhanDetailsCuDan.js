@@ -37,7 +37,7 @@ class TinNhanDetailsCuDan extends Component {
 
     };
     constructor(props){
-        console.log('constructor')
+        console.log('constructor1')
         super(props)
         this.state = {
             dataChat: [],
@@ -50,12 +50,13 @@ class TinNhanDetailsCuDan extends Component {
         if (UserCuDan.length <= 0) {
             return null;
         }
-        // console.log('usercudan', UserCuDan)
-        // console.log('params',params.MsgGroupID)
+        console.log('usercudan', UserCuDan)
+        console.log('params',params.MsgGroupID)
         //connect socket
-        this.socket = SocketIOClient('http://192.168.0.103:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
         console.log('socket', this.socket)
-        //get old message
+        // console.log('socket', this.socket)
+        // // get old message
         this.getOldMSG();
 
         this.socket.on('connect', () => {
@@ -63,10 +64,10 @@ class TinNhanDetailsCuDan extends Component {
             // this.socket.emit('load', (params.MsgGroupID))
             //join room
             // die when send fullname
-            this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserCuDan.payload[0].UserID, FullName:UserCuDan.payload[0].FullName, Avartar:""})
+            this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserCuDan.payload[0].UserID, FullName:"", Avartar:""})
             console.log('login ok')
         })
-        //receive message to sender
+        // receive message to sender
         this.socket.on('receive', (dataReceive) => {
             // console.log('receive', dataReceive)
             dataMess = dataReceive.Content;
@@ -141,7 +142,8 @@ class TinNhanDetailsCuDan extends Component {
         let dataSend = {
             MsgGroupID:params.MsgGroupID,
             UserID: UserCuDan.payload[0].UserID,
-            FullName: UserCuDan.payload[0].FullName,
+            FullName: "",
+            // FullName: UserCuDan.payload[0].FullName,
             Avartar:"",
             RefUserID:"",
             RefName:"",

@@ -6,7 +6,7 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,UserID1,FullName1,UserI
             fetch(URL_SOCKET + MsgGroupID, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=utf-8'
                 },
                 body: JSON.stringify({
                     MsgGroupID: "",

@@ -98,19 +98,19 @@ class SoanTinMoiCuDan extends Component {
                             if (UserCuDan.length <= 0) {
                                 return null;
                             }
-                            console.log('UsercuDan111', UserCuDan)
-                            console.log('KDTID',UserCuDan.payload[0].KDTID )
-                            console.log('UserID',UserCuDan.payload[0].UserID )
-                            console.log('FullName',UserCuDan.payload[0].FullName )
-                            console.log('user1',item.UserID)
-                            console.log('FullName1',item.FullName)
+                            // console.log('UsercuDan111', UserCuDan)
+                            // console.log('KDTID',UserCuDan.payload[0].KDTID )
+                            // console.log('UserID',UserCuDan.payload[0].UserID )
+                            // console.log('FullName',UserCuDan.payload[0].FullName )
+                            // console.log('user1',item.UserID)
+                            // console.log('FullName1',item.FullName)
                             const { callApiMsgGroupID } = this.props;
                             callApiMsgGroupID(UserCuDan.payload[0].KDTID,UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName, item.UserID,  item.FullName, UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),
                                     // console.log('gui ok')
-                                    this.props.navigation.navigate("TinNhanDetails", {title:item.FullName, MsgGroupID: dataMsgGroupID})
+                                    this.props.navigation.navigate("TinNhanDetailsCuDan", {title:item.FullName, MsgGroupID: dataMsgGroupID})
                             })
 
                         }}>

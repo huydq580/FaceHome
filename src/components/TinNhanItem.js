@@ -34,7 +34,7 @@ export default class TinNhanItem extends Component {
 
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate('TinNhanDetails', {dataUser: item, title: item.FullName});
+                    navigation.navigate('TinNhanDetails', {dataUser: item, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID});
                 }}
             >
                 <View key={item.index}

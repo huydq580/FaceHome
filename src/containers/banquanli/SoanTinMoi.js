@@ -105,7 +105,7 @@ class SoanTinMoi extends Component {
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),
                                     // console.log('gui ok')
-                                this.props.navigation.navigate("TinNhanDetails", {title:item.FullName, MsgGroupID: dataMsgGroupID})
+                                this.props.navigation.navigate("TinNhanDetails", { title : item.FullName, MsgGroupID: dataMsgGroupID})
                             })
 
                         }}>

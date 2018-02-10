@@ -37,7 +37,7 @@ class TinNhan extends Component {
             this.setState({
                 dataUser: dataUser,
             })
-            // console.log('datauser', this.state.dataUser)
+            console.log('datauser', this.state.dataUser)
         })
     }
     renderSeparator = () => {
