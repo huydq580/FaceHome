@@ -1,6 +1,6 @@
 import {MsgGroupID, URL_SOCKET} from "../components/Api";
 
-export const callApiMsgGroupID = (KDTID,UserID, FullName,UserID1,FullName1,UserID2, FullName2 ) => {
+export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullName1,IntUserID1, UserID2, FullName2 ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL_SOCKET + MsgGroupID, {
@@ -18,14 +18,16 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,UserID1,FullName1,UserI
                             FullName: FullName,
                             Avartar: "",
                             LinkProfile: "",
-                            LinkMsg: ""
+                            LinkMsg: "",
+                            IntUserID: IntUserID,
                         },
                         {
                             UserID: UserID1,
                             FullName: FullName1,
                             Avartar: "",
                             LinkProfile: "",
-                            LinkMsg: ""
+                            LinkMsg: "",
+                            IntUserID1: IntUserID1,
                         }]
                     ),
                     GroupName: null,

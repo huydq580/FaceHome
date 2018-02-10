@@ -52,48 +52,48 @@ class TinNhanDetails extends Component {
         if (UserBQL.length <= 0) {
             return null;
         }
-        //connect socket
-        // this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
-        //
-        // //get old message
-        // this.getOldMSG();
+        // connect socket
+        this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+
+        //get old message
+        this.getOldMSG();
+        console.log('MsgGroupID', params.MsgGroupID)
+        console.log('UserID', UserBQL.payload[0].UserID)
+        console.log('FullName', UserBQL.payload[0].FullName)
         // console.log('MsgGroupID', params.MsgGroupID)
-        // console.log('UserID', UserBQL.payload[0].UserID)
-        // console.log('FullName', UserBQL.payload[0].FullName)
-        // // console.log('MsgGroupID', params.MsgGroupID)
-        // this.socket.on('connect', () => {
-        //
-        //     // this.socket.emit('load', (params.MsgGroupID))
-        //     //join room
-        //     this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserBQL.payload[0].UserID, FullName:UserBQL.payload[0].FullName, Avartar:""})
-        //     console.log('login ok')
-        // })
-        // //receive message to sender
-        // this.socket.on('receive', (dataReceive) => {
-        //     console.log('receive', dataReceive)
-        //     dataMess = dataReceive.Content;
-        //     //set newMsg = messga receive
-        //     let newMsg = this.state.dataChat;
-        //     //add message to array
-        //     newMsg.push({
-        //         Avartar: "",
-        //         Content: dataMess,
-        //         CreatedDate: "2018-02-05T09:29:35.383Z",
-        //         DayFlag: 20180205,
-        //         FullName: UserBQL.payload[0].FullName,
-        //         KDTID: 50,
-        //         MessageID: "",
-        //         MsgGroupID: params.MsgGroupID,
-        //         RefAvartar: "",
-        //         RefName: "",
-        //         RefUserID: "",
-        //         UserID: "",
-        //         rowNumber: "1"
-        //     });
-        //     this.setState({dataChat: newMsg});
-        //     console.log('send ok')
-        // })
-        //
+        this.socket.on('connect', () => {
+
+            // this.socket.emit('load', (params.MsgGroupID))
+            //join room
+            this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserBQL.payload[0].UserID, FullName:UserBQL.payload[0].FullName, Avartar:""})
+            console.log('login ok')
+        })
+        //receive message to sender
+        this.socket.on('receive', (dataReceive) => {
+            console.log('receive', dataReceive)
+            dataMess = dataReceive.Content;
+            //set newMsg = messga receive
+            let newMsg = this.state.dataChat;
+            //add message to array
+            newMsg.push({
+                Avartar: "",
+                Content: dataMess,
+                CreatedDate: "2018-02-05T09:29:35.383Z",
+                DayFlag: 20180205,
+                FullName: UserBQL.payload[0].FullName,
+                KDTID: 50,
+                MessageID: "",
+                MsgGroupID: params.MsgGroupID,
+                RefAvartar: "",
+                RefName: "",
+                RefUserID: "",
+                UserID: "",
+                rowNumber: "1"
+            });
+            this.setState({dataChat: newMsg});
+            console.log('send ok')
+        })
+
 
 
 
