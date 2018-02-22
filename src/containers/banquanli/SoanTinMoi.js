@@ -124,10 +124,6 @@ class SoanTinMoi extends Component {
                     }
                     keyExtractor={(item, index) => index}
                 />
-
-
-
-
             </View>
         )
 

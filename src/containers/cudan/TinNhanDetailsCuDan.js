@@ -53,7 +53,7 @@ class TinNhanDetailsCuDan extends Component {
         console.log('usercudan', UserCuDan)
         console.log('params',params.MsgGroupID)
         //connect socket
-        this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://192.168.0.102:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
         console.log('socket', this.socket)
         // console.log('socket', this.socket)
         // // get old message
@@ -139,11 +139,12 @@ class TinNhanDetailsCuDan extends Component {
         this.textInput.clear();
         // console.log("msg:", this.input_msg);
         //object need send to server
+        console.log('userid gui di', UserCuDan.payload[0].UserID)
         let dataSend = {
             MsgGroupID:params.MsgGroupID,
             UserID: UserCuDan.payload[0].UserID,
             FullName: "",
-            // FullName: UserCuDan.payload[0].FullName,
+            FullName: UserCuDan.payload[0].FullName,
             Avartar:"",
             RefUserID:"",
             RefName:"",

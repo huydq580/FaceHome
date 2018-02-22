@@ -18,19 +18,20 @@ export default class ChatItem extends Component {
     }
 
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (JSON.stringify(nextProps.dataItem) === JSON.stringify(this.props.dataItem)) {
-            return false;
-        }
-
-        else
-            return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (JSON.stringify(nextProps.dataItem) === JSON.stringify(this.props.dataItem)) {
+    //         return false;
+    //     }
+    //
+    //     else
+    //         return true;
+    // }
 
     renderMsgForUser = () => {
         console.log('myname', this.props.myName)
         console.log('dataItem', this.props.dataItem.UserID)
-        if (this.props.myName === this.props.dataItem.UserID) {
+        console.log('data nhan ve', this.props.dataItem)
+        if (this.props.myName == this.props.dataItem.UserID) {
             return (
                 <View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
 

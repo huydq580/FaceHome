@@ -27,7 +27,7 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullN
                             Avartar: "",
                             LinkProfile: "",
                             LinkMsg: "",
-                            IntUserID1: IntUserID1,
+                            IntUserID: IntUserID1,
                         }]
                     ),
                     GroupName: null,

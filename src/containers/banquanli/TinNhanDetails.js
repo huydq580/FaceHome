@@ -53,13 +53,13 @@ class TinNhanDetails extends Component {
             return null;
         }
         // connect socket
-        this.socket = SocketIOClient('http://192.168.1.254:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
-
+        this.socket = SocketIOClient('http://192.168.0.102:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        console.log('socket', this.socket)
         //get old message
         this.getOldMSG();
-        console.log('MsgGroupID', params.MsgGroupID)
-        console.log('UserID', UserBQL.payload[0].UserID)
-        console.log('FullName', UserBQL.payload[0].FullName)
+        // console.log('MsgGroupID', params.MsgGroupID)
+        // console.log('UserID', UserBQL.payload[0].UserID)
+        // console.log('FullName', UserBQL.payload[0].FullName)
         // console.log('MsgGroupID', params.MsgGroupID)
         this.socket.on('connect', () => {
 
@@ -91,7 +91,6 @@ class TinNhanDetails extends Component {
                 rowNumber: "1"
             });
             this.setState({dataChat: newMsg});
-            console.log('send ok')
         })
 
 
@@ -156,6 +155,10 @@ class TinNhanDetails extends Component {
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
+
+
+
+
     };
 
 render () {
