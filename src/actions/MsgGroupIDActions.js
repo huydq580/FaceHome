@@ -37,7 +37,8 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullN
                     FullName: FullName2,
                     Avartar: null,
                     Status: 1,
-                    LastMessage: null
+                    LastMessage: null,
+                    IsCreate: true,
                 })
             }).then((response) => {
                 return response.json();

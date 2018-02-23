@@ -53,7 +53,7 @@ class TinNhanDetailsCuDan extends Component {
         console.log('usercudan', UserCuDan)
         console.log('params',params.MsgGroupID)
         //connect socket
-        this.socket = SocketIOClient('http://192.168.0.102:8080/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://222.252.16.186:9060/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
         console.log('socket', this.socket)
         // console.log('socket', this.socket)
         // // get old message
@@ -156,6 +156,24 @@ class TinNhanDetailsCuDan extends Component {
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
+        dataMesSend = this.input_msg;
+        let newMsg = this.state.dataChat;
+        newMsg.push({
+            Avartar: "",
+            Content: dataMesSend,
+            CreatedDate: "2018-02-05T09:29:35.383Z",
+            DayFlag: 20180205,
+            FullName: UserCuDan.payload[0].FullName,
+            KDTID: 50,
+            MessageID: "",
+            MsgGroupID: params.MsgGroupID,
+            RefAvartar: "",
+            RefName: "",
+            RefUserID: "",
+            UserID: "",
+            rowNumber: "1"
+        });
+        this.setState({dataChat: newMsg});
     };
 
     render () {

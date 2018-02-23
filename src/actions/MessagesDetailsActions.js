@@ -11,7 +11,8 @@ export const callApiGetMessage = (UserID, MsgGroupID) => {
                 body: JSON.stringify({
                     UserID:UserID,
                     MsgGroupID:MsgGroupID,
-                    Index:1
+                    Index:1,
+                    Today: 0
                 })
             }).then((response) => {
                 return response.json();
