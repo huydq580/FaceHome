@@ -73,7 +73,7 @@ class QuanLyCuDan extends Component {
                             <Picker.Item label = {'HH1D'} value ={'key4'}/>
                         </Picker>
                     </View>
-                    <View style = {{flex:1, flexDirection:'row',  alignItems:'center'}}>
+                    <View style = {{flex:1, flexDirection:'row',  alignItems:'center', borderWidth:1, borderColor:'#9E9E9E'}}>
                         <Text>Tầng/Lầu: </Text>
                         <Picker
                             style = {styles.picker}

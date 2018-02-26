@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     Image,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 import { bindActionCreators } from 'redux'
@@ -44,6 +45,8 @@ class TinNhanDetails extends Component {
         this.state = {
             dataChat: [],
             UserID: '',
+            refresh : false,
+            isLoading: true,
 
         }
         this.input_msg = '';
@@ -121,7 +124,8 @@ class TinNhanDetails extends Component {
         callApiGetMessage(UserBQL.payload[0].UserID, params.MsgGroupID).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
-                dataChat: dataMessage
+                dataChat: dataMessage,
+                isLoading: false,
             })
         })
     }
@@ -175,6 +179,13 @@ class TinNhanDetails extends Component {
     };
 
 render () {
+    if (this.state.isLoading) {
+        return (
+            <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                <ActivityIndicator size="large" color="white"/>
+            </View>
+        );
+    }
     const { UserBQL } = this.props;
     if (UserBQL.length <= 0) {
         return null;
@@ -182,6 +193,8 @@ render () {
     return (
             <View style={{flex: 1}}>
                 <FlatList
+                    refreshing = {this.state.refresh}
+                    onRefresh = {()=>  {this.getOldMSG()}}
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
                     data={this.state.dataChat}
                     renderItem={({item}) => {
