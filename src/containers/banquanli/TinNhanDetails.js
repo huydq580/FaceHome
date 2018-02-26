@@ -47,6 +47,7 @@ class TinNhanDetails extends Component {
             UserID: '',
             refresh : false,
             isLoading: true,
+            index :1,
 
         }
         this.input_msg = '';
@@ -115,20 +116,34 @@ class TinNhanDetails extends Component {
     }
     //get old msg
     getOldMSG = ()=>  {
+        console.log('so trang', this.state.index)
         const { params } = this.props.navigation.state
         const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
         const { callApiGetMessage } = this.props;
-        callApiGetMessage(UserBQL.payload[0].UserID, params.MsgGroupID).then(dataRes => {
+        callApiGetMessage(UserBQL.payload[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
-                dataChat: dataMessage,
+                dataChat: [...dataMessage,...this.state.dataChat],
+                // dataChat: ,
                 isLoading: false,
             })
         })
     }
+    handleLoadMore = () => {
+        this.setState(
+            {
+                index: this.state.index + 1
+            },
+            () => {
+                console.log('index', this.state.index)
+                this.getOldMSG();
+            }
+        );
+    };
+
     //socket event send message
     sendMessage = () => {
         const { params } = this.props.navigation.state
@@ -194,7 +209,7 @@ render () {
             <View style={{flex: 1}}>
                 <FlatList
                     refreshing = {this.state.refresh}
-                    onRefresh = {()=>  {this.getOldMSG()}}
+                    onRefresh = {()=>  {this.handleLoadMore()}}
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
                     data={this.state.dataChat}
                     renderItem={({item}) => {
