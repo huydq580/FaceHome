@@ -53,7 +53,7 @@ class TinNhanDetails extends Component {
             return null;
         }
         // connect socket
-        this.socket = SocketIOClient('http://222.252.16.186:9060/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
         console.log('socket', this.socket)
         //get old message
         this.getOldMSG();

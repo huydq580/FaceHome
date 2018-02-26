@@ -57,7 +57,7 @@ export const GetComment = "api/SuCo/GetComment";
 export const SaveComment = "api/SuCo/SaveComment";
 
 //api socket
-export const URL_SOCKET = "http://222.252.16.186:9061/";
+export const URL_SOCKET = "http://222.252.16.186:9060/";
 export const Get_User = "messages/groupmessagebyuser";
 export const Get_Message = "messages/detailmessagebygroupuse";
 export const MsgGroupID = "msg_group/createupdatemsg_group";

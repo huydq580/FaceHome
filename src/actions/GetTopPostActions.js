@@ -1,26 +1,29 @@
-import {Get_Message, URL_SOCKET} from "../components/Api";
+import {GetTopPost, URL} from "../components/Api";
 
-export const callApiGetMessage = (UserID, MsgGroupID) => {
+export const callApiGetTopPost = (user_id, kdt_id) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL_SOCKET + Get_Message, {
+            fetch(URL + GetTopPost, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    UserID:UserID,
-                    MsgGroupID:MsgGroupID,
-                    Index:1,
-                    Today: 1,
+                    top: 15,
+                    user_id: user_id,
+                    kdt_id: kdt_id,
+                    user_type: 255,
+                    pin: 255,
+                    option: 0,
+                    lang_name: "vi_VN"
                 })
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                // console.log('data_message', data)
+                data1 = JSON.parse(data);
                 dispatch({
-                    type: 'MESSAGE_DETAILS',
-                    payload: data.ObjectResult
+                    type: 'GET_TOP_POST',
+                    payload: data1.Value
                 })
                 resolve(data);
             }).catch(e => {

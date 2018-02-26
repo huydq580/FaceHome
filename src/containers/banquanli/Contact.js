@@ -50,12 +50,14 @@ class Contact extends Component {
                     <Text style={{flex:5, fontSize:17, color:'#616161'}}>Xem trang cá nhân</Text>
                 </View>
                 <View style = {{height:1, backgroundColor:'#cccccc', marginTop:8}}/>
-                <View style = {{flexDirection:'row', marginTop:10}}>
-                    <View style = {{marginLeft: 5, flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                        <Icon1 name="ios-add" size={25} color="#212121"/>
+                <TouchableOpacity onPress = {()=> this.props.navigation.navigate('TaoGroup')}>
+                    <View style = {{flexDirection:'row', marginTop:10}}>
+                        <View style = {{marginLeft: 5, flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <Icon1 name="ios-add" size={25} color="#212121"/>
+                        </View>
+                        <Text style={{flex:5, fontSize:17, color:'#616161'}}>Tạo group</Text>
                     </View>
-                    <Text style={{flex:5, fontSize:17, color:'#616161'}}>Tạo gruop</Text>
-                </View>
+                </TouchableOpacity>
 
             </View>
         );

@@ -25,7 +25,7 @@ class StatusItems extends Component {
                             </View>
                         </View>
                         <View style = {{marginHorizontal: 10, marginTop:10}}>
-                            <Text style = {{color: '#212121'}}>{item.status}</Text>
+                            <Text style = {{color: '#212121'}}>{item.PostContent}</Text>
                         </View>
                         <View style = {{flexDirection:'row', marginTop:20, justifyContent:'space-between'}}>
                             <View style = {{flexDirection:'row', marginLeft:10}}>

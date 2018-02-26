@@ -19,6 +19,7 @@ import Icon1 from 'react-native-vector-icons/EvilIcons';
 import StatusItems from "../../components/status/StatusItems";
 import SocketIOClient from 'socket.io-client';
 import {connectToSocket, disConnectToSocket, joinToChat} from "../../actions/SocketActions";
+import {callApiGetTopPost} from "../../actions/GetTopPostActions";
 
 
 class SanhChinh extends Component {
@@ -33,30 +34,27 @@ class SanhChinh extends Component {
     constructor(props){
         super(props)
         this.state = {
-            dataItem :
-                [
-                    {
-                        "status": "Một con vit xòe ra 2 cái cánh",
-                        "like": "11",
-                        'comment': '30',
-                    },
-                    {
-                        "status": "Bà ơi bà cháu yêu bà lắm, tóc bà trắng màu trắng màu trắng như mây, cháu yêu bà cháu nắm bàn tay.",
-                        "like": "55",
-                        'comment': '20',
-                    },
-                    {
-                        "status": "wtf",
-                        "like": "66",
-                        'comment': '10',
-                    },
-
-                ],
+            dataItem :[],
 
         }
 
 
 
+    }
+    componentWillMount(){
+
+        const { UserBQL, callApiGetTopPost } = this.props
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        callApiGetTopPost(UserBQL.payload[0].UserID, UserBQL.payload[0].KDTID).then(dataRes => {
+            dataBaiViet = JSON.parse(dataRes);
+            dataBaiViet = dataBaiViet.Value
+            console.log('bai viet', dataBaiViet)
+            this.setState({
+                dataItem: dataBaiViet,
+            })
+        })
     }
 
     render (){
@@ -102,7 +100,9 @@ class SanhChinh extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        SocketRef: state.SocketReducers
+        SocketRef: state.SocketReducers,
+        TopPost: state.GetTopPostReducers,
+        UserBQL: state.LoginReducers
     }
 };
 
@@ -111,7 +111,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         connectToSocket: bindActionCreators(connectToSocket, dispatch),
         joinToChat: bindActionCreators(joinToChat, dispatch),
-        disConnectToSocket: bindActionCreators(disConnectToSocket, dispatch)
+        disConnectToSocket: bindActionCreators(disConnectToSocket, dispatch),
+        callApiGetTopPost: bindActionCreators(callApiGetTopPost, dispatch),
+
 
     }
 };

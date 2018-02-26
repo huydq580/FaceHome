@@ -13,7 +13,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
-import ImageResizer from 'react-native-image-resizer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {callApiCreatePost, callApiUploadImage} from "../../actions/SoanTinActions";

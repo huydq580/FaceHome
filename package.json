@@ -12,15 +12,17 @@
     "moment": "^2.20.1",
     "react": "16.0.0",
     "react-native": "0.50.4",
+    "react-native-communications": "^2.2.1",
     "react-native-fcm": "^11.3.1",
     "react-native-image-picker": "^0.26.7",
-    "react-native-image-resizer": "^1.0.0",
     "react-native-keyboard-aware-scroll-view": "^0.4.1",
     "react-native-material-dropdown": "^0.6.1",
     "react-native-vector-icons": "^4.4.2",
     "react-navigation": "^1.0.0-beta.21",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
     "socket.io-client": "^2.0.4"
   },
   "devDependencies": {
