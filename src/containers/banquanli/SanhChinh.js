@@ -8,7 +8,8 @@ import {
     Image,
     TouchableOpacity,
     FlatList,
-    Button
+    Button,
+    ActivityIndicator
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -35,7 +36,8 @@ class SanhChinh extends Component {
         super(props)
         this.state = {
             dataItem :[],
-
+            refresh : false,
+            isLoading: true,
         }
 
 
@@ -43,6 +45,10 @@ class SanhChinh extends Component {
     }
     componentWillMount(){
 
+
+        this.fetchData()
+    }
+    fetchData = () => {
         const { UserBQL, callApiGetTopPost } = this.props
         if (UserBQL.length <= 0) {
             return null;
@@ -50,17 +56,25 @@ class SanhChinh extends Component {
         callApiGetTopPost(UserBQL.payload[0].UserID, UserBQL.payload[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            console.log('bai viet', dataBaiViet)
+            console.log('bai viet sanh chinh', dataBaiViet)
             this.setState({
+                isLoading: false,
                 dataItem: dataBaiViet,
             })
         })
     }
 
     render (){
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                    <ActivityIndicator size="large" color="white"/>
+                </View>
+            );
+        }
         const {navigation} = this.props;
         return (
-            <ScrollView style = {stylesContainer.container}>
+            <View style = {stylesContainer.container}>
                 {/*<View style={{alignItems:'center', justifyContent:'center'}}>*/}
                     {/*<Text style = {{fontSize:19, fontWeight:'bold', color: 'black'}}>*/}
                         {/*Thông Tin Từ Ban Quản Lý*/}
@@ -82,6 +96,8 @@ class SanhChinh extends Component {
                 </View>
                 <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
                 <FlatList
+                    refreshing = {this.state.refresh}
+                    onRefresh = {()=>  {this.fetchData()}}
                     data = {this.state.dataItem}
                     renderItem={(item) => {
                         return (
@@ -94,7 +110,7 @@ class SanhChinh extends Component {
                     }
                     keyExtractor={(item, index) => index}
                 />
-            </ScrollView>
+            </View>
         );
     }
 }
