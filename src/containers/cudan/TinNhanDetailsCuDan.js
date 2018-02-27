@@ -89,7 +89,7 @@ class TinNhanDetailsCuDan extends Component {
                 RefAvartar: "",
                 RefName: "",
                 RefUserID: "",
-                UserID: UserCuDan.payload[0].UserID,
+                UserID: "",
                 rowNumber: "1"
             });
             this.setState({dataChat: newMsg});
@@ -186,7 +186,7 @@ class TinNhanDetailsCuDan extends Component {
             RefAvartar: "",
             RefName: "",
             RefUserID: "",
-            UserID: "",
+            UserID: UserCuDan.payload[0].UserID,
             rowNumber: "1"
         });
         this.setState({dataChat: newMsg});

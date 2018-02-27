@@ -38,8 +38,9 @@ class SanhChinh extends Component {
         callApiNhaCuDan(UserCuDan.payload[0].ProfileID, UserCuDan.payload[0].UserID, UserCuDan.payload[0].Type).then(dataNha => {
             dataNhaCuDan = JSON.parse(dataNha);
             console.log('data1', dataNhaCuDan)
-            this.fetchData()
+
         })
+        this.fetchData()
     }
     fetchData = () => {
         const { UserCuDan, callApiSearchPost } = this.props
@@ -100,7 +101,7 @@ class SanhChinh extends Component {
                                style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
                         </Image>
                         <View style = {{marginLeft: 10, borderWidth: 1, borderColor: '#cccccc', borderRadius:20, flex:1,justifyContent:'center' ,alignItems:'center'}}>
-                            <TouchableOpacity onPress = {()=>this.props.navigation.navigate('SoanTin')}>
+                            <TouchableOpacity onPress = {()=>this.props.navigation.navigate('SoanTinCuDan')}>
                                 <Text>Soạn đăng bản tin cho KĐT</Text>
                             </TouchableOpacity>
                         </View>

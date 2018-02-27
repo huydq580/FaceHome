@@ -28,7 +28,9 @@ export default class ChatItemCuDan extends Component {
     }
 
     renderMsgForUser = () => {
-        if (this.props.myName === this.props.dataItem.UserID) {
+        // console.log('myname', this.props.myName)
+        // console.log('dataItem', this.props.dataItem.UserID)
+        if (this.props.myName == this.props.dataItem.UserID) {
 
             return (
                 <View style={{

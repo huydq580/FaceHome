@@ -57,6 +57,7 @@ import Contact from "../containers/banquanli/Contact";
 import TinNhanDetailsCuDan from "../containers/cudan/TinNhanDetailsCuDan";
 import SoanTinMoiCuDan from "../containers/cudan/SoanTinMoiCuDan";
 import TaoGroup from "../containers/banquanli/TaoGroup";
+import SoanTinCuDan from "../containers/cudan/SoanTinCuDan";
 
 
 const Stack = StackNavigator ({
@@ -398,6 +399,12 @@ const Stack = StackNavigator ({
         screen: TaoGroup,
         navigationOptions: {
             title: 'Tin nhắn mới'
+        }
+    },
+    SoanTinCuDan: {
+        screen: SoanTinCuDan,
+        navigationOptions: {
+            title: 'Tạo bài viết'
         }
     }
 
