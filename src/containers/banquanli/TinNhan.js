@@ -3,7 +3,8 @@ import {
     View,
     Text,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native';
 import TinNhanItem from "../../components/TinNhanItem";
 import Dimensions from 'Dimensions';
@@ -21,12 +22,17 @@ class TinNhan extends Component {
         super(props)
         this.state = {
             dataUser: '',
+            refresh : false,
+            isLoading: true,
 
         }
 
 
     }
     componentWillMount(){
+        this.getUSer()
+    }
+    getUSer = () => {
         const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
             return null;
@@ -36,6 +42,7 @@ class TinNhan extends Component {
             dataUser = dataRes.ObjectResult
             this.setState({
                 dataUser: dataUser,
+                isLoading: false,
             })
             console.log('datauser', this.state.dataUser)
         })
@@ -53,7 +60,14 @@ class TinNhan extends Component {
         );
     }
 
-    render() {
+    render() {if (this.state.isLoading) {
+        return (
+            <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                <ActivityIndicator size="large" color="white"/>
+            </View>
+        );
+    }
+
         const {navigation} = this.props;
         return (
             <View style = {stylesContainer.container}>
@@ -65,6 +79,8 @@ class TinNhan extends Component {
                         marginBottom:10}}>Soạn tin mới</Text>
                 </TouchableOpacity>
                 <FlatList
+                    refreshing = {this.state.refresh}
+                    onRefresh = {()=>  {this.getUSer()}}
                     data={this.state.dataUser}
                     renderItem={(item) => {
                         return (
