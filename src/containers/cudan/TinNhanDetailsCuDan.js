@@ -16,7 +16,6 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
-import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
 import ChatItemCuDan from "../../components/ChatItemCuDan";
 
 class TinNhanDetailsCuDan extends Component {
@@ -300,7 +299,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiGetMessage: bindActionCreators(callApiGetMessage, dispatch),
-        callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
 
     }
 };

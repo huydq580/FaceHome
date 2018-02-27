@@ -16,7 +16,6 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
-import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
 import ChatItem from "../../components/ChatItem";
 
 //Warning: Can only update a mounted or mounting component. This usually means you called setState, replaceState, or forceUpdate on an unmounted component. This is a no-op. Please check the code for the Fab component.
@@ -299,7 +298,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiGetMessage: bindActionCreators(callApiGetMessage, dispatch),
-        callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
 
     }
 };
