@@ -20,7 +20,7 @@ import Icon1 from 'react-native-vector-icons/EvilIcons';
 import StatusItems from "../../components/status/StatusItems";
 import SocketIOClient from 'socket.io-client';
 import {connectToSocket, disConnectToSocket, joinToChat} from "../../actions/SocketActions";
-import {callApiGetTopPost} from "../../actions/GetTopPostActions";
+import {callApiSearchPost} from "../../actions/SearchPostActions";
 
 
 class SanhChinh extends Component {
@@ -38,31 +38,59 @@ class SanhChinh extends Component {
             dataItem :[],
             refresh : false,
             isLoading: true,
+            page_index: 1,
+            error: null,
+
         }
 
 
 
     }
     componentWillMount(){
-
-
         this.fetchData()
     }
+    //lay du lieu api
     fetchData = () => {
-        const { UserBQL, callApiGetTopPost } = this.props
+        const { UserBQL, callApiSearchPost } = this.props
         if (UserBQL.length <= 0) {
             return null;
         }
-        callApiGetTopPost(UserBQL.payload[0].UserID, UserBQL.payload[0].KDTID).then(dataRes => {
+        callApiSearchPost(this.state.page_index, UserBQL.payload[0].KDTID,UserBQL.payload[0].UserID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
             console.log('bai viet sanh chinh', dataBaiViet)
+            if (dataBaiViet.length <=0){
+                return null
+            }
             this.setState({
                 isLoading: false,
-                dataItem: dataBaiViet,
+                //save data
+                dataItem: this.state.page_index === 1 ? [...dataBaiViet] : [...this.state.dataItem,...dataBaiViet]
             })
         })
     }
+    //handle event when loadmore
+    handleLoadMore = () => {
+        this.setState(
+            {
+                page_index: this.state.page_index + 1
+            },
+            () => {
+                console.log('index', this.state.page_index)
+                this.fetchData();
+            }
+        );
+    };
+    //activityIndicator when loadmore
+    renderFooter = () => {
+        if (this.state.isLoading) return null;
+
+        return (
+            <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                <ActivityIndicator size="large" color="white"/>
+            </View>
+        );
+    };
 
     render (){
         if (this.state.isLoading) {
@@ -72,6 +100,7 @@ class SanhChinh extends Component {
                 </View>
             );
         }
+
         const {navigation} = this.props;
         return (
             <View style = {stylesContainer.container}>
@@ -98,6 +127,11 @@ class SanhChinh extends Component {
                 <FlatList
                     refreshing = {this.state.refresh}
                     onRefresh = {()=>  {this.fetchData()}}
+                    onEndReached={this.handleLoadMore}
+                    onEndReachedThreshold={0.5}
+                    // ListHeaderComponent={this.renderHeader}
+                    ListFooterComponent={this.renderFooter}
+
                     data = {this.state.dataItem}
                     renderItem={(item) => {
                         return (
@@ -128,7 +162,7 @@ const mapDispatchToProps = (dispatch) => {
         connectToSocket: bindActionCreators(connectToSocket, dispatch),
         joinToChat: bindActionCreators(joinToChat, dispatch),
         disConnectToSocket: bindActionCreators(disConnectToSocket, dispatch),
-        callApiGetTopPost: bindActionCreators(callApiGetTopPost, dispatch),
+        callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
 
 
     }

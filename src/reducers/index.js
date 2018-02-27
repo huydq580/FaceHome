@@ -16,7 +16,7 @@ import SocketReducers from './SocketReducers';
 import MessagesReducers from './MessagesReducers';
 import MessagesDetailsReducers from './MessagesDetailsReducers';
 import MsgGroupIDReducers from './MsgGroupIDReducers'
-import GetTopPostReducers from './GetTopPostReducers'
+import SearchPostReducers from './SearchPostReducers'
 
 const appStore = combineReducers({
     LoginReducers,
@@ -36,7 +36,7 @@ const appStore = combineReducers({
     MessagesReducers,
     MessagesDetailsReducers,
     MsgGroupIDReducers,
-    GetTopPostReducers
+    SearchPostReducers
 })
 
 export default appStore

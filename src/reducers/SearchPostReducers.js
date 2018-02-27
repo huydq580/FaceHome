@@ -1,6 +1,6 @@
-const GetTopPostReducers = (state = [], action) => {
+const SearchPostReducers = (state = [], action) => {
     switch (action.type) {
-        case 'GET_TOP_POST':
+        case 'SEARCH_POST':
             return {
                 payload : action.payload,
             }
@@ -9,4 +9,4 @@ const GetTopPostReducers = (state = [], action) => {
     }
 }
 
-export default GetTopPostReducers
+export default SearchPostReducers

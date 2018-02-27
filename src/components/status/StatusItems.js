@@ -20,7 +20,7 @@ class StatusItems extends Component {
                                    style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
                             </Image>
                             <View style = {{marginLeft: 10}}>
-                                <Text style = {{color: 'black', fontWeight:'bold'}}>Nguyễn Văn A</Text>
+                                <Text style = {{color: 'black', fontWeight:'bold'}}>{item.FullName}</Text>
                                 <Text>1 giờ trước</Text>
                             </View>
                         </View>
