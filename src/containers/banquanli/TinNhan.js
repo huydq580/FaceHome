@@ -30,9 +30,9 @@ class TinNhan extends Component {
 
     }
     componentWillMount(){
-        this.getUSer()
+        this.getUser()
     }
-    getUSer = () => {
+    getUser = () => {
         const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
             return null;
@@ -60,14 +60,14 @@ class TinNhan extends Component {
         );
     }
 
-    render() {if (this.state.isLoading) {
+    render() {
+        if (this.state.isLoading) {
         return (
             <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
                 <ActivityIndicator size="large" color="white"/>
             </View>
         );
-    }
-
+        }
         const {navigation} = this.props;
         return (
             <View style = {stylesContainer.container}>
@@ -80,7 +80,7 @@ class TinNhan extends Component {
                 </TouchableOpacity>
                 <FlatList
                     refreshing = {this.state.refresh}
-                    onRefresh = {()=>  {this.getUSer()}}
+                    onRefresh = {()=>  {this.getUser()}}
                     data={this.state.dataUser}
                     renderItem={(item) => {
                         return (

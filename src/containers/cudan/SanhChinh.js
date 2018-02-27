@@ -5,39 +5,26 @@ import {
     Image,
     TouchableOpacity,
     FlatList,
-    ScrollView
+    ScrollView,
+    ActivityIndicator
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import stylesContainer from "../../components/style";
 import StatusItems from "../../components/status/StatusItems";
 import { callApiNhaCuDan } from "../../actions/actionsCuDan/NhaCuDanActions";
+import {callApiSearchPost} from "../../actions/SearchPostActions";
 
 class SanhChinh extends Component {
     constructor(props){
         super(props)
         this.state = {
-            dataBanTin: [''],
-            dataBaiDang: [''],
-            dataItem :
-                [
-                    {
-                        "status": "Một con vit xòe ra 2 cái cánh",
-                        "like": "11",
-                        'comment': '30',
-                    },
-                    {
-                        "status": "Bà ơi bà cháu yêu bà lắm, tóc bà trắng màu trắng màu trắng như mây, cháu yêu bà cháu nắm bàn tay.",
-                        "like": "55",
-                        'comment': '20',
-                    },
-                    {
-                        "status": "wtf",
-                        "like": "66",
-                        'comment': '10',
-                    },
-
-                ],
+            // dataBanTin: [''],
+            // dataBaiDang: [''],
+            refresh : false,
+            isLoading: true,
+            page_index: 1,
+            dataItem : [],
         }
     }
     componentWillMount() {
@@ -51,11 +38,62 @@ class SanhChinh extends Component {
         callApiNhaCuDan(UserCuDan.payload[0].ProfileID, UserCuDan.payload[0].UserID, UserCuDan.payload[0].Type).then(dataNha => {
             dataNhaCuDan = JSON.parse(dataNha);
             console.log('data1', dataNhaCuDan)
+            this.fetchData()
         })
     }
+    fetchData = () => {
+        const { UserCuDan, callApiSearchPost } = this.props
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
+        callApiSearchPost(this.state.page_index, UserCuDan.payload[0].KDTID,UserCuDan.payload[0].UserID).then(dataRes => {
+            dataBaiViet = JSON.parse(dataRes);
+            dataBaiViet = dataBaiViet.Value
+            console.log('bai viet sanh chinh', dataBaiViet)
+            if (dataBaiViet.length <=0){
+                return null
+            }
+            this.setState({
+                isLoading: false,
+                //save data
+                dataItem: this.state.page_index === 1 ? [...dataBaiViet] : [...this.state.dataItem,...dataBaiViet]
+            })
+        })
+    }
+    //handle event when loadmore
+    handleLoadMore = () => {
+        this.setState(
+            {
+                page_index: this.state.page_index + 1
+            },
+            () => {
+                console.log('index', this.state.page_index)
+                this.fetchData();
+            }
+        );
+    };
+    //activityIndicator when loadmore
+    // renderFooter = () => {
+    //     if (this.state.isLoading) return null;
+    //
+    //     return (
+    //         <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+    //             <ActivityIndicator size="large" color="white"/>
+    //         </View>
+    //     );
+    // };
+
     render(){
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                    <ActivityIndicator size="large" color="white"/>
+                </View>
+            );
+        }
+        const {navigation} = this.props;
         return(
-            <ScrollView style = {stylesContainer.container}>
+            <View style = {stylesContainer.container}>
                 <View>
                     <View style  = {{flexDirection:'row', marginTop: 15}}>
                         <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
@@ -71,17 +109,26 @@ class SanhChinh extends Component {
                 </View>
                 <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
                 <FlatList
+                    refreshing = {this.state.refresh}
+                    onRefresh = {()=>  {this.fetchData()}}
+                    onEndReached={this.handleLoadMore}
+                    onEndReachedThreshold={0.5}
+                    // ListHeaderComponent={this.renderHeader}
+                    // ListFooterComponent={this.renderFooter}
+
                     data = {this.state.dataItem}
                     renderItem={(item) => {
                         return (
                             <StatusItems
-                                dataItem={item}/>
+                                dataItem={item}
+                                navigation={navigation}/>
+
                         )
                     }
                     }
                     keyExtractor={(item, index) => index}
                 />
-            </ScrollView>
+            </View>
         )
     }
 }
@@ -95,7 +142,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // addTodo: bindActionCreators(addTodo, dispatch),
-        callApiNhaCuDan: bindActionCreators(callApiNhaCuDan, dispatch)
+        callApiNhaCuDan: bindActionCreators(callApiNhaCuDan, dispatch),
+        callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
     }
 };
 

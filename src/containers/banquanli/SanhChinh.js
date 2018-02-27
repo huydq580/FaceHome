@@ -39,7 +39,6 @@ class SanhChinh extends Component {
             refresh : false,
             isLoading: true,
             page_index: 1,
-            error: null,
 
         }
 
@@ -69,7 +68,7 @@ class SanhChinh extends Component {
             })
         })
     }
-    //handle event when loadmore
+    // handle event when loadmore
     handleLoadMore = () => {
         this.setState(
             {
@@ -82,15 +81,15 @@ class SanhChinh extends Component {
         );
     };
     //activityIndicator when loadmore
-    renderFooter = () => {
-        if (this.state.isLoading) return null;
-
-        return (
-            <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
-                <ActivityIndicator size="large" color="white"/>
-            </View>
-        );
-    };
+    // renderFooter = () => {
+    //     if (this.state.isLoading) return null;
+    //
+    //     return (
+    //         <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+    //             <ActivityIndicator size="large" color="white"/>
+    //         </View>
+    //     );
+    // };
 
     render (){
         if (this.state.isLoading) {
@@ -130,7 +129,7 @@ class SanhChinh extends Component {
                     onEndReached={this.handleLoadMore}
                     onEndReachedThreshold={0.5}
                     // ListHeaderComponent={this.renderHeader}
-                    ListFooterComponent={this.renderFooter}
+                    // ListFooterComponent={this.renderFooter}
 
                     data = {this.state.dataItem}
                     renderItem={(item) => {

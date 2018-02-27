@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     Image,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 import { bindActionCreators } from 'redux'
@@ -42,6 +43,9 @@ class TinNhanDetailsCuDan extends Component {
         this.state = {
             dataChat: [],
             UserID: '',
+            refresh : false,
+            isLoading: true,
+            index:1
 
         }
         this.input_msg = '';
@@ -86,7 +90,7 @@ class TinNhanDetailsCuDan extends Component {
                 RefAvartar: "",
                 RefName: "",
                 RefUserID: "",
-                UserID: "",
+                UserID: UserCuDan.payload[0].UserID,
                 rowNumber: "1"
             });
             this.setState({dataChat: newMsg});
@@ -120,13 +124,26 @@ class TinNhanDetailsCuDan extends Component {
             return null;
         }
         const { callApiGetMessage } = this.props;
-        callApiGetMessage(UserCuDan.payload[0].UserID, params.MsgGroupID).then(dataRes => {
+        callApiGetMessage(UserCuDan.payload[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
-                dataChat: dataMessage
+                dataChat: [...dataMessage,...this.state.dataChat],
+                // dataChat: ,
+                isLoading: false,
             })
         })
     }
+    handleLoadMore = () => {
+        this.setState(
+            {
+                index: this.state.index + 1
+            },
+            () => {
+                console.log('index', this.state.index)
+                this.getOldMSG();
+            }
+        );
+    };
     //socket event send message
     sendMessage = () => {
         const { params } = this.props.navigation.state
@@ -177,6 +194,13 @@ class TinNhanDetailsCuDan extends Component {
     };
 
     render () {
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                    <ActivityIndicator size="large" color="white"/>
+                </View>
+            );
+        }
         const { UserCuDan } = this.props;
         if (UserCuDan.length <= 0) {
             return null;
@@ -184,6 +208,8 @@ class TinNhanDetailsCuDan extends Component {
         return (
             <View style={{flex: 1}}>
                 <FlatList
+                    refreshing = {this.state.refresh}
+                    onRefresh = {()=>  {this.handleLoadMore()}}
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
                     data={this.state.dataChat}
                     renderItem={({item}) => {

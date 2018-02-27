@@ -3,7 +3,8 @@ import {
     View,
     Text,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native'
 import TinNhanItem from "../../components/TinNhanItem";
 import { bindActionCreators } from 'redux'
@@ -20,12 +21,17 @@ class TinNhanCuDan extends Component {
         super(props)
         this.state = {
             dataUser: '',
+            refresh : false,
+            isLoading: true,
 
         }
 
 
     }
     componentWillMount(){
+        this.getUser()
+    }
+    getUser = () => {
         const { UserCuDan } = this.props;
         if (UserCuDan.length <= 0) {
             return null;
@@ -36,6 +42,7 @@ class TinNhanCuDan extends Component {
             dataUser = dataRes.ObjectResult
             this.setState({
                 dataUser: dataUser,
+                isLoading: false,
             })
             // console.log('datauser', this.state.dataUser)
         })
@@ -54,6 +61,13 @@ class TinNhanCuDan extends Component {
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                    <ActivityIndicator size="large" color="white"/>
+                </View>
+            );
+        }
         const {navigation} = this.props;
         return (
             <View style = {stylesContainer.container}>
@@ -65,6 +79,8 @@ class TinNhanCuDan extends Component {
                         marginBottom:10}}>Soạn tin mới</Text>
                 </TouchableOpacity>
                 <FlatList
+                    refreshing = {this.state.refresh}
+                    onRefresh = {()=>  {this.getUser()}}
                     data={this.state.dataUser}
                     renderItem={(item) => {
                         return (

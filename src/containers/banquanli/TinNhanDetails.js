@@ -185,7 +185,7 @@ class TinNhanDetails extends Component {
             RefAvartar: "",
             RefName: "",
             RefUserID: "",
-            UserID: "",
+            UserID: UserBQL.payload[0].UserID,
             rowNumber: "1"
         });
         this.setState({dataChat: newMsg});
