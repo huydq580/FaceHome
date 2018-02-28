@@ -15,6 +15,7 @@ import { connect } from 'react-redux'
 import stylesContainer from "../../components/style";
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 import {callApiNhaCuDan} from "../../actions/actionsCuDan/NhaCuDanActions";
+import {callApiGetKDT} from "../../actions/KDTActions";
 
 class QuanLyCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -30,7 +31,9 @@ class QuanLyCuDan extends Component {
         this.state = {
             Toa: '',
             Tang:'',
+            Status: '',
             dataCuDan: [ ],
+            dataToaNha: [],
         }
         this.dataSearchDanCu = [];
     }
@@ -42,7 +45,7 @@ class QuanLyCuDan extends Component {
 
         // console.log('user',UserBQL)
 
-        const { callApiSearchDanCu } = this.props;
+        const { callApiSearchDanCu, callApiGetKDT } = this.props;
         callApiSearchDanCu(UserBQL.payload[0].KDTID).then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
@@ -51,6 +54,15 @@ class QuanLyCuDan extends Component {
                 dataCuDan: dataSearchDanCu
             })
             // console.log('datagetBQL', dataGetBQL)
+        })
+        callApiGetKDT(UserBQL.payload[0].KDTID).then(dataRes => {
+            dataToaNha = JSON.parse(dataRes)
+            dataToaNha = dataToaNha.Value
+            dataToaNha.unshift({PartID: "", Code: "",Ten: 'Chọn tòa nhà'});
+            console.log('dataKDT', dataToaNha)
+            this.setState({
+                dataToaNha: dataToaNha
+            })
         })
     }
 
@@ -80,6 +92,7 @@ class QuanLyCuDan extends Component {
         })
     }
     render() {
+        dataToaNha = this.state.dataToaNha
         return (
             <View style = {stylesContainer.container}>
                 <View style = {styles.itemBoder}>
@@ -87,33 +100,42 @@ class QuanLyCuDan extends Component {
                                 underlineColorAndroid="transparent"
                                onChangeText = {(text) => this.SearchUser(text)}/>
                 </View>
-                <View style = {{flexDirection:'row', marginTop:30}}>
-                    <View style = {{flex:1, flexDirection:'row', alignItems:'center'}}>
-                        <Text>Tòa: </Text>
-                        <Picker
-                            style = {styles.picker}
-                            selectedValue={this.state.Toa}
-                            onValueChange={(itemValue, itemIndex) => this.setState({Toa: itemValue})}>
-                            <Picker.Item label = {'Tất cả'} value = ''/>
-                            <Picker.Item label = {'HH1A'} value = 'key1'/>
-                            <Picker.Item label = {'HH1B'} value ={'key2'}/>
-                            <Picker.Item label = {'HH1C'} value ={'key3'}/>
-                            <Picker.Item label = {'HH1D'} value ={'key4'}/>
-                        </Picker>
-                    </View>
-                    <View style = {{flex:1, flexDirection:'row',  alignItems:'center', borderWidth:1, borderColor:'#9E9E9E'}}>
-                        <Text>Tầng/Lầu: </Text>
-                        <Picker
-                            style = {styles.picker}
-                            selectedValue={this.state.Tang}
-                            onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>
-                            <Picker.Item label = {'Tất cả'} value = ''/>
-                            <Picker.Item label = {'1'} value = 'key1'/>
-                            <Picker.Item label = {'2'} value ={'key2'}/>
-                            <Picker.Item label = {'3'} value ={'key3'}/>
-                            <Picker.Item label = {'4'} value ={'key4'}/>
-                        </Picker>
-                    </View>
+                <View style = {{ width: 200,marginTop: 10, maxHeight: 40,alignItems:'center',flex:1, flexDirection:'row', alignItems:'center' , borderWidth:1, borderColor:'#9E9E9E'}}>
+                    <Text>Tòa: </Text>
+                    <Picker
+                        style = {styles.picker}
+                        selectedValue={this.state.Toa}
+                        onValueChange={(value) => {
+                            this.setState({Toa: value});
+                            // this.CallApiQuanHuyen(value);
+                        }}>
+                        {dataToaNha.map((value) => <Picker.Item key = {value.Code} label={value.Ten} value={value.Code}/>)}
+                    </Picker>
+                </View>
+                <View style = {{ width: 200,maxHeight: 40,alignItems:'center', marginTop:10, flexDirection:'row',  alignItems:'center', borderWidth:1, borderColor:'#9E9E9E'}}>
+                    <Text>Tầng/Lầu: </Text>
+                    <Picker
+                        style = {styles.picker}
+                        selectedValue={this.state.Tang}
+                        onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>
+                        <Picker.Item label = {'Tất cả'} value = ''/>
+                        <Picker.Item label = {'1'} value = 'key1'/>
+                        <Picker.Item label = {'2'} value ={'key2'}/>
+                        <Picker.Item label = {'3'} value ={'key3'}/>
+                        <Picker.Item label = {'4'} value ={'key4'}/>
+                    </Picker>
+                </View>
+                <View style = {{ width: 200,marginTop: 10,maxHeight: 40,alignItems:'center', flexDirection:'row',  alignItems:'center', borderWidth:1, borderColor:'#9E9E9E'}}>
+                    <Text>Tầng/Lầu: </Text>
+                    <Picker
+                        style = {styles.picker}
+                        selectedValue={this.state.Status}
+                        onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>
+                        <Picker.Item label = {'Tất cả'} value = ''/>
+                        <Picker.Item label = {'Chờ duyệt'} value = 'key1'/>
+                        <Picker.Item label = {'Đã duyệt'} value ={'key2'}/>
+                        <Picker.Item label = {'Đã rời KĐT'} value ={'key3'}/>
+                    </Picker>
                 </View>
                 <FlatList
                     data = {this.state.dataCuDan}
@@ -156,7 +178,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchDanCu: bindActionCreators(callApiSearchDanCu, dispatch),
-        callApiNhaCuDan: bindActionCreators(callApiNhaCuDan, dispatch)
+        callApiNhaCuDan: bindActionCreators(callApiNhaCuDan, dispatch),
+        callApiGetKDT: bindActionCreators(callApiGetKDT, dispatch)
     }
 };
 
@@ -170,6 +193,6 @@ const styles = StyleSheet.create({
 
     },
     picker: {
-        width: 120,
+        width: 200,
     }
 })

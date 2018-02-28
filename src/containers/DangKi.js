@@ -19,7 +19,6 @@ import { connect } from 'react-redux'
 import {callApiTinh} from "../actions/TinhThanhActions";
 import {callApiQuanHuyen} from "../actions/QuanHuyenActions";
 import {callApiGetKDT, callApiSearchKDT} from "../actions/KDTActions";
-import { NavigationActions } from 'react-navigation';
 
 class DangKi extends Component {
     constructor(props){
@@ -28,7 +27,7 @@ class DangKi extends Component {
             TaiKhoan : '',
             TinhThanh: '',
             QuanHuyen: '',
-            dataTinhThanh :  [{MaVung: "", TenVung: 'Chọn Tỉnh Thành'}],
+            dataTinhThanh :  [{MaVung: "", TenVung: 'Chọn Tỉnh/Thành'}],
             dataQuanHuyen : [{MaVung: "", TenVung: 'Chọn Quận/Huyện'}],
             keyword : '',
             dataKDT: '',

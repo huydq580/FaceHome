@@ -9,8 +9,11 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+    AsyncStorage
 } from 'react-native';
+
+
 import { Provider } from 'react-redux'
 import store from './src/store'
 import Stack from './src/router/Navigation'
@@ -26,13 +29,16 @@ import CmtItem from "./src/components/status/CmtItem";
 import SoanTinMoi from "./src/containers/banquanli/SoanTinMoi";
 import Contact from "./src/containers/banquanli/Contact";
 import DangNhap from "./src/containers/DangNhap";
+import {UpdateProfile, URL} from "./src/components/Api";
 
 
 
 
 export default class App extends Component<{}> {
 
-  render() {
+
+
+    render() {
     return (
         <Provider store={store}>
           <Stack/>
@@ -40,4 +46,3 @@ export default class App extends Component<{}> {
     );
   }
 }
-
