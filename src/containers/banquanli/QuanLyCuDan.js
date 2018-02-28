@@ -32,6 +32,7 @@ class QuanLyCuDan extends Component {
             Tang:'',
             dataCuDan: [ ],
         }
+        this.dataSearchDanCu = [];
     }
     componentWillMount(){
         const { UserBQL } = this.props;
@@ -45,10 +46,37 @@ class QuanLyCuDan extends Component {
         callApiSearchDanCu(UserBQL.payload[0].KDTID).then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
+            this.dataSearchDanCu = dataSearchDanCu
             this.setState({
                 dataCuDan: dataSearchDanCu
             })
             // console.log('datagetBQL', dataGetBQL)
+        })
+    }
+
+    search(text) {
+        if (!this.oldText || this.oldText != text) {
+            if (this.timeoutSearch) clearTimeout(this.timeoutSearch);
+            this.oldText = text;
+            this.timeoutSearch = setTimeout(()=>{
+                const data = this.dataSearchDanCu;
+                const textData = text.toLowerCase()
+                const inputSearch = data.filter(function(item){
+                    const itemData = item.FullName.toLowerCase()
+                    return itemData.indexOf(textData) > -1
+                })
+                this.setState({
+                    dataCuDan: inputSearch
+                })
+            }, 300);
+        }
+    }
+
+    SearchUser(text){
+        this.setState({
+            text: text
+        }, ()=> {
+            this.search(this.state.text)
         })
     }
     render() {
@@ -57,7 +85,7 @@ class QuanLyCuDan extends Component {
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Tìm kiếm nhanh tên dân cư theo số căn hộ'
                                 underlineColorAndroid="transparent"
-                                onChangeText ={(ten)=> this.setState({ten})}/>
+                               onChangeText = {(text) => this.SearchUser(text)}/>
                 </View>
                 <View style = {{flexDirection:'row', marginTop:30}}>
                     <View style = {{flex:1, flexDirection:'row', alignItems:'center'}}>

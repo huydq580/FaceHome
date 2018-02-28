@@ -83,7 +83,6 @@ class SoanTinMoi extends Component {
                         <View style = {styles.containerNavbarS}>
                             <TextInput  placeholder = 'Search'
                                         underlineColorAndroid="transparent"
-                                        value={this.state.input}
                                         onChangeText = {(text) => this.SearchUser(text)}/>
                         </View>
                         <TouchableOpacity onPress = {this.Cancel}>
