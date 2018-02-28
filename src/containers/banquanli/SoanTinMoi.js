@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import  React, { Component } from 'react';
 import {
     Text,
     StyleSheet,
@@ -24,7 +24,9 @@ class SoanTinMoi extends Component {
             search: true,
             SearchItem:'',
             dataCuDan:'',
+            text: ''
         }
+        this.dataSearchDanCu = [];
     }
     componentWillMount(){
         const { UserBQL } = this.props;
@@ -36,6 +38,7 @@ class SoanTinMoi extends Component {
         callApiSearchDanCu(UserBQL.payload[0].KDTID).then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
+            this.dataSearchDanCu = dataSearchDanCu
             this.setState({
                 dataCuDan: dataSearchDanCu
             })
@@ -52,15 +55,16 @@ class SoanTinMoi extends Component {
             search: true
         })
     }
-    SearchUser(input){
-        data = this.state.dataCuDan
-        let inputSearch  = data.filter((text)=>{
-            if(text.FullName.indexOf(input)>0){
-                return text;
-            }
+    SearchUser(text){
+        const data = this.dataSearchDanCu;
+        const inputSearch = data.filter(function(item){
+            const itemData = item.FullName.toUpperCase()
+            const textData = text.toUpperCase()
+            return itemData.indexOf(textData) > -1
         })
         this.setState({
-            dataCuDan: inputSearch
+            dataCuDan: inputSearch,
+            text: text
         })
     }
     render () {
@@ -79,7 +83,8 @@ class SoanTinMoi extends Component {
                         <View style = {styles.containerNavbarS}>
                             <TextInput  placeholder = 'Search'
                                         underlineColorAndroid="transparent"
-                                        onChangeText = {this.SearchUser.bind(this)}/>
+                                        value={this.state.input}
+                                        onChangeText = {(text) => this.SearchUser(text)}/>
                         </View>
                         <TouchableOpacity onPress = {this.Cancel}>
                             <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>

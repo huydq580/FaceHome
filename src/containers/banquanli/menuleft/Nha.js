@@ -8,6 +8,7 @@ import {
     FlatList,
     AsyncStorage,
     ScrollView,
+    ActivityIndicator,
     Image
 } from 'react-native';
 import { bindActionCreators } from 'redux'
@@ -16,6 +17,7 @@ import { NavigationActions } from 'react-navigation'
 import {callApiNha} from "../../../actions/actionsBQL/NhaActions";
 import stylesContainer from "../../../components/style";
 import StatusItems from "../../../components/status/StatusItems";
+import {callApiSearchPost} from "../../../actions/SearchPostActions";
 
 
 
@@ -23,30 +25,16 @@ class Nha extends Component {
     constructor(props){
         super(props)
         this.state = {
-            dataItem :
-                [
-                    {
-                        "status": "Một con vit xòe ra 2 cái cánh",
-                        "like": "11",
-                        'comment': '30',
-                    },
-                    {
-                        "status": "Bà ơi bà cháu yêu bà lắm, tóc bà trắng màu trắng màu trắng như mây, cháu yêu bà cháu nắm bàn tay.",
-                        "like": "55",
-                        'comment': '20',
-                    },
-                    {
-                        "status": "wtf",
-                        "like": "66",
-                        'comment': '10',
-                    },
-
-                ],
+            dataItem :[],
+            refresh : false,
+            isLoading: true,
+            page_index: 1,
 
         }
     }
 
     componentWillMount() {
+        this.fetchData()
         const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
             return null;
@@ -59,6 +47,38 @@ class Nha extends Component {
             // console.log('data', dataNhaBQL)
         })
     }
+    //lay du lieu api
+    fetchData = () => {
+        const { UserBQL, callApiSearchPost } = this.props
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        callApiSearchPost(this.state.page_index, UserBQL.payload[0].KDTID,UserBQL.payload[0].UserID).then(dataRes => {
+            dataBaiViet = JSON.parse(dataRes);
+            dataBaiViet = dataBaiViet.Value
+            console.log('bai viet sanh chinh', dataBaiViet)
+            if (dataBaiViet.length <=0){
+                return null
+            }
+            this.setState({
+                isLoading: false,
+                //save data
+                dataItem: this.state.page_index === 1 ? [...dataBaiViet] : [...this.state.dataItem,...dataBaiViet]
+            })
+        })
+    }
+    // handle event when loadmore
+    handleLoadMore = () => {
+        this.setState(
+            {
+                page_index: this.state.page_index + 1
+            },
+            () => {
+                console.log('index', this.state.page_index)
+                this.fetchData();
+            }
+        );
+    };
     render (){
         // console.log('render')
         const { infoBQL } = this.props;
@@ -66,6 +86,14 @@ class Nha extends Component {
             return null;
         }
         // console.log('infoBQL', infoBQL[0].FullName)
+        //ActivityIndicator
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                    <ActivityIndicator size="large" color="white"/>
+                </View>
+            );
+        }
         return (
             <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
@@ -74,26 +102,30 @@ class Nha extends Component {
                     </View>
                     <Text style = {{marginTop:20, fontSize: 20}}>{infoBQL[0].FullName}</Text>
                 </View>
-                <TouchableOpacity style = {styles.Touch}
-                                    onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanBQL')}>
+
+                <TouchableOpacity style = {styles.Touch}>
                     <Text style = {{color: 'white'}}>
                         Nhật ký
                     </Text>
                 </TouchableOpacity>
-                <View style = {{flexDirection: 'column', marginLeft: 40,
-                    backgroundColor:"#42A5F5",width:200,height:100, borderWidth:1,marginTop:8,
-                    justifyContent:'center'
-                }}>
-                    <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
-                    <View style = {{flexDirection:'row', marginLeft:10,}}>
-                        <Text style = {{color: 'white', fontSize:15}}>Tên:  </Text>
-                        <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].FullName}</Text>
+                <TouchableOpacity onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanBQL')}>
+                    <View style = {{flexDirection: 'column', marginLeft: 40,
+                        backgroundColor:"#42A5F5",width:200,height:100, borderWidth:1,marginTop:8,
+                        justifyContent:'center'
+                    }}>
+
+                        <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
+                        <View style = {{flexDirection:'row', marginLeft:10,}}>
+                            <Text style = {{color: 'white', fontSize:15}}>Tên:  </Text>
+                            <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].FullName}</Text>
+                        </View>
+                        <View style = {{flexDirection:'row', marginLeft:10, }}>
+                            <Text style = {{color: 'white',fontSize:15}}>Số điện thoại: </Text>
+                            <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].Phone}</Text>
+                        </View>
+
                     </View>
-                    <View style = {{flexDirection:'row', marginLeft:10, }}>
-                        <Text style = {{color: 'white',fontSize:15}}>Số điện thoại: </Text>
-                        <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].Phone}</Text>
-                    </View>
-                </View>
+                </TouchableOpacity>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>
                 <View>
                     <View style  = {{flexDirection:'row', marginTop: 20}}>
@@ -135,7 +167,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // addTodo: bindActionCreators(addTodo, dispatch),
-        callApiNha: bindActionCreators(callApiNha, dispatch)
+        callApiNha: bindActionCreators(callApiNha, dispatch),
+        callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
     }
 };
 
