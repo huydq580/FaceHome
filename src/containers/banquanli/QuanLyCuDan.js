@@ -53,13 +53,13 @@ class QuanLyCuDan extends Component {
             this.setState({
                 dataCuDan: dataSearchDanCu
             })
-            // console.log('datagetBQL', dataGetBQL)
+            console.log('data cu dan', this.state.dataCuDan)
         })
         callApiGetKDT(UserBQL.payload[0].KDTID).then(dataRes => {
             dataToaNha = JSON.parse(dataRes)
             dataToaNha = dataToaNha.Value
             dataToaNha.unshift({PartID: "", Code: "",Ten: 'Chọn tòa nhà'});
-            console.log('dataKDT', dataToaNha)
+            // console.log('dataKDT', dataToaNha)
             this.setState({
                 dataToaNha: dataToaNha
             })
@@ -141,17 +141,18 @@ class QuanLyCuDan extends Component {
                     data = {this.state.dataCuDan}
                     renderItem = {({item}) =>
                         <TouchableOpacity onPress = {()=> {
-                            const { infoCuDan, callApiNhaCuDan } = this.props;
-                            if (infoCuDan.leng<=0){
-                                return null
-                            }
-                            a = item.RowNum-1;
-                            // console.log('infoCuDan', infoCuDan)
-                            callApiNhaCuDan(infoCuDan.payload[a].ProfileID,infoCuDan.payload[a].UserID).then(dataChitietCuDan => {
-                                dataChitietCuDan = JSON.parse(dataChitietCuDan)
-                                this.props.navigation.navigate("TaiKhoanDanCu", {dataCuDan: dataChitietCuDan.Value})
-                                console.log('dataChitietCuDan', dataChitietCuDan)
-                            })
+                            // const { infoCuDan, callApiNhaCuDan } = this.props;
+                            // if (infoCuDan.leng<=0){
+                            //     return null
+                            // }
+                            // a = item.RowNum-1;
+                            // // console.log('infoCuDan', infoCuDan)
+                            // callApiNhaCuDan(infoCuDan.payload[a].ProfileID,infoCuDan.payload[a].UserID).then(dataChitietCuDan => {
+                            //     dataChitietCuDan = JSON.parse(dataChitietCuDan)
+                            //     this.props.navigation.navigate("TaiKhoanDanCu", {dataCuDan: dataChitietCuDan.Value})
+                            //     console.log('dataChitietCuDan', dataChitietCuDan)
+                            // })
+                            this.props.navigation.navigate("TaiKhoanDanCu", {dataCuDan: item})
 
                         }}>
                             <View style = {{flexDirection:'row', marginTop:10}}>
