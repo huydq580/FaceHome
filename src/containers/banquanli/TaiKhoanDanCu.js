@@ -10,6 +10,8 @@ import {
 import moment from 'moment';
 import stylesContainer from "../../components/style";
 import Dimensions from 'Dimensions';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import {callApiUpdateProfile} from "../../actions/actionsBQL/UpdateProfileActions";
 
 
@@ -31,29 +33,36 @@ class TaiKhoanDanCu extends Component {
             NgaySinh : '',
             NgayTao : '',
             Status:'',
-            Value: '',
+            Value: "",
         }
+        this.Status = this.Status.bind(this);
     }
+    //update status
     Status () {
+        //cap nhap thieu gia tri value
         const {params} = this.props.navigation.state;
+        const { callApiUpdateProfile } = this.props;
+        // console.log('param', params)
         {
-            params.dataCuDan.Status == 0 ? this.setState({Value: 1}) :
-                params.dataCuDan.Status == 1 ? this.setState({Value: 2}) :
-                    params.dataCuDan.Status == 2 ? this.setState({Value: 1}) : null
+            params.dataCuDan.Status = 0 ? this.setState({Value: "1"}) :
+                params.dataCuDan.Status = 1 ? this.setState({Value: "2"}) :
+                    params.dataCuDan.Status = 2 ? this.setState({Value: "1"}) : null
         }
+        console.log('value', this.state.Value)
         callApiUpdateProfile(params.dataCuDan.ProfileID, params.dataCuDan.UserID, "Status", this.state.Value ).then(dataRes => {
             console.log('thong bao', dataRes)
         })
+        // console.log('davao st')
     }
 
     componentWillMount(){
         const {params} = this.props.navigation.state;
-        console.log('status', params.dataCuDan.Status)
-        console.log('data', params.dataCuDan)
+        // console.log('status', params.dataCuDan.Status)
+        // console.log('data', params.dataCuDan)
         {
-            params.dataCuDan.Status == 0 ? this.setState({Status: 'Duyệt tài khoản'}) :
-                params.dataCuDan.Status == 1 ? this.setState({Status: 'Rời KĐT'}) :
-                    params.dataCuDan.Status == 2 ? this.setState({Status: 'Phục hồi'}) : null
+            params.dataCuDan.Status = 0 ? this.setState({Status: 'Duyệt tài khoản'}) :
+                params.dataCuDan.Status = 1 ? this.setState({Status: 'Rời KĐT'}) :
+                    params.dataCuDan.Status = 2 ? this.setState({Status: 'Phục hồi'}) : null
         }
         this.setState({
             Ten : params.dataCuDan.FullName,
@@ -195,8 +204,21 @@ class TaiKhoanDanCu extends Component {
         );
     }
 }
-const DEVICE_WIDTH = Dimensions.get('window').width;
+const mapStateToProps = (state) => {
+    return {
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        callApiUpdateProfile: bindActionCreators( callApiUpdateProfile, dispatch),
+    }
+};
+TaiKhoanDanCu = connect( mapStateToProps, mapDispatchToProps)(TaiKhoanDanCu);
+
 export default TaiKhoanDanCu;
+const DEVICE_WIDTH = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     circle: {
         marginTop: 15,
