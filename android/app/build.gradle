@@ -156,6 +156,7 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-fcm')
     compile 'com.google.firebase:firebase-core:10.0.1' //this decides your firebase SDK version
+    compile project(':react-native-home-pressed')
 }
 
 // Run this once to be able to run the application with BUCK

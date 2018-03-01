@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-    AsyncStorage
+    AsyncStorage,
+    DeviceEventEmitter
 } from 'react-native';
 
 
@@ -35,7 +36,13 @@ import {UpdateProfile, URL} from "./src/components/Api";
 
 
 export default class App extends Component<{}> {
-
+    componentDidMount() {
+        DeviceEventEmitter.addListener(
+            'ON_HOME_BUTTON_PRESSED',
+            () => {
+                console.log('You tapped the home button!')
+            })
+    }
 
 
     render() {

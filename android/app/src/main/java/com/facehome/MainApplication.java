@@ -10,6 +10,8 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
+//home spressed
+import com.evanjmg.RNHomePressedPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new ImagePickerPackage(),
           new VectorIconsPackage(),
-          new FIRMessagingPackage()
+          new FIRMessagingPackage(),
+          new RNHomePressedPackage()
       );
     }
 
