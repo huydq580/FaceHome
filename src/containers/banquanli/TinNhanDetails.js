@@ -154,50 +154,49 @@ class TinNhanDetails extends Component {
 
     //socket event send message
     sendMessage = () => {
-        // const { params } = this.props.navigation.state
-        // const { UserBQL } = this.props;
-        // if (UserBQL.length <= 0) {
-        //     return null;
-        // }
-        // if (this.input_msg === "")
-        //     return;
-        // this.textInput.clear();
-        // // console.log("msg:", this.input_msg);
-        // //object need send to server
-        // let dataSend = {
-        //     MsgGroupID:params.MsgGroupID,
-        //     UserID: UserBQL.payload[0].UserID,
-        //     FullName: UserBQL.payload[0].FullName,
-        //     Avartar:"",
-        //     RefUserID:"",
-        //     RefName:"",
-        //     RefAvartar:"",
-        //     Content:this.input_msg,
-        //     CreatedDate:"",
-        //     DayFlag:"",
-        //     KDTID:UserBQL.payload[0].KDTID,
-        // }
-        // this.socket.emit("msg", dataSend);
-        // // console.log('send ok')
-        // dataMesSend = this.input_msg;
-        // let newMsg = this.state.dataChat;
-        // newMsg.push({
-        //     Avartar: "",
-        //     Content: dataMesSend,
-        //     CreatedDate: "2018-02-05T09:29:35.383Z",
-        //     DayFlag: 20180205,
-        //     FullName: UserBQL.payload[0].FullName,
-        //     KDTID: 50,
-        //     MessageID: "",
-        //     MsgGroupID: params.MsgGroupID,
-        //     RefAvartar: "",
-        //     RefName: "",
-        //     RefUserID: "",
-        //     UserID: UserBQL.payload[0].UserID,
-        //     rowNumber: "1"
-        // });
-        // this.setState({dataChat: newMsg});
-        this.socket.emit("dis", 12)
+        const { params } = this.props.navigation.state
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        if (this.input_msg === "")
+            return;
+        this.textInput.clear();
+        // console.log("msg:", this.input_msg);
+        //object need send to server
+        let dataSend = {
+            MsgGroupID:params.MsgGroupID,
+            UserID: UserBQL.payload[0].UserID,
+            FullName: UserBQL.payload[0].FullName,
+            Avartar:"",
+            RefUserID:"",
+            RefName:"",
+            RefAvartar:"",
+            Content:this.input_msg,
+            CreatedDate:"",
+            DayFlag:"",
+            KDTID:UserBQL.payload[0].KDTID,
+        }
+        this.socket.emit("msg", dataSend);
+        // console.log('send ok')
+        dataMesSend = this.input_msg;
+        let newMsg = this.state.dataChat;
+        newMsg.push({
+            Avartar: "",
+            Content: dataMesSend,
+            CreatedDate: "2018-02-05T09:29:35.383Z",
+            DayFlag: 20180205,
+            FullName: UserBQL.payload[0].FullName,
+            KDTID: 50,
+            MessageID: "",
+            MsgGroupID: params.MsgGroupID,
+            RefAvartar: "",
+            RefName: "",
+            RefUserID: "",
+            UserID: UserBQL.payload[0].UserID,
+            rowNumber: "1"
+        });
+        this.setState({dataChat: newMsg});
 
     };
 
