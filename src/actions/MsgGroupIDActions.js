@@ -30,7 +30,7 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullN
                             IntUserID: IntUserID1,
                         }]
                     ),
-                    GroupName: null,
+                    GroupName: null, //chưa push
                     CreatedDate: "2017-11-10T00:00:00.000Z",
                     DayFlag: 20171110,
                     UserID: UserID2,
