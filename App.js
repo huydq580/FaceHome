@@ -18,19 +18,7 @@ import {
 import { Provider } from 'react-redux'
 import store from './src/store'
 import Stack from './src/router/Navigation'
-import LoadData from "./src/components/LoadData";
-import SanhChinh from "./src/containers/banquanli/SanhChinh";
-import SoanTin from "./src/containers/banquanli/SoanTin";
-import ThongTinKhuDoThi from "./src/containers/banquanli/menuleft/ThongTinKhuDoThi";
-import BanQuanLy from "./src/containers/banquanli/menuleft/BanQuanLy";
-import QuanLyCuDan from "./src/containers/banquanli/QuanLyCuDan";
-import SuCoItem from "./src/components/baocaosuco/SuCoItemCuDan";
-import SuCoItemBQL from "./src/components/baocaosuco/SuCoItemBQL";
-import CmtItem from "./src/components/status/CmtItem";
-import SoanTinMoi from "./src/containers/banquanli/SoanTinMoi";
-import Contact from "./src/containers/banquanli/Contact";
-import DangNhap from "./src/containers/DangNhap";
-import {UpdateProfile, URL} from "./src/components/Api";
+
 import SocketIOClient from "socket.io-client";
 
 
