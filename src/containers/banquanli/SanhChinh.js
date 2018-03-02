@@ -16,7 +16,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../components/style";
 import StatusItems from "../../components/status/StatusItems";
-import {connectToSocket, disConnectToSocket, joinToChat} from "../../actions/SocketActions";
 import {callApiSearchPost} from "../../actions/SearchPostActions";
 import FCM, {FCMEvent} from "react-native-fcm";
 import {UpdateProfile, URL} from "../../components/Api";
@@ -232,9 +231,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        connectToSocket: bindActionCreators(connectToSocket, dispatch),
-        joinToChat: bindActionCreators(joinToChat, dispatch),
-        disConnectToSocket: bindActionCreators(disConnectToSocket, dispatch),
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
 
 

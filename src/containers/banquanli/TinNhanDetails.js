@@ -7,7 +7,7 @@ import {
     Image,
     TextInput,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator, BackHandler
 } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 import { bindActionCreators } from 'redux'
@@ -107,10 +107,19 @@ class TinNhanDetails extends Component {
 
     }
     componentWillMount () {
-        // const { callApiMsgGroupID } = this.props;
-        // callApiMsgGroupID().then(dataRes=> {
-        //     console.log('dataMsgGroupID',dataRes)
-        // })
+        BackHandler.addEventListener('hardwareBackPress', function() {
+            // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
+            // Typically you would use the navigator here to go to the last state.
+            this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+            // console.log('socket backhandle', this.socket)
+            // // this.socket.on('leave',(data) => {
+            // //
+            // //     console.log('da roi phong', data)
+            // //
+            // // });
+            this.socket.emit("dis")
+
+        });
 
     }
     //get old msg
@@ -145,50 +154,50 @@ class TinNhanDetails extends Component {
 
     //socket event send message
     sendMessage = () => {
-        const { params } = this.props.navigation.state
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
-            return null;
-        }
-        if (this.input_msg === "")
-            return;
-        this.textInput.clear();
-        // console.log("msg:", this.input_msg);
-        //object need send to server
-        let dataSend = {
-            MsgGroupID:params.MsgGroupID,
-            UserID: UserBQL.payload[0].UserID,
-            FullName: UserBQL.payload[0].FullName,
-            Avartar:"",
-            RefUserID:"",
-            RefName:"",
-            RefAvartar:"",
-            Content:this.input_msg,
-            CreatedDate:"",
-            DayFlag:"",
-            KDTID:UserBQL.payload[0].KDTID,
-        }
-        this.socket.emit("msg", dataSend);
-        // console.log('send ok')
-        dataMesSend = this.input_msg;
-        let newMsg = this.state.dataChat;
-        newMsg.push({
-            Avartar: "",
-            Content: dataMesSend,
-            CreatedDate: "2018-02-05T09:29:35.383Z",
-            DayFlag: 20180205,
-            FullName: UserBQL.payload[0].FullName,
-            KDTID: 50,
-            MessageID: "",
-            MsgGroupID: params.MsgGroupID,
-            RefAvartar: "",
-            RefName: "",
-            RefUserID: "",
-            UserID: UserBQL.payload[0].UserID,
-            rowNumber: "1"
-        });
-        this.setState({dataChat: newMsg});
-
+        // const { params } = this.props.navigation.state
+        // const { UserBQL } = this.props;
+        // if (UserBQL.length <= 0) {
+        //     return null;
+        // }
+        // if (this.input_msg === "")
+        //     return;
+        // this.textInput.clear();
+        // // console.log("msg:", this.input_msg);
+        // //object need send to server
+        // let dataSend = {
+        //     MsgGroupID:params.MsgGroupID,
+        //     UserID: UserBQL.payload[0].UserID,
+        //     FullName: UserBQL.payload[0].FullName,
+        //     Avartar:"",
+        //     RefUserID:"",
+        //     RefName:"",
+        //     RefAvartar:"",
+        //     Content:this.input_msg,
+        //     CreatedDate:"",
+        //     DayFlag:"",
+        //     KDTID:UserBQL.payload[0].KDTID,
+        // }
+        // this.socket.emit("msg", dataSend);
+        // // console.log('send ok')
+        // dataMesSend = this.input_msg;
+        // let newMsg = this.state.dataChat;
+        // newMsg.push({
+        //     Avartar: "",
+        //     Content: dataMesSend,
+        //     CreatedDate: "2018-02-05T09:29:35.383Z",
+        //     DayFlag: 20180205,
+        //     FullName: UserBQL.payload[0].FullName,
+        //     KDTID: 50,
+        //     MessageID: "",
+        //     MsgGroupID: params.MsgGroupID,
+        //     RefAvartar: "",
+        //     RefName: "",
+        //     RefUserID: "",
+        //     UserID: UserBQL.payload[0].UserID,
+        //     rowNumber: "1"
+        // });
+        // this.setState({dataChat: newMsg});
+        this.socket.emit("dis", 12)
 
     };
 

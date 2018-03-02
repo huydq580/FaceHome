@@ -109,9 +109,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiGetUser: bindActionCreators(callApiGetUser, dispatch),
-        // connectToSocket: bindActionCreators(connectToSocket, dispatch),
-        // joinToChat: bindActionCreators(joinToChat, dispatch),
-        // disConnectToSocket: bindActionCreators(disConnectToSocket, dispatch)
     }
 };
 
