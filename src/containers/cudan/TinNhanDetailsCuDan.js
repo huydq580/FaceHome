@@ -16,7 +16,7 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
-import ChatItemCuDan from "../../components/ChatItemCuDan";
+import ChatItemCuDan from "../../components/chatItem/ChatItemCuDan";
 
 class TinNhanDetailsCuDan extends Component {
     static navigationOptions = ({ navigation }) => {

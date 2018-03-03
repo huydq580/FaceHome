@@ -46,7 +46,6 @@ class SuCoItemBQL extends Component {
                 </TouchableOpacity>
             </View>
         );
-
     }
 }
 export default SuCoItemBQL;

@@ -20,6 +20,7 @@ import store from './src/store'
 import Stack from './src/router/Navigation'
 
 import SocketIOClient from "socket.io-client";
+import ChiTietSuCo from "./src/containers/banquanli/menuleft/ChiTietSuCo";
 
 
 
