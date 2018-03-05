@@ -20,10 +20,6 @@ import store from './src/store'
 import Stack from './src/router/Navigation'
 
 import SocketIOClient from "socket.io-client";
-import ChiTietSuCo from "./src/containers/banquanli/menuleft/ChiTietSuCo";
-
-
-
 
 export default class App extends Component<{}> {
     componentDidMount() {
@@ -35,8 +31,6 @@ export default class App extends Component<{}> {
                 this.socket.emit("dis", 12)
             })
     }
-
-
     render() {
     return (
         <Provider store={store}>
