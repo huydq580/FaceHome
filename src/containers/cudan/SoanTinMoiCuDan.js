@@ -105,7 +105,7 @@ class SoanTinMoiCuDan extends Component {
                             // console.log('user1',item.UserID)
                             // console.log('FullName1',item.FullName)
                             const { callApiMsgGroupID } = this.props;
-                            callApiMsgGroupID(UserCuDan.payload[0].KDTID,UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName,UserCuDan.payload[0].IntUserID, item.UserID,  item.FullName,item.IntUserID, UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName).then(dataRes=> {
+                            callApiMsgGroupID(UserCuDan.payload[0].KDTID,UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName,UserCuDan.payload[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,item.FullName, UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName, false).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),

@@ -104,7 +104,7 @@ class SoanTinMoi extends Component {
                             // console.log('UserID1', item.UserID)
                             // console.log('FullName1', item.FullName)
                             const { callApiMsgGroupID } = this.props;
-                            callApiMsgGroupID(UserBQL.payload[0].KDTID,UserBQL.payload[0].UserID, UserBQL.payload[0].FullName,UserBQL.payload[0].IntUserID, item.UserID,  item.FullName,item.IntUserID, UserBQL.payload[0].UserID, UserBQL.payload[0].FullName, false).then(dataRes=> {
+                            callApiMsgGroupID(UserBQL.payload[0].KDTID,UserBQL.payload[0].UserID, UserBQL.payload[0].FullName,UserBQL.payload[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,  item.FullName, UserBQL.payload[0].UserID, UserBQL.payload[0].FullName, false).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),

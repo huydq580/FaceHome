@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     FlatList,
     ScrollView,
-    ActivityIndicator
+    ActivityIndicator,
+    AsyncStorage
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

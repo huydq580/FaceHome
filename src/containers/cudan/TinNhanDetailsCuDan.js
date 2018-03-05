@@ -7,7 +7,8 @@ import {
     Image,
     TextInput,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator,
+    BackHandler
 } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 import { bindActionCreators } from 'redux'
@@ -109,10 +110,24 @@ class TinNhanDetailsCuDan extends Component {
 
     }
     componentWillMount () {
-        // const { callApiMsgGroupID } = this.props;
-        // callApiMsgGroupID().then(dataRes=> {
-        //     console.log('dataMsgGroupID',dataRes)
-        // })
+        const { params } = this.props.navigation.state
+        BackHandler.addEventListener('hardwareBackPress', function() {
+            // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
+            // Typically you would use the navigator here to go to the last state.
+            this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+            // console.log('socket backhandle', this.socket)
+            // // this.socket.on('leave',(data) => {
+            // //
+            // //     console.log('da roi phong', data)
+            // //
+            // // });
+            let dataGroup = {
+                MsgGroupID:params.MsgGroupID,
+                UserID: "FE687860-FB63-48AF-9988-0BF7B04E7576"
+            }
+            this.socket.emit("dis", dataGroup)
+
+        });
 
     }
     //get old msg

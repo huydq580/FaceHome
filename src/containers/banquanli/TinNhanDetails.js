@@ -1,3 +1,4 @@
+//fix useridBQL Componentwillmount
 import React, { Component } from 'react';
 import {
     View,
@@ -107,6 +108,7 @@ class TinNhanDetails extends Component {
 
     }
     componentWillMount () {
+        const { params } = this.props.navigation.state
         BackHandler.addEventListener('hardwareBackPress', function() {
             // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
             // Typically you would use the navigator here to go to the last state.
@@ -117,7 +119,11 @@ class TinNhanDetails extends Component {
             // //     console.log('da roi phong', data)
             // //
             // // });
-            this.socket.emit("dis")
+            let dataGroup = {
+                MsgGroupID:params.MsgGroupID,
+                UserID: "115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C"
+            }
+            this.socket.emit("dis", dataGroup)
 
         });
 

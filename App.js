@@ -28,7 +28,11 @@ export default class App extends Component<{}> {
             'ON_HOME_BUTTON_PRESSED',
             () => {
                 console.log('You tapped the home button!')
-                this.socket.emit("dis", 12)
+                let dataGroup = {
+                    MsgGroupID: null,
+                    UserID: "115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C"
+                }
+                this.socket.emit("dis", dataGroup)
             })
     }
     render() {
