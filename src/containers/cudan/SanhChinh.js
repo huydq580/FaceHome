@@ -16,6 +16,7 @@ import StatusItems from "../../components/status/StatusItems";
 import { callApiNhaCuDan } from "../../actions/actionsCuDan/NhaCuDanActions";
 import {callApiSearchPost} from "../../actions/SearchPostActions";
 import {default as FCM, FCMEvent} from "react-native-fcm";
+import {UpdateProfile, URL} from "../../components/Api";
 
 class SanhChinh extends Component {
     constructor(props){
@@ -28,6 +29,31 @@ class SanhChinh extends Component {
             page_index: 1,
             dataItem : [],
         }
+    }
+    pushDeviceToken = (token_APP) => {
+        const { UserCuDan } = this.props
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
+
+        fetch(URL+ UpdateProfile, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({
+                profile_id: UserCuDan.payload[0].ProfileID,
+                user_id: UserCuDan.payload[0].UserID,
+                field: "TokenKey",
+                value: token_APP,
+                lang_name: "vi_VN"
+            })
+        }).then((response) => response.json())
+            .then(data => {
+                console.log("da push thanh cong", data)
+
+            }).catch((erro)=> {
+            console.log('erro', erro);
+        })
     }
     componentWillMount() {
         const { UserCuDan } = this.props;

@@ -57,7 +57,7 @@ class TinNhanDetails extends Component {
             return null;
         }
         // connect socket
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://222.252.16.186:9061/message', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
         console.log('socket', this.socket)
         //get old message
         this.getOldMSG();
@@ -109,6 +109,10 @@ class TinNhanDetails extends Component {
     }
     componentWillMount () {
         const { params } = this.props.navigation.state
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
         BackHandler.addEventListener('hardwareBackPress', function() {
             // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
             // Typically you would use the navigator here to go to the last state.
@@ -121,7 +125,9 @@ class TinNhanDetails extends Component {
             // // });
             let dataGroup = {
                 MsgGroupID:params.MsgGroupID,
-                UserID: "115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C"
+                UserID: UserBQL.payload[0].UserID,
+                IntUserID: UserBQL.payload[0].IntUserID
+
             }
             this.socket.emit("dis", dataGroup)
 

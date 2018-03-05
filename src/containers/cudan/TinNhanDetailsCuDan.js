@@ -110,6 +110,10 @@ class TinNhanDetailsCuDan extends Component {
 
     }
     componentWillMount () {
+        const { UserCuDan } = this.props;
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
         const { params } = this.props.navigation.state
         BackHandler.addEventListener('hardwareBackPress', function() {
             // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
@@ -123,7 +127,8 @@ class TinNhanDetailsCuDan extends Component {
             // // });
             let dataGroup = {
                 MsgGroupID:params.MsgGroupID,
-                UserID: "FE687860-FB63-48AF-9988-0BF7B04E7576"
+                UserID: UserCuDan.payload[0].UserID,
+                IntUserID: UserCuDan.payload[0].IntUserID
             }
             this.socket.emit("dis", dataGroup)
 
