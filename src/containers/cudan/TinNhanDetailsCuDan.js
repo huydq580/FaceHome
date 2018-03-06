@@ -38,7 +38,6 @@ class TinNhanDetailsCuDan extends Component {
 
     };
     constructor(props){
-        console.log('constructor1')
         super(props)
         this.state = {
             dataChat: [],

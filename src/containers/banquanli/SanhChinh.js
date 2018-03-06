@@ -37,7 +37,6 @@ class SanhChinh extends Component {
             refresh : false,
             isLoading: true,
             page_index: 1,
-
         }
 
 
