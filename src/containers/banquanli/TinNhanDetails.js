@@ -1,5 +1,5 @@
 //fix useridBQL Componentwillmount
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -11,9 +11,10 @@ import {
     ActivityIndicator, BackHandler
 } from 'react-native';
 import SocketIOClient from 'socket.io-client';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
 import Dimensions from 'Dimensions';
+
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
@@ -22,42 +23,47 @@ import ChatItem from "../../components/chatItem/ChatItem";
 //Warning: Can only update a mounted or mounting component. This usually means you called setState, replaceState, or forceUpdate on an unmounted component. This is a no-op. Please check the code for the Fab component.
 
 class TinNhanDetails extends Component {
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({navigation}) => {
 
-        const { params = {} } = navigation.state
+        const {params = {}} = navigation.state
 
         return {
             title: `${navigation.state.params.title}`,
-            headerTitleStyle : {textAlign: 'center',alignSelf:'center'},
-            headerStyle:{
-                backgroundColor:'white',
+            headerTitleStyle: {textAlign: 'center', alignSelf: 'center'},
+            headerStyle: {
+                backgroundColor: 'white',
             },
-            headerRight: <TouchableOpacity style = {{marginRight:10}}
+            headerRight: <TouchableOpacity style={{marginRight: 10}}
                                            onPress={() => params.handleSave()}>
-                <Icon name = "dots-vertical" size={25} color="#424242"/>
+                <Icon name="dots-vertical" size={25} color="#424242"/>
             </TouchableOpacity>
         }
 
     };
-    constructor(props){
+
+    constructor(props) {
         console.log('constructor')
         super(props)
         this.state = {
             dataChat: [],
             UserID: '',
-            refresh : false,
+            refresh: false,
             isLoading: true,
-            index :1,
+            index: 1,
 
         }
         this.input_msg = '';
-        const { params } = this.props.navigation.state
-        const { UserBQL } = this.props;
+        const {params} = this.props.navigation.state
+        const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
         // connect socket
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+            pingTimeout: 30000,
+            pingInterval: 30000,
+            transports: ['websocket']
+        });
         console.log('socket', this.socket)
         //get old message
         this.getOldMSG();
@@ -65,7 +71,12 @@ class TinNhanDetails extends Component {
 
             // this.socket.emit('load', (params.MsgGroupID))
             //join room
-            this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserBQL.payload[0].UserID, FullName:UserBQL.payload[0].FullName, Avartar:""})
+            this.socket.emit('login', {
+                MsgGroupID: params.MsgGroupID,
+                UserID: UserBQL.payload[0].UserID,
+                FullName: UserBQL.payload[0].FullName,
+                Avartar: ""
+            })
             console.log('login ok')
         })
         //receive message to sender
@@ -95,29 +106,34 @@ class TinNhanDetails extends Component {
         })
 
 
-
-
     }
+
     //custom message details
-    Custom(){
+    Custom() {
         this.props.navigation.navigate('Contact')
     }
+
     componentDidMount() {
         // call function SaveDetails
-        this.props.navigation.setParams({ handleSave: this.Custom.bind(this) });
+        this.props.navigation.setParams({handleSave: this.Custom.bind(this)});
 
     }
-    componentWillMount () {
-        const { params } = this.props.navigation.state
-        const { UserBQL } = this.props;
+
+    componentWillMount() {
+        const {params} = this.props.navigation.state
+        const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
-        BackHandler.addEventListener('hardwareBackPress', function() {
+        BackHandler.addEventListener('hardwareBackPress', function () {
             console.log('backk')
             // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
             // Typically you would use the navigator here to go to the last state.
-            this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+            this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+                pingTimeout: 30000,
+                pingInterval: 30000,
+                transports: ['websocket']
+            });
             // console.log('socket backhandle', this.socket)
             // // this.socket.on('leave',(data) => {
             // //
@@ -125,7 +141,7 @@ class TinNhanDetails extends Component {
             // //
             // // });
             let dataGroup = {
-                MsgGroupID:params.MsgGroupID,
+                MsgGroupID: params.MsgGroupID,
                 UserID: UserBQL.payload[0].UserID,
                 IntUserID: UserBQL.payload[0].IntUserID
 
@@ -135,19 +151,20 @@ class TinNhanDetails extends Component {
         });
 
     }
+
     //get old msg
-    getOldMSG = ()=>  {
+    getOldMSG = () => {
         console.log('so trang', this.state.index)
-        const { params } = this.props.navigation.state
-        const { UserBQL } = this.props;
+        const {params} = this.props.navigation.state
+        const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
-        const { callApiGetMessage } = this.props;
+        const {callApiGetMessage} = this.props;
         callApiGetMessage(UserBQL.payload[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
-                dataChat: [...dataMessage,...this.state.dataChat],
+                dataChat: [...dataMessage, ...this.state.dataChat],
                 // dataChat: ,
                 isLoading: false,
             })
@@ -167,8 +184,8 @@ class TinNhanDetails extends Component {
 
     //socket event send message
     sendMessage = () => {
-        const { params } = this.props.navigation.state
-        const { UserBQL } = this.props;
+        const {params} = this.props.navigation.state
+        const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
@@ -178,17 +195,17 @@ class TinNhanDetails extends Component {
         // console.log("msg:", this.input_msg);
         //object need send to server
         let dataSend = {
-            MsgGroupID:params.MsgGroupID,
+            MsgGroupID: params.MsgGroupID,
             UserID: UserBQL.payload[0].UserID,
             FullName: UserBQL.payload[0].FullName,
-            Avartar:"",
-            RefUserID:"",
-            RefName:"",
-            RefAvartar:"",
-            Content:this.input_msg,
-            CreatedDate:"",
-            DayFlag:"",
-            KDTID:UserBQL.payload[0].KDTID,
+            Avartar: "",
+            RefUserID: "",
+            RefName: "",
+            RefAvartar: "",
+            Content: this.input_msg,
+            CreatedDate: "",
+            DayFlag: "",
+            KDTID: UserBQL.payload[0].KDTID,
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
@@ -213,23 +230,25 @@ class TinNhanDetails extends Component {
 
     };
 
-render () {
-    if (this.state.isLoading) {
+    render() {
+        if (this.state.isLoading) {
+            return (
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                    <ActivityIndicator size="large" color="white"/>
+                </View>
+            );
+        }
+        const {UserBQL} = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
         return (
-            <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
-                <ActivityIndicator size="large" color="white"/>
-            </View>
-        );
-    }
-    const { UserBQL } = this.props;
-    if (UserBQL.length <= 0) {
-        return null;
-    }
-    return (
             <View style={{flex: 1}}>
                 <FlatList
-                    refreshing = {this.state.refresh}
-                    onRefresh = {()=>  {this.handleLoadMore()}}
+                    refreshing={this.state.refresh}
+                    onRefresh={() => {
+                        this.handleLoadMore()
+                    }}
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
                     data={this.state.dataChat}
                     renderItem={({item}) => {
@@ -246,13 +265,13 @@ render () {
                     showsVerticalScrollIndicator={false}
                     ref={ref => this.flatList = ref}
                     onContentSizeChange={() => {
-                         // console.log("on size change");
-                         this.flatList.scrollToEnd({animated: true})
+                        // console.log("on size change");
+                        this.flatList.scrollToEnd({animated: true})
                     }}
                     onLayout={() => {
                         // console.log("got to onlayout");
                         this.flatList.scrollToEnd({animated: true})
-                        }
+                    }
                     }
 
 
@@ -309,6 +328,7 @@ render () {
         );
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         Message: state.MessagesDetailsReducers,
@@ -327,12 +347,12 @@ TinNhanDetails = connect(mapStateToProps, mapDispatchToProps)(TinNhanDetails);
 
 export default TinNhanDetails
 const myStyle = StyleSheet.create({
-        image_circle: {
-            height: DEVICE_WIDTH / 8,
-            width: DEVICE_WIDTH / 8,
-            borderRadius: DEVICE_WIDTH / 16,
-            marginLeft: 10,
-            marginRight: 10,
+    image_circle: {
+        height: DEVICE_WIDTH / 8,
+        width: DEVICE_WIDTH / 8,
+        borderRadius: DEVICE_WIDTH / 16,
+        marginLeft: 10,
+        marginRight: 10,
 
-        }
-    })
+    }
+})

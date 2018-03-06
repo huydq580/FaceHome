@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -11,52 +11,58 @@ import {
     BackHandler
 } from 'react-native';
 import SocketIOClient from 'socket.io-client';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
 import Dimensions from 'Dimensions';
+
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
 import ChatItemCuDan from "../../components/chatItem/ChatItemCuDan";
 
 class TinNhanDetailsCuDan extends Component {
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({navigation}) => {
 
-        const { params = {} } = navigation.state
+        const {params = {}} = navigation.state
 
         return {
             title: `${navigation.state.params.title}`,
-            headerTitleStyle : {textAlign: 'center',alignSelf:'center'},
-            headerStyle:{
-                backgroundColor:'white',
+            headerTitleStyle: {textAlign: 'center', alignSelf: 'center'},
+            headerStyle: {
+                backgroundColor: 'white',
             },
-            headerRight: <TouchableOpacity style = {{marginRight:10}}
+            headerRight: <TouchableOpacity style={{marginRight: 10}}
                                            onPress={() => params.handleSave()}>
-                <Icon name = "dots-vertical" size={25} color="#424242"/>
+                <Icon name="dots-vertical" size={25} color="#424242"/>
             </TouchableOpacity>
         }
 
     };
-    constructor(props){
+
+    constructor(props) {
         super(props)
         this.state = {
             dataChat: [],
             UserID: '',
-            refresh : false,
+            refresh: false,
             isLoading: true,
-            index:1
+            index: 1
 
         }
         this.input_msg = '';
-        const { params } = this.props.navigation.state
-        const { UserCuDan } = this.props;
+        const {params} = this.props.navigation.state
+        const {UserCuDan} = this.props;
         if (UserCuDan.length <= 0) {
             return null;
         }
         console.log('usercudan', UserCuDan)
-        console.log('params',params.MsgGroupID)
+        console.log('params', params.MsgGroupID)
         //connect socket
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
+        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+            pingTimeout: 30000,
+            pingInterval: 30000,
+            transports: ['websocket']
+        });
         console.log('socket', this.socket)
         // console.log('socket', this.socket)
         // // get old message
@@ -67,7 +73,12 @@ class TinNhanDetailsCuDan extends Component {
             // this.socket.emit('load', (params.MsgGroupID))
             //join room
             // die when send fullname
-            this.socket.emit('login',{MsgGroupID:params.MsgGroupID,UserID:UserCuDan.payload[0].UserID, FullName:"", Avartar:""})
+            this.socket.emit('login', {
+                MsgGroupID: params.MsgGroupID,
+                UserID: UserCuDan.payload[0].UserID,
+                FullName: "",
+                Avartar: ""
+            })
             console.log('login ok')
         })
         // receive message to sender
@@ -96,56 +107,57 @@ class TinNhanDetailsCuDan extends Component {
         })
 
 
-
-
     }
+
     //custom message details
-    Custom(){
+    Custom() {
         this.props.navigation.navigate('Contact')
     }
+
     componentDidMount() {
         // call function SaveDetails
-        this.props.navigation.setParams({ handleSave: this.Custom.bind(this) });
+        this.props.navigation.setParams({handleSave: this.Custom.bind(this)});
 
     }
-    componentWillMount () {
-        const { UserCuDan } = this.props;
+
+    componentWillMount() {
+        const {UserCuDan} = this.props;
         if (UserCuDan.length <= 0) {
             return null;
         }
-        const { params } = this.props.navigation.state
-        BackHandler.addEventListener('hardwareBackPress', function() {
+        const {params} = this.props.navigation.state
+        BackHandler.addEventListener('hardwareBackPress', function () {
+            console.log('back')
             // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
             // Typically you would use the navigator here to go to the last state.
-            this.socket = SocketIOClient('http://222.252.16.186:9061/', { pingTimeout: 30000, pingInterval: 30000, transports: ['websocket'] });
-            // console.log('socket backhandle', this.socket)
-            // // this.socket.on('leave',(data) => {
-            // //
-            // //     console.log('da roi phong', data)
-            // //
-            // // });
+            this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+                pingTimeout: 30000,
+                pingInterval: 30000,
+                transports: ['websocket']
+            });
             let dataGroup = {
-                MsgGroupID:params.MsgGroupID,
+                MsgGroupID: params.MsgGroupID,
                 UserID: UserCuDan.payload[0].UserID,
                 IntUserID: UserCuDan.payload[0].IntUserID
             }
-            this.socket.emit("dis", dataGroup)
+            this.socket.emit("logout", dataGroup)
 
         });
 
     }
+
     //get old msg
-    getOldMSG = ()=>  {
-        const { params } = this.props.navigation.state
-        const { UserCuDan } = this.props;
+    getOldMSG = () => {
+        const {params} = this.props.navigation.state
+        const {UserCuDan} = this.props;
         if (UserCuDan.length <= 0) {
             return null;
         }
-        const { callApiGetMessage } = this.props;
+        const {callApiGetMessage} = this.props;
         callApiGetMessage(UserCuDan.payload[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
-                dataChat: [...dataMessage,...this.state.dataChat],
+                dataChat: [...dataMessage, ...this.state.dataChat],
                 // dataChat: ,
                 isLoading: false,
             })
@@ -164,8 +176,8 @@ class TinNhanDetailsCuDan extends Component {
     };
     //socket event send message
     sendMessage = () => {
-        const { params } = this.props.navigation.state
-        const { UserCuDan } = this.props;
+        const {params} = this.props.navigation.state
+        const {UserCuDan} = this.props;
         if (UserCuDan.length <= 0) {
             return null;
         }
@@ -176,18 +188,18 @@ class TinNhanDetailsCuDan extends Component {
         //object need send to server
         console.log('userid gui di', UserCuDan.payload[0].UserID)
         let dataSend = {
-            MsgGroupID:params.MsgGroupID,
+            MsgGroupID: params.MsgGroupID,
             UserID: UserCuDan.payload[0].UserID,
             FullName: "",
             FullName: UserCuDan.payload[0].FullName,
-            Avartar:"",
-            RefUserID:"",
-            RefName:"",
-            RefAvartar:"",
-            Content:this.input_msg,
-            CreatedDate:"",
-            DayFlag:"",
-            KDTID:UserCuDan.payload[0].KDTID,
+            Avartar: "",
+            RefUserID: "",
+            RefName: "",
+            RefAvartar: "",
+            Content: this.input_msg,
+            CreatedDate: "",
+            DayFlag: "",
+            KDTID: UserCuDan.payload[0].KDTID,
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
@@ -211,23 +223,25 @@ class TinNhanDetailsCuDan extends Component {
         this.setState({dataChat: newMsg});
     };
 
-    render () {
+    render() {
         if (this.state.isLoading) {
             return (
-                <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
                     <ActivityIndicator size="large" color="white"/>
                 </View>
             );
         }
-        const { UserCuDan } = this.props;
+        const {UserCuDan} = this.props;
         if (UserCuDan.length <= 0) {
             return null;
         }
         return (
             <View style={{flex: 1}}>
                 <FlatList
-                    refreshing = {this.state.refresh}
-                    onRefresh = {()=>  {this.handleLoadMore()}}
+                    refreshing={this.state.refresh}
+                    onRefresh={() => {
+                        this.handleLoadMore()
+                    }}
                     style={{backgroundColor: "#E0E0E0", flex: 1}}
                     data={this.state.dataChat}
                     renderItem={({item}) => {
@@ -307,6 +321,7 @@ class TinNhanDetailsCuDan extends Component {
         );
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         Message: state.MessagesDetailsReducers,
