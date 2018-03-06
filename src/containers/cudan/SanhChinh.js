@@ -123,7 +123,7 @@ class SanhChinh extends Component {
         if (UserCuDan.length <= 0) {
             return null;
         }
-        callApiSearchPost(this.state.page_index, UserCuDan.payload[0].KDTID, UserCuDan.payload[0].UserID).then(dataRes => {
+        callApiSearchPost(this.state.page_index, UserCuDan.payload[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
             console.log('bai viet sanh chinh', dataBaiViet)

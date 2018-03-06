@@ -13,15 +13,6 @@ const SocketReducers = (state = initState, action) => {
                 return {
                     ...state, socket: null,isJoinChat: false, userSocket: null
                 };
-
-            case ActionType.JOIN_CHAT_SUCCESS:
-                return {
-                    ...state,
-                    isJoinChat: true,
-                    userSocket:
-                    action.dataJoin
-                }
-                    ;
             default:
                 return state;
         }

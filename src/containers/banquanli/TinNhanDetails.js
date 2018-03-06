@@ -91,7 +91,7 @@ class TinNhanDetails extends Component {
                 Content: dataMess,
                 CreatedDate: "2018-02-05T09:29:35.383Z",
                 DayFlag: 20180205,
-                FullName: UserBQL.payload[0].FullName,
+                FullName: UserBQL.payload[0].FullName,//dataReceive.FullName
                 KDTID: 50,
                 MessageID: "",
                 MsgGroupID: params.MsgGroupID,

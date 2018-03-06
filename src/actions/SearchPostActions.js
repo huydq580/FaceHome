@@ -1,6 +1,6 @@
 import { SearchPost, URL } from "../components/Api";
 
-export const callApiSearchPost = (page_index, kdt_id,user_id) => {
+export const callApiSearchPost = (page_index, kdt_id) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + SearchPost, {
@@ -15,7 +15,8 @@ export const callApiSearchPost = (page_index, kdt_id,user_id) => {
                     kdt_id: kdt_id,
                     from_date: "",
                     to_date: "",
-                    user_id: user_id,
+                    user_id: "",
+                    // user_id: user_id,
                     user_type: 255,
                     pin: 255,
                     option: 0,

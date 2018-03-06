@@ -19,6 +19,7 @@ import StatusItems from "../../components/status/StatusItems";
 import {callApiSearchPost} from "../../actions/SearchPostActions";
 import FCM, {FCMEvent} from "react-native-fcm";
 import {UpdateProfile, URL} from "../../components/Api";
+import SocketIOClient from "socket.io-client";
 
 
 class SanhChinh extends Component {
@@ -41,6 +42,44 @@ class SanhChinh extends Component {
             isLoading: true,
             page_index: 1,
         }
+        const {UserBQL} = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        this.fetchData()
+            this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+            pingTimeout: 30000,
+            pingInterval: 30000,
+            transports: ['websocket']
+        });
+        this.socket.emit('loginpost', {
+            UserID: UserBQL.payload[0].UserID,
+            KDTID: UserBQL.payload[0].KDTID,
+        })
+        this.socket.on('receivepost', (dataReceive) => {
+            console.log('receivepost', dataReceive)
+            dataPost = dataReceive.PostContent;
+            //set newMsg = messga receive
+            let newPost = this.state.dataItem;
+            //add message to array
+            newPost.push({
+                RowNum: dataReceive.RowNum,
+                KDTID: dataReceive.KDTID,
+                UserID: dataReceive.UserID,
+                FullName: dataReceive.FullName,
+                Avatar: dataReceive.Avatar,
+                CreatedDate: dataReceive.CreatedDate,
+                UserType: dataReceive.UserType,
+                TotalComment: dataReceive.TotalComment,
+                TotalLike: dataReceive.TotalLike,
+                TotalShare: dataReceive.TotalShare,
+                PostContent: dataReceive.PostContent,
+                TotalRow: dataReceive.TotalRow,
+                PostID:dataReceive.PostID
+            });
+            this.setState({dataItem: newPost});
+
+        })
 
 
     }
@@ -72,7 +111,6 @@ class SanhChinh extends Component {
     }
 
     componentDidMount() {
-        this.fetchData()
         // iOS: show permission prompt for the first call. later just check permission in user settings
         // Android: check permission in user settings
         FCM.requestPermissions().then(() => console.log('granted')).catch(() => console.log('notification permission rejected'));
@@ -129,7 +167,7 @@ class SanhChinh extends Component {
         if (UserBQL.length <= 0) {
             return null;
         }
-        callApiSearchPost(this.state.page_index, UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID).then(dataRes => {
+        callApiSearchPost(this.state.page_index, UserBQL.payload[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
             // console.log('bai viet sanh chinh', dataBaiViet)
