@@ -62,7 +62,7 @@ class SanhChinh extends Component {
             //set newMsg = messga receive
             let newPost = this.state.dataItem;
             //add message to array
-            newPost.push({
+            newPost.unshift({
                 RowNum: dataReceive.RowNum,
                 KDTID: dataReceive.KDTID,
                 UserID: dataReceive.UserID,
