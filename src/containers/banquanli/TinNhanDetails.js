@@ -197,7 +197,7 @@ class TinNhanDetails extends Component {
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
-        dataMesSend = this.input_msg;
+        let dataMesSend = this.input_msg;
         let newMsg = this.state.dataChat;
         newMsg.push({
             Avartar: "",

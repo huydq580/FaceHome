@@ -6,7 +6,6 @@ import {
     Image,
 
 } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
 class StatusItems extends Component {
     render (){
