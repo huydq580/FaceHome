@@ -118,40 +118,27 @@ class TinNhanDetails extends Component {
         this.props.navigation.setParams({handleSave: this.Custom.bind(this)});
 
     }
-
-    componentWillMount() {
+    //goi su kien khi thoat khoi man hinh
+    componentWillUnmount() {
+        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+            pingTimeout: 30000,
+            pingInterval: 30000,
+            transports: ['websocket']
+        });
         const {params} = this.props.navigation.state
         const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
-        BackHandler.addEventListener('hardwareBackPress', function () {
-            console.log('backk')
-            // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
-            // Typically you would use the navigator here to go to the last state.
-            this.socket = SocketIOClient('http://222.252.16.186:9061/', {
-                pingTimeout: 30000,
-                pingInterval: 30000,
-                transports: ['websocket']
-            });
-            // console.log('socket backhandle', this.socket)
-            // // this.socket.on('leave',(data) => {
-            // //
-            // //     console.log('da roi phong', data)
-            // //
-            // // });
-            let dataGroup = {
-                MsgGroupID: params.MsgGroupID,
-                UserID: UserBQL.payload[0].UserID,
-                IntUserID: UserBQL.payload[0].IntUserID
+        console.log('userbql', UserBQL)
+        let dataGroup = {
+            MsgGroupID: params.MsgGroupID,
+            UserID: UserBQL.payload[0].UserID,
+            IntUserID: UserBQL.payload[0].IntUserID
 
-            }
-            this.socket.emit("logout", dataGroup)
-
-        });
-
+        }
+        this.socket.emit("logout", dataGroup)
     }
-
     //get old msg
     getOldMSG = () => {
         console.log('so trang', this.state.index)
