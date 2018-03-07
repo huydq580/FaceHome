@@ -18,7 +18,7 @@ import stylesContainer from "../../components/style";
 import StatusItems from "../../components/status/StatusItems";
 import {callApiSearchPost} from "../../actions/SearchPostActions";
 import FCM, {FCMEvent} from "react-native-fcm";
-import {UpdateProfile, URL} from "../../components/Api";
+import {SOCKET, UpdateProfile, URL} from "../../components/Api";
 import SocketIOClient from "socket.io-client";
 
 
@@ -47,7 +47,7 @@ class SanhChinh extends Component {
             return null;
         }
         this.fetchData()
-            this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+            this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']

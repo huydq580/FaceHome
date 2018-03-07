@@ -16,7 +16,8 @@ import StatusItems from "../../components/status/StatusItems";
 import {callApiNhaCuDan} from "../../actions/actionsCuDan/NhaCuDanActions";
 import {callApiSearchPost} from "../../actions/SearchPostActions";
 import {default as FCM, FCMEvent} from "react-native-fcm";
-import {UpdateProfile, URL} from "../../components/Api";
+import {SOCKET, UpdateProfile, URL} from "../../components/Api";
+import SocketIOClient from "socket.io-client";
 
 class SanhChinh extends Component {
     constructor(props) {
@@ -29,6 +30,45 @@ class SanhChinh extends Component {
             page_index: 1,
             dataItem: [],
         }
+        const {UserCuDan} = this.props;
+        if (UserCuDan.length <= 0) {
+            return null;
+        }
+        this.fetchData()
+        this.socket = SocketIOClient( SOCKET, {
+            pingTimeout: 30000,
+            pingInterval: 30000,
+            transports: ['websocket']
+        });
+        this.socket.emit('loginpost', {
+            UserID: UserCuDan.payload[0].UserID,
+            KDTID: UserCuDan.payload[0].KDTID,
+        })
+        this.socket.on('receivepost', (dataReceive) => {
+            console.log('receivepost', dataReceive)
+            dataPost = dataReceive.PostContent;
+            //set newMsg = messga receive
+            let newPost = this.state.dataItem;
+            //add message to array
+            newPost.unshift({
+                RowNum: dataReceive.RowNum,
+                KDTID: dataReceive.KDTID,
+                UserID: dataReceive.UserID,
+                FullName: dataReceive.FullName,
+                Avatar: dataReceive.Avatar,
+                CreatedDate: dataReceive.CreatedDate,
+                UserType: dataReceive.UserType,
+                TotalComment: dataReceive.TotalComment,
+                TotalLike: dataReceive.TotalLike,
+                TotalShare: dataReceive.TotalShare,
+                PostContent: dataReceive.PostContent,
+                TotalRow: dataReceive.TotalRow,
+                PostID:dataReceive.PostID
+            });
+            this.setState({dataItem: newPost});
+
+        })
+
     }
 
     pushDeviceToken = (token_APP) => {
@@ -70,7 +110,7 @@ class SanhChinh extends Component {
             console.log('data1', dataNhaCuDan)
 
         })
-        this.fetchData()
+        // this.fetchData()
         // lay devices
         // iOS: show permission prompt for the first call. later just check permission in user settings
         // Android: check permission in user settings

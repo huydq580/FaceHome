@@ -19,6 +19,7 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
 import ChatItemCuDan from "../../components/chatItem/ChatItemCuDan";
+import {SOCKET} from "../../components/Api";
 
 class TinNhanDetailsCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -58,7 +59,7 @@ class TinNhanDetailsCuDan extends Component {
         console.log('usercudan', UserCuDan)
         console.log('params', params.MsgGroupID)
         //connect socket
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+        this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']
@@ -120,7 +121,7 @@ class TinNhanDetailsCuDan extends Component {
 
     }
     componentWillUnmount() {
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+        this.socket = SocketIOClient( SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']

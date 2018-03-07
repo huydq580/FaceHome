@@ -19,6 +19,7 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
 import ChatItem from "../../components/chatItem/ChatItem";
+import {SOCKET} from "../../components/Api";
 
 //Warning: Can only update a mounted or mounting component. This usually means you called setState, replaceState, or forceUpdate on an unmounted component. This is a no-op. Please check the code for the Fab component.
 
@@ -59,7 +60,7 @@ class TinNhanDetails extends Component {
             return null;
         }
         // connect socket
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+        this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']
@@ -120,7 +121,7 @@ class TinNhanDetails extends Component {
     }
     //goi su kien khi thoat khoi man hinh
     componentWillUnmount() {
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+        this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']

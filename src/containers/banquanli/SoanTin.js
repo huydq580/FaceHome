@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {callApiCreatePost, callApiUploadImage} from "../../actions/SoanTinActions";
 import SocketIOClient from "socket.io-client";
+import {SOCKET} from "../../components/Api";
 
 
 class SoanTin extends Component {
@@ -29,7 +30,7 @@ class SoanTin extends Component {
             dataImage: null,
             resizedImageUri: '',
         }
-        this.socket = SocketIOClient('http://222.252.16.186:9061/', {
+        this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']
