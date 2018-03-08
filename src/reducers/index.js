@@ -40,7 +40,7 @@ const appStore = combineReducers({
     MsgGroupIDReducers,
     SearchPostReducers,
     PostCmtReducers,
-    SearchCmtReducers
+    SearchCmtReducers,
 })
 
 export default appStore

@@ -109,7 +109,8 @@ class SoanTin extends Component {
             TotalShare: "",
             PostContent: Content,
             TotalRow: "",
-            PostID: PostID
+            PostID: PostID,
+            Comments:''
         }
         this.socket.emit("post", dataSendPost);
 

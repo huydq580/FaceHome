@@ -62,8 +62,6 @@ class SanhChinh extends Component {
         })
         this.socket.on('receivepost', (dataReceive) => {
             console.log('receivepost', dataReceive)
-            dataPost = dataReceive.PostContent;
-            //set newMsg = messga receive
             let newPost = this.state.dataItem;
             //add message to array
             newPost.unshift({
@@ -79,7 +77,8 @@ class SanhChinh extends Component {
                 TotalShare: dataReceive.TotalShare,
                 PostContent: dataReceive.PostContent,
                 TotalRow: dataReceive.TotalRow,
-                PostID:dataReceive.PostID
+                PostID:dataReceive.PostID,
+                Comments:dataReceive.Comments
             });
             this.setState({dataItem: newPost});
 
@@ -220,12 +219,6 @@ class SanhChinh extends Component {
         const {navigation} = this.props;
         return (
             <View style={stylesContainer.container}>
-                {/*<View style={{alignItems:'center', justifyContent:'center'}}>*/}
-                {/*<Text style = {{fontSize:19, fontWeight:'bold', color: 'black'}}>*/}
-                {/*Thông Tin Từ Ban Quản Lý*/}
-                {/*</Text>*/}
-                {/*</View>*/}
-                {/*<View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>*/}
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}

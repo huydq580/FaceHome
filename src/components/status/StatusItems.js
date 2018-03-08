@@ -20,9 +20,11 @@ class StatusItems extends Component {
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
-            transports: ['websocket']
-
+            transports: ['websocket'],
         });
+        this.state = {
+            TongCmt: ""
+        }
     }
 
     LikePost = (PostID, DatePost) => {
@@ -42,7 +44,7 @@ class StatusItems extends Component {
         callApiSearchCmt( PostID ).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            console.log('dtacmt', dataCmt)
+            this.props.navigation.navigate('BinhLuanBQL', {PostId: PostID})
         })
     }
 
@@ -51,8 +53,6 @@ class StatusItems extends Component {
 
         const {item} = this.props.dataItem;
 
-        const {navigation} = this.props;
-        console.log('item', item.Comments.length)
         return (
             <View>
                 <View>
@@ -83,7 +83,9 @@ class StatusItems extends Component {
                     <View style={{flexDirection: 'row', marginTop: 5, justifyContent: 'space-between'}}>
                         <View style={{flexDirection: 'row', marginLeft: 20}}>
                             <Icon1 name="like" size={25} color="#424242"/>
-                            <TouchableOpacity onPress={this.LikePost(item.PostID, item.CreatedDate)}>
+                            <TouchableOpacity
+                                onPress={this.LikePost}
+                            >
                                 <Text style={{color: '#424242'}}>Thích</Text>
                             </TouchableOpacity>
                         </View>
@@ -91,7 +93,6 @@ class StatusItems extends Component {
                             <Icon1 name="comment" size={25} color="#424242"/>
                             <TouchableOpacity onPress={() => {
                                 this.BinhLuan(item.PostID)
-                                navigation.navigate('BinhLuanBQL')
                             }}>
                                 <Text style={{color: '#424242'}}>Bình luận</Text>
                             </TouchableOpacity>
