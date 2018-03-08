@@ -12,6 +12,7 @@ import {
     ActivityIndicator, Platform,
     AsyncStorage
 } from 'react-native';
+import moment from 'moment';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import stylesContainer from "../../components/style";
@@ -46,8 +47,8 @@ class SanhChinh extends Component {
         if (UserBQL.length <= 0) {
             return null;
         }
-        this.fetchData()
-            this.socket = SocketIOClient(SOCKET, {
+        this.fetchData();
+        this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']
@@ -55,6 +56,9 @@ class SanhChinh extends Component {
         this.socket.emit('loginpost', {
             UserID: UserBQL.payload[0].UserID,
             KDTID: UserBQL.payload[0].KDTID,
+        })
+        this.socket.on('revicelikepost', (dataReceive) => {
+            console.log('revicelikepost', dataReceive)
         })
         this.socket.on('receivepost', (dataReceive) => {
             console.log('receivepost', dataReceive)
@@ -170,7 +174,7 @@ class SanhChinh extends Component {
         callApiSearchPost(this.state.page_index, UserBQL.payload[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            // console.log('bai viet sanh chinh', dataBaiViet)
+            console.log('bai viet sanh chinh', dataBaiViet)
             if (dataBaiViet.length <= 0) {
                 return null
             }
