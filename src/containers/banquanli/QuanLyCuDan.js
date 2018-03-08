@@ -8,7 +8,6 @@ import {
     FlatList,
     TouchableOpacity,
     Button,
-    Keyboard
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'

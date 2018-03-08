@@ -49,7 +49,7 @@ class BinhLuanBQL extends Component {
             console.log('receivecomment', dataReceive)
             dataPost = dataReceive.PostContent;
             //set newMsg = messga receive
-            let newCmt = this.state.dataCmt;
+            newCmt = this.state.dataCmt;
             //add message to array
             newCmt.push({
                 RowNum:dataReceive.RowNum,
@@ -104,7 +104,7 @@ class BinhLuanBQL extends Component {
         }
         callApiPostCmt(params.PostId, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
-            this.sendCmt( SendCMT,data.Value)
+            this.sendCmt( data.Value , SendCMT)
         })
     }
     render (){

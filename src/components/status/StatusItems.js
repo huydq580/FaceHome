@@ -100,7 +100,7 @@ class StatusItems extends Component {
                     </View>
                     <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
                     {
-                        item.Comments.length == 1 ?
+                        item.Comments.length > 0 ?
                             <View>
                                 <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
                                     <Image
@@ -123,54 +123,7 @@ class StatusItems extends Component {
                                         <Text>{item.Comments[0].Content}</Text>
                                     </View>
                                 </View>
-                            </View> :
-                            item.Comments.length == 2 ?
-                                <View>
-                                    <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
-                                        <Image
-                                            source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                                            style={{resizeMode: 'cover', height: 40, width: 30, marginLeft: 10}}>
-                                        </Image>
-                                        <View style={{
-                                            marginLeft: 10, flex: 1,
-                                            backgroundColor: '#F5F5F5', borderRadius: 10,
-                                            paddingLeft: 10,
-                                            paddingRight: 10,
-                                            paddingTop: 10,
-                                            paddingBottom: 10,
-                                        }}>
-                                            <Text style={{
-                                                color: 'black',
-                                                fontWeight: 'bold',
-                                                fontSize: 13
-                                            }}>{item.FullName}</Text>
-                                            <Text>{item.Comments[0].Content}</Text>
-                                        </View>
-                                    </View>
-                                    <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
-                                        <Image
-                                            source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                                            style={{resizeMode: 'cover', height: 40, width: 30, marginLeft: 10}}>
-                                        </Image>
-                                        <View style={{
-                                            marginLeft: 10, flex: 1,
-                                            backgroundColor: '#F5F5F5', borderRadius: 10,
-                                            paddingLeft: 10,
-                                            paddingRight: 10,
-                                            paddingTop: 10,
-                                            paddingBottom: 10,
-                                        }}>
-                                            <Text style={{
-                                                color: 'black',
-                                                fontWeight: 'bold',
-                                                fontSize: 13
-                                            }}>{item.FullName}</Text>
-                                            <Text>{item.Comments[1].Content}</Text>
-                                        </View>
-                                    </View>
-                                </View>
-
-
+                            </View>
                             : null
                     }
                 </View>
