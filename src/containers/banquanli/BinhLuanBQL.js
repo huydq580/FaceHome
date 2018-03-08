@@ -70,7 +70,7 @@ class BinhLuanBQL extends Component {
 
 
     }
-    sendCmt = (CommentID, Content) => {
+    sendCmt = (CommentID, CreatedDate, Content) => {
         const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
@@ -83,7 +83,7 @@ class BinhLuanBQL extends Component {
             UserID:UserBQL.payload[0].UserID,
             FullName:UserBQL.payload[0].FullName,
             Avartar:UserBQL.payload[0].Avartar,
-            CreatedDate:"",
+            CreatedDate:CreatedDate,
             UserType:UserBQL.payload[0].UserID,
             TotalLike:"",
             Content:Content,
@@ -104,7 +104,9 @@ class BinhLuanBQL extends Component {
         }
         callApiPostCmt(params.PostId, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
-            this.sendCmt( data.Value , SendCMT)
+            console.log('data thong bao ', data)
+            console.log('data thong bao ', data.Value.CommentID)
+            this.sendCmt( data.Value.CommentID ,data.Value.CreatedDate, SendCMT)
         })
     }
     render (){

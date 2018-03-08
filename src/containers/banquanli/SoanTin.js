@@ -66,7 +66,7 @@ class SoanTin extends Component {
                     [
                         {
                             text: 'OK', onPress: () => {
-                                this.sendPost( this.state.Status,data.Value)
+                                this.sendPost( data.Value.CreatedDate, this.state.Status,data.Value.CommentID)
                                 this.props.navigation.goBack()
                             }
                         },
@@ -89,7 +89,7 @@ class SoanTin extends Component {
 
     }
 
-    sendPost = (Content, PostID) => {
+    sendPost = (CreatedDate, Content, PostID) => {
         const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
@@ -102,7 +102,7 @@ class SoanTin extends Component {
             UserID: UserBQL.payload[0].UserID,
             FullName: UserBQL.payload[0].FullName,
             Avatar: UserBQL.payload[0].Avatar,
-            CreatedDate: "",
+            CreatedDate: CreatedDate,
             UserType: 255,
             TotalComment: "",
             TotalLike: "",
