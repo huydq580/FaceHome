@@ -11,6 +11,8 @@ import Icon1 from 'react-native-vector-icons/EvilIcons';
 import SocketIOClient from "socket.io-client";
 import {SOCKET} from "../Api";
 import {connect} from "react-redux";
+import { bindActionCreators } from "redux";
+import { callApiSearchCmt } from "../../actions/SearchCmtActions";
 
 class StatusItems extends Component {
     constructor(props) {
@@ -35,6 +37,15 @@ class StatusItems extends Component {
             DatePost: DatePost
         })
     }
+    BinhLuan = (PostID) => {
+        const { callApiSearchCmt } = this.props
+        callApiSearchCmt( PostID ).then(dataRes => {
+            dataCmt = JSON.parse(dataRes)
+            dataCmt = dataCmt.Value
+            console.log('dtacmt', dataCmt)
+        })
+    }
+
 
     render() {
 
@@ -78,7 +89,10 @@ class StatusItems extends Component {
                         </View>
                         <View style={{flexDirection: 'row', marginRight: 20}}>
                             <Icon1 name="comment" size={25} color="#424242"/>
-                            <TouchableOpacity onPress={() => navigation.navigate('BinhLuanBQL')}>
+                            <TouchableOpacity onPress={() => {
+                                this.BinhLuan(item.PostID)
+                                navigation.navigate('BinhLuanBQL')
+                            }}>
                                 <Text style={{color: '#424242'}}>Bình luận</Text>
                             </TouchableOpacity>
                         </View>
@@ -171,6 +185,12 @@ const mapStateToProps = (state) => {
         UserBQL: state.LoginReducers,
     }
 };
-StatusItems = connect(mapStateToProps)(StatusItems);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiSearchCmt: bindActionCreators(callApiSearchCmt, dispatch),
+    }
+};
+
+StatusItems = connect(mapStateToProps, mapDispatchToProps)(StatusItems);
 
 export default StatusItems

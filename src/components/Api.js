@@ -43,8 +43,10 @@ export const UpdateStatus = "api/FireAlarm/UpdateStatus";
 export const CreatePost = "api/Post/CreatePost";
 export const GetTopPost = "api/Post/GetTopPost";
 export const SearchPost = "api/Post/SearchPost";
+
 //Cmt
 export const CreateCmt = "api/Comment/CreateComment";
+export const SearchComment = "api/Comment/SearchComment";
 
 
 //FaceHomeIO
