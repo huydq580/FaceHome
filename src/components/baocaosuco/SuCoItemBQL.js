@@ -7,6 +7,9 @@ import {
     Image
 } from 'react-native';
 import moment from 'moment';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {callApiSearchCmtSuco} from "../../actions/SearchCmtSuCoActions";
 class SuCoItemBQL extends Component {
     constructor(props){
         super(props)
@@ -14,12 +17,24 @@ class SuCoItemBQL extends Component {
 
         }
     }
+    ClickItemSuCo = (SuCoID)=> {
+        const { callApiSearchCmtSuco, UserBQL } = this.props
+        if (UserBQL.length <= 0) {
+            return null
+        }
+        callApiSearchCmtSuco (UserBQL.payload[0].KDTID, SuCoID).then(dataRes => {
+            console.log('dataSuco', dataRes)
+            this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID})
+        })
+
+    }
     render (){
         const {item} = this.props.dataItem;
+        console.log('dataItem', this.props.dataItem)
         const {navigation} = this.props;
         return (
             <View style = {{flex:1, marginTop: 20}}>
-                <TouchableOpacity onPress = {() => navigation.navigate('ChiTietSuCo')}>
+                <TouchableOpacity onPress = {() => this.ClickItemSuCo(item.SuCoID)}>
                     <View style = {{flexDirection:'row', height:100, alignItems:'center'}}>
                         <Image style = {styles.Img}
                                source={{
@@ -48,7 +63,21 @@ class SuCoItemBQL extends Component {
         );
     }
 }
-export default SuCoItemBQL;
+
+const mapStateToProps = (state) => {
+    return {
+        UserBQL: state.LoginReducers,
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiSearchCmtSuco: bindActionCreators(callApiSearchCmtSuco, dispatch),
+    }
+};
+
+SuCoItemBQL = connect(mapStateToProps, mapDispatchToProps)(SuCoItemBQL);
+
+export default SuCoItemBQL
 const styles = StyleSheet.create({
     Img : {
         flex:1,

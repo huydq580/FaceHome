@@ -5,7 +5,8 @@ import {
     FlatList,
     Image,
     Picker,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -38,7 +39,7 @@ class TiepNhanSuCoCuDan extends Component {
     render(){
         const {navigation} = this.props;
         return(
-            <View style = {stylesContainer.container}>
+            <ScrollView style = {stylesContainer.container}>
                 <TouchableOpacity onPress = { () => this.props.navigation.navigate('BaoSuCoMoi')}>
                     <Text style = {{color: 'black', textDecorationLine: "underline", marginTop:10, marginBottom:10, marginRight: 20}}>
                         Báo sự cố mớii
@@ -63,7 +64,7 @@ class TiepNhanSuCoCuDan extends Component {
                     }}
                     keyExtractor={(item, index) => index}
                 />
-            </View>
+            </ScrollView>
         )
     }
 }

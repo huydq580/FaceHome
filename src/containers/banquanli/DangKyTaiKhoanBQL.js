@@ -8,7 +8,7 @@ import {
     Alert,
     ActivityIndicator,
 } from 'react-native';
-import {RegisterBQL, URL,} from "../../components/Api";
+import { RegisterBQL, URL } from "../../components/Api";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import stylesContainer from "../../components/style";
 import { NavigationActions } from 'react-navigation';

@@ -26,7 +26,7 @@ class BaoSuCoKDT extends Component {
         if (UserCuDan.length<=0){
             return null;
         }
-        callApiSearchSuCo(UserCuDan.payload[0].KDTID , UserCuDan.payload[0].UserID, this.state.SuCo).then(dataRes => {
+        callApiSearchSuCo(UserCuDan.payload[0].KDTID , this.state.SuCo).then(dataRes => {
             dataRes = JSON.parse(dataRes)
             dataRes = dataRes.Value,
                 this.setState({
