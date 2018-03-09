@@ -12,12 +12,12 @@ import {
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import stylesContainer from "../../components/style";
-import StatusItems from "../../components/status/StatusItems";
 import {callApiNhaCuDan} from "../../actions/actionsCuDan/NhaCuDanActions";
 import {callApiSearchPost} from "../../actions/SearchPostActions";
 import {default as FCM, FCMEvent} from "react-native-fcm";
 import {SOCKET, UpdateProfile, URL} from "../../components/Api";
 import SocketIOClient from "socket.io-client";
+import StatusItemCuDan from "../../components/status/StatusItemCuDan";
 
 class SanhChinh extends Component {
     constructor(props) {
@@ -246,7 +246,7 @@ class SanhChinh extends Component {
                     data={this.state.dataItem}
                     renderItem={(item) => {
                         return (
-                            <StatusItems
+                            <StatusItemCuDan
                                 dataItem={item}
                                 navigation={navigation}/>
 

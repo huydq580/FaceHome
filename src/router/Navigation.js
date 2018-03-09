@@ -58,6 +58,7 @@ import TinNhanDetailsCuDan from "../containers/cudan/TinNhanDetailsCuDan";
 import SoanTinMoiCuDan from "../containers/cudan/SoanTinMoiCuDan";
 import TaoGroup from "../containers/banquanli/TaoGroup";
 import SoanTinCuDan from "../containers/cudan/SoanTinCuDan";
+import BinhLuanCuDan from "../containers/cudan/BinhLuanCuDan";
 
 
 const Stack = StackNavigator ({
@@ -405,6 +406,12 @@ const Stack = StackNavigator ({
         screen: SoanTinCuDan,
         navigationOptions: {
             title: 'Tạo bài viết'
+        }
+    },
+    BinhLuanCuDan: {
+        screen: BinhLuanCuDan,
+        navigationOptions: {
+            header: null
         }
     }
 
