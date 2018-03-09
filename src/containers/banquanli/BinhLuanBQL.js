@@ -22,8 +22,17 @@ class BinhLuanBQL extends Component {
         this.input_msg = '';
         const { tongCmt } = this.props;
         console.log('tongcmt', tongCmt.payload)
+        console.log('checker', tongCmt.payload instanceof Array)
+        let ArrayCmt =[]
+        if (tongCmt.payload instanceof Array ==true){
+            ArrayCmt = tongCmt.payload
+        }
+        else {
+            ArrayCmt =[]
+        }
+
         this.state = {
-            dataCmt: tongCmt.payload,
+            dataCmt : ArrayCmt
         }
 
     }

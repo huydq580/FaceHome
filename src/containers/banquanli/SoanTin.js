@@ -59,6 +59,7 @@ class SoanTin extends Component {
         // console.log('linkimg', this.state.linkImg)
         callApiCreatePost(UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
             data = JSON.parse(dataPost);
+            console.log('thong bao postbai', data)
             if (data.ErrorCode === "00") {
                 Alert.alert(
                     'Alert',
@@ -66,7 +67,7 @@ class SoanTin extends Component {
                     [
                         {
                             text: 'OK', onPress: () => {
-                                this.sendPost( data.Value.CreatedDate, this.state.Status,data.Value.CommentID)
+                                this.sendPost( data.Value.CreatedTime, this.state.Status,data.Value.PostID)
                                 this.props.navigation.goBack()
                             }
                         },
