@@ -63,7 +63,8 @@ class SanhChinh extends Component {
                 TotalShare: dataReceive.TotalShare,
                 PostContent: dataReceive.PostContent,
                 TotalRow: dataReceive.TotalRow,
-                PostID:dataReceive.PostID
+                PostID:dataReceive.PostID,
+                Comments:dataReceive.Comments
             });
             this.setState({dataItem: newPost});
 

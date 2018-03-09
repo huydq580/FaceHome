@@ -66,7 +66,7 @@ class SoanTinCuDan extends Component {
                     [
                         {
                             text: 'OK', onPress: () => {
-                                this.sendPost(this.state.Status, data.Value)
+                                this.sendPost( data.Value.CreatedTime, this.state.Status,data.Value.PostID)
                                 this.props.navigation.goBack()
                             }
                         },
@@ -89,7 +89,7 @@ class SoanTinCuDan extends Component {
 
     }
 
-    sendPost = (Content, PostID) => {
+    sendPost = (CreatedDate, Content, PostID) => {
         const {UserCuDan} = this.props;
         if (UserCuDan.length <= 0) {
             return null;
@@ -102,14 +102,15 @@ class SoanTinCuDan extends Component {
             UserID: UserCuDan.payload[0].UserID,
             FullName: UserCuDan.payload[0].FullName,
             Avatar: UserCuDan.payload[0].Avatar,
-            CreatedDate: "",
+            CreatedDate: CreatedDate,
             UserType: 255,
             TotalComment: "",
             TotalLike: "",
             TotalShare: "",
             PostContent: Content,
             TotalRow: "",
-            PostID: PostID
+            PostID: PostID,
+            Comments:''
         }
         this.socket.emit("post", dataSendPost);
 

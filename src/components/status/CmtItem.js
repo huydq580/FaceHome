@@ -12,7 +12,7 @@ import Dimensions from 'Dimensions';
 class CmtItem extends Component {
     render (){
         const {item} = this.props.dataItem;
-        const {navigation} = this.props;
+        const { navigation } = this.props;
         return (
             <View style = {{flex:1}}>
                 <View style = {{flexDirection: 'row'}}>
