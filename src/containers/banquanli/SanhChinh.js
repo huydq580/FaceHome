@@ -53,6 +53,7 @@ class SanhChinh extends Component {
             pingInterval: 30000,
             transports: ['websocket']
         });
+        // console.log('socket sanh chinh', this.socket)
         this.socket.emit('loginpost', {
             UserID: UserBQL.payload[0].UserID,
             KDTID: UserBQL.payload[0].KDTID,

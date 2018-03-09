@@ -35,6 +35,7 @@ class SoanTin extends Component {
             pingInterval: 30000,
             transports: ['websocket']
         });
+        // console.log('socket soantin', this.socket)
     }
 
     //handle event header
