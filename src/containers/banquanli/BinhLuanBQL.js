@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
     FlatList,
     TouchableOpacity,
     Image,
@@ -21,8 +20,6 @@ class BinhLuanBQL extends Component {
         super(props)
         this.input_msg = '';
         const { tongCmt } = this.props;
-        console.log('tongcmt', tongCmt.payload)
-        console.log('checker', tongCmt.payload instanceof Array)
         let ArrayCmt =[]
         if (tongCmt.payload instanceof Array ==true){
             ArrayCmt = tongCmt.payload
@@ -39,7 +36,7 @@ class BinhLuanBQL extends Component {
     componentWillMount() {
         const { params } = this.props.navigation.state
         // console.log('params', params.PostId)
-        const {UserBQL,tongCmt} = this.props;
+        const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
@@ -113,8 +110,6 @@ class BinhLuanBQL extends Component {
         }
         callApiPostCmt(params.PostId, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
-            console.log('data thong bao ', data)
-            console.log('data thong bao ', data.Value.CommentID)
             this.sendCmt( data.Value.CommentID ,data.Value.CreatedDate, SendCMT)
         })
     }
@@ -131,6 +126,18 @@ class BinhLuanBQL extends Component {
                         )
                     }}
                     keyExtractor={(item, index) => index}
+                    onEndReachedThreshold={100}
+                    showsVerticalScrollIndicator={false}
+                    ref={ref => this.flatList = ref}
+                    onContentSizeChange={() => {
+                        // console.log("on size change");
+                        this.flatList.scrollToEnd({animated: true})
+                    }}
+                    onLayout={() => {
+                        // console.log("got to onlayout");
+                        this.flatList.scrollToEnd({animated: true})
+                    }
+                    }
                 />
                 <View style={{
                     flexWrap: 'wrap',

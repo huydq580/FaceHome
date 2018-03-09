@@ -43,7 +43,6 @@ class TinNhanDetails extends Component {
     };
 
     constructor(props) {
-        console.log('constructor')
         super(props)
         this.state = {
             dataChat: [],
@@ -119,6 +118,7 @@ class TinNhanDetails extends Component {
         this.props.navigation.setParams({handleSave: this.Custom.bind(this)});
 
     }
+
     //goi su kien khi thoat khoi man hinh
     componentWillUnmount() {
         this.socket = SocketIOClient(SOCKET, {
@@ -140,6 +140,7 @@ class TinNhanDetails extends Component {
         }
         this.socket.emit("logout", dataGroup)
     }
+
     //get old msg
     getOldMSG = () => {
         console.log('so trang', this.state.index)
@@ -259,7 +260,7 @@ class TinNhanDetails extends Component {
                     onLayout={() => {
                         // console.log("got to onlayout");
                         this.flatList.scrollToEnd({animated: true})
-                    }
+                        }
                     }
 
 
