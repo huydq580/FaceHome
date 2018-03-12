@@ -27,7 +27,7 @@ class ChiTietSuCo extends Component {
         // this.state = {
         //     dataItem: [],
         // }
-        console.log('tong cmt Su Co', tongCmtSuCo)
+        console.log('tong cmt Su Co', tongCmtSuCo.payload)
         let ArrayCmt =[]
         if (tongCmtSuCo.payload instanceof Array ==true){
             ArrayCmt = tongCmtSuCo.payload
@@ -54,7 +54,7 @@ class ChiTietSuCo extends Component {
         });
         this.socket.emit('logincomment', {
             UserID: UserBQL.payload[0].UserID,
-            PostID: params.PostId,
+            SuCoID: params.SuCoId,
             KDTID: UserBQL.payload[0].KDTID,
         })
         console.log('so luong cmt', this.state.dataCmt)
@@ -63,15 +63,15 @@ class ChiTietSuCo extends Component {
             //set newMsg = messga receive
             newCmt = this.state.dataCmt;
             //add message to array
-            // newCmt.push({
-            //     Content: dataReceive.Content,
-            //     CreatedTime:dataReceive.CreatedTime,
-            //     FullName: dataReceive.FullName,
-            //     Avatar: dataReceive.Avatar,
-            //     Picture: dataReceive.Picture,
-            //     UserID:dataReceive.UserID,
-            // });
-            // this.setState({dataCmt: newCmt});
+            newCmt.push({
+                Content: dataReceive.Content,
+                CreatedTime:dataReceive.CreatedTime,
+                FullName: dataReceive.FullName,
+                Avatar: dataReceive.Avatar,
+                Picture: dataReceive.Picture,
+                UserID:dataReceive.UserID,
+            });
+            this.setState({dataCmt: newCmt});
 
         })
 

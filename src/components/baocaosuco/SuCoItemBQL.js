@@ -22,7 +22,9 @@ class SuCoItemBQL extends Component {
         if (UserBQL.length <= 0) {
             return null
         }
-        callApiSearchCmtSuco (UserBQL.payload[0].KDTID, SuCoID).then(dataRes => {
+        console.log('kdt id', UserBQL.payload[0].KDTID)
+        console.log('SuCoID', SuCoID)
+        callApiSearchCmtSuco(UserBQL.payload[0].KDTID, SuCoID).then(dataRes => {
             console.log('dataSuco', dataRes)
             this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID})
         })

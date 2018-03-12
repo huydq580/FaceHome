@@ -1,9 +1,9 @@
-import {SearchComment, URL} from "../components/Api";
+import {GetComment, URL} from "../components/Api";
 
 export const callApiSearchCmtSuco = (kdt_id , suco_id) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL + SearchComment, {
+            fetch(URL + GetComment, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -16,10 +16,11 @@ export const callApiSearchCmtSuco = (kdt_id , suco_id) => {
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                data1 = JSON.parse(data);
+                console.log('search su co action', data.Value)
+                // data1 = JSON.parse(data);
                 dispatch({
                     type: 'SEARCH_CMT_SUCO',
-                    payload: data1.Value
+                    payload: data.Value
                 })
                 resolve(data);
             }).catch(e => {
