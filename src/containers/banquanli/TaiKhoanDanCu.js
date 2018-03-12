@@ -94,11 +94,18 @@ class TaiKhoanDanCu extends Component {
                         <Text style = {{fontSize: 18, color:'black', fontWeight:'bold'}}>
                             {this.state.Ten}
                         </Text>
+                        <View style = {{marginTop: 8, flexDirection:'row'}}>
                         <TouchableOpacity onPress = {this.Status}>
-                            <Text style = {{marginTop: 8,fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#FF3D00', color: '#FF3D00', fontWeight:'bold'}}>
+                            <Text style = {{fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#FF3D00', color: '#FF3D00', fontWeight:'bold'}}>
                                 {this.state.Status}
                             </Text>
                         </TouchableOpacity>
+                            <TouchableOpacity onPress = {()=> this.props.navigation.navigate('TinNhanDetails')}>
+                                <Text style = {{fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#424242', color: '#424242', marginLeft: 20}}>
+                                    Nhắn tin
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
                 <View style = {styles.viewcon}>

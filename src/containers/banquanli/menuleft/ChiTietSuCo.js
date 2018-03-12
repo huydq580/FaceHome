@@ -24,10 +24,6 @@ class ChiTietSuCo extends Component {
         super(props)
         this.input_msg = '';
         const { tongCmtSuCo } = this.props;
-        // this.state = {
-        //     dataItem: [],
-        // }
-        console.log('tong cmt Su Co', tongCmtSuCo.payload)
         let ArrayCmt =[]
         if (tongCmtSuCo.payload instanceof Array ==true){
             ArrayCmt = tongCmtSuCo.payload
@@ -108,7 +104,7 @@ class ChiTietSuCo extends Component {
         }
         callApiPostCmtSuCo( UserBQL.payload[0].KDTID,params.SuCoId, UserBQL.payload[0].UserID, UserBQL.payload[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
-            console.log('post bai thanh cong', dataRes)
+            // console.log('post bai thanh cong', dataRes)
             this.sendCmt(  SendCMT ,data.Value)
         })
     }
@@ -116,7 +112,7 @@ class ChiTietSuCo extends Component {
 
     render (){
         return(
-            <View  style={{flex: 1 , backgroundColor:'white'}}>
+            <ScrollView  style={{flex: 1 , backgroundColor:'white'}}>
                 <View style = {{flexDirection:'row'}}>
                     <View style = {{flex:1, borderWidth:1,
                         borderColor:'#9E9E9E', marginLeft:10,marginRight:10, marginTop:20}}>
@@ -155,7 +151,7 @@ class ChiTietSuCo extends Component {
                     <FlatList
                         style={{backgroundColor: "white", flex: 1}}
                         data={this.state.dataCmt}
-                        renderItem={({item}) => {
+                        renderItem={(item) => {
                             // console.log('item', item)
                             return (
                                 <CmtItem
@@ -228,7 +224,7 @@ class ChiTietSuCo extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }

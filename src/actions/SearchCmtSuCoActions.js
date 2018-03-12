@@ -16,11 +16,11 @@ export const callApiSearchCmtSuco = (kdt_id , suco_id) => {
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                console.log('search su co action', data.Value)
-                // data1 = JSON.parse(data);
+                data1 = JSON.parse(data);
+                // console.log('search su co action', data1.Value)
                 dispatch({
                     type: 'SEARCH_CMT_SUCO',
-                    payload: data.Value
+                    payload: data1.Value
                 })
                 resolve(data);
             }).catch(e => {
