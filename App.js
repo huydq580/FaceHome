@@ -20,6 +20,7 @@ import store from './src/store'
 import Stack from './src/router/Navigation'
 
 import SocketIOClient from "socket.io-client";
+import ChuyenDiaDiem from "./src/containers/cudan/menuleft/ChuyenDiaDiem";
 
 export default class App extends Component<{}> {
     // componentDidMount() {
@@ -38,7 +39,7 @@ export default class App extends Component<{}> {
     render() {
     return (
         <Provider store={store}>
-          <Stack/>
+          <ChuyenDiaDiem/>
         </Provider>
     );
   }

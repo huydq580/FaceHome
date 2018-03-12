@@ -60,6 +60,7 @@ import TaoGroup from "../containers/banquanli/TaoGroup";
 import SoanTinCuDan from "../containers/cudan/SoanTinCuDan";
 import BinhLuanCuDan from "../containers/cudan/BinhLuanCuDan";
 import ChiTietThongTinKDTCuDan from "../containers/cudan/menuleft/ChiTietThongTinKDTCuDan";
+import ChuyenDiaDiem from "../containers/cudan/menuleft/ChuyenDiaDiem";
 
 
 const Stack = StackNavigator ({
@@ -419,6 +420,12 @@ const Stack = StackNavigator ({
         screen: ChiTietThongTinKDTCuDan,
         navigationOptions: {
             header: "Thông tin chi tiết"
+        }
+    },
+    ChuyenDiaDiem: {
+        screen: ChuyenDiaDiem,
+        navigationOptions: {
+            title: "Chuyển địa điểm"
         }
     }
 

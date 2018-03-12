@@ -20,7 +20,8 @@ import SearchPostReducers from './SearchPostReducers'
 import PostCmtReducers from './PostCmtReducers'
 import SearchCmtReducers from './SearchCmtReducers'
 import CmtSuCoReducers from './CmtSuCoReducers'
-import SearchCmtSuCoReducers from './SearchCmtSuCoReducers'
+import SearchCmtSuCoReducers from './SearchCmtSuCoReducers';
+import ChuyenDiaDiemReducers from './reducersCuDan/ChuyenDiaDiemReducers';
 
 const appStore = combineReducers({
     LoginReducers,
@@ -44,7 +45,8 @@ const appStore = combineReducers({
     PostCmtReducers,
     SearchCmtReducers,
     CmtSuCoReducers,
-    SearchCmtSuCoReducers
+    SearchCmtSuCoReducers,
+    ChuyenDiaDiemReducers
 })
 
 export default appStore

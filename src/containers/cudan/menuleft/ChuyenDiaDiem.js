@@ -1,65 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
     View,
     Text,
-    StyleSheet,
-    TouchableOpacity
+    TouchableOpacity, StyleSheet
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 import stylesContainer from "../../../components/style";
 
-export default class QuanLyTaiKhoanCuDan extends Component {
-    Logout() {
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({
-                    routeName: 'DangNhap',
-                }),
-            ]
-        });
-        this.props.navigation.dispatch(resetAction)
-    }
-    render (){
+class ChuyenDiaDiem extends Component {
+    render () {
         return (
             <View style = {[stylesContainer.container,{justifyContent:'center'}]}>
                 <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ThayDoiMatKhauCuDan')}>
                     <View style = {styles.viewitem}>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10}}>
-                            Thay đổi mật khẩu
+                            Chuyển căn hộ
                         </Text>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, textDecorationColor:'#BDBDBD', marginLeft:10, marginBottom:10}}>
-                            Thay đổi mật khẩu đăng nhập
+                            Chuyển sang Căn hộ khác cùng KĐT
                         </Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ChuyenDiaDiem')}>
                     <View style = {styles.viewitem}>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10}}>
-                            Chuyển địa điểm
+                            Chuyển KĐT
                         </Text>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, textDecorationColor:'#BDBDBD', marginLeft:10, marginBottom:10}}>
-                            Chuyển KĐT, chuyển phòng hoặc hủy tài khoản
+                            Chuyển sang KĐT khác có trong hệ thống
                         </Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ThayDoiMatKhau')}>
                     <View style = {styles.viewitem}>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10}}>
-                            Thay đổi số điện thoại
+                            Hủy tài khoản
                         </Text>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, textDecorationColor:'#BDBDBD', marginLeft:10, marginBottom:10}}>
-                            Cho phép thay đổi số điện thoại cho tài khoản hiện tại
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress = {this.Logout.bind(this)}>
-                    <View style = {styles.viewitem}>
-                        <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10, }}>
-                            Đăng xuất
-                        </Text>
-                        <Text style = {{textDecorationLine: "underline", marginTop:10,textDecorationColor:'#BDBDBD', marginBottom:10, marginLeft:10}}>
-                            Thoát và đăng nhập với tài khoản khác
+                            Rời KĐT, hủy tài khoản
                         </Text>
                     </View>
                 </TouchableOpacity>
@@ -67,6 +44,7 @@ export default class QuanLyTaiKhoanCuDan extends Component {
         )
     }
 }
+export default ChuyenDiaDiem
 const styles = StyleSheet.create({
     viewitem : {
         borderWidth: 1,
