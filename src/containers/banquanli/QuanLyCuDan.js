@@ -99,7 +99,12 @@ class QuanLyCuDan extends Component {
                                 underlineColorAndroid="transparent"
                                onChangeText = {(text) => this.SearchUser(text)}/>
                 </View>
-                <View style = {{ width: 200,marginTop: 10, maxHeight: 40,alignItems:'center',flex:1, flexDirection:'row', alignItems:'center' , borderWidth:1, borderColor:'#9E9E9E'}}>
+                <View style = {{ width: 250,
+                    marginTop: 10,marginLeft: 30,
+                    maxHeight: 40,alignItems:'center',
+                    flex:1, flexDirection:'row', alignItems:'center' ,
+                    // borderWidth:1, borderColor:'#9E9E9E'
+                }}>
                     <Text>Tòa: </Text>
                     <Picker
                         style = {styles.picker}
@@ -111,7 +116,12 @@ class QuanLyCuDan extends Component {
                         {dataToaNha.map((value) => <Picker.Item key = {value.Code} label={value.Ten} value={value.Code}/>)}
                     </Picker>
                 </View>
-                <View style = {{ width: 200,maxHeight: 40,alignItems:'center', marginTop:10, flexDirection:'row',  alignItems:'center', borderWidth:1, borderColor:'#9E9E9E'}}>
+                <View style = {{ width: 250,maxHeight: 40,
+                    marginLeft: 30, alignItems:'center',
+                    marginTop:10, flexDirection:'row',
+                    alignItems:'center',
+                    // borderWidth:1, borderColor:'#9E9E9E'
+                }}>
                     <Text>Tầng/Lầu: </Text>
                     <Picker
                         style = {styles.picker}
@@ -124,8 +134,13 @@ class QuanLyCuDan extends Component {
                         <Picker.Item label = {'4'} value ={'key4'}/>
                     </Picker>
                 </View>
-                <View style = {{ width: 200,marginTop: 10,maxHeight: 40,alignItems:'center', flexDirection:'row',  alignItems:'center', borderWidth:1, borderColor:'#9E9E9E'}}>
-                    <Text>Tầng/Lầu: </Text>
+                <View style = {{ width: 250,
+                    marginTop: 10,maxHeight: 40,
+                    marginLeft: 30,alignItems:'center',
+                    flexDirection:'row',  alignItems:'center',
+                    // borderWidth:1, borderColor:'#9E9E9E'
+                }}>
+                    <Text>Trạng thái: </Text>
                     <Picker
                         style = {styles.picker}
                         selectedValue={this.state.Status}
@@ -193,6 +208,6 @@ const styles = StyleSheet.create({
 
     },
     picker: {
-        width: 200,
+        width: 150,
     }
 })
