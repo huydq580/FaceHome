@@ -1,43 +1,41 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react'
 import {
     View,
     Text,
     StyleSheet,
-    Image,
-    TouchableOpacity,
-    Dimensions
-} from 'react-native';
-
-
+    ImageBackground,
+    TouchableOpacity
+} from 'react-native'
+import Dimensions from 'Dimensions';
 export default class HangXomItem extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (JSON.stringify(nextProps.dataItem) === JSON.stringify(this.props.dataItem)) {
-            return false;
-        }
-
-        else
-            return true;
-    }
-    render() {
-        const {navigation} = this.props;
+    render (){
         const {item} = this.props.dataItem;
         return (
-
             <TouchableOpacity
-                onPress={() => {
-                    // navigation.navigate('DichVuDetail', {dataItem: item});
-                }}
             >
-                <View>
+                <ImageBackground style={styles.image_item}
+                       source={{
+                           uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
+                       }}
+                       resizeMode="cover"
+                >
+                    <Text style = {{marginTop:DEVICE_WIDTH / 3-50, color:'#2196F3',fontWeight:'bold'}}>Send | {item.phong}</Text>
+                </ImageBackground>
 
-                </View>
-
-            </TouchableOpacity>)
+            </TouchableOpacity>
+        )
     }
-};
+}
 const DEVICE_WIDTH = Dimensions.get('window').width;
+const styles = StyleSheet.create({
+    image_item: {
+        height: DEVICE_WIDTH / 3-30,
+        width: DEVICE_WIDTH / 3-30,
+        marginLeft: 20,
+        marginRight: 10,
+        marginBottom: 10,
+        marginTop: 20,
+        justifyContent: 'center'
+
+    }
+})
