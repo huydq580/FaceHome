@@ -17,7 +17,7 @@ class SuCoItemBQL extends Component {
 
         }
     }
-    ClickItemSuCo = (SuCoID)=> {
+    ClickItemSuCo = (SuCoID, itemsuco)=> {
         const { callApiSearchCmtSuco, UserBQL } = this.props
         if (UserBQL.length <= 0) {
             return null
@@ -25,7 +25,7 @@ class SuCoItemBQL extends Component {
         console.log('kdt id', UserBQL.payload[0].KDTID)
         console.log('SuCoID', SuCoID)
         callApiSearchCmtSuco(UserBQL.payload[0].KDTID, SuCoID).then(dataRes => {
-            this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID})
+            this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID, ItemSuCo: itemsuco})
         })
 
     }
@@ -35,7 +35,7 @@ class SuCoItemBQL extends Component {
         const {navigation} = this.props;
         return (
             <View style = {{flex:1, marginTop: 20}}>
-                <TouchableOpacity onPress = {() => this.ClickItemSuCo(item.SuCoID)}>
+                <TouchableOpacity onPress = {() => this.ClickItemSuCo(item.SuCoID, item)}>
                     <View style = {{flexDirection:'row', height:100, alignItems:'center'}}>
                         <Image style = {styles.Img}
                                source={{

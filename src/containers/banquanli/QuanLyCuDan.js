@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -9,8 +9,11 @@ import {
     TouchableOpacity,
     Button,
 } from 'react-native';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import Dimensions from 'Dimensions';
+
+const DEVICE_WIDTH = Dimensions.get('window').width;
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 import stylesContainer from "../../components/style";
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 import {callApiNhaCuDan} from "../../actions/actionsCuDan/NhaCuDanActions";
@@ -20,31 +23,35 @@ class QuanLyCuDan extends Component {
     static navigationOptions = ({navigation}) => {
         const {state} = navigation;
         return {
-            headerRight: <Button onPress={() => {navigation.navigate('TinNhanBQL')}}
-                                 title = 'Tin nhắn'
-                                 style = {{marginRight:10}}/>
+            headerRight: <Button onPress={() => {
+                navigation.navigate('TinNhanBQL')
+            }}
+                                 title='Tin nhắn'
+                                 style={{marginRight: 10}}/>
         }
     }
-    constructor(props){
+
+    constructor(props) {
         super(props)
         this.state = {
             Toa: '',
-            Tang:'',
+            Tang: '',
             Status: '',
-            dataCuDan: [ ],
+            dataCuDan: [],
             dataToaNha: [],
         }
         this.dataSearchDanCu = [];
     }
-    componentWillMount(){
-        const { UserBQL } = this.props;
+
+    componentWillMount() {
+        const {UserBQL} = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
 
         // console.log('user',UserBQL)
 
-        const { callApiSearchDanCu, callApiGetKDT } = this.props;
+        const {callApiSearchDanCu, callApiGetKDT} = this.props;
         callApiSearchDanCu(UserBQL.payload[0].KDTID).then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
@@ -57,7 +64,7 @@ class QuanLyCuDan extends Component {
         callApiGetKDT(UserBQL.payload[0].KDTID).then(dataRes => {
             dataToaNha = JSON.parse(dataRes)
             dataToaNha = dataToaNha.Value
-            dataToaNha.unshift({PartID: "", Code: "",Ten: 'Chọn tòa nhà'});
+            dataToaNha.unshift({PartID: "", Code: "", Ten: 'Chọn tòa nhà'});
             // console.log('dataKDT', dataToaNha)
             this.setState({
                 dataToaNha: dataToaNha
@@ -69,10 +76,10 @@ class QuanLyCuDan extends Component {
         if (!this.oldText || this.oldText != text) {
             if (this.timeoutSearch) clearTimeout(this.timeoutSearch);
             this.oldText = text;
-            this.timeoutSearch = setTimeout(()=>{
+            this.timeoutSearch = setTimeout(() => {
                 const data = this.dataSearchDanCu;
                 const textData = text.toLowerCase()
-                const inputSearch = data.filter(function(item){
+                const inputSearch = data.filter(function (item) {
                     const itemData = item.FullName.toLowerCase()
                     return itemData.indexOf(textData) > -1
                 })
@@ -83,78 +90,82 @@ class QuanLyCuDan extends Component {
         }
     }
 
-    SearchUser(text){
+    SearchUser(text) {
         this.setState({
             text: text
-        }, ()=> {
+        }, () => {
             this.search(this.state.text)
         })
     }
+
     render() {
         dataToaNha = this.state.dataToaNha
         return (
-            <View style = {stylesContainer.container}>
-                <View style = {styles.itemBoder}>
-                    <TextInput placeholder = 'Tìm kiếm nhanh tên dân cư theo số căn hộ'
-                                underlineColorAndroid="transparent"
-                               onChangeText = {(text) => this.SearchUser(text)}/>
+            <View style={stylesContainer.container}>
+                <View style={styles.itemBoder}>
+                    <TextInput placeholder='Tìm kiếm nhanh tên dân cư theo số căn hộ'
+                               underlineColorAndroid="transparent"
+                               onChangeText={(text) => this.SearchUser(text)}/>
                 </View>
-                <View style = {{ width: 250,
-                    marginTop: 10,marginLeft: 30,
-                    maxHeight: 40,alignItems:'center',
-                    flex:1, flexDirection:'row', alignItems:'center' ,
-                    // borderWidth:1, borderColor:'#9E9E9E'
-                }}>
-                    <Text>Tòa: </Text>
-                    <Picker
-                        style = {styles.picker}
-                        selectedValue={this.state.Toa}
-                        onValueChange={(value) => {
-                            this.setState({Toa: value});
-                            // this.CallApiQuanHuyen(value);
-                        }}>
-                        {dataToaNha.map((value) => <Picker.Item key = {value.Code} label={value.Ten} value={value.Code}/>)}
-                    </Picker>
+                <View style={{flexDirection: 'row'}}>
+                    <View style={{
+                        width: DEVICE_WIDTH / 2 - 20,
+                        marginTop: 10, marginLeft: 30,
+                        maxHeight: 40, alignItems: 'center',
+                        flex: 1, flexDirection: 'row', alignItems: 'center',
+                        borderWidth: 1, borderColor: '#9E9E9E'
+                    }}>
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={this.state.Toa}
+                            onValueChange={(value) => {
+                                this.setState({Toa: value});
+                                // this.CallApiQuanHuyen(value);
+                            }}>
+                            {dataToaNha.map((value) => <Picker.Item key={value.Code} label={value.Ten}
+                                                                    value={value.Code}/>)}
+                        </Picker>
+                    </View>
+                    <View style={{
+                        width: DEVICE_WIDTH / 2 - 20, maxHeight: 40,
+                        marginLeft: 30, alignItems: 'center',
+                        marginTop: 10, flexDirection: 'row',
+                        alignItems: 'center',
+                        borderWidth: 1, borderColor: '#9E9E9E'
+                    }}>
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={this.state.Tang}
+                            onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>
+                            <Picker.Item label={'Chọn tầng/lầu'} value=''/>
+                            <Picker.Item label={'1'} value='key1'/>
+                            <Picker.Item label={'2'} value={'key2'}/>
+                            <Picker.Item label={'3'} value={'key3'}/>
+                            <Picker.Item label={'4'} value={'key4'}/>
+                        </Picker>
+                    </View>
                 </View>
-                <View style = {{ width: 250,maxHeight: 40,
-                    marginLeft: 30, alignItems:'center',
-                    marginTop:10, flexDirection:'row',
-                    alignItems:'center',
-                    // borderWidth:1, borderColor:'#9E9E9E'
+                <View style={{
+                    width: DEVICE_WIDTH / 2 - 20,
+                    marginTop: 10, maxHeight: 40,
+                    marginLeft: 30, alignItems: 'center',
+                    flexDirection: 'row', alignItems: 'center',
+                    borderWidth: 1, borderColor: '#9E9E9E'
                 }}>
-                    <Text>Tầng/Lầu: </Text>
                     <Picker
-                        style = {styles.picker}
-                        selectedValue={this.state.Tang}
-                        onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>
-                        <Picker.Item label = {'Tất cả'} value = ''/>
-                        <Picker.Item label = {'1'} value = 'key1'/>
-                        <Picker.Item label = {'2'} value ={'key2'}/>
-                        <Picker.Item label = {'3'} value ={'key3'}/>
-                        <Picker.Item label = {'4'} value ={'key4'}/>
-                    </Picker>
-                </View>
-                <View style = {{ width: 250,
-                    marginTop: 10,maxHeight: 40,
-                    marginLeft: 30,alignItems:'center',
-                    flexDirection:'row',  alignItems:'center',
-                    // borderWidth:1, borderColor:'#9E9E9E'
-                }}>
-                    <Text>Trạng thái: </Text>
-                    <Picker
-                        style = {styles.picker}
+                        style={styles.picker}
                         selectedValue={this.state.Status}
                         onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>
-                        <Picker.Item label = {'Tất cả'} value = ''/>
-                        <Picker.Item label = {'Chờ duyệt'} value = 'key1'/>
-                        <Picker.Item label = {'Đã duyệt'} value ={'key2'}/>
-                        <Picker.Item label = {'Đã rời KĐT'} value ={'key3'}/>
+                        <Picker.Item label={'Trạng thái'} value=''/>
+                        <Picker.Item label={'Chờ duyệt'} value='key1'/>
+                        <Picker.Item label={'Đã duyệt'} value={'key2'}/>
+                        <Picker.Item label={'Đã rời KĐT'} value={'key3'}/>
                     </Picker>
                 </View>
                 <FlatList
-                    data = {this.state.dataCuDan}
-                    renderItem = {({item}) =>
-                        <TouchableOpacity onPress = {()=> {
+                    data={this.state.dataCuDan}
+                    renderItem={({item}) =>
+                        <TouchableOpacity onPress={() => {
                             // const { infoCuDan, callApiNhaCuDan } = this.props;
                             // if (infoCuDan.leng<=0){
                             //     return null
@@ -169,20 +180,21 @@ class QuanLyCuDan extends Component {
                             this.props.navigation.navigate("TaiKhoanDanCu", {dataCuDan: item})
 
                         }}>
-                            <View style = {{flexDirection:'row', marginTop:10}}>
-                                <Text style = {{flex:1}}>{item.RowNum}</Text>
-                                <Text style = {{flex:3}}>{item.FullName}</Text>
-                                <Text style = {{flex:1}}>{item.PartName}</Text>
+                            <View style={{flexDirection: 'row', marginTop: 10}}>
+                                <Text style={{marginLeft: 10, fontSize: 15, color:'black', flex: 1}}>{item.RowNum}</Text>
+                                <Text style={{fontSize: 15, color:'black', flex: 3}}>{item.FullName}</Text>
+                                <Text style={{fontSize: 15, color:'black', flex: 1}}>{item.PartName}</Text>
                             </View>
                         </TouchableOpacity>
                     }
                     keyExtractor={(item, index) => index}
-                    />
+                />
 
             </View>
         );
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         UserBQL: state.LoginReducers,
@@ -202,12 +214,12 @@ QuanLyCuDan = connect(mapStateToProps, mapDispatchToProps)(QuanLyCuDan);
 export default QuanLyCuDan;
 const styles = StyleSheet.create({
     itemBoder: {
-        borderWidth:1,
+        borderWidth: 1,
         marginHorizontal: 30,
-        marginTop:20,
+        marginTop: 20,
 
     },
     picker: {
-        width: 150,
+        width: DEVICE_WIDTH / 2 - 40,
     }
 })

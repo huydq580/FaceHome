@@ -111,12 +111,18 @@ class ChiTietSuCo extends Component {
 
 
     render (){
+        const { params } = this.props.navigation.state
+        console.log('item su co', params.ItemSuCo.Content)
         return(
             <ScrollView  style={{flex: 1 , backgroundColor:'white'}}>
                 <View style = {{flexDirection:'row'}}>
                     <View style = {{flex:1, borderWidth:1,
-                        borderColor:'#9E9E9E', marginLeft:10,marginRight:10, marginTop:20}}>
-                        <Text>Nội dung sự cố</Text>
+                        borderColor:'#9E9E9E', marginLeft:10,
+                        marginRight:10, marginTop:20,
+                        justifyContent:'center',
+                        alignItems:'center'
+                    }}>
+                        <Text>{params.ItemSuCo.Content}</Text>
 
                     </View>
                     <View style = {{flexDirection:'column', flex:1, marginTop:20}}>
@@ -131,8 +137,8 @@ class ChiTietSuCo extends Component {
 
                         <View style = {{flexDirection:'column',
                             borderWidth:1, borderColor:'#9E9E9E', marginTop:10}}>
-                            <Text style = {{fontSize:16, marginLeft:10}}>Nguyen Trong Dai</Text>
-                            <Text style = {{fontSize:16,  marginLeft:10}}>0405</Text>
+                            <Text style = {{fontSize:16, marginLeft:10}}>{params.ItemSuCo.FullName}</Text>
+                            <Text style = {{fontSize:16,  marginLeft:10}}>{params.ItemSuCo.PartName}</Text>
 
                         </View>
                         <View style = {{marginTop:10}}>
