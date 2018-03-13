@@ -34,6 +34,7 @@ class BanQuanLy extends Component{
         callApiGetBQL(UserBQL.payload[0].KDTID).then(dataGetBQL => {
             dataGetBQL = JSON.parse(dataGetBQL)
             dataGetBQL = dataGetBQL.Value
+            // console.log('serach bql', dataGetBQL)
             this.setState({
                 data: dataGetBQL
             })
@@ -64,7 +65,7 @@ class BanQuanLy extends Component{
                             // console.log('wtf', chiTietBQL.payload[a])
                             callApiNha(chiTietBQL.payload[a].ProfileID,chiTietBQL.payload[a].UserID).then(dataChitietBQL => {
                                 dataChitietBQL = JSON.parse(dataChitietBQL)
-                                this.props.navigation.navigate("ChiTietThanhVienBQL", {dataBQL: dataChitietBQL.Value})
+                                this.props.navigation.navigate("ChiTietThanhVienBQL", {dataBQL: dataChitietBQL.Value, ItemBQL: item})
                                 // console.log('dataChitietBQL', dataChitietBQL)
                             })
 

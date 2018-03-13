@@ -5,8 +5,11 @@ import {
     TextInput,
     StyleSheet,
     TouchableOpacity,
-    Alert
+    Alert,
+    Picker
 } from 'react-native';
+import Dimensions from 'Dimensions';
+const DEVICE_WIDTH = Dimensions.get('window').width;
 import stylesContainer from "../../../components/style";
 import {CreateAcc, URL} from "../../../components/Api";
 import { connect } from 'react-redux'
@@ -18,7 +21,8 @@ class TaoThanhVienBQL extends Component{
             HoTen:'',
             SoDienThoai: '',
             Pass: '',
-            PassAgain: ''
+            PassAgain: '',
+            ChucVu: ''
         }
 
     }
@@ -45,7 +49,7 @@ class TaoThanhVienBQL extends Component{
                 so_dien_thoai: this.state.SoDienThoai,
                 mat_khau: this.state.Pass,
                 kdt_id: UserBQL.payload[0].KDTID,
-                chuc_vu: 2,
+                chuc_vu: this.state.ChucVu,
                 full_path: UserBQL.payload[0].FullPath,
                 lang_name: "vi_VN"
             })
@@ -105,6 +109,22 @@ class TaoThanhVienBQL extends Component{
                                underlineColorAndroid="transparent"
                                onChangeText ={(PassAgain)=> this.setState({PassAgain})}/>
                 </View>
+                <View style={{
+                    marginHorizontal: 30,
+                    width: DEVICE_WIDTH - 60,
+                    marginTop: 20, maxHeight: 50,
+                    flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                    borderWidth: 1, borderColor: '#9E9E9E'
+                }}>
+                    <Text style={{fontWeight: 'bold', fontSize: 16}}>Chức vụ:</Text>
+                    <Picker
+                        style={styles.picker}
+                        selectedValue={this.state.ChucVu}
+                        onValueChange={(itemValue, itemIndex) => this.setState({ChucVu: itemValue})}>
+                        <Picker.Item label={'Trưởng BQL'} value='1'/>
+                        <Picker.Item label={'Thành viên BQL'} value={'2'}/>
+                    </Picker>
+                </View>
                 <TouchableOpacity onPress = {this.TaoThanhVien.bind(this)}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >
                         <Text>Tạo</Text>
@@ -131,5 +151,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         marginTop:20,
 
+    },
+    picker: {
+        width: DEVICE_WIDTH / 2,
     }
 })

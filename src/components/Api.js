@@ -14,6 +14,7 @@ export const CreateAcc = "api/BQL/CreateAcc";
 export const SearchBql = "api/BQL/SearchBql";
 export const ChangePassword = "api/BQL/ChangePassword";
 export const UpdateProfile = "api/BQL/UpdateProfile";
+export const UpdateStatus = "api/BQL/UpdateStatus";
 
 
 
@@ -37,7 +38,7 @@ export const AroundKdtInfo = "api/AroundKDT/AroundKdtInfo";
 export const PostCanhBaoChay = "api/FireAlarm/PostCanhBaoChay";
 export const SearchCanhBaoChay = "api/FireAlarm/SearchCanhBaoChay";
 export const GetDetail = "api/FireAlarm/GetDetail";
-export const UpdateStatus = "api/FireAlarm/UpdateStatus";
+// export const UpdateStatus = "api/FireAlarm/UpdateStatus";
 
 //Post
 export const CreatePost = "api/Post/CreatePost";
