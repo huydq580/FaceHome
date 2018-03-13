@@ -10,7 +10,6 @@ import {
     Button,
 } from 'react-native';
 import Dimensions from 'Dimensions';
-
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'

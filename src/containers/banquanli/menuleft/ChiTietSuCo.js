@@ -7,10 +7,11 @@ import {
     FlatList,
     TouchableOpacity,
     TextInput,
-    ScrollView
+    ScrollView,
+    Picker
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import ChatSuCoItem from "../../../components/chatItem/ChatSuCoItem";
+const DEVICE_WIDTH = Dimensions.get('window').width;
 import CmtItem from "../../../components/status/CmtItem";
 import {SOCKET} from "../../../components/Api";
 import SocketIOClient from "socket.io-client";
@@ -33,7 +34,8 @@ class ChiTietSuCo extends Component {
         }
 
         this.state = {
-            dataCmt : ArrayCmt
+            dataCmt : ArrayCmt,
+            Status:''
         }
     }
     componentWillMount() {
@@ -145,11 +147,22 @@ class ChiTietSuCo extends Component {
                             <Text>10h:20</Text>
                             <Text>20/02/2018</Text>
                         </View>
-                        <View style = {{borderWidth:1, borderColor:'#9E9E9E',
-                            marginTop:10, minHeight:30, alignItems:'center'}}>
-                            <Text>Đã nhận</Text>
+                        <View style={{
+                            width: DEVICE_WIDTH / 2 - 10,
+                            marginTop: 10, maxHeight: 40,
+                            alignItems: 'center',
+                            flexDirection: 'row', alignItems: 'center',
+                            borderWidth: 1, borderColor: '#9E9E9E'
+                        }}>
+                            <Picker
+                                style={styles.picker}
+                                selectedValue={this.state.Status}
+                                onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>
+                                <Picker.Item label={'Đã nhận'} value='key1'/>
+                                <Picker.Item label={'Đang xử lý'} value={'key2'}/>
+                                <Picker.Item label={'Đã xử lý'} value={'key3'}/>
+                            </Picker>
                         </View>
-
 
                     </View>
                 </View>
@@ -250,12 +263,14 @@ const mapDispatchToProps = (dispatch) => {
 
 ChiTietSuCo = connect(mapStateToProps, mapDispatchToProps)(ChiTietSuCo);
 export default ChiTietSuCo
-const DEVICE_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     image_circle: {
         height: DEVICE_WIDTH / 3,
         width: DEVICE_WIDTH / 3,
 
 
+    },
+    picker: {
+        width: DEVICE_WIDTH / 2 - 40,
     }
 })
