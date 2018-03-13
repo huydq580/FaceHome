@@ -42,7 +42,7 @@ class TiepNhanSuCoCuDan extends Component {
             <ScrollView style = {stylesContainer.container}>
                 <TouchableOpacity onPress = { () => this.props.navigation.navigate('BaoSuCoMoi')}>
                     <Text style = {{color: 'black', textDecorationLine: "underline", marginTop:10, marginBottom:10, marginRight: 20}}>
-                        Báo sự cố mớii
+                        Báo sự cố mới
                     </Text>
                 </TouchableOpacity>
                 <Picker

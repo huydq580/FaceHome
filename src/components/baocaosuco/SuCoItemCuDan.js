@@ -37,10 +37,7 @@ class SuCoItemCuDan extends Component {
                                 {moment(new Date(item.CreatedDate)).format("L")}
                             </Text>
                             <Text style = {{marginTop:5}}>
-                                {/*{*/}
-                                    {/*item.Status = 0 ? this.setState({GioiTinh: 'Nam'}) :*/}
-                                        {/*params.dataBQL[0].Gender = 1 ? this.setState({GioiTinh: 'Nữ'}) : null*/}
-                                {/*}*/}
+                                Đang xử lý
                             </Text>
 
 

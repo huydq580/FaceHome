@@ -32,7 +32,7 @@ class BaoSuCoKDT extends Component {
                 this.setState({
                     dataSuCo:dataRes,
                 })
-            console.log('datasuco', dataRes.Value)
+            console.log('datasuco', dataRes)
         })
 
     }
@@ -40,7 +40,13 @@ class BaoSuCoKDT extends Component {
         const {navigation} = this.props;
         return(
             <View style = {stylesContainer.container}>
+                <TouchableOpacity onPress = { () => this.props.navigation.navigate('BaoSuCoMoi')}>
+                    <Text style = {{marginLeft: 250, color: 'black', textDecorationLine: "underline", marginTop:10, marginBottom:10, marginRight: 20}}>
+                        Báo sự cố mới
+                    </Text>
+                </TouchableOpacity>
                 <Picker
+                    style = {{width: 150, marginTop: 10}}
                     selectedValue={this.state.SuCo}
                     onValueChange={(itemValue, itemIndex) => this.setState({SuCo: itemValue})}>
                     <Picker.Item label = {'Tất cả'} value = ''/>
