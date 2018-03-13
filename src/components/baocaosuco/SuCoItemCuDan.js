@@ -7,6 +7,9 @@ import {
     Image
 } from 'react-native';
 import moment from 'moment';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {callApiSearchCmtSuco} from "../../actions/SearchCmtSuCoActions";
 class SuCoItemCuDan extends Component {
     constructor(props){
         super(props)
@@ -14,12 +17,24 @@ class SuCoItemCuDan extends Component {
 
         }
     }
+    ClickItemSuCo = (SuCoID, itemsuco)=> {
+        const { callApiSearchCmtSuco, UserCuDan } = this.props
+        if (UserCuDan.length <= 0) {
+            return null
+        }
+        console.log('kdt id', UserCuDan.payload[0].KDTID)
+        console.log('SuCoID', UserCuDan)
+        callApiSearchCmtSuco(UserCuDan.payload[0].KDTID, SuCoID).then(dataRes => {
+            this.props.navigation.navigate('ChiTietSuCoCuDan', {SuCoId: SuCoID, ItemSuCo: itemsuco})
+        })
+
+    }
     render (){
         const {item} = this.props.dataItem;
         const {navigation} = this.props;
         return (
             <View style = {{flex:1, marginTop: 20}}>
-                <TouchableOpacity onPress = {() => navigation.navigate('ChiTietSuCoCuDan')}>
+                <TouchableOpacity onPress = {() => this.ClickItemSuCo(item.SuCoID, item)}>
                     <View style = {{flexDirection:'row', height:100, alignItems:'center'}}>
                         <Image style = {styles.Img}
                                source={{
@@ -49,6 +64,18 @@ class SuCoItemCuDan extends Component {
 
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        UserCuDan: state.LoginReducers,
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiSearchCmtSuco: bindActionCreators(callApiSearchCmtSuco, dispatch),
+    }
+};
+
+SuCoItemCuDan = connect(mapStateToProps, mapDispatchToProps)(SuCoItemCuDan);
 export default SuCoItemCuDan;
 const styles = StyleSheet.create({
     Img : {
