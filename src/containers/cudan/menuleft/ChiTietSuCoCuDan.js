@@ -27,7 +27,7 @@ class ChiTietSuCoCuDan extends Component {
         const { tongCmtSuCo } = this.props;
         console.log('tong cmt su co cu dan', tongCmtSuCo.payload)
         let ArrayCmt =[]
-        if (tongCmtSuCo.payload instanceof Array ==true){
+        if (tongCmtSuCo.payload instanceof Array == true){
             ArrayCmt = tongCmtSuCo.payload
         }
         else {
