@@ -61,6 +61,9 @@ import SoanTinCuDan from "../containers/cudan/SoanTinCuDan";
 import BinhLuanCuDan from "../containers/cudan/BinhLuanCuDan";
 import ChiTietThongTinKDTCuDan from "../containers/cudan/menuleft/ChiTietThongTinKDTCuDan";
 import ChuyenDiaDiem from "../containers/cudan/menuleft/ChuyenDiaDiem";
+import ChuyenKDT from "../containers/cudan/menuleft/ChuyenKDT";
+import RoiKDT from "../containers/cudan/menuleft/RoiKDT";
+import ChuyenCanHo from "../containers/cudan/menuleft/ChuyenCanHo";
 
 
 const Stack = StackNavigator ({
@@ -426,6 +429,24 @@ const Stack = StackNavigator ({
         screen: ChuyenDiaDiem,
         navigationOptions: {
             title: "Chuyển địa điểm"
+        }
+    },
+    ChuyenCanHo: {
+        screen:ChuyenCanHo,
+        navigationOptions: {
+            title: "Chuyển căn hộ"
+        }
+    },
+    ChuyenKDT: {
+        screen: ChuyenKDT,
+        navigationOptions: {
+            title: 'Chuyển khu đô thị'
+        }
+    },
+    RoiKDT: {
+        screen: RoiKDT,
+        navigationOptions: {
+            title: 'Hủy tài khoản'
         }
     }
 

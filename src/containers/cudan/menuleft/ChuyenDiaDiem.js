@@ -10,7 +10,7 @@ class ChuyenDiaDiem extends Component {
     render () {
         return (
             <View style = {[stylesContainer.container,{justifyContent:'center'}]}>
-                <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ThayDoiMatKhauCuDan')}>
+                <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ChuyenCanHo')}>
                     <View style = {styles.viewitem}>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10}}>
                             Chuyển căn hộ
@@ -20,7 +20,7 @@ class ChuyenDiaDiem extends Component {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ChuyenDiaDiem')}>
+                <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ChuyenKDT')}>
                     <View style = {styles.viewitem}>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10}}>
                             Chuyển KĐT
@@ -30,7 +30,7 @@ class ChuyenDiaDiem extends Component {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ThayDoiMatKhau')}>
+                <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('RoiKDT')}>
                     <View style = {styles.viewitem}>
                         <Text style = {{textDecorationLine: "underline", marginTop:10, color:'black', marginLeft:10}}>
                             Hủy tài khoản

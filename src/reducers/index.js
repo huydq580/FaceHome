@@ -48,7 +48,7 @@ const appStore = combineReducers({
     CmtSuCoReducers,
     SearchCmtSuCoReducers,
     ChuyenDiaDiemReducers,
-    UpdateStatusReducers    
+    UpdateStatusReducers
 })
 
 export default appStore
