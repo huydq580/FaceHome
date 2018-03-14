@@ -79,6 +79,7 @@ class DangKi extends Component {
         const { callApiSearchKDT } = this.props;
         callApiSearchKDT(this.state.keyword,this.state.QuanHuyen,).then(dataRes  => {
             data2 = JSON.parse(dataRes);
+            // console.log('search kdt', data2)
             this.setState({
                 dataKDT : data2.Value
             })
