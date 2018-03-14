@@ -5,7 +5,7 @@ import {
     StyleSheet,
     TextInput,
     Image,
-    TouchableOpacity
+    TouchableOpacity, Alert
 } from 'react-native';
 import moment from 'moment';
 import stylesContainer from "../../components/style";
@@ -32,7 +32,7 @@ class TaiKhoanDanCu extends Component {
             GioiTinh : '',
             NgaySinh : '',
             NgayTao : '',
-            Status:'',
+            TrangThai:'',
             Value: "",
         }
         this.Status = this.Status.bind(this);
@@ -43,26 +43,50 @@ class TaiKhoanDanCu extends Component {
         const {params} = this.props.navigation.state;
         const { callApiUpdateProfile } = this.props;
         // console.log('param', params)
-        {
-            params.dataCuDan.Status = 0 ? this.setState({Value: "1"}) :
-                params.dataCuDan.Status = 1 ? this.setState({Value: "2"}) :
-                    params.dataCuDan.Status = 2 ? this.setState({Value: "1"}) : null
-        }
         console.log('value', this.state.Value)
         callApiUpdateProfile(params.dataCuDan.ProfileID, params.dataCuDan.UserID, "Status", this.state.Value ).then(dataRes => {
-            console.log('thong bao', dataRes)
+            data = JSON.parse(dataRes);
+            if(data.ErrorCode==="00") {
+                Alert.alert(
+                    'Alert',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => this.props.navigation.goBack()},
+                    ],
+                    { cancelable: false }
+                )
+            }
+            else {
+                Alert.alert(
+                    'Alert',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: false }
+                )
+            }
         })
-        // console.log('davao st')
     }
 
     componentWillMount(){
         const {params} = this.props.navigation.state;
-        // console.log('status', params.dataCuDan.Status)
+        console.log('status', params.dataCuDan.Status)
         // console.log('data', params.dataCuDan)
         {
-            params.dataCuDan.Status = 0 ? this.setState({Status: 'Duyệt tài khoản'}) :
-                params.dataCuDan.Status = 1 ? this.setState({Status: 'Rời KĐT'}) :
-                    params.dataCuDan.Status = 2 ? this.setState({Status: 'Phục hồi'}) : null
+            params.dataCuDan.Status == 0 ? this.setState({Value: 1}) :
+                params.dataCuDan.Status == 1 ? this.setState({Value: 2}) :
+                    params.dataCuDan.Status == 2 ? this.setState({Value: 1}) :
+                        params.dataCuDan.Status == 3 ? this.setState({Value: 1}) :
+                            params.dataCuDan.Status == 4 ? this.setState({Value: 5}) : null
+        }
+        {
+            params.dataCuDan.Status == 0 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
+                params.dataCuDan.Status == 1 ? this.setState({TrangThai: 'Rời KĐT'}) :
+                    params.dataCuDan.Status == 2 ? this.setState({TrangThai: 'Phục hồi'}) :
+                        params.dataCuDan.Status == 3 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
+                            params.dataCuDan.Status == 4 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
+                                params.dataCuDan.Status == 5 ? this.setState({TrangThai: 'Duyệt tài khoản'}) : null
         }
         this.setState({
             Ten : params.dataCuDan.FullName,
@@ -79,6 +103,7 @@ class TaiKhoanDanCu extends Component {
         })
     }
     render (){
+        this.state.TrangThai
         return(
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection: 'row'}}>
@@ -97,7 +122,7 @@ class TaiKhoanDanCu extends Component {
                         <View style = {{marginTop: 8, flexDirection:'row'}}>
                         <TouchableOpacity onPress = {this.Status}>
                             <Text style = {{fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#FF3D00', color: '#FF3D00', fontWeight:'bold'}}>
-                                {this.state.Status}
+                                {this.state.TrangThai}
                             </Text>
                         </TouchableOpacity>
                             <TouchableOpacity
