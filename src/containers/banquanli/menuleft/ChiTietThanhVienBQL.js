@@ -5,7 +5,7 @@ import {
     StyleSheet,
     TextInput,
     Picker,
-    TouchableOpacity
+    TouchableOpacity, Alert
 } from 'react-native';
 import stylesContainer from "../../../components/style";
 import moment from 'moment';
@@ -64,7 +64,27 @@ class ChiTietThanhVienBQL extends Component {
         }
         const { callApiUpdateStatus } = this.props
         callApiUpdateStatus(UserBQL.payload[0].RoleID,params.ItemBQL.ProfileID,params.ItemBQL.UserID, this.state.Status  ).then(dataRes => {
-            console.log('tinh trang hoat dong', dataRes)
+            data = JSON.parse(dataRes);
+            if(data.ErrorCode==="00") {
+                Alert.alert(
+                    'Alert',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => this.props.navigation.goBack()},
+                    ],
+                    { cancelable: false }
+                )
+            }
+            else {
+                Alert.alert(
+                    'Alert',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: false }
+                )
+            }
         })
     }
 

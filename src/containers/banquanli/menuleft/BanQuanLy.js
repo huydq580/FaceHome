@@ -34,7 +34,7 @@ class BanQuanLy extends Component{
         callApiGetBQL(UserBQL.payload[0].KDTID).then(dataGetBQL => {
             dataGetBQL = JSON.parse(dataGetBQL)
             dataGetBQL = dataGetBQL.Value
-            // console.log('serach bql', dataGetBQL)
+            console.log('serach bql', dataGetBQL)
             this.setState({
                 data: dataGetBQL
             })
@@ -70,7 +70,7 @@ class BanQuanLy extends Component{
                             })
 
                         }}>
-                            <View style = {{flexDirection:'row', marginTop: 20,}}>
+                            <View style = {{flexDirection:'row', marginTop: 20, alignItems:'center'}}>
                                 <View style = {{flex:1, alignItems:'center'}}>
                                     <Text style = {styles.textItem}>{item.RowNum}</Text>
                                 </View>
@@ -89,8 +89,8 @@ class BanQuanLy extends Component{
                                 <View style = {{flex:3, justifyContent:'center'}}>
                                     <Text style = {[styles.textItem, {marginLeft:5}]}>
                                         {
-                                            item.Status === 0 ? <Text>Đang chờ</Text> :
-                                                item.Status === 1 ? <Text>Hoạt động</Text> :
+                                            item.Status === 0 ? <Text>Đang chờ duyệt</Text> :
+                                                item.Status === 1 ? <Text>Đang hoạt động</Text> :
                                                     item.Status === 2 ? <Text>Dừng hoạt động</Text> :
                                                         null
                                         }
