@@ -50,6 +50,10 @@ class DangNhap extends Component {
                 this.props.navigation.navigate('LoadData')
 
             }
+            else if (data.ErrorCode === "02") {
+                this.props.navigation.navigate('DuyetTaiKhoan')
+            }
+
             else {
                 this.setState({
                     loading: false,
@@ -57,7 +61,7 @@ class DangNhap extends Component {
                 })
                 Alert.alert(
                     'Error',
-                    'Đăng nhập thất bại',
+                    data.Message,
                     [
                         {text: 'OK', onPress: () => console.log('OK Pressed')},
                     ],

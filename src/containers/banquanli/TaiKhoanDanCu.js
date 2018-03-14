@@ -5,7 +5,7 @@ import {
     StyleSheet,
     TextInput,
     Image,
-    TouchableOpacity, Alert
+    TouchableOpacity, Alert,
 } from 'react-native';
 import moment from 'moment';
 import stylesContainer from "../../components/style";
@@ -103,7 +103,6 @@ class TaiKhoanDanCu extends Component {
         })
     }
     render (){
-        this.state.TrangThai
         return(
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection: 'row'}}>

@@ -8,6 +8,7 @@ import {
     FlatList,
     TouchableOpacity,
     Button,
+    ScrollView
 } from 'react-native';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -100,7 +101,7 @@ class QuanLyCuDan extends Component {
     render() {
         dataToaNha = this.state.dataToaNha
         return (
-            <View style={stylesContainer.container}>
+            <ScrollView style={stylesContainer.container}>
                 <View style={styles.itemBoder}>
                     <TextInput placeholder='Tìm kiếm nhanh tên dân cư theo số căn hộ'
                                underlineColorAndroid="transparent"
@@ -189,7 +190,7 @@ class QuanLyCuDan extends Component {
                     keyExtractor={(item, index) => index}
                 />
 
-            </View>
+            </ScrollView>
         );
     }
 }

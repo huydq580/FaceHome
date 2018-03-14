@@ -64,6 +64,7 @@ import ChuyenDiaDiem from "../containers/cudan/menuleft/ChuyenDiaDiem";
 import ChuyenKDT from "../containers/cudan/menuleft/ChuyenKDT";
 import RoiKDT from "../containers/cudan/menuleft/RoiKDT";
 import ChuyenCanHo from "../containers/cudan/menuleft/ChuyenCanHo";
+import DuyetTaiKhoan from "../containers/DuyetTaiKhoan";
 
 
 const Stack = StackNavigator ({
@@ -447,6 +448,12 @@ const Stack = StackNavigator ({
         screen: RoiKDT,
         navigationOptions: {
             title: 'Hủy tài khoản'
+        }
+    },
+    DuyetTaiKhoan: {
+        screen: DuyetTaiKhoan,
+        navigationOptions: {
+            header: null
         }
     }
 
