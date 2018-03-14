@@ -10,6 +10,8 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import stylesContainer from "../../components/style";
 import {CreateProfileNCC, URL} from "../../components/Api";
+import { NavigationActions } from 'react-navigation'
+
 
 export default class NhapThongTinNCC extends Component {
     constructor(props){
