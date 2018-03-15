@@ -3,10 +3,11 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Image,
+    Image, StyleSheet,
 
 } from 'react-native'
 import moment from 'moment';
+import Dimensions from 'Dimensions';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
 import SocketIOClient from "socket.io-client";
 import {SOCKET} from "../Api";
@@ -58,7 +59,8 @@ class StatusItemCuDan extends Component {
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                               style={{resizeMode: 'cover', height: 40, width: 30, marginLeft: 10}}>
+                               style={styles.image_circle}
+                               resizeMode="cover">
                         </Image>
                         <View style={{marginLeft: 10}}>
                             <Text style={{color: 'black', fontWeight: 'bold'}}>{item.FullName}</Text>
@@ -91,11 +93,8 @@ class StatusItemCuDan extends Component {
                         </View>
                         <View style={{flexDirection: 'row', marginRight: 20}}>
                             <Icon1 name="comment" size={25} color="#424242"/>
-                            <TouchableOpacity onPress={() => {
-                                this.BinhLuan(item.PostID)
-                            }}>
+
                                 <Text style={{color: '#424242'}}>Bình luận</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
@@ -105,7 +104,8 @@ class StatusItemCuDan extends Component {
                                 <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
                                     <Image
                                         source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                                        style={{resizeMode: 'cover', height: 40, width: 30, marginLeft: 10}}>
+                                        style={styles.image_circle}
+                                        resizeMode="cover">
                                     </Image>
                                     <View style={{
                                         marginLeft: 10, flex: 1,
@@ -126,6 +126,30 @@ class StatusItemCuDan extends Component {
                             </View>
                             : null
                     }
+                    <View style={{flexDirection: 'row', marginTop: 5, marginRight: 15, alignItems:'center'}}>
+                        <Image
+                            source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                            style={styles.image_circle}
+                            resizeMode="cover">
+                        </Image>
+                        <TouchableOpacity  style={{
+                            marginLeft: 10, flex: 1,
+                            backgroundColor: '#F5F5F5', borderRadius: 50,
+                            borderWidth:1,
+                            borderColor:'#757575',
+                            paddingLeft: 10,
+                            paddingRight: 10,
+                            paddingTop: 10,
+                            paddingBottom: 10,
+                        }}
+                            onPress={() => {
+                            this.BinhLuan(item.PostID)
+                        }}>
+                            <View>
+                                <Text>Viết bình luận ...</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
                 <View style={{height: 5, backgroundColor: '#cccccc', marginTop: 10}}/>
@@ -148,3 +172,14 @@ const mapDispatchToProps = (dispatch) => {
 StatusItemCuDan = connect(mapStateToProps, mapDispatchToProps)(StatusItemCuDan);
 
 export default StatusItemCuDan
+const DEVICE_WIDTH = Dimensions.get('window').width;
+const styles = StyleSheet.create({
+    image_circle: {
+        height: DEVICE_WIDTH / 10,
+        width: DEVICE_WIDTH / 10,
+        borderRadius: DEVICE_WIDTH / 20,
+        marginLeft: 10,
+        // marginTop: 10
+
+    },
+})
