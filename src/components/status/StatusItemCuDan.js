@@ -132,19 +132,19 @@ class StatusItemCuDan extends Component {
                             style={styles.image_circle}
                             resizeMode="cover">
                         </Image>
-                        <TouchableOpacity  style={{
-                            marginLeft: 10, flex: 1,
-                            backgroundColor: '#F5F5F5', borderRadius: 50,
-                            borderWidth:1,
-                            borderColor:'#757575',
-                            paddingLeft: 10,
-                            paddingRight: 10,
-                            paddingTop: 10,
-                            paddingBottom: 10,
-                        }}
-                            onPress={() => {
+                        <TouchableOpacity onPress={() => {
                             this.BinhLuan(item.PostID)
-                        }}>
+                        }}
+                                          style={{
+                                              marginLeft: 10, flex: 1,
+                                              backgroundColor: '#F5F5F5', borderRadius: 50,
+                                              borderWidth:1,
+                                              borderColor:'#757575',
+                                              paddingLeft: 10,
+                                              paddingRight: 10,
+                                              paddingTop: 10,
+                                              paddingBottom: 10,
+                                          }}>
                             <View>
                                 <Text>Viết bình luận ...</Text>
                             </View>
