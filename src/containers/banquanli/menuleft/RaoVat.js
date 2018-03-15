@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    FlatList
+    FlatList,
+    TextInput,
+    TouchableOpacity, StyleSheet
 } from 'react-native'
+import Icon from 'react-native-vector-icons/EvilIcons'
 import stylesContainer from "../../../components/style";
 import RaoVatItem from "../../../components/raovat/RaoVatItem";
 import {bindActionCreators} from "redux";
@@ -14,6 +17,10 @@ class RaoVat extends Component {
     constructor(props){
         super(props)
         this.state ={
+            search: true,
+            SearchItem:'',
+            dataCuDan:'',
+            text: '',
             dataItem: [
                 {
                     CatID:7,
@@ -99,10 +106,53 @@ class RaoVat extends Component {
             console.log('data category', dataRes)
         })
     }
+    Search = ()=> {
+        this.setState({
+            search: false
+        })
+    }
+    Cancel = ()=> {
+        this.setState({
+            search: true
+        })
+    }
+    SearchUser(text){
+        // const data = this.dataSearchDanCu;
+        // const inputSearch = data.filter(function(item){
+        //     const itemData = item.FullName.toUpperCase()
+        //     const textData = text.toUpperCase()
+        //     return itemData.indexOf(textData) > -1
+        // })
+        // this.setState({
+        //     dataCuDan: inputSearch,
+        //     text: text
+        // })
+    }
     render (){
         return (
             <View style = {stylesContainer.container}>
+                {
+                    this.state.search ?
+                        <TouchableOpacity onPress = {this.Search}>
+                            <View style = {styles.containerNavbar}>
+                                <Icon name="search" size={25} color="#616161"/>
+
+                                <Text>Search</Text>
+
+                            </View>
+                        </TouchableOpacity> : <View style = {{ flexDirection:'row',marginTop:10}}>
+                            <View style = {styles.containerNavbarS}>
+                                <TextInput  placeholder = 'Search'
+                                            underlineColorAndroid="transparent"
+                                            onChangeText = {(text) => this.SearchUser(text)}/>
+                            </View>
+                            <TouchableOpacity onPress = {this.Cancel}>
+                                <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>
+                            </TouchableOpacity>
+                        </View>
+                }
                 <FlatList
+                    style = {{marginTop:10}}
                     data = {this.state.dataItem}
                     renderItem={(item) => {
                         return (
@@ -133,3 +183,26 @@ const mapDispatchToProps = (dispatch) => {
 
 RaoVat = connect(mapStateToProps, mapDispatchToProps)(RaoVat);
 export default RaoVat
+const styles = StyleSheet.create({
+    containerNavbar: {
+        borderWidth: 1,
+        marginHorizontal: 10,
+        borderRadius: 10,
+        flexDirection: 'row',
+        borderColor: '#9E9E9E',
+        minHeight: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+
+
+    },
+    containerNavbarS: {
+        borderWidth: 1,
+        marginLeft: 10,
+        borderRadius: 10,
+        borderColor: '#9E9E9E',
+        maxHeight: 40,
+        flex: 7,
+    },
+})
