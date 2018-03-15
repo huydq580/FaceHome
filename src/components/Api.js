@@ -40,6 +40,14 @@ export const SearchCanhBaoChay = "api/FireAlarm/SearchCanhBaoChay";
 export const GetDetail = "api/FireAlarm/GetDetail";
 // export const UpdateStatus = "api/FireAlarm/UpdateStatus";
 
+
+//rao vat
+export const SearchRaoVat = "api/RaoVat/Search";
+export const PostRaoVat = "api/RaoVat/PostRaoVat";
+export const GetDetailRaovat = "api/RaoVat/GetDetail";
+export const ReportViolations = "api/RaoVat/ReportViolations";
+export const GetCategory = "api/RaoVat/GetCategory";
+
 //Post
 export const CreatePost = "api/Post/CreatePost";
 export const GetTopPost = "api/Post/GetTopPost";

@@ -23,6 +23,10 @@ import CmtSuCoReducers from './CmtSuCoReducers'
 import SearchCmtSuCoReducers from './SearchCmtSuCoReducers';
 import UpdateStatusReducers from './UpdateStatusReducers';
 import ChuyenDiaDiemReducers from './reducersCuDan/ChuyenDiaDiemReducers';
+import GetCategoryReducers from './raovat/GetCategoryReducers';
+import GetDetailRaoVatReducers from './raovat/GetDetailRaoVatReducers';
+import PostRaoVatReducers from './raovat/PostRaoVatReducers';
+import SearchRaoVatReducers from './raovat/SearchRaoVatReducers';
 
 const appStore = combineReducers({
     LoginReducers,
@@ -48,7 +52,12 @@ const appStore = combineReducers({
     CmtSuCoReducers,
     SearchCmtSuCoReducers,
     ChuyenDiaDiemReducers,
-    UpdateStatusReducers
+    UpdateStatusReducers,
+    GetCategoryReducers,
+    GetDetailRaoVatReducers,
+    PostRaoVatReducers,
+    SearchRaoVatReducers
+
 })
 
 export default appStore
