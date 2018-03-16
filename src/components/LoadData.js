@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
-    ActivityIndicator,
+    ActivityIndicator, AsyncStorage,
 } from 'react-native';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
@@ -10,7 +10,7 @@ import {callApiGetProfile} from "../actions/GetProfileActions";
 
 class LoadData extends Component {
     constructor(props){
-        console.log('constructor')
+        // console.log('constructor')
         super(props)
         this.state = {
         }
@@ -21,7 +21,7 @@ class LoadData extends Component {
         if (UserBQL.length <= 0) {
             return null;
         }
-        console.log('userblq', UserBQL.payload[0])
+        // console.log('userblq', UserBQL.payload[0])
 
         // const {params} = this.props.navigation.state;
         setTimeout(()=> {
@@ -65,17 +65,13 @@ class LoadData extends Component {
     }
     //lay thong tin nguoi dung (getprofile)
     GetProfile = ()=> {
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
-            return null;
-        }
-        console.log('userblq11', UserBQL.payload[0])
 
-        // console.log('userbql', UserBQL.payload[0].UserID)
-        const { callApiGetProfile } = this.props;
-        callApiGetProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, 100).then(dataRes => {
-            dataProfile = JSON.parse(dataRes);
-            console.log('data', dataProfile)
+        AsyncStorage.getItem('UserID').then((value)=> {
+            const {callApiGetProfile} = this.props;
+            callApiGetProfile("", value, "", 100).then(dataRes => {
+                dataProfile = JSON.parse(dataRes);
+                console.log('data', dataProfile)
+            })
         })
     }
 

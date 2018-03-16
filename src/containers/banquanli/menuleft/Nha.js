@@ -34,6 +34,10 @@ class Nha extends Component {
     }
 
     componentWillMount() {
+        AsyncStorage.getItem('FullName').then((value)=> {
+            console.log('FullName', value)
+
+        })
         this.fetchData()
         const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
