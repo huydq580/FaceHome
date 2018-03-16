@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
 import {callApiGetBQL} from "../../../actions/actionsBQL/BQLActions";
-import {callApiNha} from "../../../actions/actionsBQL/NhaActions";
+import {callApiGetProfile} from "../../../actions/GetProfileActions";
 
 class BanQuanLy extends Component{
     constructor(props){
@@ -55,7 +55,7 @@ class BanQuanLy extends Component{
                     data = {this.state.data}
                     renderItem = {({item}) => (
                         <TouchableOpacity onPress = {() => {
-                            const {chiTietBQL, callApiNha} = this.props
+                            const {chiTietBQL, callApiGetProfile} = this.props
                             if (chiTietBQL.length <= 0) {
                                 return null;
                             }
@@ -63,7 +63,7 @@ class BanQuanLy extends Component{
                             a = item.RowNum-1;
                             // console.log('a', a)
                             // console.log('wtf', chiTietBQL.payload[a])
-                            callApiNha(chiTietBQL.payload[a].ProfileID,chiTietBQL.payload[a].UserID).then(dataChitietBQL => {
+                            callApiGetProfile(chiTietBQL.payload[a].ProfileID,chiTietBQL.payload[a].UserID).then(dataChitietBQL => {
                                 dataChitietBQL = JSON.parse(dataChitietBQL)
                                 this.props.navigation.navigate("ChiTietThanhVienBQL", {dataBQL: dataChitietBQL.Value, ItemBQL: item})
                                 // console.log('dataChitietBQL', dataChitietBQL)
@@ -125,7 +125,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // addTodo: bindActionCreators(addTodo, dispatch),
         callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch),
-        callApiNha: bindActionCreators(callApiNha, dispatch)
+        callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch)
     }
 };
 

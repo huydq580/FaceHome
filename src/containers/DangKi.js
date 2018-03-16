@@ -301,7 +301,6 @@ const mapStateToProps = (state) => {
     return {
         dataLocationTinh: state.TinhThanhReducers,
         dataLocationHuyen: state.QuanHuyenReducers,
-        // infoBQL: state.NhaBQLReducers
     }
 };
 

@@ -1,4 +1,4 @@
-const NhaBQLReducers = (state = [], action) => {
+const GetProfileReducers = (state = [], action) => {
     switch (action.type) {
         case 'NHA_BQL':
             return action.payload
@@ -7,4 +7,4 @@ const NhaBQLReducers = (state = [], action) => {
     }
 }
 
-export default NhaBQLReducers
+export default GetProfileReducers

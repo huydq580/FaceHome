@@ -51,7 +51,6 @@ class Launcher extends Component{
 const mapStateToProps = (state) => {
     return {
         UserBQL: state.LoginReducers,
-        // infoBQL: state.NhaBQLReducers
     }
 };
 Launcher = connect(mapStateToProps)(Launcher);

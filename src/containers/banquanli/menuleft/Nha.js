@@ -14,10 +14,10 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import {callApiNha} from "../../../actions/actionsBQL/NhaActions";
 import stylesContainer from "../../../components/style";
 import StatusItems from "../../../components/status/StatusItems";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
+import {callApiGetProfile} from "../../../actions/GetProfileActions";
 
 
 
@@ -41,8 +41,8 @@ class Nha extends Component {
         }
 
         // console.log('userbql', UserBQL.payload[0].UserID)
-        const {callApiNha} = this.props;
-        callApiNha(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
+        const { callApiGetProfile } = this.props;
+        callApiGetProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
             // dataNhaBQL = JSON.parse(dataNha);
             // console.log('data', dataNhaBQL)
         })
@@ -160,14 +160,14 @@ class Nha extends Component {
 const mapStateToProps = (state) => {
     return {
         UserBQL: state.LoginReducers,
-        infoBQL: state.NhaBQLReducers
+        infoBQL: state.GetProfileReducers
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         // addTodo: bindActionCreators(addTodo, dispatch),
-        callApiNha: bindActionCreators(callApiNha, dispatch),
+        callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch),
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
     }
 };

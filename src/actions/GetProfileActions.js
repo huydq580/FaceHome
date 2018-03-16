@@ -1,8 +1,8 @@
-import { GetProfileBQL, URL } from "../../components/Api";
+import { GetProfileBQL, URL } from "../components/Api";
 
 
 
-export const callApiNha = (profile_id, user_id, user_type) => {
+export const callApiGetProfile = (profile_id, user_id, user_type, option) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL+GetProfileBQL, {
@@ -14,6 +14,7 @@ export const callApiNha = (profile_id, user_id, user_type) => {
                     profile_id: profile_id,
                     user_id: user_id,
                     user_type: user_type,
+                    option: option,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {

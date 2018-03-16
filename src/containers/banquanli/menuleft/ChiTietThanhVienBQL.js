@@ -10,7 +10,6 @@ import {
 import stylesContainer from "../../../components/style";
 import moment from 'moment';
 import Dimensions from 'Dimensions';
-import {callApiNha} from "../../../actions/actionsBQL/NhaActions";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {callApiUpdateStatus} from "../../../actions/UpdateStatusActions";

@@ -60,7 +60,6 @@ class ThongTinKDTCuDan extends Component {
 const mapStateToProps = (state) => {
     return {
         UserCuDan: state.LoginReducers,
-        // infoBQL: state.NhaBQLReducers
         infonha: state.KDTInfoReducers
     }
 };

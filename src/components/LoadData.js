@@ -76,7 +76,6 @@ class LoadData extends Component {
 const mapStateToProps = (state) => {
     return {
         UserBQL: state.LoginReducers,
-        // infoBQL: state.NhaBQLReducers
     }
 };
 LoadData = connect(mapStateToProps)(LoadData);

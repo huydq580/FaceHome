@@ -238,7 +238,7 @@ class ThongTinCaNhanBQL extends Component {
 const mapStateToProps = (state) => {
     return {
         UserBQL: state.LoginReducers,
-        infoBQL: state.NhaBQLReducers,
+        infoBQL: state.GetProfileReducers,
         dm: state.BQLReducers
     }
 };
