@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
     ActivityIndicator,
-    Alert,
-    TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import {bindActionCreators} from "redux";
+import {callApiGetProfile} from "../actions/GetProfileActions";
 
 class LoadData extends Component {
     constructor(props){
+        console.log('constructor')
         super(props)
         this.state = {
         }
+        this.GetProfile()
     }
     componentWillMount(){
         const { UserBQL } = this.props;
         if (UserBQL.length <= 0) {
             return null;
         }
-        // console.log('userblq', UserBQL.payload[0].Type)
+        console.log('userblq', UserBQL.payload[0])
 
         // const {params} = this.props.navigation.state;
         setTimeout(()=> {
@@ -62,6 +63,21 @@ class LoadData extends Component {
             }
         },1500)
     }
+    //lay thong tin nguoi dung (getprofile)
+    GetProfile = ()=> {
+        const { UserBQL } = this.props;
+        if (UserBQL.length <= 0) {
+            return null;
+        }
+        console.log('userblq11', UserBQL.payload[0])
+
+        // console.log('userbql', UserBQL.payload[0].UserID)
+        const { callApiGetProfile } = this.props;
+        callApiGetProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, 100).then(dataRes => {
+            dataProfile = JSON.parse(dataRes);
+            console.log('data', dataProfile)
+        })
+    }
 
 
     render (){
@@ -78,5 +94,14 @@ const mapStateToProps = (state) => {
         UserBQL: state.LoginReducers,
     }
 };
-LoadData = connect(mapStateToProps)(LoadData);
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch),
+
+
+    }
+};
+
+LoadData = connect(mapStateToProps, mapDispatchToProps)(LoadData);
 export default LoadData

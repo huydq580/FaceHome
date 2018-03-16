@@ -21,6 +21,7 @@ import {callApiSearchPost} from "../../actions/SearchPostActions";
 import FCM, {FCMEvent} from "react-native-fcm";
 import {SOCKET, UpdateProfile, URL} from "../../components/Api";
 import SocketIOClient from "socket.io-client";
+import {callApiGetProfile} from "../../actions/GetProfileActions";
 
 
 class SanhChinh extends Component {
@@ -161,11 +162,7 @@ class SanhChinh extends Component {
         });
     }
 
-
-    // componentWillMount(){
-    //     this.fetchData()
-    // }
-    //lay du lieu api
+    //lay bai post
     fetchData = () => {
         const {UserBQL, callApiSearchPost} = this.props
         if (UserBQL.length <= 0) {
@@ -272,7 +269,6 @@ class SanhChinh extends Component {
 const mapStateToProps = (state) => {
     return {
         SocketRef: state.SocketReducers,
-        TopPost: state.GetTopPostReducers,
         UserBQL: state.LoginReducers
     }
 };
@@ -281,6 +277,7 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
+        callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch),
 
 
     }
