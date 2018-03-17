@@ -34,9 +34,6 @@ class DangNhap extends Component {
         });
     }
    componentDidMount(){
-
-
-
    }
     Login() {
         AsyncStorage.setItem('SoDienThoai', this.state.SoDienThoai)
@@ -130,7 +127,8 @@ class DangNhap extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        User: state.LoginReducers
+        User: state.LoginReducers,
+        UserBql1: state.GetProfileReducers
     }
 };
 

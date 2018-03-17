@@ -88,6 +88,14 @@ class SanhChinh extends Component {
 
 
     }
+    componentWillMount () {
+        const { UserBql1 } = this.props
+        if(UserBql1.length <=0) {
+            return null
+        }
+        console.log('UserBql1', UserBql1)
+
+    }
 
     pushDeviceToken = (token_APP) => {
         const {UserBQL} = this.props
@@ -269,7 +277,8 @@ class SanhChinh extends Component {
 const mapStateToProps = (state) => {
     return {
         SocketRef: state.SocketReducers,
-        UserBQL: state.LoginReducers
+        UserBQL: state.LoginReducers,
+        UserBql1 : state.GetProfileReducers
     }
 };
 
