@@ -47,7 +47,7 @@ class DangNhap extends Component {
             // console.log('data', data.Value[0].UserID)
             if(data.IsError === false && data.ErrorCode === "00"){
                 AsyncStorage.setItem('UserID', data.Value[0].UserID)
-                AsyncStorage.setItem('FullName', data.Value[0].FullName)
+                AsyncStorage.setItem('Type', data.Value[0].Type.toString())
                 this.props.navigation.navigate('LoadData')
 
             }
