@@ -4,7 +4,7 @@ import {
     Text,
     FlatList,
     TextInput,
-    TouchableOpacity, StyleSheet
+    TouchableOpacity, StyleSheet, Alert
 } from 'react-native'
 import Icon from 'react-native-vector-icons/EvilIcons'
 import stylesContainer from "../../../components/style";
@@ -98,6 +98,25 @@ class RaoVat extends Component {
             ]
 
         }
+    }
+    //handle event header
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+
+        return {
+            headerRight: <TouchableOpacity style={{marginRight: 10}}
+                                           onPress={() => params.handleSave()}>
+                <Text style={{color: "#1565C0"}}>Đăng bài viết</Text>
+            </TouchableOpacity>
+        }
+    }
+    componentDidMount() {
+        // call function SaveDetails
+        this.props.navigation.setParams({handleSave: this.DangBaiViet.bind(this)});
+    }
+    DangBaiViet() {
+        console.log('dang bai viet')
+
     }
     componentWillMount(){
         const { callApiGetCategory } = this.props;
