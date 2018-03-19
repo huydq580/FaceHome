@@ -40,8 +40,7 @@ class QuanHuyenRaoVat extends Component {
                                 </View>
                             </TouchableOpacity>
 
-                        )
-                    }
+                        )}
                     }
                     keyExtractor={(item, index) => index}
                 />

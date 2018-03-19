@@ -32,7 +32,6 @@ class DanhMuc extends Component {
         this.props.navigation.navigate('BanDangTin')
     }
     render (){
-        console.log('this,daata', this.state.dataItem)
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between', flex:1}]}>
                 <FlatList
