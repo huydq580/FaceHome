@@ -23,11 +23,11 @@ class TiepNhanSuCoCuDan extends Component {
         }
     }
     componentWillMount(){
-        const { callApiSearchSuCo, UserBQL  } = this.props;
-        if (UserBQL.length<=0){
+        const { callApiSearchSuCo, InfoUser  } = this.props;
+        if (InfoUser.length<=0){
             return null;
         }
-        callApiSearchSuCo(UserBQL.payload[0].KDTID , UserBQL.payload[0].UserID, this.state.SuCo).then(dataRes => {
+        callApiSearchSuCo(InfoUser[0].KDTID , InfoUser[0].UserID, this.state.SuCo).then(dataRes => {
             dataRes = JSON.parse(dataRes)
             dataRes = dataRes.Value
             this.setState({
@@ -70,7 +70,7 @@ class TiepNhanSuCoCuDan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

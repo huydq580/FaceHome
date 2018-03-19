@@ -27,14 +27,14 @@ class TaoThanhVienBQL extends Component{
 
     }
     componentWillMount(){
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
     }
     TaoThanhVien() {
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
 
@@ -48,9 +48,9 @@ class TaoThanhVienBQL extends Component{
                 ho_ten: this.state.HoTen,
                 so_dien_thoai: this.state.SoDienThoai,
                 mat_khau: this.state.Pass,
-                kdt_id: UserBQL.payload[0].KDTID,
+                kdt_id: InfoUser[0].KDTID,
                 chuc_vu: this.state.ChucVu,
-                full_path: UserBQL.payload[0].FullPath,
+                full_path: InfoUser[0].FullPath,
                 lang_name: "vi_VN"
             })
         })
@@ -136,7 +136,7 @@ class TaoThanhVienBQL extends Component{
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

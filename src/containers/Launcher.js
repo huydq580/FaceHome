@@ -20,7 +20,7 @@ class Launcher extends Component{
                 isTime: true
             })
             this.pushScreen();
-        },2000)
+        },500)
 
     }
     pushScreen(){

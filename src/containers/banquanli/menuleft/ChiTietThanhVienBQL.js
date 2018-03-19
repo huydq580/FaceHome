@@ -57,12 +57,12 @@ class ChiTietThanhVienBQL extends Component {
     }
     CheckTinhTrang =()=> {
         const {params} = this.props.navigation.state;
-        const {UserBQL} = this.props
-        if(UserBQL.length<=0){
+        const {InfoUser} = this.props
+        if(InfoUser.length<=0){
             return null
         }
         const { callApiUpdateStatus } = this.props
-        callApiUpdateStatus(UserBQL.payload[0].RoleID,params.ItemBQL.ProfileID,params.ItemBQL.UserID, this.state.Status  ).then(dataRes => {
+        callApiUpdateStatus(InfoUser[0].RoleID,params.ItemBQL.ProfileID,params.ItemBQL.UserID, this.state.Status  ).then(dataRes => {
             data = JSON.parse(dataRes);
             if(data.ErrorCode==="00") {
                 Alert.alert(
@@ -162,7 +162,7 @@ class ChiTietThanhVienBQL extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

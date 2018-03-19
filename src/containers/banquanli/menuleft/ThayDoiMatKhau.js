@@ -97,7 +97,6 @@ class ThayDoiMatKhau extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        infoBQL: state.GetProfileReducers
     }
 };
 

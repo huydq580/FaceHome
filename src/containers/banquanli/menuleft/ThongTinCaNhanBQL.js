@@ -40,27 +40,27 @@ class ThongTinCaNhanBQL extends Component {
         this.UpdateProfile = this.UpdateProfile.bind(this)
     }
     componentWillMount(){
-        const { infoBQL } = this.props;
-        if (infoBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         {
-            infoBQL[0].Gender = 0 ? this.setState({GioiTinh: 'Nữ'}) :
-                infoBQL[0].Gender = 1 ? this.setState({GioiTinh: 'Nam'}) : null
+            InfoUser[0].Gender = 0 ? this.setState({GioiTinh: 'Nữ'}) :
+                InfoUser[0].Gender = 1 ? this.setState({GioiTinh: 'Nam'}) : null
         }
         {
-            infoBQL[0].Position = 1 ? this.setState({ChucVu: 'Trưởng BQL'}) :
-                infoBQL[0].Position = 2 ? this.setState({ChucVu: 'Thành viên BQL'}) : null
+            InfoUser[0].Position = 1 ? this.setState({ChucVu: 'Trưởng BQL'}) :
+                InfoUser[0].Position = 2 ? this.setState({ChucVu: 'Thành viên BQL'}) : null
         }
 
         this.setState({
-            Ten: infoBQL[0].FullName ,
-            NgaySinh: moment(new Date(infoBQL[0].BirdDate)).format("L"),
-            SoCMT: infoBQL[0].CMND,
-            SoDT: infoBQL[0].Phone,
-            Email: infoBQL[0].Email,
-            SoHotlineQBL: infoBQL[0].HotLine,
-            NgayThamGia: moment(new Date(infoBQL[0].CreatedTime)).format("L"),
+            Ten: InfoUser[0].FullName ,
+            NgaySinh: moment(new Date(InfoUser[0].BirdDate)).format("L"),
+            SoCMT: InfoUser[0].CMND,
+            SoDT: InfoUser[0].Phone,
+            Email: InfoUser[0].Email,
+            SoHotlineQBL: InfoUser[0].HotLine,
+            NgayThamGia: moment(new Date(InfoUser[0].CreatedTime)).format("L"),
 
         })
     }
@@ -78,23 +78,22 @@ class ThongTinCaNhanBQL extends Component {
             check: true,
             editable: true
         })
-        const { callApiUpdateProfile,  UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { callApiUpdateProfile,  InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
-        console.log('user', UserBQL)
+        console.log('user', InfoUser)
 
-        callApiUpdateProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID,'FullName', this.state.Ten).then(dataRes => {
+        callApiUpdateProfile(InfoUser[0].ProfileID, InfoUser[0].UserID,'FullName', this.state.Ten).then(dataRes => {
             console.log('datathongbao', dataRes)
         })
         console.log('ten', this.state.Ten)
     }
     render (){
-        const { infoBQL } = this.props;
-        if (infoBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
-        // console.log('infoBQL', infoBQL[0])
         return(
             <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'column', alignItems:'center'}}>
@@ -106,7 +105,7 @@ class ThongTinCaNhanBQL extends Component {
                            resizeMode="cover"
                     >
                     </Image>
-                    <Text style = {{marginTop:10, fontSize: 20}}>{infoBQL[0].FullName}</Text>
+                    <Text style = {{marginTop:10, fontSize: 20}}>{InfoUser[0].FullName}</Text>
                 </View>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>
                 <View style = {styles.viewcon}>
@@ -237,8 +236,7 @@ class ThongTinCaNhanBQL extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
-        infoBQL: state.GetProfileReducers,
+        InfoUser: state.GetProfileReducers,
         dm: state.BQLReducers
     }
 };

@@ -23,15 +23,15 @@ class BanQuanLy extends Component{
         }
     }
     componentWillMount() {
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
 
         // console.log('user',UserBQL)
 
         const { callApiGetBQL } = this.props;
-        callApiGetBQL(UserBQL.payload[0].KDTID).then(dataGetBQL => {
+        callApiGetBQL(InfoUser[0].KDTID).then(dataGetBQL => {
             dataGetBQL = JSON.parse(dataGetBQL)
             dataGetBQL = dataGetBQL.Value
             console.log('serach bql', dataGetBQL)
@@ -116,7 +116,7 @@ class BanQuanLy extends Component{
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         chiTietBQL: state.BQLReducers,
     }
 };

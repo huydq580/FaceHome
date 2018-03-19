@@ -50,7 +50,7 @@ class BinhLuanBQL extends Component {
             PostID: params.PostId,
             KDTID: InfoUser[0].KDTID,
         })
-        console.log('so luong cmt', this.state.dataCmt)
+        // console.log('so luong cmt', this.state.dataCmt)
         this.socket.on('receivecomment', (dataReceive) => {
             console.log('receivecomment', dataReceive)
             dataPost = dataReceive.PostContent;
@@ -194,6 +194,7 @@ class BinhLuanBQL extends Component {
 }
 const mapStateToProps = (state) => {
     return {
+        // UserBQL: state.LoginReducers,
         InfoUser: state.GetProfileReducers,
         tongCmt: state.SearchCmtReducers,
     }
