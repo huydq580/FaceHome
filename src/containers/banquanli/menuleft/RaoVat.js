@@ -115,7 +115,7 @@ class RaoVat extends Component {
         this.props.navigation.setParams({handleSave: this.DangBaiViet.bind(this)});
     }
     DangBaiViet() {
-        console.log('dang bai viet')
+        this.props.navigation.navigate('DanhMuc')
 
     }
     componentWillMount(){

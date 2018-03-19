@@ -65,6 +65,12 @@ import ChuyenKDT from "../containers/cudan/menuleft/ChuyenKDT";
 import RoiKDT from "../containers/cudan/menuleft/RoiKDT";
 import ChuyenCanHo from "../containers/cudan/menuleft/ChuyenCanHo";
 import DuyetTaiKhoan from "../containers/DuyetTaiKhoan";
+import DanhMuc from "../containers/raovat/DanhMuc";
+import BanDangTin from "../containers/raovat/BanDangTin";
+import GiaRaoVat from "../containers/raovat/GiaRaoVat";
+import HinhAnhRaoVat from "../containers/raovat/HinhAnhRaoVat";
+import QuanHuyenRaoVat from "../containers/raovat/QuanHuyenRaoVat";
+import KhuVucRaoVat from "../containers/raovat/KhuVucRaoVat";
 
 
 const Stack = StackNavigator ({
@@ -454,6 +460,42 @@ const Stack = StackNavigator ({
         screen: DuyetTaiKhoan,
         navigationOptions: {
             header: null
+        }
+    },
+    DanhMuc: {
+        screen: DanhMuc,
+        navigationOptions: {
+            title: 'Danh mục'
+        }
+    },
+    BanDangTin: {
+        screen: BanDangTin,
+        navigationOptions: {
+            title: 'Bạn đăng tin'
+        }
+    },
+    GiaRaoVat: {
+        screen: GiaRaoVat,
+        navigationOptions: {
+            title: 'Giá rao vặt'
+        },
+    },
+    HinhAnhRaoVat: {
+        screen: HinhAnhRaoVat,
+        navigationOptions: {
+            title: 'Hình ảnh rao vặt',
+        }
+    },
+    QuanHuyenRaoVat: {
+        screen: QuanHuyenRaoVat,
+        navigationOptions: {
+            title: 'Quận huyện rao vặt'
+        }
+    },
+    KhuVucRaoVat: {
+        screen: KhuVucRaoVat,
+        navigationOptions: {
+            title: 'Khu vực rao vặt'
         }
     }
 
