@@ -15,7 +15,18 @@ class BanDangTin extends Component {
     render (){
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
-                <View><Text>hhi</Text></View>
+                <View style = {{ flexDirection:'column'}}>
+                    <View style = {{marginHorizontal:10, marginTop: 10,
+                        height:  DEVICE_HEIGHT/12, borderWidth:1, borderColor:'#BDBDBD', justifyContent:'center'}}>
+                        <Text stytle = {{fontSize:16, marginLeft: 15}}>Cần bán</Text>
+
+                    </View>
+                    <View style = {{ marginHorizontal:10,
+                        height:  DEVICE_HEIGHT/12, borderWidth:1, borderColor:'#BDBDBD', justifyContent:'center'}}>
+                        <Text  stytle = {{fontSize:16, marginLeft: 15}}>Cần Mua</Text>
+
+                    </View>
+                </View>
                 <View style = {styles.TiepTucView}>
                     <TouchableOpacity onPress = {this.TiepTucRaoVat}>
                         <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
