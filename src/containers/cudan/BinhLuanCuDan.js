@@ -46,9 +46,9 @@ class BinhLuanCuDan extends Component {
             transports: ['websocket']
         });
         this.socket.emit('logincomment', {
-            UserID: InfoUser.payload[0].UserID,
+            UserID: InfoUser[0].UserID,
             PostID: params.PostId,
-            KDTID: InfoUser.payload[0].KDTID,
+            KDTID: InfoUser[0].KDTID,
         })
         console.log('so luong cmt', this.state.dataCmt)
         this.socket.on('receivecomment', (dataReceive) => {
