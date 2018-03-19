@@ -71,6 +71,8 @@ import GiaRaoVat from "../containers/raovat/GiaRaoVat";
 import HinhAnhRaoVat from "../containers/raovat/HinhAnhRaoVat";
 import QuanHuyenRaoVat from "../containers/raovat/QuanHuyenRaoVat";
 import KhuVucRaoVat from "../containers/raovat/KhuVucRaoVat";
+import TieuDeRaoVat from "../containers/raovat/TieuDeRaoVat";
+import MoTaRaoVat from "../containers/raovat/MoTaRaoVat";
 
 
 const Stack = StackNavigator ({
@@ -496,6 +498,18 @@ const Stack = StackNavigator ({
         screen: KhuVucRaoVat,
         navigationOptions: {
             title: 'Khu vực rao vặt'
+        }
+    },
+    TieuDeRaoVat: {
+        screen: TieuDeRaoVat,
+        navigationOptions: {
+            title: 'Tiêu đề rao vặt'
+        }
+    },
+    MoTaRaoVat: {
+        screen: MoTaRaoVat,
+        navigationOptions: {
+            title: 'Mô tả rao vặt'
         }
     }
 

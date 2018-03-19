@@ -72,7 +72,7 @@ class KhuVucRaoVat extends Component {
 
                 <View style = {styles.TiepTucView}>
                     <TouchableOpacity onPress = {this.TiepTucRaoVat}>
-                    <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
+                        <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
                     </TouchableOpacity>
                 </View>
             </View>

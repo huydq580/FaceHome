@@ -9,34 +9,34 @@ import {
 import stylesContainer from "../../components/style";
 import Dimensions from 'Dimensions';
 
-class GiaRaoVat extends Component {
+class MoTaRaoVat extends Component {
     constructor(props){
         super(props)
         this.state = {
-            Gia: '',
+            MoTa: '',
         }
 
     }
     TiepTucRaoVat =()=> {
-        this.props.navigation.navigate('TieuDeRaoVat')
+        this.props.navigation.navigate('KhuVucRaoVat')
     }
     render (){
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
-                <TextInput placeholder = 'Giá'
+                <TextInput placeholder = 'Mô tả rao vặt'
                            underlineColorAndroid="#FF9800"
-                           onChangeText = {(Gia)=>this.setState({Gia})}
-                style = {{marginLeft: 15, marginTop:10}}/>
+                           onChangeText = {(MoTa)=>this.setState({MoTa})}
+                           style = {{marginLeft: 15, marginTop:10}}/>
                 <View style = {styles.TiepTucView}>
                     <TouchableOpacity onPress = {this.TiepTucRaoVat}>
-                     <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
+                        <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         );
     }
 }
-export default GiaRaoVat
+export default MoTaRaoVat
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
