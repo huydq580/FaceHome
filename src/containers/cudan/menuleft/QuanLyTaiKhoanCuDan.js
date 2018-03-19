@@ -3,13 +3,14 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity, AsyncStorage
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import stylesContainer from "../../../components/style";
 
 export default class QuanLyTaiKhoanCuDan extends Component {
     Logout() {
+        AsyncStorage.removeItem('UserID')
         const resetAction = NavigationActions.reset({
             index: 0,
             actions: [

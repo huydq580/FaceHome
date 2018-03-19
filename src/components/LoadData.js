@@ -18,8 +18,9 @@ class LoadData extends Component {
     }
     componentWillMount(){
         AsyncStorage.getItem('Type').then((value)=> {
+            console.log('type', value)
             setTimeout(() => {
-                if (value = 1) {
+                if (value == 1) {
                     // this.props.navigation.navigate('TabBQL')
                     const resetAction = NavigationActions.reset({
                         index: 0,
@@ -31,7 +32,7 @@ class LoadData extends Component {
                     });
                     this.props.navigation.dispatch(resetAction)
                 }
-                else if (value = 2) {
+                else if (value == 2) {
                     // this.props.navigation.navigate('TabCuDan')
                     const resetAction = NavigationActions.reset({
                         index: 0,
@@ -43,7 +44,7 @@ class LoadData extends Component {
                     });
                     this.props.navigation.dispatch(resetAction)
                 }
-                else if (value = 3) {
+                else if (value == 3) {
                     // this.props.navigation.navigate(('TabNCC'))
                     const resetAction = NavigationActions.reset({
                         index: 0,
