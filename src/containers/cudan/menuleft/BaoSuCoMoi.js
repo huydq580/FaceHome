@@ -22,11 +22,10 @@ class BaoSuCoMoi extends Component {
         }
     }
     BaoSuCoMoi(){
-        const { UserCuDan } = this.props;
-        if (UserCuDan<=0){
+        const { InfoUser } = this.props;
+        if (InfoUser<=0){
             return null;
         }
-        // console.log('UserCuDan', UserCuDan)
         fetch( URL+ PostSuco,  {
             method: 'POST',
             headers: {
@@ -34,9 +33,9 @@ class BaoSuCoMoi extends Component {
 
             },
             body: JSON.stringify({
-                kdt_id: UserCuDan.payload[0].KDTID,
-                user_id: UserCuDan.payload[0].UserID,
-                full_name: UserCuDan.payload[0].FullName,
+                kdt_id: InfoUser[0].KDTID,
+                user_id: InfoUser[0].UserID,
+                full_name: InfoUser[0].FullName,
                 avatar: "",
                 ten_can_ho: 1002,
                 media: "",
@@ -99,7 +98,7 @@ class BaoSuCoMoi extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         infoCuDan: state.NhaCuDanReducers
     }
 };

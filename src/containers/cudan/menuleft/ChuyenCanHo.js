@@ -24,11 +24,11 @@ class ChuyenCanHo extends Component{
         }
     }
     componentWillMount() {
-        const { callApiGetKDT, UserCuDan } = this.props;
-        if(UserCuDan.length<=0){
+        const { callApiGetKDT, InfoUser } = this.props;
+        if(InfoUser.length<=0){
             return null
         }
-        callApiGetKDT(UserCuDan.payload[0].KDTID).then(dataRes => {
+        callApiGetKDT(InfoUser[0].KDTID).then(dataRes => {
             console.log('toa trong kdt', dataRes)
             dataKDT = JSON.parse(dataRes);
             this.setState({
@@ -37,12 +37,11 @@ class ChuyenCanHo extends Component{
         })
     }
     ChuyenCanHo = ()=> {
-        const { callApiChuyenDiaDiem, UserCuDan } = this.props
-        if(UserCuDan.length<=0){
+        const { callApiChuyenDiaDiem, InfoUser } = this.props
+        if(InfoUser.length<=0){
             return null
         }
-        console.log('userCuDan', UserCuDan.payload)
-        callApiChuyenDiaDiem(UserCuDan.payload[0].ProfileID, UserCuDan.payload[0].UserID, 1, UserCuDan.payload[0].KDTID, "", this.state.ToaNha, this.state.Tang, this.state.CanHo).then(dataRes => {
+        callApiChuyenDiaDiem(InfoUser[0].ProfileID, InfoUser[0].UserID, 1, InfoUser[0].KDTID, "", this.state.ToaNha, this.state.Tang, this.state.CanHo).then(dataRes => {
             data = JSON.parse(dataRes);
             if(data.ErrorCode==="00") {
                 Alert.alert(
@@ -101,7 +100,7 @@ class ChuyenCanHo extends Component{
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers
+        InfoUser: state.GetProfileReducers,
     }
 };
 

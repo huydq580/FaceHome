@@ -22,11 +22,11 @@ class BaoSuCoKDT extends Component {
         }
     }
     componentWillMount(){
-        const { callApiSearchSuCo,UserCuDan  } = this.props;
-        if (UserCuDan.length<=0){
+        const { callApiSearchSuCo,InfoUser  } = this.props;
+        if (InfoUser.length<=0){
             return null;
         }
-        callApiSearchSuCo(UserCuDan.payload[0].KDTID , this.state.SuCo).then(dataRes => {
+        callApiSearchSuCo(InfoUser[0].KDTID , this.state.SuCo).then(dataRes => {
             dataRes = JSON.parse(dataRes)
             dataRes = dataRes.Value,
                 this.setState({
@@ -71,7 +71,7 @@ class BaoSuCoKDT extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

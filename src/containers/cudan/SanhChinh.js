@@ -30,8 +30,8 @@ class SanhChinh extends Component {
             page_index: 1,
             dataItem: [],
         }
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         this.fetchData()
@@ -41,8 +41,8 @@ class SanhChinh extends Component {
             transports: ['websocket']
         });
         this.socket.emit('loginpost', {
-            UserID: UserCuDan.payload[0].UserID,
-            KDTID: UserCuDan.payload[0].KDTID,
+            UserID: InfoUser[0].UserID,
+            KDTID: InfoUser[0].KDTID,
         })
         this.socket.on('receivepost', (dataReceive) => {
             console.log('receivepost', dataReceive)
@@ -73,8 +73,8 @@ class SanhChinh extends Component {
     }
 
     pushDeviceToken = (token_APP) => {
-        const {UserCuDan} = this.props
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null;
         }
 
@@ -83,8 +83,8 @@ class SanhChinh extends Component {
             headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                profile_id: UserCuDan.payload[0].ProfileID,
-                user_id: UserCuDan.payload[0].UserID,
+                profile_id: InfoUser[0].ProfileID,
+                user_id: InfoUser[0].UserID,
                 field: "TokenKey",
                 value: token_APP,
                 lang_name: "vi_VN"
@@ -99,14 +99,13 @@ class SanhChinh extends Component {
     }
 
     componentWillMount() {
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
 
-        // console.log('userbql', UserCuDan.payload)
         const {callApiNhaCuDan} = this.props;
-        callApiNhaCuDan(UserCuDan.payload[0].ProfileID, UserCuDan.payload[0].UserID, UserCuDan.payload[0].Type).then(dataNha => {
+        callApiNhaCuDan(InfoUser[0].ProfileID, InfoUser[0].UserID, InfoUser[0].Type).then(dataNha => {
             dataNhaCuDan = JSON.parse(dataNha);
             console.log('data1', dataNhaCuDan)
 
@@ -160,14 +159,14 @@ class SanhChinh extends Component {
     }
 
     fetchData = () => {
-        const {UserCuDan, callApiSearchPost} = this.props
-        if (UserCuDan.length <= 0) {
+        const {InfoUser, callApiSearchPost} = this.props
+        if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchPost(this.state.page_index, UserCuDan.payload[0].KDTID).then(dataRes => {
+        callApiSearchPost(this.state.page_index, InfoUser[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            console.log('bai viet sanh chinh', dataBaiViet)
+            // console.log('bai viet sanh chinh', dataBaiViet)
             if (dataBaiViet.length <= 0) {
                 return null
             }
@@ -263,7 +262,7 @@ class SanhChinh extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         infoCuDan: state.NhaCuDanReducers
     }
 };

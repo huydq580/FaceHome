@@ -42,8 +42,8 @@ class ChiTietSuCoCuDan extends Component {
     componentWillMount() {
         const { params } = this.props.navigation.state
         // console.log('params', params.PostId)
-        const { UserCuDan } = this.props;
-        if (UserCuDan.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         this.socket = SocketIOClient(SOCKET, {
@@ -52,9 +52,9 @@ class ChiTietSuCoCuDan extends Component {
             transports: ['websocket']
         });
         this.socket.emit('logincomment', {
-            UserID: UserCuDan.payload[0].UserID,
-            SuCoID: UserCuDan.SuCoId,
-            KDTID: UserCuDan.payload[0].KDTID,
+            UserID: InfoUser[0].UserID,
+            SuCoID: InfoUser.SuCoId,
+            KDTID: InfoUser[0].KDTID,
         })
         console.log('so luong cmt', this.state.dataCmt)
         this.socket.on('receivecomment', (dataReceive) => {
@@ -78,16 +78,16 @@ class ChiTietSuCoCuDan extends Component {
 
     }
     sendCmt = ( Content, CreatedTime) => {
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         // console.log("msg:", this.input_msg);
         //object need send to server
         let dataSendCmt = {
-            UserID: UserCuDan.payload[0].UserID,
-            FullName: UserCuDan.payload[0].FullName,
-            Avatar:UserCuDan.payload[0].Avartar,
+            UserID: InfoUser[0].UserID,
+            FullName: InfoUser[0].FullName,
+            Avatar:InfoUser[0].Avartar,
             Content: Content,
             Picture:"",
             CreatedTime: CreatedTime
@@ -101,11 +101,11 @@ class ChiTietSuCoCuDan extends Component {
             return;
         this.textInput.clear();
         let SendCMT = this.input_msg;
-        const { callApiPostCmtSuCo, UserCuDan } = this.props;
-        if (UserCuDan.length <= 0) {
+        const { callApiPostCmtSuCo, InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
-        callApiPostCmtSuCo( UserCuDan.payload[0].KDTID,params.SuCoId, UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName, SendCMT).then(dataRes => {
+        callApiPostCmtSuCo( InfoUser[0].KDTID,params.SuCoId, InfoUser[0].UserID, InfoUser[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
             // console.log('post bai thanh cong', dataRes)
             this.sendCmt(  SendCMT ,data.Value)
@@ -226,7 +226,7 @@ class ChiTietSuCoCuDan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         tongCmtSuCo: state.SearchCmtSuCoReducers,
     }
 };

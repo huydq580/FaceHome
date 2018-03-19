@@ -12,13 +12,12 @@ import { callApiInfoKDT } from "../../../actions/actionsBQL/KDTInfoActions";
 
 class ThongTinKDTCuDan extends Component {
     GetInfoKDT (){
-        const { UserCuDan } = this.props;
-        if (UserCuDan.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
-        // console.log('userbql', UserBQL.payload[0])
         const { callApiInfoKDT } = this.props;
-        callApiInfoKDT(100, 1, UserCuDan.payload[0].KDTID, UserCuDan.payload[0].Type, 0).then(dataKDTInfo => {
+        callApiInfoKDT(100, 1, InfoUser[0].KDTID,InfoUser[0].Type, 0).then(dataKDTInfo => {
             console.log('dataInfo', dataKDTInfo)
 
         })
@@ -59,7 +58,7 @@ class ThongTinKDTCuDan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         infonha: state.KDTInfoReducers
     }
 };

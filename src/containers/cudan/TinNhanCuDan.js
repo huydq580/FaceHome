@@ -32,13 +32,12 @@ class TinNhanCuDan extends Component {
         this.getUser()
     }
     getUser = () => {
-        const { UserCuDan } = this.props;
-        if (UserCuDan.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
-        console.log('usercuDan', UserCuDan)
         const { callApiGetUser } = this.props;
-        callApiGetUser(UserCuDan.payload[0].UserID).then(dataRes => {
+        callApiGetUser(InfoUser[0].UserID).then(dataRes => {
             dataUser = dataRes.ObjectResult
             this.setState({
                 dataUser: dataUser,
@@ -100,7 +99,7 @@ class TinNhanCuDan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         SocketRef: state.SocketReducers,
         dataUser: state.MessageReducers,
     }

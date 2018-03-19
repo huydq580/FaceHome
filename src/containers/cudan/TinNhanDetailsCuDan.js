@@ -52,11 +52,10 @@ class TinNhanDetailsCuDan extends Component {
         }
         this.input_msg = '';
         const {params} = this.props.navigation.state
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
-        console.log('usercudan', UserCuDan)
         console.log('params', params.MsgGroupID)
         //connect socket
         this.socket = SocketIOClient(SOCKET, {
@@ -76,7 +75,7 @@ class TinNhanDetailsCuDan extends Component {
             // die when send fullname
             this.socket.emit('login', {
                 MsgGroupID: params.MsgGroupID,
-                UserID: UserCuDan.payload[0].UserID,
+                UserID: InfoUser[0].UserID,
                 FullName: "",
                 Avartar: ""
             })
@@ -94,7 +93,7 @@ class TinNhanDetailsCuDan extends Component {
                 Content: dataMess,
                 CreatedDate: "2018-02-05T09:29:35.383Z",
                 DayFlag: 20180205,
-                FullName: UserCuDan.payload[0].FullName,
+                FullName: InfoUser[0].FullName,
                 KDTID: 50,
                 MessageID: "",
                 MsgGroupID: params.MsgGroupID,
@@ -127,15 +126,15 @@ class TinNhanDetailsCuDan extends Component {
             transports: ['websocket']
         });
         const {params} = this.props.navigation.state
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         // console.log('userbql', UserBQL)
         let dataGroup = {
             MsgGroupID: params.MsgGroupID,
-            UserID: UserCuDan.payload[0].UserID,
-            IntUserID: UserCuDan.payload[0].IntUserID
+            UserID: InfoUser[0].UserID,
+            IntUserID: InfoUser[0].IntUserID
 
         }
         this.socket.emit("logout", dataGroup)
@@ -144,12 +143,12 @@ class TinNhanDetailsCuDan extends Component {
     //get old msg
     getOldMSG = () => {
         const {params} = this.props.navigation.state
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         const {callApiGetMessage} = this.props;
-        callApiGetMessage(UserCuDan.payload[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
+        callApiGetMessage(InfoUser[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
                 dataChat: [...dataMessage, ...this.state.dataChat],
@@ -172,8 +171,8 @@ class TinNhanDetailsCuDan extends Component {
     //socket event send message
     sendMessage = () => {
         const {params} = this.props.navigation.state
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         if (this.input_msg === "")
@@ -181,12 +180,12 @@ class TinNhanDetailsCuDan extends Component {
         this.textInput.clear();
         // console.log("msg:", this.input_msg);
         //object need send to server
-        console.log('userid gui di', UserCuDan.payload[0].UserID)
+        console.log('userid gui di', InfoUser[0].UserID)
         let dataSend = {
             MsgGroupID: params.MsgGroupID,
-            UserID: UserCuDan.payload[0].UserID,
+            UserID: InfoUser[0].UserID,
             FullName: "",
-            FullName: UserCuDan.payload[0].FullName,
+            FullName: InfoUser[0].FullName,
             Avartar: "",
             RefUserID: "",
             RefName: "",
@@ -194,7 +193,7 @@ class TinNhanDetailsCuDan extends Component {
             Content: this.input_msg,
             CreatedDate: "",
             DayFlag: "",
-            KDTID: UserCuDan.payload[0].KDTID,
+            KDTID: InfoUser[0].KDTID,
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
@@ -205,14 +204,14 @@ class TinNhanDetailsCuDan extends Component {
             Content: dataMesSend,
             CreatedDate: "2018-02-05T09:29:35.383Z",
             DayFlag: 20180205,
-            FullName: UserCuDan.payload[0].FullName,
+            FullName: InfoUser[0].FullName,
             KDTID: 50,
             MessageID: "",
             MsgGroupID: params.MsgGroupID,
             RefAvartar: "",
             RefName: "",
             RefUserID: "",
-            UserID: UserCuDan.payload[0].UserID,
+            UserID: InfoUser[0].UserID,
             rowNumber: "1"
         });
         this.setState({dataChat: newMsg});
@@ -226,8 +225,8 @@ class TinNhanDetailsCuDan extends Component {
                 </View>
             );
         }
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         return (
@@ -244,7 +243,7 @@ class TinNhanDetailsCuDan extends Component {
                         return (
                             <ChatItemCuDan
                                 dataItem={item}
-                                myName={UserCuDan.payload[0].UserID}
+                                myName={InfoUser[0].UserID}
                             />
                         )
                     }}
@@ -320,8 +319,7 @@ class TinNhanDetailsCuDan extends Component {
 const mapStateToProps = (state) => {
     return {
         Message: state.MessagesDetailsReducers,
-        // UserBQL: state.LoginReducers,
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

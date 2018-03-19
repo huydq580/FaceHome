@@ -27,11 +27,11 @@ class CanhBaoChayNhanhCuDan extends Component {
         }
     }
     componentWillMount(){
-        const { UserBQL, callApiSearchCanhBaoChay } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser, callApiSearchCanhBaoChay } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchCanhBaoChay(UserBQL.payload[0].KDTID).then((dataSearch) => {
+        callApiSearchCanhBaoChay(InfoUser[0].KDTID).then((dataSearch) => {
             dataSearch1 = JSON.parse(dataSearch);
             console.log('dataSearch', dataSearch1)
             this.setState({
@@ -40,13 +40,12 @@ class CanhBaoChayNhanhCuDan extends Component {
         })
     }
     BaoChay () {
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
-        // console.log('userbbql1', UserBQL)
         const { callApiCanhBaoChay } = this.props;
-        callApiCanhBaoChay(UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID,  UserBQL.payload[0].FullName, this.state.CanhBao).then((dataCanhBaoChay) => {
+        callApiCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID,  InfoUser[0].FullName, this.state.CanhBao).then((dataCanhBaoChay) => {
             data = JSON.parse(dataCanhBaoChay);
             if(data.ErrorCode === "00"){
                 Alert.alert(
@@ -116,7 +115,7 @@ class CanhBaoChayNhanhCuDan extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

@@ -26,8 +26,8 @@ class ChuyenKDT extends Component{
         }
     }
     componentWillMount() {
-        const { callApiSearchKDT, UserCuDan } = this.props;
-        if(UserCuDan.length<=0){
+        const { callApiSearchKDT, InfoUser } = this.props;
+        if(InfoUser.length<=0){
             return null
         }
         callApiSearchKDT("", "").then(dataRes=> {
@@ -49,12 +49,11 @@ class ChuyenKDT extends Component{
         })
     }
     ChuyenKDT = ()=> {
-        const { callApiChuyenDiaDiem, UserCuDan } = this.props
-        if(UserCuDan.length<=0){
+        const { callApiChuyenDiaDiem, InfoUser } = this.props
+        if(InfoUser.length<=0){
             return null
         }
-        // console.log('userCuDan', UserCuDan.payload)
-        callApiChuyenDiaDiem(UserCuDan.payload[0].ProfileID, UserCuDan.payload[0].UserID, 2, UserCuDan.payload[0].KDTID, this.state.KDT, this.state.ToaNha, this.state.Tang, this.state.CanHo).then(dataRes => {
+        callApiChuyenDiaDiem(InfoUser[0].ProfileID, InfoUser[0].UserID, 2, InfoUser[0].KDTID, this.state.KDT, this.state.ToaNha, this.state.Tang, this.state.CanHo).then(dataRes => {
             data = JSON.parse(dataRes);
             if(data.ErrorCode==="00") {
                 Alert.alert(
@@ -124,7 +123,7 @@ class ChuyenKDT extends Component{
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers
+        InfoUser: state.GetProfileReducers,
     }
 };
 

@@ -28,15 +28,13 @@ class SoanTinMoiCuDan extends Component {
         }
     }
     componentWillMount(){
-        const { UserCuDan } = this.props;
-        if (UserCuDan.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
 
-        // console.log('user',UserCuDan)
-
         const { callApiGetBQL } = this.props;
-        callApiGetBQL(UserCuDan.payload[0].KDTID).then(dataGetBQL => {
+        callApiGetBQL(InfoUser[0].KDTID).then(dataGetBQL => {
             dataGetBQL = JSON.parse(dataGetBQL)
             dataGetBQL = dataGetBQL.Value
             this.setState({
@@ -94,18 +92,12 @@ class SoanTinMoiCuDan extends Component {
                     data = {this.state.dataBQL}
                     renderItem = {({item}) =>
                         <TouchableOpacity onPress = {()=>{
-                            const { UserCuDan } = this.props;
-                            if (UserCuDan.length <= 0) {
+                            const { InfoUser } = this.props;
+                            if (InfoUser.length <= 0) {
                                 return null;
                             }
-                            // console.log('UsercuDan111', UserCuDan)
-                            // console.log('KDTID',UserCuDan.payload[0].KDTID )
-                            // console.log('UserID',UserCuDan.payload[0].UserID )
-                            // console.log('FullName',UserCuDan.payload[0].FullName )
-                            // console.log('user1',item.UserID)
-                            // console.log('FullName1',item.FullName)
                             const { callApiMsgGroupID } = this.props;
-                            callApiMsgGroupID(UserCuDan.payload[0].KDTID,UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName,UserCuDan.payload[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,item.FullName, UserCuDan.payload[0].UserID, UserCuDan.payload[0].FullName, false).then(dataRes=> {
+                            callApiMsgGroupID(InfoUser[0].KDTID,InfoUser[0].UserID, InfoUser[0].FullName,InfoUser[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,item.FullName, InfoUser[0].UserID, InfoUser[0].FullName, false).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),
@@ -140,7 +132,7 @@ class SoanTinMoiCuDan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

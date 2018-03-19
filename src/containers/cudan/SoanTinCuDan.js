@@ -51,13 +51,11 @@ class SoanTinCuDan extends Component {
 
     // function header
     share() {
-        const {UserCuDan, callApiCreatePost} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser, callApiCreatePost} = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
-        // console.log('dfd', UserBQL.payload[0].KDTID)
-        // console.log('linkimg', this.state.linkImg)
-        callApiCreatePost(UserCuDan.payload[0].KDTID, UserCuDan.payload[0].UserID, UserCuDan.payload[0].Type, UserCuDan.payload[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
+        callApiCreatePost(InfoUser[0].KDTID, InfoUser[0].UserID, InfoUser[0].Type, InfoUser[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
             data = JSON.parse(dataPost);
             if (data.ErrorCode === "00") {
                 Alert.alert(
@@ -90,18 +88,18 @@ class SoanTinCuDan extends Component {
     }
 
     sendPost = (CreatedDate, Content, PostID) => {
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         // console.log("msg:", this.input_msg);
         //object need send to server
         let dataSendPost = {
             RowNum: "",
-            KDTID: UserCuDan.payload[0].KDTID,
-            UserID: UserCuDan.payload[0].UserID,
-            FullName: UserCuDan.payload[0].FullName,
-            Avatar: UserCuDan.payload[0].Avatar,
+            KDTID: InfoUser[0].KDTID,
+            UserID: InfoUser[0].UserID,
+            FullName: InfoUser[0].FullName,
+            Avatar: InfoUser[0].Avatar,
             CreatedDate: CreatedDate,
             UserType: 255,
             TotalComment: "",
@@ -127,11 +125,11 @@ class SoanTinCuDan extends Component {
     }
 
     upload() {
-        const {UserCuDan, callApiUploadImage} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
-        callApiUploadImage(UserCuDan.payload[0].UserID, this.state.dataImage).then(dataImg => {
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
             dataImg = JSON.parse(dataImg)
             dataImg = dataImg.Value
             // console.log('dataImage1', dataImg)
@@ -194,7 +192,7 @@ class SoanTinCuDan extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

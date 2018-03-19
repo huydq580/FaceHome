@@ -61,6 +61,7 @@ class ChiTietThanhVienBQL extends Component {
         if(InfoUser.length<=0){
             return null
         }
+        console.log('InfoUser[0].RoleID', InfoUser)
         const { callApiUpdateStatus } = this.props
         callApiUpdateStatus(InfoUser[0].RoleID,params.ItemBQL.ProfileID,params.ItemBQL.UserID, this.state.Status  ).then(dataRes => {
             data = JSON.parse(dataRes);
