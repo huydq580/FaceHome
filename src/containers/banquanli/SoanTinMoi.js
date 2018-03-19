@@ -29,13 +29,13 @@ class SoanTinMoi extends Component {
         this.dataSearchDanCu = [];
     }
     componentWillMount(){
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
 
         const { callApiSearchDanCu } = this.props;
-        callApiSearchDanCu(UserBQL.payload[0].KDTID).then(dataSearchDanCu => {
+        callApiSearchDanCu(InfoUser[0].KDTID).then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
             this.dataSearchDanCu = dataSearchDanCu
@@ -94,17 +94,12 @@ class SoanTinMoi extends Component {
                     data = {this.state.dataCuDan}
                     renderItem = {({item}) =>
                         <TouchableOpacity onPress = {()=>{
-                            const { UserBQL } = this.props;
-                            if (UserBQL.length <= 0) {
+                            const { InfoUser } = this.props;
+                            if (InfoUser.length <= 0) {
                                 return null;
                             }
-                            // console.log('KDTID', UserBQL.payload[0].KDTID)
-                            // console.log('UserID', UserBQL.payload[0].UserID)
-                            // console.log('FullName', UserBQL.payload[0].FullName)
-                            // console.log('UserID1', item.UserID)
-                            // console.log('FullName1', item.FullName)
                             const { callApiMsgGroupID } = this.props;
-                            callApiMsgGroupID(UserBQL.payload[0].KDTID,UserBQL.payload[0].UserID, UserBQL.payload[0].FullName,UserBQL.payload[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,  item.FullName, UserBQL.payload[0].UserID, UserBQL.payload[0].FullName, false).then(dataRes=> {
+                            callApiMsgGroupID(InfoUser[0].KDTID,InfoUser[0].UserID, InfoUser[0].FullName,InfoUser[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,  item.FullName, InfoUser[0].UserID, InfoUser[0].FullName, false).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),
@@ -135,7 +130,7 @@ class SoanTinMoi extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         infoCuDan: state.QLDanCuReducers
     }
 };

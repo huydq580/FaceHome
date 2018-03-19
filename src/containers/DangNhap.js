@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import UserInput from '../components/dangnhap/UserInput';
-import images from '../components/images'
-import {Login, URL} from "../components/Api";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiLogin} from "../actions/actionsBQL/LoginActions";
@@ -40,8 +38,6 @@ class DangNhap extends Component {
         const { callApiLogin } = this.props;
         callApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
             data = JSON.parse(dataLogin);
-            // console.log('Log2', this.props.USER[0].dataLogin)
-            // console.log('data', data.Value[0].UserID)
             if(data.IsError === false && data.ErrorCode === "00"){
                 AsyncStorage.setItem('UserID', data.Value[0].UserID)
                 AsyncStorage.setItem('Type', data.Value[0].Type.toString())
@@ -127,14 +123,11 @@ class DangNhap extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        User: state.LoginReducers,
-        UserBql1: state.GetProfileReducers
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // addTodo: bindActionCreators(addTodo, dispatch),
         callApiLogin: bindActionCreators(callApiLogin, dispatch)
     }
 };

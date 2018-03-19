@@ -68,12 +68,12 @@ import DuyetTaiKhoan from "../containers/DuyetTaiKhoan";
 
 
 const Stack = StackNavigator ({
-    // Launcher: {
-    //     screen: Launcher,
-    //     navigationOptions: {
-    //         header: null,
-    //     }
-    // },
+    Launcher: {
+        screen: Launcher,
+        navigationOptions: {
+            header: null,
+        }
+    },
     DangNhap: {
         screen: DangNhap,
         navigationOptions: {

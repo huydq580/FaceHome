@@ -44,15 +44,15 @@ class QuanLyCuDan extends Component {
     }
 
     componentWillMount() {
-        const {UserBQL} = this.props;
-        if (UserBQL.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
 
-        // console.log('user',UserBQL)
+
 
         const {callApiSearchDanCu, callApiGetKDT} = this.props;
-        callApiSearchDanCu(UserBQL.payload[0].KDTID).then(dataSearchDanCu => {
+        callApiSearchDanCu(InfoUser[0].KDTID).then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
             this.dataSearchDanCu = dataSearchDanCu
@@ -61,7 +61,7 @@ class QuanLyCuDan extends Component {
             })
             console.log('data cu dan', this.state.dataCuDan)
         })
-        callApiGetKDT(UserBQL.payload[0].KDTID).then(dataRes => {
+        callApiGetKDT(InfoUser[0].KDTID).then(dataRes => {
             dataToaNha = JSON.parse(dataRes)
             dataToaNha = dataToaNha.Value
             dataToaNha.unshift({PartID: "", Code: "", Ten: 'Chọn tòa nhà'});
@@ -197,7 +197,7 @@ class QuanLyCuDan extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         infoCuDan: state.QLDanCuReducers
     }
 };

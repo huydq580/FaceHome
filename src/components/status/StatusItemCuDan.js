@@ -29,14 +29,14 @@ class StatusItemCuDan extends Component {
     }
 
     LikePost = (PostID, DatePost) => {
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
         this.socket.emit('likepost', {
-            UserID: UserCuDan.payload[0].UserID,
+            UserID: InfoUser[0].UserID,
             PostID: PostID,
-            FullName: UserCuDan.payload[0].FullName,
+            FullName: InfoUser[0].FullName,
             DatePost: DatePost
         })
     }
@@ -160,7 +160,7 @@ class StatusItemCuDan extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 const mapDispatchToProps = (dispatch) => {

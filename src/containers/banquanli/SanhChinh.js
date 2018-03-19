@@ -44,8 +44,8 @@ class SanhChinh extends Component {
             isLoading: true,
             page_index: 1,
         }
-        const {UserBQL} = this.props;
-        if (UserBQL.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         this.fetchData();
@@ -56,8 +56,8 @@ class SanhChinh extends Component {
         });
         // console.log('socket sanh chinh', this.socket)
         this.socket.emit('loginpost', {
-            UserID: UserBQL.payload[0].UserID,
-            KDTID: UserBQL.payload[0].KDTID,
+            UserID: InfoUser[0].UserID,
+            KDTID: InfoUser[0].KDTID,
         })
         this.socket.on('revicelikepost', (dataReceive) => {
             console.log('revicelikepost', dataReceive)
@@ -89,17 +89,11 @@ class SanhChinh extends Component {
 
     }
     componentWillMount () {
-        const { UserBql1 } = this.props
-        if(UserBql1.length <=0) {
-            return null
-        }
-        console.log('UserBql1', UserBql1)
-
     }
 
     pushDeviceToken = (token_APP) => {
-        const {UserBQL} = this.props
-        if (UserBQL.length <= 0) {
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null;
         }
 
@@ -108,8 +102,8 @@ class SanhChinh extends Component {
             headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                profile_id: UserBQL.payload[0].ProfileID,
-                user_id: UserBQL.payload[0].UserID,
+                profile_id: InfoUser[0].ProfileID,
+                user_id: InfoUser[0].UserID,
                 field: "TokenKey",
                 value: token_APP,
                 lang_name: "vi_VN"
@@ -172,11 +166,11 @@ class SanhChinh extends Component {
 
     //lay bai post
     fetchData = () => {
-        const {UserBQL, callApiSearchPost} = this.props
-        if (UserBQL.length <= 0) {
+        const {InfoUser, callApiSearchPost} = this.props
+        if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchPost(this.state.page_index, UserBQL.payload[0].KDTID).then(dataRes => {
+        callApiSearchPost(this.state.page_index,InfoUser[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
             console.log('bai viet sanh chinh', dataBaiViet)
@@ -277,8 +271,7 @@ class SanhChinh extends Component {
 const mapStateToProps = (state) => {
     return {
         SocketRef: state.SocketReducers,
-        UserBQL: state.LoginReducers,
-        UserBql1 : state.GetProfileReducers
+        InfoUser: state.GetProfileReducers,
     }
 };
 

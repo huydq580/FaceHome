@@ -18,13 +18,13 @@ class SuCoItemBQL extends Component {
         }
     }
     ClickItemSuCo = (SuCoID, itemsuco)=> {
-        const { callApiSearchCmtSuco, UserBQL } = this.props
-        if (UserBQL.length <= 0) {
+        const { callApiSearchCmtSuco, InfoUser } = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
-        console.log('kdt id', UserBQL.payload[0].KDTID)
+        console.log('kdt id', InfoUser[0].KDTID)
         console.log('SuCoID', SuCoID)
-        callApiSearchCmtSuco(UserBQL.payload[0].KDTID, SuCoID).then(dataRes => {
+        callApiSearchCmtSuco(InfoUser[0].KDTID, SuCoID).then(dataRes => {
             this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID, ItemSuCo: itemsuco})
         })
 
@@ -67,7 +67,7 @@ class SuCoItemBQL extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 const mapDispatchToProps = (dispatch) => {

@@ -18,13 +18,13 @@ class SuCoItemCuDan extends Component {
         }
     }
     ClickItemSuCo = (SuCoID, itemsuco)=> {
-        const { callApiSearchCmtSuco, UserCuDan } = this.props
-        if (UserCuDan.length <= 0) {
+        const { callApiSearchCmtSuco, InfoUser } = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
-        console.log('kdt id', UserCuDan.payload[0].KDTID)
-        console.log('SuCoID', UserCuDan)
-        callApiSearchCmtSuco(UserCuDan.payload[0].KDTID, SuCoID).then(dataRes => {
+        console.log('kdt id', InfoUser[0].KDTID)
+        console.log('SuCoID', InfoUser)
+        callApiSearchCmtSuco(InfoUser[0].KDTID, SuCoID).then(dataRes => {
             this.props.navigation.navigate('ChiTietSuCoCuDan', {SuCoId: SuCoID, ItemSuCo: itemsuco})
         })
 
@@ -66,7 +66,7 @@ class SuCoItemCuDan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 const mapDispatchToProps = (dispatch) => {

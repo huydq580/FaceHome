@@ -52,13 +52,11 @@ class SoanTin extends Component {
 
     // function header
     share() {
-        const {UserBQL, callApiCreatePost} = this.props;
-        if (UserBQL.length <= 0) {
+        const {InfoUser, callApiCreatePost} = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
-        // console.log('dfd', UserBQL.payload[0].KDTID)
-        // console.log('linkimg', this.state.linkImg)
-        callApiCreatePost(UserBQL.payload[0].KDTID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
+        callApiCreatePost(InfoUser[0].KDTID,InfoUser[0].UserID, InfoUser[0].Type, InfoUser[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
             data = JSON.parse(dataPost);
             console.log('thong bao postbai', data)
             if (data.ErrorCode === "00") {
@@ -92,18 +90,18 @@ class SoanTin extends Component {
     }
 
     sendPost = (CreatedDate, Content, PostID) => {
-        const {UserBQL} = this.props;
-        if (UserBQL.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         // console.log("msg:", this.input_msg);
         //object need send to server
         let dataSendPost = {
             RowNum: "",
-            KDTID: UserBQL.payload[0].KDTID,
-            UserID: UserBQL.payload[0].UserID,
-            FullName: UserBQL.payload[0].FullName,
-            Avatar: UserBQL.payload[0].Avatar,
+            KDTID: InfoUser[0].KDTID,
+            UserID: InfoUser[0].UserID,
+            FullName: InfoUser[0].FullName,
+            Avatar:InfoUser[0].Avatar,
             CreatedDate: CreatedDate,
             UserType: 255,
             TotalComment: "",
@@ -129,11 +127,11 @@ class SoanTin extends Component {
     }
 
     upload() {
-        const {UserBQL, callApiUploadImage} = this.props;
-        if (UserBQL.length <= 0) {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
-        callApiUploadImage(UserBQL.payload[0].UserID, this.state.dataImage).then(dataImg => {
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
             dataImg = JSON.parse(dataImg)
             dataImg = dataImg.Value
             // console.log('dataImage1', dataImg)
@@ -196,7 +194,7 @@ class SoanTin extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 

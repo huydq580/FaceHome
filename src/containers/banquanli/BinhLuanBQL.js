@@ -36,8 +36,8 @@ class BinhLuanBQL extends Component {
     componentWillMount() {
         const { params } = this.props.navigation.state
         // console.log('params', params.PostId)
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         this.socket = SocketIOClient(SOCKET, {
@@ -46,9 +46,9 @@ class BinhLuanBQL extends Component {
             transports: ['websocket']
         });
         this.socket.emit('logincomment', {
-            UserID: UserBQL.payload[0].UserID,
+            UserID: InfoUser[0].UserID,
             PostID: params.PostId,
-            KDTID: UserBQL.payload[0].KDTID,
+            KDTID: InfoUser[0].KDTID,
         })
         console.log('so luong cmt', this.state.dataCmt)
         this.socket.on('receivecomment', (dataReceive) => {
@@ -77,8 +77,8 @@ class BinhLuanBQL extends Component {
 
     }
     sendCmt = (CommentID, CreatedDate, Content) => {
-        const {UserBQL} = this.props;
-        if (UserBQL.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         // console.log("msg:", this.input_msg);
@@ -86,11 +86,11 @@ class BinhLuanBQL extends Component {
         let dataSendCmt = {
             RowNum:"",
             CommentID:CommentID,
-            UserID:UserBQL.payload[0].UserID,
-            FullName:UserBQL.payload[0].FullName,
-            Avartar:UserBQL.payload[0].Avartar,
+            UserID:InfoUser[0].UserID,
+            FullName:InfoUser[0].FullName,
+            Avartar:InfoUser[0].Avartar,
             CreatedDate:CreatedDate,
-            UserType:UserBQL.payload[0].UserID,
+            UserType:InfoUser[0].UserID,
             TotalLike:"",
             Content:Content,
             TotalRow:""
@@ -104,11 +104,11 @@ class BinhLuanBQL extends Component {
             return;
         this.textInput.clear();
         let SendCMT = this.input_msg;
-        const { callApiPostCmt, UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { callApiPostCmt, InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
-        callApiPostCmt(params.PostId, UserBQL.payload[0].UserID, UserBQL.payload[0].Type, UserBQL.payload[0].FullName, SendCMT).then(dataRes => {
+        callApiPostCmt(params.PostId, InfoUser[0].UserID, InfoUser[0].Type, InfoUser[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
             this.sendCmt( data.Value.CommentID ,data.Value.CreatedDate, SendCMT)
         })
@@ -194,7 +194,7 @@ class BinhLuanBQL extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         tongCmt: state.SearchCmtReducers,
     }
 };

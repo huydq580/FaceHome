@@ -29,14 +29,14 @@ class StatusItems extends Component {
     }
 
     LikePost = (PostID, DatePost) => {
-        const {UserBQL} = this.props;
-        if (UserBQL.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null
         }
         this.socket.emit('likepost', {
-            UserID: UserBQL.payload[0].UserID,
+            UserID: InfoUser[0].UserID,
             PostID: PostID,
-            FullName: UserBQL.payload[0].FullName,
+            FullName: InfoUser[0].FullName,
             DatePost: DatePost
         })
     }
@@ -160,7 +160,7 @@ class StatusItems extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
     }
 };
 const mapDispatchToProps = (dispatch) => {

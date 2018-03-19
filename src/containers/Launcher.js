@@ -15,11 +15,6 @@ class Launcher extends Component{
         }
     }
     componentWillMount(){
-        // const { UserBQL } = this.props;
-        // if (UserBQL.length <= 0) {
-        //     return null;
-        // }
-        // console.log('userblq', UserBQL)
         setTimeout(()=> {
             this.setState({
                 isTime: true

@@ -18,7 +18,6 @@ class LoadData extends Component {
     }
     componentWillMount(){
         AsyncStorage.getItem('Type').then((value)=> {
-            console.log('type', value)
             setTimeout(() => {
                 if (value = 1) {
                     // this.props.navigation.navigate('TabBQL')
@@ -83,7 +82,6 @@ class LoadData extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
     }
 };
 const mapDispatchToProps = (dispatch) => {
