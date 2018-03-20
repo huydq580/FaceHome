@@ -34,7 +34,7 @@ class XemLaiTinDang extends Component {
                     </View>
                     <View style={styles.viewContainer}>
                         <Text style={styles.textTren}>Tỉnh, thành phố</Text>
-                        <Text style={styles.textDuoi}>{params.tenVung}</Text>
+                        <Text style={styles.textDuoi}>{params.Tinh}</Text>
                         <View style={{height: 1, backgroundColor: '#BDBDBD', marginTop: 5}}/>
 
                     </View>

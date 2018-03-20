@@ -26,6 +26,7 @@ class GiaRaoVat extends Component {
                 tenVung: params.tenVung,
                 maVung: params.maVung,
                 linkImg: params.linkImg,
+                Tinh: params.Tinh,
                 Gia: this.state.Gia,
             })
     }

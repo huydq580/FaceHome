@@ -24,10 +24,12 @@ class QuanHuyenRaoVat extends Component {
     }
     TiepTucRaoVat =(tenVung, maVung)=> {
         const { params } = this.props.navigation.state
+        // console.log('tinh', params)
         this.props.navigation.navigate('HinhAnhRaoVat',
             {
                 danhMuc:params.danhMuc,
                 name: params.name,
+                Tinh: params.Tinh,
                 tenVung: tenVung,
                 maVung: maVung
             })

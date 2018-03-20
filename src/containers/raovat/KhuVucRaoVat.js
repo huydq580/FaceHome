@@ -34,7 +34,7 @@ class KhuVucRaoVat extends Component {
             })
         })
     }
-    CallApiQuanHuyen=(maVung)=>{
+    CallApiQuanHuyen=(maVung , tenVung)=>{
         const { params } = this.props.navigation.state
         const { callApiQuanHuyen } = this.props;
         callApiQuanHuyen(maVung).then(dataQuanHuyen => {
@@ -48,7 +48,8 @@ class KhuVucRaoVat extends Component {
                 {
                     dataQuan: dataQuanHuyen,
                     danhMuc:params.danhMuc,
-                    name: params.name
+                    name: params.name,
+                    Tinh: tenVung
                 })
         })
     }
@@ -63,7 +64,7 @@ class KhuVucRaoVat extends Component {
                     data = {this.state.dataItemTinh}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity onPress = {()=> this.CallApiQuanHuyen(item.MaVung)}>
+                            <TouchableOpacity onPress = {()=> this.CallApiQuanHuyen(item.MaVung, item.TenVung)}>
                                 <View style = {{flexDirection:'column', marginTop: 12, flex:1, marginLeft: 5}}>
                                     <Text style = {{ fontSize:16}}>{item.TenVung}</Text>
                                     <View style = {{height:1, backgroundColor:"#BDBDBD", marginTop:12}}/>
