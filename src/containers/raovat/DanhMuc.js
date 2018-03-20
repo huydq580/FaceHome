@@ -28,8 +28,8 @@ class DanhMuc extends Component {
             dataItem: Category.payload
         })
     }
-    TiepTucRaoVat =()=> {
-        this.props.navigation.navigate('BanDangTin')
+    TiepTucRaoVat =(danhmuc, name)=> {
+        this.props.navigation.navigate('BanDangTin', {danhMuc: danhmuc, name: name})
     }
     render (){
         return (
@@ -39,7 +39,7 @@ class DanhMuc extends Component {
                     data = {this.state.dataItem}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress = {() => this.TiepTucRaoVat(item.CatID, item.Name)}>
                                 <View style = {{flexDirection:'row', marginTop: 6, flex:1}}>
                                     <Image style = {{flex:1, height:20, width:20, marginLeft: 8}}
                                            source={{
@@ -68,11 +68,11 @@ class DanhMuc extends Component {
                     }
                     keyExtractor={(item, index) => index}
                 />
-                <View style = {styles.TiepTucView}>
-                    <TouchableOpacity onPress = {this.TiepTucRaoVat}>
-                        <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
-                    </TouchableOpacity>
-                </View>
+                {/*<View style = {styles.TiepTucView}>*/}
+                    {/*<TouchableOpacity onPress = {this.TiepTucRaoVat}>*/}
+                        {/*<Text style = {styles.TiepTucText}>TIẾP TỤC</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                {/*</View>*/}
             </View>
         );
     }

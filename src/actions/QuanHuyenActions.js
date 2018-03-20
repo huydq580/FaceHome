@@ -18,7 +18,7 @@ export const callApiQuanHuyen = (mavung) => {
                 return response.json();
             }).then(data => {
                 data1 = JSON.parse(data);
-                console.log('data1', data1)
+                // console.log('data1', data1)
                 dispatch({
                     type: 'QUAN_HUYEN',
                     payload: data1.Value

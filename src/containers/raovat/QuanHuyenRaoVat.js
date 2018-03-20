@@ -22,8 +22,15 @@ class QuanHuyenRaoVat extends Component {
             dataItemHuyen: params.dataQuan
         })
     }
-    TiepTucRaoVat =()=> {
-        this.props.navigation.navigate('HinhAnhRaoVat')
+    TiepTucRaoVat =(tenVung, maVung)=> {
+        const { params } = this.props.navigation.state
+        this.props.navigation.navigate('HinhAnhRaoVat',
+            {
+                danhMuc:params.danhMuc,
+                name: params.name,
+                tenVung: tenVung,
+                maVung: maVung
+            })
     }
     render (){
         return (
@@ -33,7 +40,7 @@ class QuanHuyenRaoVat extends Component {
                     data = {this.state.dataItemHuyen}
                     renderItem={({item}) => {
                         return (
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress = {()=> this.TiepTucRaoVat(item.TenVung, item.MaVung)}>
                                 <View style = {{flexDirection:'column', marginTop: 12, flex:1, marginLeft: 5}}>
                                     <Text style = {{ fontSize:16}}>{item.TenVung}</Text>
                                     <View style = {{height:1, backgroundColor:"#BDBDBD", marginTop:12}}/>
@@ -45,11 +52,11 @@ class QuanHuyenRaoVat extends Component {
                     keyExtractor={(item, index) => index}
                 />
 
-                <View style = {styles.TiepTucView}>
-                    <TouchableOpacity onPress = {this.TiepTucRaoVat}>
-                        <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
-                    </TouchableOpacity>
-                </View>
+                {/*<View style = {styles.TiepTucView}>*/}
+                    {/*<TouchableOpacity onPress = {this.TiepTucRaoVat}>*/}
+                        {/*<Text style = {styles.TiepTucText}>TIẾP TỤC</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                {/*</View>*/}
             </View>
         );
     }

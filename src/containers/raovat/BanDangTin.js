@@ -10,7 +10,12 @@ import Dimensions from 'Dimensions';
 
 class BanDangTin extends Component {
     TiepTucRaoVat =()=> {
-        this.props.navigation.navigate('KhuVucRaoVat')
+        const { params } = this.props.navigation.state
+        this.props.navigation.navigate('KhuVucRaoVat',
+            {
+                danhMuc:params.danhMuc,
+                name: params.name
+            })
     }
     render (){
         return (

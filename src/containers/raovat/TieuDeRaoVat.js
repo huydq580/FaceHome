@@ -13,19 +13,28 @@ class TieuDeRaoVat extends Component {
     constructor(props){
         super(props)
         this.state = {
-            Gia: '',
+            TieuDe: '',
         }
 
     }
     TiepTucRaoVat =()=> {
-        this.props.navigation.navigate('MoTaRaoVat')
+        const { params } = this.props.navigation.state
+        this.props.navigation.navigate('MoTaRaoVat', {
+            danhMuc:params.danhMuc,
+            name: params.name,
+            tenVung: params.tenVung,
+            maVung: params.maVung,
+            linkImg: params.linkImg,
+            Gia: params.Gia,
+            TieuDe: this.state.TieuDe
+        })
     }
     render (){
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
                 <TextInput placeholder = 'Tiêu đề'
                            underlineColorAndroid="#FF9800"
-                           onChangeText = {(Gia)=>this.setState({Gia})}
+                           onChangeText = {(TieuDe)=>this.setState({TieuDe})}
                            style = {{marginLeft: 15, marginTop:10}}/>
                 <View style = {styles.TiepTucView}>
                     <TouchableOpacity onPress = {this.TiepTucRaoVat}>

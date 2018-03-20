@@ -123,7 +123,9 @@ class SoanTin extends Component {
 
     //call function PickerImage component(upload image local)
     show() {
-        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}));
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}, ()=>{
+            this.upload()
+        }));
     }
 
     upload() {
@@ -166,11 +168,8 @@ class SoanTin extends Component {
                                    placeholderTextSize="20"/>
                     </View>
                 </View>
-                {/*<TouchableOpacity onPress={this.upload.bind(this)}>*/}
-                {/*<Text style = {{fontSize: 30}}>Upload</Text>*/}
-                {/*</TouchableOpacity>*/}
 
-                {img}
+                    {img}
 
                 <View style={{
                     flexDirection: 'row',

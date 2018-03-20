@@ -35,20 +35,26 @@ class KhuVucRaoVat extends Component {
         })
     }
     CallApiQuanHuyen=(maVung)=>{
+        const { params } = this.props.navigation.state
         const { callApiQuanHuyen } = this.props;
         callApiQuanHuyen(maVung).then(dataQuanHuyen => {
             dataQuanHuyen = JSON.parse(dataQuanHuyen);
             dataQuanHuyen = dataQuanHuyen.Value;
-            console.log('dataQuan', dataQuanHuyen)
+            // console.log('dataQuan', dataQuanHuyen)
             this.setState({
                 dataItemHuyen: dataQuanHuyen
             })
-            this.props.navigation.navigate('QuanHuyenRaoVat', {dataQuan: dataQuanHuyen})
+            this.props.navigation.navigate('QuanHuyenRaoVat',
+                {
+                    dataQuan: dataQuanHuyen,
+                    danhMuc:params.danhMuc,
+                    name: params.name
+                })
         })
     }
-    TiepTucRaoVat =()=> {
-        this.props.navigation.navigate('QuanHuyenRaoVat')
-    }
+    // TiepTucRaoVat =()=> {
+    //     this.props.navigation.navigate('QuanHuyenRaoVat')
+    // }
     render (){
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
@@ -70,11 +76,11 @@ class KhuVucRaoVat extends Component {
                     keyExtractor={(item, index) => index}
                 />
 
-                <View style = {styles.TiepTucView}>
-                    <TouchableOpacity onPress = {this.TiepTucRaoVat}>
-                        <Text style = {styles.TiepTucText}>TIẾP TỤC</Text>
-                    </TouchableOpacity>
-                </View>
+                {/*<View style = {styles.TiepTucView}>*/}
+                    {/*<TouchableOpacity onPress = {this.TiepTucRaoVat}>*/}
+                        {/*<Text style = {styles.TiepTucText}>TIẾP TỤC</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                {/*</View>*/}
             </View>
         );
     }

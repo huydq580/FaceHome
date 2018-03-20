@@ -18,7 +18,16 @@ class GiaRaoVat extends Component {
 
     }
     TiepTucRaoVat =()=> {
-        this.props.navigation.navigate('TieuDeRaoVat')
+        const { params } = this.props.navigation.state
+        this.props.navigation.navigate('TieuDeRaoVat',
+            {
+                danhMuc:params.danhMuc,
+                name: params.name,
+                tenVung: params.tenVung,
+                maVung: params.maVung,
+                linkImg: params.linkImg,
+                Gia: this.state.Gia,
+            })
     }
     render (){
         return (
