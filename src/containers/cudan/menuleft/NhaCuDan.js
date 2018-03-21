@@ -32,8 +32,8 @@ class NhaCuDan extends Component {
             page_index: 1,
 
         }
-        const {UserCuDan} = this.props;
-        if (UserCuDan.length <= 0) {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
         this.fetchData()
@@ -43,8 +43,8 @@ class NhaCuDan extends Component {
             transports: ['websocket']
         });
         this.socket.emit('loginpost', {
-            UserID: UserCuDan.payload[0].UserID,
-            KDTID: UserCuDan.payload[0].KDTID,
+            UserID: InfoUser[0].UserID,
+            KDTID: InfoUser[0].KDTID,
         })
         this.socket.on('receivepost', (dataReceive) => {
             console.log('receivepost', dataReceive)
@@ -73,11 +73,11 @@ class NhaCuDan extends Component {
         })
     }
     fetchData = () => {
-        const {UserCuDan, callApiSearchPost} = this.props
-        if (UserCuDan.length <= 0) {
+        const {InfoUser, callApiSearchPost} = this.props
+        if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchPost(this.state.page_index, UserCuDan.payload[0].KDTID).then(dataRes => {
+        callApiSearchPost(this.state.page_index, InfoUser[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
             console.log('bai viet sanh chinh', dataBaiViet)
@@ -181,7 +181,7 @@ class NhaCuDan extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserCuDan: state.LoginReducers,
+        InfoUser: state.GetProfileReducers,
         infoCuDan: state.NhaCuDanReducers
     }
 };
