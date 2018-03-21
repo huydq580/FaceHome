@@ -70,6 +70,16 @@ class StatusItemCuDan extends Component {
                     <View style={{marginHorizontal: 10, marginTop: 10}}>
                         <Text style={{color: '#212121'}}>{item.PostContent}</Text>
                     </View>
+                    {
+                        item.Images !== "http://192.168.1.254:9051" ?
+                            <Image source={{
+                                uri: item.Images
+                            }}
+                                   style={styles.imagePost}
+                                   resizeMode="cover">
+                            </Image>
+                            : null
+                    }
                     <View style={{flexDirection: 'row', marginTop: 20, justifyContent: 'space-between'}}>
                         <View style={{flexDirection: 'row', marginLeft: 10}}>
                             <Icon1 name="like" size={25} color="#424242"/>
@@ -86,7 +96,7 @@ class StatusItemCuDan extends Component {
                         <View style={{flexDirection: 'row', marginLeft: 20}}>
                             <Icon1 name="like" size={25} color="#424242"/>
                             <TouchableOpacity
-                                onPress={this.LikePost}
+                                onPress={()=> this.LikePost()}
                             >
                                 <Text style={{color: '#424242'}}>Thích</Text>
                             </TouchableOpacity>
@@ -182,4 +192,9 @@ const styles = StyleSheet.create({
         // marginTop: 10
 
     },
+    imagePost: {
+        width: DEVICE_WIDTH,
+        height: 200,
+        marginTop: 10
+    }
 })

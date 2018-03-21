@@ -26,6 +26,7 @@ class StatusItems extends Component {
         this.state = {
             TongCmt: ""
         }
+
     }
 
     LikePost = (PostID, DatePost) => {
@@ -37,7 +38,9 @@ class StatusItems extends Component {
             UserID: InfoUser[0].UserID,
             PostID: PostID,
             FullName: InfoUser[0].FullName,
-            DatePost: DatePost
+            DatePost: DatePost,
+            KDTID: InfoUser[0].KDTID,
+
         })
     }
     BinhLuan = (PostID) => {
@@ -58,7 +61,9 @@ class StatusItems extends Component {
             <View>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15, alignItems:'center'}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                        <Image source={{
+                            uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
+                        }}
                                style={styles.image_circle}
                                resizeMode="cover">
                         </Image>
@@ -70,6 +75,17 @@ class StatusItems extends Component {
                     <View style={{marginHorizontal: 10, marginTop: 10}}>
                         <Text style={{color: '#212121'}}>{item.PostContent}</Text>
                     </View>
+
+                    {
+                        item.Images !== "http://192.168.1.254:9051" ?
+                            <Image source={{
+                                uri: item.Images
+                            }}
+                                   style={styles.imagePost}
+                                   resizeMode="cover">
+                            </Image>
+                            : null
+                    }
                     <View style={{flexDirection: 'row', marginTop: 20, justifyContent: 'space-between'}}>
                         <View style={{flexDirection: 'row', marginLeft: 10}}>
                             <Icon1 name="like" size={25} color="#424242"/>
@@ -86,7 +102,7 @@ class StatusItems extends Component {
                         <View style={{flexDirection: 'row', marginLeft: 20}}>
                             <Icon1 name="like" size={25} color="#424242"/>
                             <TouchableOpacity
-                                onPress={this.LikePost}
+                                onPress={()=> this.LikePost(item.PostID)}
                             >
                                 <Text style={{color: '#424242'}}>Thích</Text>
                             </TouchableOpacity>
@@ -182,4 +198,9 @@ const styles = StyleSheet.create({
         // marginTop: 10
 
     },
+    imagePost: {
+        width: DEVICE_WIDTH,
+        height: 200,
+        marginTop: 10
+    }
 })

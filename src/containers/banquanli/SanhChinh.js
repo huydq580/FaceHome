@@ -59,8 +59,8 @@ class SanhChinh extends Component {
             UserID: InfoUser[0].UserID,
             KDTID: InfoUser[0].KDTID,
         })
-        this.socket.on('revicelikepost', (dataReceive) => {
-            console.log('revicelikepost', dataReceive)
+        this.socket.on('receivelikepost', (dataReceive) => {
+            console.log('receivelikepost', dataReceive)
         })
         this.socket.on('receivepost', (dataReceive) => {
             console.log('receivepost', dataReceive)
