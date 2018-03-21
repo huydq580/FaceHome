@@ -1,6 +1,6 @@
 import {SearchRaoVat, URL} from "../../components/Api";
 
-export const callApiSearchRaoVat = (post_id) => {
+export const callApiSearchRaoVat = (userid, kdt_id, cat_id, ma_vung, post_type, user_type, status) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + SearchRaoVat, {
@@ -11,12 +11,16 @@ export const callApiSearchRaoVat = (post_id) => {
                 body: JSON.stringify({
                     page_size: 100,
                     page_index: 1,
+                    userid: userid,
                     keyword: "",
-                    post_id: post_id,
+                    kdt_id: kdt_id,
+                    cat_id: cat_id,
+                    ma_vung: ma_vung,
+                    post_type: post_type,
+                    user_type: user_type,
                     from_date: "",
                     to_date: "",
-                    user_id: "",
-                    user_type: 255,
+                    status: status,
                     option: 0,
                     lang_name: "vi_VN"
                 })

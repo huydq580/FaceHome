@@ -1,6 +1,27 @@
 import {PostRaoVat, URL} from "../../components/Api";
 
-export const callApiPostRaoVat = (post_id) => {
+export const callApiPostRaoVat = (
+        user_id,
+        user_name,
+        full_name,
+        dia_chi,
+        avatar,
+        cat_id,
+        cat_name,
+        tieu_de,
+        images,
+        gia,
+        mo_ta,
+        ma_vung,
+        ten_vung,
+        kdt_id,
+        lien_he,
+        rv_type,
+        user_type
+
+
+
+    ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + PostRaoVat, {
@@ -9,15 +30,23 @@ export const callApiPostRaoVat = (post_id) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    page_size: 100,
-                    page_index: 1,
-                    keyword: "",
-                    post_id: post_id,
-                    from_date: "",
-                    to_date: "",
-                    user_id: "",
-                    user_type: 255,
-                    option: 0,
+                    user_id: user_id,
+                    user_name: user_name,
+                    full_name: full_name,
+                    dia_chi: dia_chi,
+                    avatar: avatar,
+                    cat_id: cat_id,
+                    cat_name: cat_name,
+                    tieu_de: tieu_de,
+                    images: images,
+                    gia: gia,
+                    mo_ta: mo_ta,
+                    ma_vung: ma_vung,
+                    ten_vung: ten_vung,
+                    kdt_id: kdt_id,
+                    lien_he: lien_he,
+                    rv_type: rv_type,
+                    user_type: user_type,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {

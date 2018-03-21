@@ -37,6 +37,7 @@ class SanhChinh extends Component {
     }
 
     constructor(props) {
+        console.log('console.log sanh chinh')
         super(props)
         this.state = {
             dataItem: [],
@@ -54,6 +55,7 @@ class SanhChinh extends Component {
             pingInterval: 30000,
             transports: ['websocket']
         });
+
         // console.log('socket sanh chinh', this.socket)
         this.socket.emit('loginpost', {
             UserID: InfoUser[0].UserID,

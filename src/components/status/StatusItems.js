@@ -17,6 +17,7 @@ import { callApiSearchCmt } from "../../actions/SearchCmtActions";
 
 class StatusItems extends Component {
     constructor(props) {
+        console.log('constructor status item')
         super(props)
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -26,7 +27,13 @@ class StatusItems extends Component {
         this.state = {
             TongCmt: ""
         }
+        this.socket.on('receivelikepost', (dataReceive) => {
+            console.log('receivelikepost', dataReceive)
+        })
 
+
+    }
+    componentWillMount (){
     }
 
     LikePost = (PostID, DatePost) => {
