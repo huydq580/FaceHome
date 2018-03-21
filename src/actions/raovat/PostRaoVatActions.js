@@ -18,9 +18,6 @@ export const callApiPostRaoVat = (
         lien_he,
         rv_type,
         user_type
-
-
-
     ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {

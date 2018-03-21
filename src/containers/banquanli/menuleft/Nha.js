@@ -9,7 +9,7 @@ import {
     AsyncStorage,
     ScrollView,
     ActivityIndicator,
-    Image
+    Image, Alert
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -18,6 +18,7 @@ import stylesContainer from "../../../components/style";
 import StatusItems from "../../../components/status/StatusItems";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
 import {callApiGetProfile} from "../../../actions/GetProfileActions";
+import {ChangePassword, GetProfileBQL, URL} from "../../../components/Api";
 
 
 
@@ -29,34 +30,61 @@ class Nha extends Component {
             refresh : false,
             isLoading: true,
             page_index: 1,
+            Profile: [],
 
         }
     }
 
     componentWillMount() {
         this.fetchData()
-        const { UserBQL } = this.props;
-        if (UserBQL.length <= 0) {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
             return null;
         }
 
         // console.log('userbql', UserBQL.payload[0].UserID)
-        const { callApiGetProfile } = this.props;
-        callApiGetProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
-            // dataNhaBQL = JSON.parse(dataNha);
-            // console.log('data', dataNhaBQL)
+        // const { callApiGetProfile } = this.props;
+        // callApiGetProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
+        //     // dataNhaBQL = JSON.parse(dataNha);
+        //     // console.log('data', dataNhaBQL)
+        // })
+        fetch( URL + GetProfileBQL,  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify({
+                profile_id: InfoUser[0].ProfileID,
+                user_id: InfoUser[0].UserID,
+                user_type: InfoUser[0].Type,
+                option: 101,
+                lang_name: "vi_VN"
+            })
+        })
+            .then((response) => response.json())
+            .then((dataRes)=> {
+                dataNhaBQL = JSON.parse(dataRes);
+                dataNhaBQL = dataNhaBQL.Value;
+                // console.log('data profle', dataNhaBQL)
+                this.setState ({
+                    Profile: dataNhaBQL
+                })
+
+            }).catch((erro)=> {
+            console.log('erro',erro);
         })
     }
     //lay du lieu api
     fetchData = () => {
-        const { UserBQL, callApiSearchPost } = this.props
-        if (UserBQL.length <= 0) {
+        const { InfoUser, callApiSearchPost } = this.props
+        if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchPost(this.state.page_index, UserBQL.payload[0].KDTID,UserBQL.payload[0].UserID).then(dataRes => {
+        callApiSearchPost(this.state.page_index, InfoUser[0].KDTID,InfoUser[0].UserID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            console.log('bai viet sanh chinh', dataBaiViet)
+            // console.log('bai viet sanh chinh', dataBaiViet)
             if (dataBaiViet.length <=0){
                 return null
             }
@@ -80,12 +108,12 @@ class Nha extends Component {
         );
     };
     render (){
-        // console.log('render')
-        const { infoBQL } = this.props;
-        if (infoBQL.length <= 0) {
-            return null;
+        let InfoProfile = this.state.Profile
+        // console.log('profile1', InfoProfile)
+        if(InfoProfile.length<=0){
+            return null
         }
-        // console.log('infoBQL', infoBQL[0].FullName)
+        console.log('profile1', InfoProfile[0])
         //ActivityIndicator
         if (this.state.isLoading) {
             return (
@@ -100,7 +128,7 @@ class Nha extends Component {
                     <View style = {styles.circle}>
                         <Text>Avatar</Text>
                     </View>
-                    <Text style = {{marginTop:20, fontSize: 20}}>{infoBQL[0].FullName}</Text>
+                    <Text style = {{marginTop:20, fontSize: 20}}>{InfoProfile[0].FullName}</Text>
                 </View>
 
                 <TouchableOpacity style = {styles.Touch}>
@@ -117,11 +145,11 @@ class Nha extends Component {
                         <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
                         <View style = {{flexDirection:'row', marginLeft:10,}}>
                             <Text style = {{color: 'white', fontSize:15}}>Tên:  </Text>
-                            <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].FullName}</Text>
+                            <Text style = {{color: 'white',fontSize:15}}>{InfoProfile[0].FullName}</Text>
                         </View>
                         <View style = {{flexDirection:'row', marginLeft:10, }}>
                             <Text style = {{color: 'white',fontSize:15}}>Số điện thoại: </Text>
-                            <Text style = {{color: 'white',fontSize:15}}>{infoBQL[0].Phone}</Text>
+                            <Text style = {{color: 'white',fontSize:15}}>{InfoProfile[0].Phone}</Text>
                         </View>
 
                     </View>
@@ -159,8 +187,8 @@ class Nha extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        UserBQL: state.LoginReducers,
-        infoBQL: state.GetProfileReducers
+        InfoUser: state.GetProfileReducers,
+        // infoBQL: state.GetProfileReducers
     }
 };
 

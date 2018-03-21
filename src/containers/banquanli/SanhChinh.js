@@ -37,7 +37,6 @@ class SanhChinh extends Component {
     }
 
     constructor(props) {
-        console.log('console.log sanh chinh')
         super(props)
         this.state = {
             dataItem: [],
@@ -175,7 +174,7 @@ class SanhChinh extends Component {
         callApiSearchPost(this.state.page_index,InfoUser[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            console.log('bai viet sanh chinh', dataBaiViet)
+            // console.log('bai viet sanh chinh', dataBaiViet)
             if (dataBaiViet.length <= 0) {
                 return null
             }

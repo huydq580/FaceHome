@@ -35,6 +35,7 @@ class GiaRaoVat extends Component {
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
                 <TextInput placeholder = 'Giá'
                            underlineColorAndroid="#FF9800"
+                           keyboardType={'numeric'}
                            onChangeText = {(Gia)=>this.setState({Gia})}
                 style = {{marginLeft: 15, marginTop:10}}/>
                 <View style = {styles.TiepTucView}>

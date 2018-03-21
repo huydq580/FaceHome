@@ -29,7 +29,7 @@ class MoTaRaoVat extends Component {
                 Gia: params.Gia,
                 TieuDe: params.TieuDe,
                 Tinh: params.Tinh,
-                MoTa: this.props.MoTa
+                MoTa: this.state.MoTa
             })
     }
     render (){

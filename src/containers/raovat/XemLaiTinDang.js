@@ -9,10 +9,51 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import stylesContainer from "../../components/style";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {callApiPostRaoVat} from "../../actions/raovat/PostRaoVatActions";
 
 class XemLaiTinDang extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+
+        }
+    }
+    componentWillMount (){
+        const { InfoUser } = this.props;
+
+
+    }
     DangBanTin =()=> {
-        console.log('hihi')
+        const { params } = this.props.navigation.state
+        const { callApiPostRaoVat, InfoUser } = this.props;
+        if (InfoUser.length<=0){
+            return null
+        }
+        callApiPostRaoVat(
+            InfoUser[0].UserID,
+            InfoUser[0].FullName,
+            InfoUser[0].FullName,
+            "",
+            "",
+            params.danhMuc,
+            params.name,
+            params.TieuDe,
+            "",
+            params.Gia,
+            params.MoTa,
+            params.maVung,
+            params.tenVung,
+            InfoUser[0].KDTID,
+            1,
+            1,
+
+
+
+            ).then(dataRes => {
+            console.log('data rao vat', dataRes)
+        })
     }
     render() {
         const { params } = this.props.navigation.state
@@ -76,6 +117,20 @@ class XemLaiTinDang extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiPostRaoVat: bindActionCreators(callApiPostRaoVat, dispatch),
+    }
+};
+
+XemLaiTinDang = connect(mapStateToProps, mapDispatchToProps)(XemLaiTinDang);
+
 
 export default XemLaiTinDang
 const DEVICE_WIDTH = Dimensions.get('window').width;

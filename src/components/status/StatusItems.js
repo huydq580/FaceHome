@@ -17,7 +17,6 @@ import { callApiSearchCmt } from "../../actions/SearchCmtActions";
 
 class StatusItems extends Component {
     constructor(props) {
-        console.log('constructor status item')
         super(props)
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     },
     imagePost: {
         width: DEVICE_WIDTH,
-        height: 200,
+        // height: : (height / width) * width
         marginTop: 10
     }
 })
