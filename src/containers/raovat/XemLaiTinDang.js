@@ -46,8 +46,9 @@ class XemLaiTinDang extends Component {
             params.maVung,
             params.tenVung,
             InfoUser[0].KDTID,
-            1,
-            1,
+            "0963250395",
+            params.BanDangTin,
+            params.BanLa,
 
 
 
