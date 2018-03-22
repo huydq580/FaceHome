@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
 import {callApiGetBQL} from "../../../actions/actionsBQL/BQLActions";
 import {callApiGetProfile} from "../../../actions/GetProfileActions";
+import {GetProfileBQL, URL} from "../../../components/Api";
 
 class BanQuanLy extends Component{
     constructor(props){
@@ -61,12 +62,32 @@ class BanQuanLy extends Component{
                             }
                             //lay a  = item = stt - 1
                             a = item.RowNum-1;
-                            // console.log('a', a)
-                            // console.log('wtf', chiTietBQL.payload[a])
-                            callApiGetProfile(chiTietBQL.payload[a].ProfileID,chiTietBQL.payload[a].UserID).then(dataChitietBQL => {
-                                dataChitietBQL = JSON.parse(dataChitietBQL)
-                                this.props.navigation.navigate("ChiTietThanhVienBQL", {dataBQL: dataChitietBQL.Value, ItemBQL: item})
-                                // console.log('dataChitietBQL', dataChitietBQL)
+                            const { InfoUser } = this.props;
+                            if (InfoUser.length <= 0) {
+                                return null;
+                            }
+
+                            fetch( URL + GetProfileBQL,  {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+
+                                },
+                                body: JSON.stringify({
+                                    profile_id: chiTietBQL.payload[a].ProfileID,
+                                    user_id: chiTietBQL.payload[a].UserID,
+                                    // user_type: InfoUser[0].Type,
+                                    option: 101,
+                                    lang_name: "vi_VN"
+                                })
+                            })
+                                .then((response) => response.json())
+                                .then((dataChitietBQL)=> {
+                                    dataChitietBQL = JSON.parse(dataChitietBQL)
+                                        this.props.navigation.navigate("ChiTietThanhVienBQL", {dataBQL: dataChitietBQL.Value, ItemBQL: item})
+
+                                }).catch((erro)=> {
+                                console.log('erro',erro);
                             })
 
                         }}>
@@ -125,7 +146,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // addTodo: bindActionCreators(addTodo, dispatch),
         callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch),
-        callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch)
+        // callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch)
     }
 };
 

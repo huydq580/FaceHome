@@ -13,12 +13,10 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
 import stylesContainer from "../../../components/style";
 import StatusItems from "../../../components/status/StatusItems";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
-import {callApiGetProfile} from "../../../actions/GetProfileActions";
-import {ChangePassword, GetProfileBQL, URL} from "../../../components/Api";
+import {GetProfileBQL, URL} from "../../../components/Api";
 
 
 
@@ -42,12 +40,6 @@ class Nha extends Component {
             return null;
         }
 
-        // console.log('userbql', UserBQL.payload[0].UserID)
-        // const { callApiGetProfile } = this.props;
-        // callApiGetProfile(UserBQL.payload[0].ProfileID, UserBQL.payload[0].UserID, UserBQL.payload[0].Type).then(dataNha => {
-        //     // dataNhaBQL = JSON.parse(dataNha);
-        //     // console.log('data', dataNhaBQL)
-        // })
         fetch( URL + GetProfileBQL,  {
             method: 'POST',
             headers: {
@@ -196,8 +188,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // addTodo: bindActionCreators(addTodo, dispatch),
-        callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch),
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
     }
 };

@@ -21,7 +21,6 @@ import {callApiSearchPost} from "../../actions/SearchPostActions";
 import FCM, {FCMEvent} from "react-native-fcm";
 import {SOCKET, UpdateProfile, URL} from "../../components/Api";
 import SocketIOClient from "socket.io-client";
-import {callApiGetProfile} from "../../actions/GetProfileActions";
 
 
 class SanhChinh extends Component {
@@ -280,7 +279,6 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
-        callApiGetProfile: bindActionCreators(callApiGetProfile, dispatch),
 
 
     }
