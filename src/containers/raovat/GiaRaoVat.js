@@ -23,6 +23,8 @@ class GiaRaoVat extends Component {
             {
                 danhMuc:params.danhMuc,
                 name: params.name,
+                BanDangTin: params.BanDangTin,
+                BanLa: params.BanLa,
                 tenVung: params.tenVung,
                 maVung: params.maVung,
                 linkImg: params.linkImg,

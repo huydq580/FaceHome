@@ -12,11 +12,11 @@ import stylesContainer from "../../components/style";
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from '../../components/ButtonRadio/SimpleRadioButton';
 import Dimensions from 'Dimensions';
 
-class BanDangTin extends Component {
+class BanLa extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            types1: [{label: 'Cần bán', value: 1}, {label: 'Cần mua', value: 2}, {label: 'Cho thuê', value: 3}, {label: 'Khác', value: 4}],
+            types1: [{label: 'Cá nhân', value: 1}, {label: 'Bán chuyên', value: 2}],
             value1: 1,
             value1Index: 0,
         }
@@ -24,11 +24,12 @@ class BanDangTin extends Component {
 
     TiepTucRaoVat =()=> {
         const { params } = this.props.navigation.state
-        this.props.navigation.navigate("BanLa",
+        this.props.navigation.navigate('KhuVucRaoVat',
             {
                 danhMuc:params.danhMuc,
                 name: params.name,
-                BanDangTin: this.state.value1
+                BanDangTin: params.BanDangTin,
+                BanLa: this.state.value1
             })
     }
     render (){
@@ -62,7 +63,7 @@ class BanDangTin extends Component {
         );
     }
 }
-export default BanDangTin
+export default BanLa
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
@@ -76,13 +77,6 @@ const styles = StyleSheet.create({
     TiepTucText: {
         fontWeight:'bold',
         color: 'white'
-    },
-    image_circle: {
-        height: 30,
-        width: 30,
-        marginLeft: 15,
-        // marginTop: 10
-
     },
     component: {
         alignItems: 'center',

@@ -27,6 +27,8 @@ class TieuDeRaoVat extends Component {
             linkImg: params.linkImg,
             Tinh: params.Tinh,
             Gia: params.Gia,
+            BanDangTin: params.BanDangTin,
+            BanLa: params.BanLa,
             TieuDe: this.state.TieuDe
         })
     }

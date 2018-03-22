@@ -30,6 +30,8 @@ class QuanHuyenRaoVat extends Component {
                 danhMuc:params.danhMuc,
                 name: params.name,
                 Tinh: params.Tinh,
+                BanDangTin: params.BanDangTin,
+                BanLa: params.BanLa,
                 tenVung: tenVung,
                 maVung: maVung
             })

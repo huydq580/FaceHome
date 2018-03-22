@@ -36,6 +36,7 @@ class KhuVucRaoVat extends Component {
     }
     CallApiQuanHuyen=(maVung , tenVung)=>{
         const { params } = this.props.navigation.state
+        // console.log('params', params)
         const { callApiQuanHuyen } = this.props;
         callApiQuanHuyen(maVung).then(dataQuanHuyen => {
             dataQuanHuyen = JSON.parse(dataQuanHuyen);
@@ -48,6 +49,8 @@ class KhuVucRaoVat extends Component {
                 {
                     dataQuan: dataQuanHuyen,
                     danhMuc:params.danhMuc,
+                    BanDangTin: params.BanDangTin,
+                    BanLa: params.BanLa,
                     name: params.name,
                     Tinh: tenVung
                 })

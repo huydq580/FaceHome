@@ -27,6 +27,8 @@ class MoTaRaoVat extends Component {
                 maVung: params.maVung,
                 linkImg: params.linkImg,
                 Gia: params.Gia,
+                BanDangTin: params.BanDangTin,
+                BanLa: params.BanLa,
                 TieuDe: params.TieuDe,
                 Tinh: params.Tinh,
                 MoTa: this.state.MoTa

@@ -39,6 +39,8 @@ class HinhAnhRaoVat extends Component {
                 tenVung: params.tenVung,
                 maVung: params.maVung,
                 Tinh: params.Tinh,
+                BanDangTin: params.BanDangTin,
+                BanLa: params.BanLa,
                 linkImg: this.state.linkImg
 
             })

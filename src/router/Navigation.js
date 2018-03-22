@@ -74,6 +74,7 @@ import KhuVucRaoVat from "../containers/raovat/KhuVucRaoVat";
 import TieuDeRaoVat from "../containers/raovat/TieuDeRaoVat";
 import MoTaRaoVat from "../containers/raovat/MoTaRaoVat";
 import XemLaiTinDang from "../containers/raovat/XemLaiTinDang";
+import BanLa from "../containers/raovat/BanLa";
 
 
 const Stack = StackNavigator ({
@@ -517,6 +518,12 @@ const Stack = StackNavigator ({
         screen: XemLaiTinDang,
         navigationOptions: {
             title: 'Xem lại tin đăng'
+        }
+    },
+    BanLa: {
+        screen: BanLa,
+        navigationOptions: {
+            title: 'Bạn là'
         }
     }
 
