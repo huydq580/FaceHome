@@ -108,7 +108,8 @@ class SoanTinCuDan extends Component {
             PostContent: Content,
             TotalRow: "",
             PostID: PostID,
-            Comments:''
+            Comments:'',
+            Images: this.state.linkImg
         }
         this.socket.emit("post", dataSendPost);
 
@@ -121,7 +122,9 @@ class SoanTinCuDan extends Component {
 
     //call function PickerImage component(upload image local)
     show() {
-        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}));
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}, ()=>{
+            this.upload()
+        }));
     }
 
     upload() {

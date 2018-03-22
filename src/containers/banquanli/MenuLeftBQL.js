@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 // import Icon1 from 'react-native-vector-icons/Entypo';
 import ItemLeftMenu from "../../components/leftmenu/ItemLeftMenu";

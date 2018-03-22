@@ -152,7 +152,7 @@ class NhaCuDan extends Component {
                                style = {{ resizeMode: 'cover',height: 40, width:30, marginLeft:10}}>
                         </Image>
                         <View style = {{marginLeft: 10, borderWidth: 1, borderColor: '#cccccc', borderRadius:20, flex:1,justifyContent:'center' ,alignItems:'center'}}>
-                            <TouchableOpacity onPress = {()=>this.props.navigation.navigate('SoanTin')}>
+                            <TouchableOpacity onPress = {()=>this.props.navigation.navigate('SoanTinCuDan')}>
                                 <Text>Soạn đăng bản tin cho KĐT</Text>
                             </TouchableOpacity>
                         </View>

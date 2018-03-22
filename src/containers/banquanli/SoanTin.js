@@ -111,7 +111,8 @@ class SoanTin extends Component {
             PostContent: Content,
             TotalRow: "",
             PostID: PostID,
-            Comments:''
+            Comments:'',
+            Images: this.state.linkImg
         }
         this.socket.emit("post", dataSendPost);
 

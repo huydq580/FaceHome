@@ -39,7 +39,6 @@ class Nha extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
-
         fetch( URL + GetProfileBQL,  {
             method: 'POST',
             headers: {
