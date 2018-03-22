@@ -113,7 +113,6 @@ class Nha extends Component {
         if(InfoProfile.length<=0){
             return null
         }
-        console.log('profile1', InfoProfile[0])
         //ActivityIndicator
         if (this.state.isLoading) {
             return (
@@ -122,7 +121,9 @@ class Nha extends Component {
                 </View>
             );
         }
+        const {navigation} = this.props;
         return (
+
             <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
                     <View style = {styles.circle}>
@@ -174,7 +175,8 @@ class Nha extends Component {
                     renderItem={(item) => {
                         return (
                             <StatusItems
-                                dataItem={item}/>
+                                dataItem={item}
+                                navigation={navigation}/>
                         )
                     }
                     }

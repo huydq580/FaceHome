@@ -18,7 +18,6 @@ export const callApiPostCmt = (post_id, user_id, user_type, full_name,content ) 
                     videos: "",
                     content: content,
                     lang_name: "vi_VN"
-
                 })
             }).then((response) => {
                 return response.json();

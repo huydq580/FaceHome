@@ -50,11 +50,12 @@ class StatusItems extends Component {
         })
     }
     BinhLuan = (PostID) => {
+        const { navigate } = this.props.navigation
         const { callApiSearchCmt } = this.props
         callApiSearchCmt( PostID ).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            this.props.navigation.navigate('BinhLuanBQL', {PostId: PostID})
+            navigate('BinhLuanBQL', {PostId: PostID})
         })
     }
 
@@ -110,13 +111,13 @@ class StatusItems extends Component {
                             <TouchableOpacity
                                 onPress={()=> this.LikePost(item.PostID)}
                             >
-                                <Text style={{color: '#424242'}}>Thích</Text>
+                                <Text style={{color: '#424242', fontWeight:'bold'}}>Thích</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={{flexDirection: 'row', marginRight: 20}}>
                             <Icon1 name="comment" size={25} color="#424242"/>
 
-                                <Text style={{color: '#424242'}}>Bình luận</Text>
+                                <Text style={{color: '#424242', fontWeight:'bold'}}>Bình luận</Text>
                         </View>
                     </View>
                     <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>

@@ -115,7 +115,8 @@ class NhaCuDan extends Component {
         if (infoCuDan.length <= 0) {
             return null;
         }
-        console.log('infoBQL', infoCuDan[0].FullName)
+        // console.log('infoBQL', infoCuDan[0].FullName)
+        const {navigation} = this.props;
         return (
             <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems:'center'}}>
@@ -164,7 +165,8 @@ class NhaCuDan extends Component {
                     renderItem={(item) => {
                         return (
                             <StatusItemCuDan
-                                dataItem={item}/>
+                                dataItem={item}
+                                navigation={navigation}/>
                         )
                     }
                     }
