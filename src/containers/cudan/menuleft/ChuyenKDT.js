@@ -34,6 +34,7 @@ class ChuyenKDT extends Component{
             dataSearchKDT = JSON.parse(dataRes);
             this.setState({
                 SearchKDT: dataSearchKDT.Value
+
             })
         })
 

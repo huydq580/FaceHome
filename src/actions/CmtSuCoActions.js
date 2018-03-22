@@ -26,7 +26,7 @@ export const callApiPostCmtSuCo = (kdt_id, suco_id, user_id, full_name,content )
                 // console.log('post', data1)
                 dispatch({
                     type: 'POST_CMT_SUCO',
-                    payload: data
+                    payload: data1
                 })
                 resolve(dataPost);
             }).catch(e => {
