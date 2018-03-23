@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -12,19 +12,39 @@ import RaoVatItem from "../../../components/raovat/RaoVatItem";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {callApiGetCategory} from "../../../actions/raovat/GetCategoryActions";
+import ItemSearchRaoVat from "../../../components/raovat/ItemSearchRaoVat";
 
 class RaoVat extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state ={
+        this.state = {
             search: true,
-            SearchItem:'',
-            dataCuDan:'',
+            SearchItem: '',
+            dataCuDan: '',
             text: '',
-            dataItem: []
+            dataItem: [],
+            dataSearchRaoVat: [
+                {
+                    TieuDe: 'Bán SH',
+                    Gia: '10000'
+                },
+                {
+                    TieuDe: 'Bán SH',
+                    Gia: '10000'
+                },
+                {
+                    TieuDe: 'Bán SH',
+                    Gia: '10000'
+                },
+                {
+                    TieuDe: 'Bán SH',
+                    Gia: '10000'
+                }
+            ]
 
         }
     }
+
     //handle event header
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
@@ -36,16 +56,19 @@ class RaoVat extends Component {
             </TouchableOpacity>
         }
     }
+
     componentDidMount() {
         // call function SaveDetails
         this.props.navigation.setParams({handleSave: this.DangBaiViet.bind(this)});
     }
+
     DangBaiViet() {
         this.props.navigation.navigate('DanhMuc')
 
     }
-    componentWillMount(){
-        const { callApiGetCategory } = this.props;
+
+    componentWillMount() {
+        const {callApiGetCategory} = this.props;
         callApiGetCategory().then(dataRes => {
             dataCategory = JSON.parse(dataRes)
             dataCategory = dataCategory.Value
@@ -55,17 +78,19 @@ class RaoVat extends Component {
             })
         })
     }
-    Search = ()=> {
+
+    Search = () => {
         this.setState({
             search: false
         })
     }
-    Cancel = ()=> {
+    Cancel = () => {
         this.setState({
             search: true
         })
     }
-    SearchUser(text){
+
+    SearchUser(text) {
         // const data = this.dataSearchDanCu;
         // const inputSearch = data.filter(function(item){
         //     const itemData = item.FullName.toUpperCase()
@@ -77,47 +102,68 @@ class RaoVat extends Component {
         //     text: text
         // })
     }
-    render (){
+
+    render() {
         return (
-            <View style = {stylesContainer.container}>
+            <View style={stylesContainer.container}>
                 {
                     this.state.search ?
-                        <TouchableOpacity onPress = {this.Search}>
-                            <View style = {styles.containerNavbar}>
+                        <TouchableOpacity onPress={this.Search}>
+                            <View style={styles.containerNavbar}>
                                 <Icon name="search" size={25} color="#616161"/>
 
                                 <Text>Search</Text>
 
                             </View>
-                        </TouchableOpacity> : <View style = {{ flexDirection:'row',marginTop:10}}>
-                            <View style = {styles.containerNavbarS}>
-                                <TextInput  placeholder = 'Search'
-                                            underlineColorAndroid="transparent"
-                                            onChangeText = {(text) => this.SearchUser(text)}/>
+                        </TouchableOpacity> : <View style={{flexDirection: 'row', marginTop: 10}}>
+                            <View style={styles.containerNavbarS}>
+                                <TextInput placeholder='Search'
+                                           underlineColorAndroid="transparent"
+                                           onChangeText={(text) => this.SearchUser(text)}/>
                             </View>
-                            <TouchableOpacity onPress = {this.Cancel}>
-                                <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>
+                            <TouchableOpacity onPress={this.Cancel}>
+                                <Text style={{flex: 2, marginLeft: 5, fontSize: 17}}>cancel</Text>
                             </TouchableOpacity>
                         </View>
                 }
-                <FlatList
-                    style = {{marginTop:10}}
-                    data = {this.state.dataItem}
-                    renderItem={(item) => {
-                        return (
-                            <RaoVatItem
-                                dataItem={item}/>
-                        )
-                    }
-                    }
-                    keyExtractor={(item, index) => index}
-                    numColumns={3}
-                />
+                {
+                    this.state.search ? <FlatList
+                            style={{marginTop: 10}}
+                            data={this.state.dataItem}
+                            renderItem={(item) => {
+                                return (
+                                    <RaoVatItem
+                                        dataItem={item}/>
+                                )
+                            }
+                            }
+                            keyExtractor={(item, index) => index}
+                            // numColumns={3}
+
+                        /> :
+                        <View>
+                            <View style={{height: 1, backgroundColor: "#BDBDBD", marginTop: 5}}/>
+                            <FlatList
+                                style={{marginTop: 10}}
+                                data={this.state.dataSearchRaoVat}
+                                renderItem={(item) => {
+                                    return (
+                                        <ItemSearchRaoVat
+                                            dataItem={item}/>
+                                    )
+                                }
+                                }
+                                // numColumns={3}
+                                keyExtractor={(item, index) => index}
+                            />
+                        </View>
+                }
 
             </View>
         )
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         InfoUser: state.GetProfileReducers,

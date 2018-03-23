@@ -43,7 +43,7 @@ class XemLaiTinDang extends Component {
             params.danhMuc,
             params.name,
             params.TieuDe,
-            "",
+            params.linkImg,
             params.Gia,
             params.MoTa,
             params.maVung,
