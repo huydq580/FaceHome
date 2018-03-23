@@ -4,12 +4,13 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    ScrollView,
+    ScrollView, Alert,
 
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import stylesContainer from "../../components/style";
 import {connect} from "react-redux";
+import { NavigationActions } from 'react-navigation'
 import {bindActionCreators} from "redux";
 import {callApiPostRaoVat} from "../../actions/raovat/PostRaoVatActions";
 
@@ -26,6 +27,8 @@ class XemLaiTinDang extends Component {
 
     }
     DangBanTin =()=> {
+        // this.props.navigation.goBack('DanhMuc')
+
         const { params } = this.props.navigation.state
         const { callApiPostRaoVat, InfoUser } = this.props;
         if (InfoUser.length<=0){
@@ -53,7 +56,25 @@ class XemLaiTinDang extends Component {
 
 
             ).then(dataRes => {
-            console.log('data rao vat', dataRes)
+            // console.log('data rao vat', dataRes)
+            data = JSON.parse(dataRes);
+            if(data.ErrorCode==="00") {
+                this.props.navigation.dispatch(NavigationActions.pop({
+                    n: 10,
+                }))
+            }
+            else {
+                Alert.alert(
+                    'Alert',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: false }
+                )
+            }
+
+
         })
     }
     render() {
