@@ -102,7 +102,7 @@ class SoanTinMoi extends Component {
                             callApiMsgGroupID(InfoUser[0].KDTID,InfoUser[0].UserID, InfoUser[0].FullName,InfoUser[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,  item.FullName, InfoUser[0].UserID, InfoUser[0].FullName, false).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
-                                console.log('dataMsgGroupID',dataMsgGroupID),
+                                // console.log('dataMsgGroupID',dataMsgGroupID),
                                     // console.log('gui ok')
                                 this.props.navigation.navigate("TinNhanDetails", { title : item.FullName, MsgGroupID: dataMsgGroupID})
                             })

@@ -77,7 +77,7 @@ class RaoVat extends Component {
     SearchRaoVat(text) {
         const { callApiSearchRaoVat } = this.props
         callApiSearchRaoVat(this.state.text).then(dataRes => {
-            console.log('search', dataRes)
+            // console.log('search', dataRes)
             dataRaoVat = JSON.parse(dataRes)
             dataRaoVat = dataRaoVat.Value
             this.setState({
