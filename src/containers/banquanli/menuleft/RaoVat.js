@@ -13,6 +13,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {callApiGetCategory} from "../../../actions/raovat/GetCategoryActions";
 import ItemSearchRaoVat from "../../../components/raovat/ItemSearchRaoVat";
+import {callApiSearchRaoVat} from "../../../actions/raovat/SearchRaoVatActions";
 
 class RaoVat extends Component {
     constructor(props) {
@@ -23,24 +24,7 @@ class RaoVat extends Component {
             dataCuDan: '',
             text: '',
             dataItem: [],
-            dataSearchRaoVat: [
-                {
-                    TieuDe: 'Bán SH',
-                    Gia: '10000'
-                },
-                {
-                    TieuDe: 'Bán SH',
-                    Gia: '10000'
-                },
-                {
-                    TieuDe: 'Bán SH',
-                    Gia: '10000'
-                },
-                {
-                    TieuDe: 'Bán SH',
-                    Gia: '10000'
-                }
-            ]
+            dataSearchRaoVat: []
 
         }
     }
@@ -90,17 +74,17 @@ class RaoVat extends Component {
         })
     }
 
-    SearchUser(text) {
-        // const data = this.dataSearchDanCu;
-        // const inputSearch = data.filter(function(item){
-        //     const itemData = item.FullName.toUpperCase()
-        //     const textData = text.toUpperCase()
-        //     return itemData.indexOf(textData) > -1
-        // })
-        // this.setState({
-        //     dataCuDan: inputSearch,
-        //     text: text
-        // })
+    SearchRaoVat(text) {
+        const { callApiSearchRaoVat } = this.props
+        callApiSearchRaoVat(this.state.text).then(dataRes => {
+            console.log('search', dataRes)
+            dataRaoVat = JSON.parse(dataRes)
+            dataRaoVat = dataRaoVat.Value
+            this.setState({
+                dataSearchRaoVat : dataRaoVat,
+                text: text
+            })
+        })
     }
 
     render() {
@@ -119,7 +103,7 @@ class RaoVat extends Component {
                             <View style={styles.containerNavbarS}>
                                 <TextInput placeholder='Search'
                                            underlineColorAndroid="transparent"
-                                           onChangeText={(text) => this.SearchUser(text)}/>
+                                           onChangeText={(text) => this.SearchRaoVat(text)}/>
                             </View>
                             <TouchableOpacity onPress={this.Cancel}>
                                 <Text style={{flex: 2, marginLeft: 5, fontSize: 17}}>cancel</Text>
@@ -127,7 +111,8 @@ class RaoVat extends Component {
                         </View>
                 }
                 {
-                    this.state.search ? <FlatList
+                    this.state.search ?
+                        <FlatList
                             style={{marginTop: 10}}
                             data={this.state.dataItem}
                             renderItem={(item) => {
@@ -138,13 +123,12 @@ class RaoVat extends Component {
                             }
                             }
                             keyExtractor={(item, index) => index}
-                            // numColumns={3}
+                            numColumns={3}
 
                         /> :
                         <View>
                             <View style={{height: 1, backgroundColor: "#BDBDBD", marginTop: 5}}/>
                             <FlatList
-                                style={{marginTop: 10}}
                                 data={this.state.dataSearchRaoVat}
                                 renderItem={(item) => {
                                     return (
@@ -153,7 +137,6 @@ class RaoVat extends Component {
                                     )
                                 }
                                 }
-                                // numColumns={3}
                                 keyExtractor={(item, index) => index}
                             />
                         </View>
@@ -172,7 +155,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        callApiGetCategory: bindActionCreators(callApiGetCategory, dispatch)
+        callApiGetCategory: bindActionCreators(callApiGetCategory, dispatch),
+        callApiSearchRaoVat: bindActionCreators(callApiSearchRaoVat, dispatch),
     }
 };
 

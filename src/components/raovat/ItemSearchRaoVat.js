@@ -21,9 +21,9 @@ class ItemSearchRaoVat extends Component {
                            resizeMode="cover">
 
                     </Image>
-                    <View style = {{marginLeft: 5, alignItems:'center'}}>
-                        <Text style = {{ fontSize:16}}>{item.TieuDe}</Text>
-                        <Text style = {{color:'red', marginTop:5, fontWeight:'bold'}}>{item.Gia}</Text>
+                    <View style = {{marginLeft: 5, justifyContent:'center', flex:1}}>
+                        <Text style = {{ fontSize:16, flexWrap:'wrap'}}>{item.Title}</Text>
+                        <Text style = {{color:'red', marginTop: 10, fontWeight:'bold'}}>{item.Price} đ</Text>
                     </View>
                 </View>
                 <View style = {{height:1, backgroundColor:"#BDBDBD", marginTop:5}}/>
