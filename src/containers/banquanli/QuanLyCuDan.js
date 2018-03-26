@@ -13,6 +13,7 @@ import {
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import {bindActionCreators} from 'redux'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux'
 import stylesContainer from "../../components/style";
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
@@ -64,7 +65,7 @@ class QuanLyCuDan extends Component {
         callApiGetKDT(InfoUser[0].KDTID).then(dataRes => {
             dataToaNha = JSON.parse(dataRes)
             dataToaNha = dataToaNha.Value
-            dataToaNha.unshift({PartID: "", Code: "", Ten: 'Chọn tòa nhà'});
+            dataToaNha.unshift({PartID: "", Code: "", Ten: 'Tòa nhà'});
             // console.log('dataKDT', dataToaNha)
             this.setState({
                 dataToaNha: dataToaNha
@@ -107,60 +108,103 @@ class QuanLyCuDan extends Component {
                                underlineColorAndroid="transparent"
                                onChangeText={(text) => this.SearchUser(text)}/>
                 </View>
-                <View style={{flexDirection: 'row'}}>
-                    <View style={{
-                        width: DEVICE_WIDTH / 2 - 20,
-                        marginTop: 10, marginLeft: 30,
-                        maxHeight: 40, alignItems: 'center',
-                        flex: 1, flexDirection: 'row', alignItems: 'center',
-                        borderWidth: 1, borderColor: '#9E9E9E'
-                    }}>
-                        <Picker
+                {/*<View style={{flexDirection: 'row'}}>*/}
+                    {/*<View style={{*/}
+                        {/*width: DEVICE_WIDTH / 2 - 20,*/}
+                        {/*marginTop: 10, marginLeft: 30,*/}
+                        {/*maxHeight: 40, alignItems: 'center',*/}
+                        {/*flex: 1, flexDirection: 'row', alignItems: 'center',*/}
+                        {/*borderWidth: 1, borderColor: '#9E9E9E'*/}
+                    {/*}}>*/}
+                        {/*<Picker*/}
+                            {/*style={styles.picker}*/}
+                            {/*selectedValue={this.state.Toa}*/}
+                            {/*onValueChange={(value) => {*/}
+                                {/*this.setState({Toa: value});*/}
+                                {/*// this.CallApiQuanHuyen(value);*/}
+                            {/*}}>*/}
+                            {/*{dataToaNha.map((value) => <Picker.Item key={value.Code} label={value.Ten}*/}
+                                                                    {/*value={value.Code}/>)}*/}
+                        {/*</Picker>*/}
+                    {/*</View>*/}
+                    {/*<View style={{*/}
+                        {/*width: DEVICE_WIDTH / 2 - 20, maxHeight: 40,*/}
+                        {/*marginLeft: 30, alignItems: 'center',*/}
+                        {/*marginTop: 10, flexDirection: 'row',*/}
+                        {/*alignItems: 'center',*/}
+                        {/*borderWidth: 1, borderColor: '#9E9E9E'*/}
+                    {/*}}>*/}
+                        {/*<Picker*/}
+                            {/*style={styles.picker}*/}
+                            {/*selectedValue={this.state.Tang}*/}
+                            {/*onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>*/}
+                            {/*<Picker.Item label={'Chọn tầng/lầu'} value=''/>*/}
+                            {/*<Picker.Item label={'1'} value='key1'/>*/}
+                            {/*<Picker.Item label={'2'} value={'key2'}/>*/}
+                            {/*<Picker.Item label={'3'} value={'key3'}/>*/}
+                            {/*<Picker.Item label={'4'} value={'key4'}/>*/}
+                        {/*</Picker>*/}
+                    {/*</View>*/}
+                {/*</View>*/}
+                {/*<View style={{*/}
+                    {/*width: DEVICE_WIDTH / 2 - 20,*/}
+                    {/*marginTop: 10, maxHeight: 40,*/}
+                    {/*marginLeft: 30, alignItems: 'center',*/}
+                    {/*flexDirection: 'row', alignItems: 'center',*/}
+                    {/*borderWidth: 1, borderColor: '#9E9E9E'*/}
+                {/*}}>*/}
+                    {/*<Picker*/}
+                        {/*style={styles.picker}*/}
+                        {/*selectedValue={this.state.Status}*/}
+                        {/*onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>*/}
+                        {/*<Picker.Item label={'Trạng thái'} value=''/>*/}
+                        {/*<Picker.Item label={'Chờ duyệt'} value='key1'/>*/}
+                        {/*<Picker.Item label={'Đã duyệt'} value={'key2'}/>*/}
+                        {/*<Picker.Item label={'Đã rời KĐT'} value={'key3'}/>*/}
+                    {/*</Picker>*/}
+                {/*</View>*/}
+                <View style = {{flexDirection:'row', marginTop: 10, borderWidth:1, borderColor: '#9E9E9E', minHeight: 40, justifyContent: 'center', alignItems:'center'}}>
+                        <View style =  {styles.viewItem}>
+                            <Picker
                             style={styles.picker}
                             selectedValue={this.state.Toa}
                             onValueChange={(value) => {
-                                this.setState({Toa: value});
-                                // this.CallApiQuanHuyen(value);
+                            this.setState({Toa: value});
+                            // this.CallApiQuanHuyen(value);
                             }}>
                             {dataToaNha.map((value) => <Picker.Item key={value.Code} label={value.Ten}
-                                                                    value={value.Code}/>)}
-                        </Picker>
-                    </View>
-                    <View style={{
-                        width: DEVICE_WIDTH / 2 - 20, maxHeight: 40,
-                        marginLeft: 30, alignItems: 'center',
-                        marginTop: 10, flexDirection: 'row',
-                        alignItems: 'center',
-                        borderWidth: 1, borderColor: '#9E9E9E'
-                    }}>
+                            value={value.Code}/>)}
+                            </Picker>
+
+
+                        </View>
+                    <View style = {styles.viewItem}>
+                        <View style = {{width:1, height:40, backgroundColor: '#9E9E9E'}}/>
                         <Picker
-                            style={styles.picker}
-                            selectedValue={this.state.Tang}
-                            onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>
-                            <Picker.Item label={'Chọn tầng/lầu'} value=''/>
-                            <Picker.Item label={'1'} value='key1'/>
-                            <Picker.Item label={'2'} value={'key2'}/>
-                            <Picker.Item label={'3'} value={'key3'}/>
-                            <Picker.Item label={'4'} value={'key4'}/>
-                        </Picker>
-                    </View>
-                </View>
-                <View style={{
-                    width: DEVICE_WIDTH / 2 - 20,
-                    marginTop: 10, maxHeight: 40,
-                    marginLeft: 30, alignItems: 'center',
-                    flexDirection: 'row', alignItems: 'center',
-                    borderWidth: 1, borderColor: '#9E9E9E'
-                }}>
-                    <Picker
                         style={styles.picker}
-                        selectedValue={this.state.Status}
-                        onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>
-                        <Picker.Item label={'Trạng thái'} value=''/>
-                        <Picker.Item label={'Chờ duyệt'} value='key1'/>
-                        <Picker.Item label={'Đã duyệt'} value={'key2'}/>
-                        <Picker.Item label={'Đã rời KĐT'} value={'key3'}/>
-                    </Picker>
+                        selectedValue={this.state.Tang}
+                        onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>
+                        <Picker.Item label={'Tầng/lầu'} value=''/>
+                        <Picker.Item label={'1'} value='key1'/>
+                        <Picker.Item label={'2'} value={'key2'}/>
+                        <Picker.Item label={'3'} value={'key3'}/>
+                        <Picker.Item label={'4'} value={'key4'}/>
+                        </Picker>
+
+                    </View>
+                    <View style = {styles.viewItem}>
+                        <View style = {{width:1, height:40, backgroundColor: '#9E9E9E'}}/>
+                            <Picker
+                            style={styles.picker}
+                            selectedValue={this.state.Status}
+                            onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>
+                            <Picker.Item label={'Trạng thái'} value=''/>
+                            <Picker.Item label={'Chờ duyệt'} value='key1'/>
+                            <Picker.Item label={'Đã duyệt'} value={'key2'}/>
+                            <Picker.Item label={'Đã rời KĐT'} value={'key3'}/>
+                            </Picker>
+
+                    </View>
                 </View>
                 <FlatList
                     data={this.state.dataCuDan}
@@ -220,6 +264,14 @@ const styles = StyleSheet.create({
 
     },
     picker: {
-        width: DEVICE_WIDTH / 2 - 40,
+        width: DEVICE_WIDTH / 3,
+    },
+    viewItem: {
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
+        marginHorizontal: 5,
+        flex:1
+
     }
 })

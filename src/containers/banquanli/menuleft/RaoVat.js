@@ -24,7 +24,8 @@ class RaoVat extends Component {
             dataCuDan: '',
             text: '',
             dataItem: [],
-            dataSearchRaoVat: []
+            dataSearchRaoVat: [],
+            isLoading:false
 
         }
     }
@@ -73,16 +74,34 @@ class RaoVat extends Component {
             search: true
         })
     }
+    debounce = (func, wait)=> {
+        var context = this,
+            args = arguments;
+        var executeFunction = function() {
+            func.apply(context, args);
+            this.timeout = 0;
+        };
 
-    SearchRaoVat(text) {
+        if(this.timeout) {
+            clearTimeout(this.timeout);
+        }
+        this.timeout = setTimeout(executeFunction, wait);
+    }
+
+    SearchRaoVat =(textSearch) => {
+        this.setState({isLoading:true})
+        if(textSearch === ""){
+            this.setState({dataSearchRaoVat:[],isLoading:false})
+            return;
+        }
         const { callApiSearchRaoVat } = this.props
-        callApiSearchRaoVat(this.state.text).then(dataRes => {
+        callApiSearchRaoVat(textSearch).then(dataRes => {
             // console.log('search', dataRes)
             dataRaoVat = JSON.parse(dataRes)
             dataRaoVat = dataRaoVat.Value
             this.setState({
                 dataSearchRaoVat : dataRaoVat,
-                text: text
+                isLoading:false
             })
         })
     }
@@ -103,7 +122,10 @@ class RaoVat extends Component {
                             <View style={styles.containerNavbarS}>
                                 <TextInput placeholder='Search'
                                            underlineColorAndroid="transparent"
-                                           onChangeText={(text) => this.SearchRaoVat(text)}/>
+                                           onChangeText={(text)=>this.debounce(function(e){
+
+                                               this.SearchRaoVat(text);
+                                           }.bind(this), 1000)}/>
                             </View>
                             <TouchableOpacity onPress={this.Cancel}>
                                 <Text style={{flex: 2, marginLeft: 5, fontSize: 17}}>cancel</Text>
@@ -127,7 +149,7 @@ class RaoVat extends Component {
 
                         /> :
                         <View>
-                            <View style={{height: 1, backgroundColor: "#BDBDBD", marginTop: 5}}/>
+                            {/*<Text style={{marginTop: 10, height:20,textAlign:'center'}}>{this.state.dataSearchRaoVat.length == 0?"Dữ liệu rỗng":""}</Text>*/}
                             <FlatList
                                 data={this.state.dataSearchRaoVat}
                                 renderItem={(item) => {
