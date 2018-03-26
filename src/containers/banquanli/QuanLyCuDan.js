@@ -13,12 +13,12 @@ import {
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import {bindActionCreators} from 'redux'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux'
 import stylesContainer from "../../components/style";
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 import {callApiNhaCuDan} from "../../actions/actionsCuDan/NhaCuDanActions";
 import {callApiGetKDT} from "../../actions/KDTActions";
+import CuDanItem from "../../components/cudan/CuDanItem";
 
 class QuanLyCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -100,6 +100,7 @@ class QuanLyCuDan extends Component {
     }
 
     render() {
+        const {navigation} = this.props;
         dataToaNha = this.state.dataToaNha
         return (
             <ScrollView style={stylesContainer.container}>
@@ -208,29 +209,13 @@ class QuanLyCuDan extends Component {
                 </View>
                 <FlatList
                     data={this.state.dataCuDan}
-                    renderItem={({item}) =>
-                        <TouchableOpacity onPress={() => {
-                            // const { infoCuDan, callApiNhaCuDan } = this.props;
-                            // if (infoCuDan.leng<=0){
-                            //     return null
-                            // }
-                            // a = item.RowNum-1;
-                            // // console.log('infoCuDan', infoCuDan)
-                            // callApiNhaCuDan(infoCuDan.payload[a].ProfileID,infoCuDan.payload[a].UserID).then(dataChitietCuDan => {
-                            //     dataChitietCuDan = JSON.parse(dataChitietCuDan)
-                            //     this.props.navigation.navigate("TaiKhoanDanCu", {dataCuDan: dataChitietCuDan.Value})
-                            //     console.log('dataChitietCuDan', dataChitietCuDan)
-                            // })
-                            this.props.navigation.navigate("TaiKhoanDanCu", {dataCuDan: item})
-
-                        }}>
-                            <View style={{flexDirection: 'row', marginTop: 10}}>
-                                <Text style={{marginLeft: 10, fontSize: 15, color:'black', flex: 1}}>{item.RowNum}</Text>
-                                <Text style={{fontSize: 15, color:'black', flex: 3}}>{item.FullName}</Text>
-                                <Text style={{fontSize: 15, color:'black', flex: 1}}>{item.PartName}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    }
+                    renderItem={(item) => {
+                        return (
+                            <CuDanItem
+                                dataItem={item}
+                                navigation={navigation}/>
+                        )
+                    }}
                     keyExtractor={(item, index) => index}
                 />
 
