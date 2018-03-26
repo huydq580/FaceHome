@@ -31,6 +31,7 @@ class CanhBaoChayNhanhCuDan extends Component {
             isCheck:true,
             dataImage: null,
             avatarSource: null,
+            linkImg: '',
 
         }
     }
@@ -53,7 +54,7 @@ class CanhBaoChayNhanhCuDan extends Component {
             return null;
         }
         const { callApiCanhBaoChay } = this.props;
-        callApiCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID,  InfoUser[0].FullName, this.state.CanhBao).then((dataCanhBaoChay) => {
+        callApiCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID,  InfoUser[0].FullName, this.state.CanhBao, this.state.linkImg).then((dataCanhBaoChay) => {
             data = JSON.parse(dataCanhBaoChay);
             if(data.ErrorCode === "00"){
                 Alert.alert(

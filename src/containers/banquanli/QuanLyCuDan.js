@@ -100,6 +100,7 @@ class QuanLyCuDan extends Component {
     }
 
     render() {
+        console.log('dataToaNha', this.state.dataToaNha)
         const {navigation} = this.props;
         dataToaNha = this.state.dataToaNha
         return (
@@ -109,61 +110,6 @@ class QuanLyCuDan extends Component {
                                underlineColorAndroid="transparent"
                                onChangeText={(text) => this.SearchUser(text)}/>
                 </View>
-                {/*<View style={{flexDirection: 'row'}}>*/}
-                    {/*<View style={{*/}
-                        {/*width: DEVICE_WIDTH / 2 - 20,*/}
-                        {/*marginTop: 10, marginLeft: 30,*/}
-                        {/*maxHeight: 40, alignItems: 'center',*/}
-                        {/*flex: 1, flexDirection: 'row', alignItems: 'center',*/}
-                        {/*borderWidth: 1, borderColor: '#9E9E9E'*/}
-                    {/*}}>*/}
-                        {/*<Picker*/}
-                            {/*style={styles.picker}*/}
-                            {/*selectedValue={this.state.Toa}*/}
-                            {/*onValueChange={(value) => {*/}
-                                {/*this.setState({Toa: value});*/}
-                                {/*// this.CallApiQuanHuyen(value);*/}
-                            {/*}}>*/}
-                            {/*{dataToaNha.map((value) => <Picker.Item key={value.Code} label={value.Ten}*/}
-                                                                    {/*value={value.Code}/>)}*/}
-                        {/*</Picker>*/}
-                    {/*</View>*/}
-                    {/*<View style={{*/}
-                        {/*width: DEVICE_WIDTH / 2 - 20, maxHeight: 40,*/}
-                        {/*marginLeft: 30, alignItems: 'center',*/}
-                        {/*marginTop: 10, flexDirection: 'row',*/}
-                        {/*alignItems: 'center',*/}
-                        {/*borderWidth: 1, borderColor: '#9E9E9E'*/}
-                    {/*}}>*/}
-                        {/*<Picker*/}
-                            {/*style={styles.picker}*/}
-                            {/*selectedValue={this.state.Tang}*/}
-                            {/*onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>*/}
-                            {/*<Picker.Item label={'Chọn tầng/lầu'} value=''/>*/}
-                            {/*<Picker.Item label={'1'} value='key1'/>*/}
-                            {/*<Picker.Item label={'2'} value={'key2'}/>*/}
-                            {/*<Picker.Item label={'3'} value={'key3'}/>*/}
-                            {/*<Picker.Item label={'4'} value={'key4'}/>*/}
-                        {/*</Picker>*/}
-                    {/*</View>*/}
-                {/*</View>*/}
-                {/*<View style={{*/}
-                    {/*width: DEVICE_WIDTH / 2 - 20,*/}
-                    {/*marginTop: 10, maxHeight: 40,*/}
-                    {/*marginLeft: 30, alignItems: 'center',*/}
-                    {/*flexDirection: 'row', alignItems: 'center',*/}
-                    {/*borderWidth: 1, borderColor: '#9E9E9E'*/}
-                {/*}}>*/}
-                    {/*<Picker*/}
-                        {/*style={styles.picker}*/}
-                        {/*selectedValue={this.state.Status}*/}
-                        {/*onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>*/}
-                        {/*<Picker.Item label={'Trạng thái'} value=''/>*/}
-                        {/*<Picker.Item label={'Chờ duyệt'} value='key1'/>*/}
-                        {/*<Picker.Item label={'Đã duyệt'} value={'key2'}/>*/}
-                        {/*<Picker.Item label={'Đã rời KĐT'} value={'key3'}/>*/}
-                    {/*</Picker>*/}
-                {/*</View>*/}
                 <View style = {{flexDirection:'row', marginTop: 10, borderWidth:1, borderColor: '#9E9E9E', minHeight: 40, justifyContent: 'center', alignItems:'center'}}>
                         <View style =  {styles.viewItem}>
                             <Picker

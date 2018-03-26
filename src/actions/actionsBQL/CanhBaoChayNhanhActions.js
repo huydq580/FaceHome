@@ -2,7 +2,7 @@ import {PostCanhBaoChay, SearchCanhBaoChay, URL} from "../../components/Api";
 
 
 
-export const callApiCanhBaoChay = (kdt_id, user_id, name, mota) => {
+export const callApiCanhBaoChay = (kdt_id, user_id, name, mota, image) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL+ PostCanhBaoChay, {
@@ -16,7 +16,7 @@ export const callApiCanhBaoChay = (kdt_id, user_id, name, mota) => {
                     full_name: name,
                     mo_ta: mota,
                     avatar: '',
-                    image: '',
+                    image: image,
                     video: '',
                     source:1,
                     type: 0,

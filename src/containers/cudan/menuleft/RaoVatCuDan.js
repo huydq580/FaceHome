@@ -12,6 +12,8 @@ import RaoVatItem from "../../../components/raovat/RaoVatItem";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {callApiGetCategory} from "../../../actions/raovat/GetCategoryActions";
+import ItemSearchRaoVat from "../../../components/raovat/ItemSearchRaoVat";
+import {callApiSearchRaoVat} from "../../../actions/raovat/SearchRaoVatActions";
 
 class RaoVatCuDan extends Component {
     constructor(props){
@@ -21,7 +23,10 @@ class RaoVatCuDan extends Component {
             SearchItem:'',
             dataCuDan:'',
             text: '',
-            dataItem: []
+            dataItem: [],
+            dataSearchRaoVat: [],
+            isLoading:false
+
 
         }
     }
@@ -65,55 +70,96 @@ class RaoVatCuDan extends Component {
             search: true
         })
     }
-    SearchUser(text){
-        // const data = this.dataSearchDanCu;
-        // const inputSearch = data.filter(function(item){
-        //     const itemData = item.FullName.toUpperCase()
-        //     const textData = text.toUpperCase()
-        //     return itemData.indexOf(textData) > -1
-        // })
-        // this.setState({
-        //     dataCuDan: inputSearch,
-        //     text: text
-        // })
+    debounce = (func, wait)=> {
+        var context = this,
+            args = arguments;
+        var executeFunction = function() {
+            func.apply(context, args);
+            this.timeout = 0;
+        };
+
+        if(this.timeout) {
+            clearTimeout(this.timeout);
+        }
+        this.timeout = setTimeout(executeFunction, wait);
     }
+
+    SearchRaoVat =(textSearch) => {
+        this.setState({isLoading:true})
+        if(textSearch === ""){
+            this.setState({dataSearchRaoVat:[],isLoading:false})
+            return;
+        }
+        const { callApiSearchRaoVat } = this.props
+        callApiSearchRaoVat(textSearch).then(dataRes => {
+            // console.log('search', dataRes)
+            dataRaoVat = JSON.parse(dataRes)
+            dataRaoVat = dataRaoVat.Value
+            this.setState({
+                dataSearchRaoVat : dataRaoVat,
+                isLoading:false
+            })
+        })
+    }
+
     render (){
         return (
             <View style = {stylesContainer.container}>
                 {
+
                     this.state.search ?
-                        <TouchableOpacity onPress = {this.Search}>
-                            <View style = {styles.containerNavbar}>
+                        <TouchableOpacity onPress={this.Search}>
+                            <View style={styles.containerNavbar}>
                                 <Icon name="search" size={25} color="#616161"/>
 
                                 <Text>Search</Text>
 
                             </View>
-                        </TouchableOpacity> : <View style = {{ flexDirection:'row',marginTop:10}}>
-                            <View style = {styles.containerNavbarS}>
-                                <TextInput  placeholder = 'Search'
-                                            underlineColorAndroid="transparent"
-                                            onChangeText = {(text) => this.SearchUser(text)}/>
+                        </TouchableOpacity> : <View style={{flexDirection: 'row', marginTop: 10}}>
+                            <View style={styles.containerNavbarS}>
+                                <TextInput placeholder='Search'
+                                           underlineColorAndroid="transparent"
+                                           onChangeText={(text)=>this.debounce(function(e){
+
+                                               this.SearchRaoVat(text);
+                                           }.bind(this), 1000)}/>
                             </View>
-                            <TouchableOpacity onPress = {this.Cancel}>
-                                <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>
+                            <TouchableOpacity onPress={this.Cancel}>
+                                <Text style={{flex: 2, marginLeft: 5, fontSize: 17}}>cancel</Text>
                             </TouchableOpacity>
                         </View>
                 }
-                <FlatList
-                    style = {{marginTop:10}}
-                    data = {this.state.dataItem}
-                    renderItem={(item) => {
-                        return (
-                            <RaoVatItem
-                                dataItem={item}/>
-                        )
-                    }
-                    }
-                    keyExtractor={(item, index) => index}
-                    numColumns={3}
-                />
+                {
+                    this.state.search ?
+                        <FlatList
+                            style={{marginTop: 10}}
+                            data={this.state.dataItem}
+                            renderItem={(item) => {
+                                return (
+                                    <RaoVatItem
+                                        dataItem={item}/>
+                                )
+                            }
+                            }
+                            keyExtractor={(item, index) => index}
+                            numColumns={3}
 
+                        /> :
+                        <View>
+                            {/*<Text style={{marginTop: 10, height:20,textAlign:'center'}}>{this.state.dataSearchRaoVat.length == 0?"Dữ liệu rỗng":""}</Text>*/}
+                            <FlatList
+                                data={this.state.dataSearchRaoVat}
+                                renderItem={(item) => {
+                                    return (
+                                        <ItemSearchRaoVat
+                                            dataItem={item}/>
+                                    )
+                                }
+                                }
+                                keyExtractor={(item, index) => index}
+                            />
+                        </View>
+                }
             </View>
         )
     }
@@ -126,7 +172,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        callApiGetCategory: bindActionCreators(callApiGetCategory, dispatch)
+        callApiGetCategory: bindActionCreators(callApiGetCategory, dispatch),
+        callApiSearchRaoVat: bindActionCreators(callApiSearchRaoVat, dispatch),
     }
 };
 
