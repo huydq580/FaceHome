@@ -7,13 +7,18 @@ import {
     TouchableOpacity,
     StyleSheet,
     Alert,
-    ScrollView
+    ScrollView,
+    Image
 } from 'react-native';
 import { bindActionCreators } from 'redux'
+import Dimensions from 'Dimensions';
 import { connect } from 'react-redux'
 import moment from 'moment';
 import Communications from 'react-native-communications';
 import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/actionsBQL/CanhBaoChayNhanhActions";
+import PickerImage from "../../../components/PickerImage";
+import CanhBaoChayItemCuDan from "../../../components/canhbaochay/CanhBaoChayItemCuDan";
+import {callApiUploadImage} from "../../../actions/SoanTinActions";
 
 class CanhBaoChayNhanhCuDan extends Component {
     constructor(props){
@@ -22,7 +27,10 @@ class CanhBaoChayNhanhCuDan extends Component {
             CanhBao: '',
             UserBQL1:'',
             placeholdeText: '',
-            data: []
+            data: [],
+            isCheck:true,
+            dataImage: null,
+            avatarSource: null,
 
         }
     }
@@ -60,21 +68,68 @@ class CanhBaoChayNhanhCuDan extends Component {
             }
         })
     }
+    show() {
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data, isCheck: false}, ()=>{
+            this.upload()
+        }));
+    }
+
+    upload() {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            // console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: 'http://192.168.1.254:9051' + dataImg
+            })
+        })
+    }
     render(){
+        const {navigation} = this.props
+        let img = this.state.avatarSource == null ? null :
+            <Image
+                source={this.state.avatarSource}
+                style={styles.viewImage}
+
+            />
         const {navigate} = this.props.navigation;
         // console.log('navigation', this.props.navigation)
         return(
             <ScrollView>
-                <View style = {[styles.itemBoder, {minHeight:120}]}>
-                    <TextInput placeholder = 'Ban quản lí nhập thông tin tại đây '
-                               underlineColorAndroid="transparent"
-                               onChangeText ={(CanhBao)=> this.setState({CanhBao})}/>
+                {
+                    this.state.isCheck ?
+                        <View style={styles.viewImage}>
+                            <TouchableOpacity onPress={this.show.bind(this)}>
+                                <Image
+                                    source={require('../../../images/camera.png')}
+                                    style={styles.imagePost}
+
+                                />
+                            </TouchableOpacity>
+                            <Text style={{color: 'black', fontWeight: 'bold'}}>Bạn cần đăng 1 hình</Text>
+                        </View> : img
+                }
+                <View style = {styles.viewWrap}>
+                    <TextInput
+                        style = {{
+                            marginLeft: 10,
+                        }}
+                        placeholder = 'Ban quản lí nhập thông tin tại đây'
+                        underlineColorAndroid="transparent"
+                        onChangeText = {(CanhBao) => this.setState({CanhBao})}/>
                 </View>
-                <TouchableOpacity onPress = {this.BaoChay.bind(this)}>
-                    <View style = {{justifyContent:'center', marginTop:30, marginHorizontal:90, minHeight: 90, alignItems:'center',justifyContent: 'center'}}>
-                        <Text style = {{borderWidth:1, backgroundColor:'red'}}>Báo Cháy</Text>
-                    </View>
-                </TouchableOpacity>
+                <View style = {styles.viewGui}>
+                    <Text style = {{fontSize: 17}}>
+                        Cảnh báo cháy
+                    </Text>
+
+
+                </View>
+
 
                 <View style = {{flexDirection:'row', marginLeft:20, marginTop:20}}>
                     <Text>Hoặc gọi ngay cứu hỏa: </Text>
@@ -85,24 +140,14 @@ class CanhBaoChayNhanhCuDan extends Component {
                 <Text style = {{marginTop:20}}>Lịch sử báo cháy</Text>
                 <FlatList
                     data = {this.state.data}
-                    renderItem = {({item}) =>
-                        <TouchableOpacity onPress = {()=> navigate('ChiTietCanhBaoChayCuDan')}>
-                            <View style = {{flexDirection:'row', marginTop:10}}>
-                                <Text style = {{marginLeft:15}}>
-                                    {item.RowNum}
-                                </Text>
-                                <Text style = {{marginLeft:15}}>Ngày </Text>
-                                <Text>
-                                    {/*{item.CreatedDate}*/}
-                                    {moment(new Date(item.CreatedDate)).format("L")}
-                                </Text>
-                                <Text style = {{marginLeft:20, color:'red'}}>
-                                    {item.FullName}
-                                </Text>
-
-                            </View>
-
-                        </TouchableOpacity>
+                    renderItem = {(item) => {
+                        return (
+                            <CanhBaoChayItemCuDan
+                                dataItem={item}
+                                navigation={navigation}
+                            />
+                        )
+                    }
 
                     }
                     keyExtractor={(item, index) => index}
@@ -121,14 +166,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // addTodo: bindActionCreators(addTodo, dispatch),
         callApiCanhBaoChay: bindActionCreators(callApiCanhBaoChay, dispatch),
-        callApiSearchCanhBaoChay: bindActionCreators(callApiSearchCanhBaoChay, dispatch)
+        callApiSearchCanhBaoChay: bindActionCreators(callApiSearchCanhBaoChay, dispatch),
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch)
     }
 };
 
 CanhBaoChayNhanhCuDan = connect(mapStateToProps, mapDispatchToProps)(CanhBaoChayNhanhCuDan);
 export default CanhBaoChayNhanhCuDan;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     itemBoder: {
         borderWidth:1,
@@ -138,4 +184,41 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         // alignItems:'center'
     },
+    viewWrap: {
+        marginHorizontal: 10,
+        marginTop: 10,
+        borderWidth: 1,
+        height: DEVICE_HEIGHT/12,
+        borderColor: '#cccccc',
+        borderRadius:40,
+        justifyContent:'center' ,
+    },
+    viewGui: {
+        marginTop: 20,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginHorizontal: 50,
+        borderColor: "#23b34c",
+        backgroundColor:'#23b34c',
+        height: DEVICE_HEIGHT/12,
+        justifyContent:'center',
+        alignItems:'center'
+
+
+    },
+    viewImage: {
+        marginTop: 10,
+        marginHorizontal: 10,
+        height: DEVICE_HEIGHT/5,
+        backgroundColor:'#AED581',
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius: 5,
+        borderColor:'#23b34c'
+    },
+    imagePost: {
+        width: 60,
+        height: 60,
+
+    }
 })

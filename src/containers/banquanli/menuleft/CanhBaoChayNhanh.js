@@ -18,6 +18,7 @@ import Communications from 'react-native-communications';
 import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/actionsBQL/CanhBaoChayNhanhActions";
 import PickerImage from "../../../components/PickerImage";
 import {callApiUploadImage} from "../../../actions/SoanTinActions";
+import CanhBaoChayItem from "../../../components/canhbaochay/CanhBaoChayItem";
 
 class CanhBaoChayNhanh extends Component {
     constructor(props){
@@ -89,6 +90,7 @@ class CanhBaoChayNhanh extends Component {
         })
     }
     render(){
+        const {navigation} = this.props
         let img = this.state.avatarSource == null ? null :
             <Image
                 source={this.state.avatarSource}
@@ -139,23 +141,14 @@ class CanhBaoChayNhanh extends Component {
                 <Text style = {{marginTop:20}}>Lịch sử báo cháy</Text>
                 <FlatList
                     data = {this.state.data}
-                    renderItem = {({item}) =>
-                        <TouchableOpacity onPress = {()=> navigate('ChiTietCanhBaoChay')}>
-                            <View style = {{flexDirection:'row', marginTop:10}}>
-                                <Text style = {{marginLeft:15}}>
-                                    {item.RowNum}
-                                </Text>
-                                <Text style = {{marginLeft:15}}>Ngày </Text>
-                                <Text>
-                                    {moment(new Date(item.CreatedDate)).format("L")}
-                                </Text>
-                                <Text style = {{marginLeft:20, color:'red'}}>
-                                    {item.FullName}
-                                </Text>
-
-                            </View>
-
-                        </TouchableOpacity>
+                    renderItem = {(item) => {
+                        return (
+                            <CanhBaoChayItem
+                                dataItem={item}
+                                navigation={navigation}
+                            />
+                        )
+                    }
 
                     }
                     keyExtractor={(item, index) => index}

@@ -8,8 +8,9 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
+import moment from 'moment';
 
-export default class CuDanItem extends Component {
+export default class CanhBaoChayItemCuDan extends Component {
 
     constructor(props) {
         super(props);
@@ -32,14 +33,10 @@ export default class CuDanItem extends Component {
         return (
 
             <TouchableOpacity
-                onPress={() => {
-                     navigation.navigate('TaiKhoanDanCu', {dataCuDan: item});
-                }}
+                onPress = {()=> this.props.navigation.navigate('ChiTietCanhBaoChayCuDan')}
             >
                 <View key={item.index}
-                      style={{flex: 1, marginTop: 5, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',
-                          // backgroundColor:item.isSeen?'white':'#b2ebf2'
-                      }}>
+                      style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <Image style={myStyle.image_circle}
 
                            source={{
@@ -48,12 +45,11 @@ export default class CuDanItem extends Component {
                            resizeMode="cover"
                     >
                     </Image>
-                    <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, marginTop: 10, marginBottom: 10, justifyContent:'center'}}>
+                    <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, marginTop: 10, marginBottom: 10}}>
                         <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.FullName}</Text>
-                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.PartName}</Text>
+                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{moment(new Date(item.CreatedDate)).format("L")}</Text>
                     </View>
                 </View>
-                <View style = {{height:1 , backgroundColor: '#9E9E9E', marginTop: 5}}/>
 
             </TouchableOpacity>)
     }
