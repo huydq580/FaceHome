@@ -8,12 +8,16 @@ import {
     StyleSheet,
     Alert,
     ScrollView,
+    Image
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import moment from 'moment';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Communications from 'react-native-communications';
 import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/actionsBQL/CanhBaoChayNhanhActions";
+import PickerImage from "../../../components/PickerImage";
+import {callApiUploadImage} from "../../../actions/SoanTinActions";
 
 class CanhBaoChayNhanh extends Component {
     constructor(props){
@@ -22,7 +26,10 @@ class CanhBaoChayNhanh extends Component {
             CanhBao: '',
             UserBQL1:'',
             placeholdeText: '',
-            data: []
+            data: [],
+            isCheck:true,
+            dataImage: null,
+            avatarSource: null,
 
         }
     }
@@ -61,21 +68,67 @@ class CanhBaoChayNhanh extends Component {
             }
         })
     }
+    show() {
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data, isCheck: false}, ()=>{
+            this.upload()
+        }));
+    }
+
+    upload() {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            // console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: 'http://192.168.1.254:9051' + dataImg
+            })
+        })
+    }
     render(){
+        let img = this.state.avatarSource == null ? null :
+            <Image
+                source={this.state.avatarSource}
+                style={styles.viewImage}
+
+            />
         const {navigate} = this.props.navigation;
         // console.log('navigation', this.props.navigation)
         return(
             <ScrollView>
-                <View style = {[styles.itemBoder, {minHeight:120}]}>
-                    <TextInput placeholder = 'Ban quản lí nhập thông tin tại đây '
-                               underlineColorAndroid="transparent"
-                               onChangeText ={(CanhBao)=> this.setState({CanhBao})}/>
+                {
+                    this.state.isCheck ?
+                        <View style={styles.viewImage}>
+                            <TouchableOpacity onPress={this.show.bind(this)}>
+                                <Image
+                                    source={require('../../../images/camera.png')}
+                                    style={styles.imagePost}
+
+                                />
+                            </TouchableOpacity>
+                            <Text style={{color: 'black', fontWeight: 'bold'}}>Bạn cần đăng 1 hình</Text>
+                        </View> : img
+                }
+                <View style = {styles.viewWrap}>
+                    <TextInput
+                        style = {{
+                            marginLeft: 10,
+                        }}
+                        placeholder = 'Ban quản lí nhập thông tin tại đây'
+                        underlineColorAndroid="transparent"
+                        onChangeText = {(CanhBao) => this.setState({CanhBao})}/>
                 </View>
-                <TouchableOpacity onPress = {this.BaoChay.bind(this)}>
-                    <View style = {{justifyContent:'center', marginTop:30, marginHorizontal:90, minHeight: 90, alignItems:'center',justifyContent: 'center'}}>
-                        <Text style = {{borderWidth:1, backgroundColor:'red'}}>Báo Cháy</Text>
-                    </View>
-                </TouchableOpacity>
+                <View style = {styles.viewGui}>
+                    <Text style = {{fontSize: 17}}>
+                        Cảnh báo cháy
+                    </Text>
+
+
+                </View>
+
 
                 <View style = {{flexDirection:'row', marginLeft:20, marginTop:20}}>
                     <Text>Hoặc gọi ngay cứu hỏa: </Text>
@@ -122,6 +175,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         // addTodo: bindActionCreators(addTodo, dispatch),
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
         callApiCanhBaoChay: bindActionCreators(callApiCanhBaoChay, dispatch),
         callApiSearchCanhBaoChay: bindActionCreators(callApiSearchCanhBaoChay, dispatch)
     }
@@ -129,6 +183,7 @@ const mapDispatchToProps = (dispatch) => {
 
 CanhBaoChayNhanh = connect(mapStateToProps, mapDispatchToProps)(CanhBaoChayNhanh);
 export default CanhBaoChayNhanh;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     itemBoder: {
         borderWidth:1,
@@ -138,4 +193,41 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         // alignItems:'center'
     },
+    viewWrap: {
+        marginHorizontal: 10,
+        marginTop: 10,
+        borderWidth: 1,
+        height: DEVICE_HEIGHT/12,
+        borderColor: '#cccccc',
+        borderRadius:40,
+        justifyContent:'center' ,
+    },
+    viewGui: {
+        marginTop: 20,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginHorizontal: 50,
+        borderColor: "#23b34c",
+        backgroundColor:'#23b34c',
+        height: DEVICE_HEIGHT/12,
+        justifyContent:'center',
+        alignItems:'center'
+
+
+    },
+    viewImage: {
+        marginTop: 10,
+        marginHorizontal: 10,
+        height: DEVICE_HEIGHT/5,
+        backgroundColor:'#AED581',
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius: 5,
+        borderColor:'#23b34c'
+    },
+    imagePost: {
+        width: 60,
+        height: 60,
+
+    }
 })
