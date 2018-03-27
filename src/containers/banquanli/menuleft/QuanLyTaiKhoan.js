@@ -15,7 +15,6 @@ export default class QuanLyTaiKhoan extends Component {
         this.state = {
             visibleModal: null
         };
-        this.Logout = this.Logout.bind(this)
     }
 
     // _renderButton = (text, onPress) => (
