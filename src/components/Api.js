@@ -16,7 +16,9 @@ export const ChangePassword = "api/BQL/ChangePassword";
 export const UpdateProfile = "api/BQL/UpdateProfile";
 export const UpdateStatus = "api/BQL/UpdateStatus";
 
-
+//HoaDon
+export const SearchHoadon = "api/Hoadon/SearchHoadon";
+export const GetDetailHoaDon = "api/Hoadon/GetDetail";
 
 //NCC
 export const RegisterNCC   = "api/Ncc/Register";

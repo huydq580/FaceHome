@@ -95,12 +95,13 @@ class StatusItems extends Component {
                     }
                     <View style={{flexDirection: 'row', marginTop: 20, justifyContent: 'space-between'}}>
                         <View style={{flexDirection: 'row', marginLeft: 10}}>
+                            <Text>{item.TotalLike}</Text>
                             <Icon1 name="like" size={25} color="#424242"/>
-                            <Text>{item.like}</Text>
+
                         </View>
                         <View style={{flexDirection: 'row', marginRight: 10}}>
                             {/*<Icon1 name="comment" size={25} color="#424242" />*/}
-                            <Text> {item.comment} bình luận</Text>
+                            <Text> {item.TotalComment} bình luận</Text>
                         </View>
 
                     </View>

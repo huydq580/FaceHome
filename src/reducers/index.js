@@ -27,6 +27,8 @@ import GetCategoryReducers from './raovat/GetCategoryReducers';
 import GetDetailRaoVatReducers from './raovat/GetDetailRaoVatReducers';
 import PostRaoVatReducers from './raovat/PostRaoVatReducers';
 import SearchRaoVatReducers from './raovat/SearchRaoVatReducers';
+import SearchHoaDonReducers from './hoadon/SearchHoaDonReducers';
+import GetDetailsHoaDonReducers from './hoadon/GetDetailsHoaDonReducers';
 
 const appStore = combineReducers({
     LoginReducers,
@@ -56,7 +58,9 @@ const appStore = combineReducers({
     GetCategoryReducers,
     GetDetailRaoVatReducers,
     PostRaoVatReducers,
-    SearchRaoVatReducers
+    SearchRaoVatReducers,
+    SearchHoaDonReducers,
+    GetDetailsHoaDonReducers
 
 })
 
