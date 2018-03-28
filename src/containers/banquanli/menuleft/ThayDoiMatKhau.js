@@ -41,7 +41,7 @@ class ThayDoiMatKhau extends Component {
                     if(data.ErrorCode==="00") {
                         Alert.alert(
                             'Alert',
-                            data.Message,
+                            data.message,
                             [
                                 {text: 'OK', onPress: () => this.props.navigation.goBack()},
                             ],

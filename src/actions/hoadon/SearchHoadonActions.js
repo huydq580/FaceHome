@@ -18,8 +18,8 @@ export const callApiSearchHoadon = (kdt_id, block_id, can_ho) => {
                     status: 255,
                     pay_status: 255,
                     option: 0,
-                    month: "",
-                    year: "",
+                    month: 0,
+                    year: 0,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {

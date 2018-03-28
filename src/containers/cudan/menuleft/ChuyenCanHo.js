@@ -18,7 +18,7 @@ class ChuyenCanHo extends Component{
         super(props)
         this.state = {
             ToaKDT: [],
-            ToaNha:'',
+            ToaNha: "",
             Tang: '',
             CanHo: ''
         }
@@ -29,10 +29,13 @@ class ChuyenCanHo extends Component{
             return null
         }
         callApiGetKDT(InfoUser[0].KDTID).then(dataRes => {
-            console.log('toa trong kdt', dataRes)
+            // console.log('toa trong kdt', dataRes)
+
             dataKDT = JSON.parse(dataRes);
+            // console.log('toa trong kdt', dataKDT.Value)
             this.setState({
-                ToaKDT: dataKDT.Value
+                ToaKDT: dataKDT.Value,
+                ToaNha: dataKDT.Value[0].Code
             })
         })
     }
@@ -67,6 +70,7 @@ class ChuyenCanHo extends Component{
     }
     render (){
         let dataToa = this.state.ToaKDT
+        // console.log('toa nha', this.state.ToaNha)
         // dataToa.unshift({Code: "", Ten:"Chọn Tòa/Nhà"});
         return (
             <View style = {stylesContainer.container}>
@@ -120,6 +124,4 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         marginTop:20,
     },
-
-
 })

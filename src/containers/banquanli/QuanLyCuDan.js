@@ -100,7 +100,6 @@ class QuanLyCuDan extends Component {
     }
 
     render() {
-        console.log('dataToaNha', this.state.dataToaNha)
         const {navigation} = this.props;
         dataToaNha = this.state.dataToaNha
         return (
