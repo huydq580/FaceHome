@@ -52,16 +52,8 @@ class QuanLyCuDan extends Component {
 
 
 
-        const {callApiSearchDanCu, callApiGetKDT} = this.props;
-        callApiSearchDanCu(InfoUser[0].KDTID).then(dataSearchDanCu => {
-            dataSearchDanCu = JSON.parse(dataSearchDanCu)
-            dataSearchDanCu = dataSearchDanCu.Value
-            this.dataSearchDanCu = dataSearchDanCu
-            this.setState({
-                dataCuDan: dataSearchDanCu
-            })
-            console.log('data cu dan', this.state.dataCuDan)
-        })
+        const {callApiGetKDT} = this.props;
+
         callApiGetKDT(InfoUser[0].KDTID).then(dataRes => {
             dataToaNha = JSON.parse(dataRes)
             dataToaNha = dataToaNha.Value
@@ -70,6 +62,22 @@ class QuanLyCuDan extends Component {
             this.setState({
                 dataToaNha: dataToaNha
             })
+        })
+        this.SearchDanCu()
+    }
+    SearchDanCu = (block_id, status)=>  {
+        const {InfoUser, callApiSearchDanCu} = this.props;
+        if (InfoUser.length <= 0) {
+            return null;
+        }
+        callApiSearchDanCu(InfoUser[0].KDTID, block_id, status ).then(dataSearchDanCu => {
+            dataSearchDanCu = JSON.parse(dataSearchDanCu)
+            dataSearchDanCu = dataSearchDanCu.Value
+            this.dataSearchDanCu = dataSearchDanCu
+            this.setState({
+                dataCuDan: dataSearchDanCu
+            })
+            console.log('data cu dan', dataSearchDanCu)
         })
     }
 
@@ -116,10 +124,10 @@ class QuanLyCuDan extends Component {
                             selectedValue={this.state.Toa}
                             onValueChange={(value) => {
                             this.setState({Toa: value});
-                            // this.CallApiQuanHuyen(value);
+                            this.SearchDanCu(value, "")
                             }}>
                             {dataToaNha.map((value) => <Picker.Item key={value.Code} label={value.Ten}
-                            value={value.Code}/>)}
+                            value={value.PartID}/>)}
                             </Picker>
 
 
@@ -129,7 +137,10 @@ class QuanLyCuDan extends Component {
                         <Picker
                         style={styles.picker}
                         selectedValue={this.state.Tang}
-                        onValueChange={(itemValue, itemIndex) => this.setState({Tang: itemValue})}>
+                        onValueChange={(value) => {
+                            this.setState({Tang: value})
+                            // this.SearchDanCu(value)
+                        }}>
                         <Picker.Item label={'Tầng/lầu'} value=''/>
                         <Picker.Item label={'1'} value='key1'/>
                         <Picker.Item label={'2'} value={'key2'}/>
@@ -143,11 +154,17 @@ class QuanLyCuDan extends Component {
                             <Picker
                             style={styles.picker}
                             selectedValue={this.state.Status}
-                            onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>
+                            onValueChange={(value) => {
+                                this.setState({Status: value})
+                                this.SearchDanCu("", value)
+                            }}>
                             <Picker.Item label={'Trạng thái'} value=''/>
-                            <Picker.Item label={'Chờ duyệt'} value='key1'/>
-                            <Picker.Item label={'Đã duyệt'} value={'key2'}/>
-                            <Picker.Item label={'Đã rời KĐT'} value={'key3'}/>
+                            <Picker.Item label={'Chờ duyệt'} value='0'/>
+                            <Picker.Item label={'Đã duyệt'} value={'1'}/>
+                            <Picker.Item label={'Tạm khóa'} value={'2'}/>
+                            <Picker.Item label={'Chờ duyệt chuyển căn hộ'} value={'3'}/>
+                            <Picker.Item label={'Chờ BQL cũ duyệt Rời KĐT'} value={'4'}/>
+                            <Picker.Item label={'Đã rời khỏi KĐT'} value={'5'}/>
                             </Picker>
 
                     </View>

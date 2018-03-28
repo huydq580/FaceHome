@@ -12,7 +12,7 @@ import stylesContainer from "../../components/style";
 import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {callApiUpdateProfile} from "../../actions/actionsBQL/UpdateProfileActions";
+import {callApiUpdateStatus} from "../../actions/UpdateStatusActions";
 
 
 class TaiKhoanDanCu extends Component {
@@ -41,10 +41,15 @@ class TaiKhoanDanCu extends Component {
     Status () {
         //cap nhap thieu gia tri value
         const {params} = this.props.navigation.state;
-        const { callApiUpdateProfile } = this.props;
-        // console.log('param', params)
-        console.log('value', this.state.Value)
-        callApiUpdateProfile(params.dataCuDan.ProfileID, params.dataCuDan.UserID, "Status", this.state.Value ).then(dataRes => {
+        const { callApiUpdateStatus } = this.props;
+        console.log('param', params)
+        // console.log('value', this.state.Value)
+        const {InfoUser} = this.props
+        if(InfoUser.length<=0){
+            return null
+        }
+        console.log('RoleID', InfoUser[0].RoleID)
+        callApiUpdateStatus(InfoUser[0].RoleID, params.dataCuDan.ProfileID, params.dataCuDan.UserID, this.state.Value ).then(dataRes => {
             data = JSON.parse(dataRes);
             if(data.ErrorCode==="00") {
                 Alert.alert(
@@ -239,12 +244,13 @@ class TaiKhoanDanCu extends Component {
 }
 const mapStateToProps = (state) => {
     return {
+        InfoUser: state.GetProfileReducers,
     }
 };
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        callApiUpdateProfile: bindActionCreators( callApiUpdateProfile, dispatch),
+        callApiUpdateStatus: bindActionCreators( callApiUpdateStatus, dispatch),
     }
 };
 TaiKhoanDanCu = connect( mapStateToProps, mapDispatchToProps)(TaiKhoanDanCu);
