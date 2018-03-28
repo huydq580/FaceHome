@@ -11,12 +11,17 @@ import {
     ActivityIndicator,
     Image, Alert
 } from 'react-native';
+import Dimensions from 'Dimensions';
+const DEVICE_WIDTH = Dimensions.get('window').width;
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
 import StatusItems from "../../../components/status/StatusItems";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
 import {GetProfileBQL, URL} from "../../../components/Api";
+import PickerImage from "../../../components/PickerImage";
+import {callApiUploadImage} from "../../../actions/SoanTinActions";
+import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 
 
 
@@ -29,6 +34,11 @@ class Nha extends Component {
             isLoading: true,
             page_index: 1,
             Profile: [],
+            isCheck:true,
+            dataImage: null,
+            avatarSource: null,
+            linkImg: '',
+
 
         }
     }
@@ -98,9 +108,46 @@ class Nha extends Component {
             }
         );
     };
+    show() {
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data, isCheck: false}, ()=>{
+            this.upload()
+        }));
+    }
+
+    upload() {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: 'http://192.168.1.254:9051' + dataImg
+            }, () => {
+                this.UpdateAvt()
+            })
+        })
+    }
+    UpdateAvt () {
+
+        const { callApiUpdateProfile, InfoUser } = this.props
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUpdateProfile(InfoUser[0].ProfileID,InfoUser[0].UserID, "Avatar", this.state.linkImg ).then(dataRes => {
+            data = JSON.parse(dataRes);
+            console.log('upload thanh cong', data)
+        })
+    }
     render (){
+        let img = this.state.avatarSource == null ? null :
+            <Image
+                source={this.state.avatarSource}
+                style={styles.image_circle}
+            />
         let InfoProfile = this.state.Profile
-        // console.log('profile1', InfoProfile)
         if(InfoProfile.length<=0){
             return null
         }
@@ -117,9 +164,17 @@ class Nha extends Component {
 
             <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-                    <View style = {styles.circle}>
-                        <Text>Avatar</Text>
-                    </View>
+                    {
+                        this.state.isCheck ? <TouchableOpacity onPress={this.show.bind(this)}>
+                            <Image style={styles.image_circle}
+                                   source={InfoProfile[0].Avatar.length == 0?require('../../../images/Avatar.png'):{
+                                       uri: InfoProfile[0].Avatar
+                                   }}
+                                   resizeMode="cover"
+                            >
+                            </Image>
+                        </TouchableOpacity> : img
+                    }
                     <Text style = {{marginTop:20, fontSize: 20}}>{InfoProfile[0].FullName}</Text>
                 </View>
 
@@ -188,6 +243,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
+        callApiUpdateProfile: bindActionCreators(callApiUpdateProfile, dispatch),
     }
 };
 
@@ -217,5 +274,15 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         marginTop:20,
         minHeight:50,
+    },
+    image_circle: {
+        height: DEVICE_WIDTH / 3,
+        width: DEVICE_WIDTH / 3,
+        borderRadius: DEVICE_WIDTH / 6,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10,
+        marginTop: 20
+
     }
 })

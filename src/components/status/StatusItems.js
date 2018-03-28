@@ -61,16 +61,20 @@ class StatusItems extends Component {
 
 
     render() {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
 
         const {item} = this.props.dataItem;
-
         return (
             <View>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15, alignItems:'center'}}>
-                        <Image source={{
-                            uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                        }}
+                        <Image
+                            source={{
+                                uri: item.Avatar
+                            }}
                                style={styles.image_circle}
                                resizeMode="cover">
                         </Image>
@@ -127,7 +131,10 @@ class StatusItems extends Component {
                             <View>
                                 <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
                                     <Image
-                                        source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                                        source={{
+
+                                            uri: item.Comments[0].Content
+                                        }}
                                         style={styles.image_circle}
                                         resizeMode="cover">
                                     </Image>
@@ -152,7 +159,9 @@ class StatusItems extends Component {
                     }
                     <View style={{flexDirection: 'row', marginTop: 5, marginRight: 15, alignItems:'center'}}>
                         <Image
-                            source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                            source={{
+                                uri: InfoUser[0].Avatar
+                            }}
                             style={styles.image_circle}
                             resizeMode="cover">
                         </Image>

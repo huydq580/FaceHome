@@ -51,14 +51,20 @@ class StatusItemCuDan extends Component {
 
 
     render() {
-
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
         const {item} = this.props.dataItem;
 
         return (
             <View>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                        <Image
+                                source={{
+                                    uri: item.Avatar
+                                }}
                                style={styles.image_circle}
                                resizeMode="cover">
                         </Image>
@@ -113,7 +119,9 @@ class StatusItemCuDan extends Component {
                             <View>
                                 <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
                                     <Image
-                                        source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
+                                        source={{
+                                            uri: InfoUser[0].Avatar
+                                        }}
                                         style={styles.image_circle}
                                         resizeMode="cover">
                                     </Image>

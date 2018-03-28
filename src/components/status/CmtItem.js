@@ -19,7 +19,7 @@ class CmtItem extends Component {
                     <Image style={styles.image_circle}
 
                            source={{
-                               uri: "https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2349_ZING.jpg"
+                               uri: item.Avartar
                            }}
                            resizeMode="cover"
                     >

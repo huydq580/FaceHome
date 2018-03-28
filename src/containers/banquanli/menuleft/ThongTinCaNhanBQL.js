@@ -100,7 +100,7 @@ class ThongTinCaNhanBQL extends Component {
                     <Image style={styles.image_circle}
 
                            source={{
-                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
+                               uri: InfoUser[0].Avatar
                            }}
                            resizeMode="cover"
                     >

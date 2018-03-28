@@ -104,7 +104,7 @@ class SoanTin extends Component {
             FullName: InfoUser[0].FullName,
             Avatar:InfoUser[0].Avatar,
             CreatedDate: CreatedDate,
-            UserType: 255,
+            UserType: InfoUser[0].Type,
             TotalComment: "",
             TotalLike: "",
             TotalShare: "",

@@ -20,6 +20,7 @@ class BinhLuanCuDan extends Component {
         super(props)
         this.input_msg = '';
         const { tongCmt } = this.props;
+        console.log('tongcmt', tongCmt)
         let ArrayCmt =[]
         if (tongCmt.payload instanceof Array ==true){
             ArrayCmt = tongCmt.payload
@@ -93,7 +94,9 @@ class BinhLuanCuDan extends Component {
             UserType:InfoUser[0].UserID,
             TotalLike:"",
             Content:Content,
-            TotalRow:""
+            TotalRow:"",
+            PostID: "",
+            KDTID: "",
         }
         this.socket.emit("comment", dataSendCmt);
 
