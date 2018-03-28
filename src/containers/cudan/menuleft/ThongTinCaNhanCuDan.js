@@ -3,11 +3,19 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput
+    TextInput,
+    TouchableOpacity,
+    Image
 } from 'react-native';
+import Dimensions from 'Dimensions';
+const DEVICE_WIDTH = Dimensions.get('window').width;
 import { connect } from 'react-redux'
 import moment from 'moment';
 import stylesContainer from "../../../components/style";
+import PickerImage from "../../../components/PickerImage";
+import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
+import {bindActionCreators} from "redux";
+import {callApiUploadImage} from "../../../actions/SoanTinActions";
 
 class ThongTinCaNhanCuDan extends Component {
     constructor(props) {
@@ -23,6 +31,10 @@ class ThongTinCaNhanCuDan extends Component {
             Email: '',
             SoHotlineQBL: '',
             NgayThamGia: '',
+            isCheck:true,
+            dataImage: null,
+            avatarSource: null,
+            linkImg: '',
         }
     }
     componentWillMount(){
@@ -48,19 +60,65 @@ class ThongTinCaNhanCuDan extends Component {
             NgayThamGia: moment(new Date(infoCuDan[0].CreatedTime)).format("L"),
         })
     }
+    show() {
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data, isCheck: false}, ()=>{
+            this.upload()
+        }));
+    }
+
+    upload() {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: 'http://192.168.1.254:9051' + dataImg
+            }, () => {
+                this.UpdateAvt()
+            })
+        })
+    }
+    UpdateAvt () {
+
+        const { callApiUpdateProfile, InfoUser } = this.props
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUpdateProfile(InfoUser[0].ProfileID,InfoUser[0].UserID, "Avatar", this.state.linkImg ).then(dataRes => {
+            data = JSON.parse(dataRes);
+            console.log('upload thanh cong', data)
+        })
+    }
     render (){
+        let img = this.state.avatarSource == null ? null :
+            <Image
+                source={this.state.avatarSource}
+                style={styles.image_circle}
+            />
         const { infoCuDan } = this.props;
         if (infoCuDan.length <= 0) {
             return null;
         }
-        // console.log('infoBQL', infoBQL[0])
+        console.log('infoBQL', infoCuDan)
         return(
             <View style = {stylesContainer.container}>
-                <View style = {{flexDirection:'row', alignItems:'center'}}>
-                    <View style = {styles.circle}>
-                        <Text>Avatar</Text>
-                    </View>
-                    <Text style = {{color:'red', fontSize: 20}}>{infoCuDan[0].FullName}</Text>
+                <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
+                    {
+                        this.state.isCheck ? <TouchableOpacity onPress={this.show.bind(this)}>
+                            <Image style={styles.image_circle}
+                                   source={{
+                                       uri: infoCuDan[0].Avatar
+                                   }}
+                                   resizeMode="cover"
+                            >
+                            </Image>
+                        </TouchableOpacity> : img
+                    }
+                    <Text style = {{marginTop:20, fontSize: 20}}>{infoCuDan[0].FullName}</Text>
                 </View>
                 <View style = {styles.viewcon}>
                     <Text style = {styles.textL}>Tên: </Text>
@@ -151,18 +209,19 @@ class ThongTinCaNhanCuDan extends Component {
 }
 const mapStateToProps = (state) => {
     return {
+        InfoUser: state.GetProfileReducers,
         infoCuDan: state.NhaCuDanReducers,
     }
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         // addTodo: bindActionCreators(addTodo, dispatch),
-//         callApiNha: bindActionCreators(callApiNha, dispatch)
-//     }
-// };
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
+        callApiUpdateProfile: bindActionCreators(callApiUpdateProfile, dispatch),
+    }
+};
 
-ThongTinCaNhanCuDan = connect(mapStateToProps)(ThongTinCaNhanCuDan);
+ThongTinCaNhanCuDan = connect(mapStateToProps, mapDispatchToProps)(ThongTinCaNhanCuDan);
 export default ThongTinCaNhanCuDan;
 const styles = StyleSheet.create({
     circle: {
@@ -188,5 +247,15 @@ const styles = StyleSheet.create({
     textinput: {
         color: "#757575",
         padding: 0,
+    },
+    image_circle: {
+        height: DEVICE_WIDTH / 3,
+        width: DEVICE_WIDTH / 3,
+        borderRadius: DEVICE_WIDTH / 6,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10,
+        marginTop: 20
+
     }
 })

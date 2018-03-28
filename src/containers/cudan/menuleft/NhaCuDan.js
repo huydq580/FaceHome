@@ -9,7 +9,7 @@ import {
     FlatList,
     ScrollView,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
 } from 'react-native';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
