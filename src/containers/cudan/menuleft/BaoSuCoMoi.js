@@ -7,11 +7,15 @@ import {
     Picker,
     TextInput,
     Alert,
+    Image
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import stylesContainer from "../../../components/style";
 import {PostSuco, URL} from "../../../components/Api";
+import PickerImage from "../../../components/PickerImage";
+import {callApiUploadImage} from "../../../actions/SoanTinActions";
 
 class BaoSuCoMoi extends Component {
     constructor(props){
@@ -19,9 +23,15 @@ class BaoSuCoMoi extends Component {
         this.state = {
             SuCo: '',
             NoiDung: '',
+            //upload imgae
+            isCheck:true,
+            dataImage: null,
+            avatarSource: null,
+            linkImg: '',
         }
     }
     BaoSuCoMoi(){
+        this.textInput.clear();
         const { InfoUser } = this.props;
         if (InfoUser<=0){
             return null;
@@ -38,7 +48,7 @@ class BaoSuCoMoi extends Component {
                 full_name: InfoUser[0].FullName,
                 avatar: "",
                 ten_can_ho: 1002,
-                media: "",
+                media: this.state.linkImg,
                 type: this.state.SuCo,
                 post_content: this.state.NoiDung,
                 lang_name: "vi_VN"
@@ -72,7 +82,35 @@ class BaoSuCoMoi extends Component {
             console.log('erro',erro);
         })
     }
+    show() {
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data, isCheck: false}, ()=>{
+            this.upload()
+        }));
+    }
+
+    upload() {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            // console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: 'http://192.168.1.254:9051' + dataImg
+            }, ()=> {
+                console.log('linkImg', this.state.linkImg)
+            })
+        })
+    }
     render () {
+        let img = this.state.avatarSource == null ? null :
+            <Image
+                source={this.state.avatarSource}
+                style={styles.viewImage}
+
+            />
         return(
             <View style = {stylesContainer.container}>
                 <Picker
@@ -82,16 +120,42 @@ class BaoSuCoMoi extends Component {
                     <Picker.Item label = {'Nhà riêng'} value = {'1'}/>
                     <Picker.Item label = {'Công cộng'} value ={'2'}/>
                 </Picker>
-                <View style = {[styles.itemBoder, {minHeight:120}]}>
-                    <TextInput placeholder = 'Nhập nội dung và ảnh sự cố tại đây'
-                               underlineColorAndroid="transparent"
-                               onChangeText ={(NoiDung)=> this.setState({NoiDung})}/>
+
+                {
+                    this.state.isCheck ?
+                        <View style={styles.viewImage}>
+                            <TouchableOpacity onPress={this.show.bind(this)}>
+                                <Image
+                                    source={require('../../../images/camera.png')}
+                                    style={styles.imagePost}
+
+                                />
+                            </TouchableOpacity>
+                            <Text style={{color: 'black', fontWeight: 'bold'}}>Bạn cần đăng 1 hình</Text>
+                        </View> : img
+                }
+                <View style = {styles.viewWrap}>
+                    <TextInput
+                        style = {{
+                            marginLeft: 10,
+                        }}
+                        placeholder = 'Nhập nội dung sự cố tại đây'
+                        underlineColorAndroid="transparent"
+                        onChangeText = {(NoiDung) => this.setState({NoiDung})}
+                        ref={input => {
+                            this.textInput = input
+                        }}/>
                 </View>
                 <TouchableOpacity onPress = {this.BaoSuCoMoi.bind(this)}>
-                    <View style = {{borderWidth:1, height:30, width:50,marginTop: 20, marginLeft:30,justifyContent:'center',alignItems:'center', backgroundColor: '#82B1FF'}}>
-                        <Text>Gửi</Text>
+                    <View style = {styles.viewGui}>
+                        <Text style = {{fontSize: 17, color: 'white', fontWeight:'bold'}}>
+                            Báo cáo sự cố
+                        </Text>
+
+
                     </View>
                 </TouchableOpacity>
+
             </View>
         );
     }
@@ -103,8 +167,15 @@ const mapStateToProps = (state) => {
     }
 };
 
-BaoSuCoMoi = connect(mapStateToProps)(BaoSuCoMoi);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch)
+    }
+};
+
+BaoSuCoMoi = connect(mapStateToProps, mapDispatchToProps)(BaoSuCoMoi);
 export default BaoSuCoMoi;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     itemBoder: {
         borderWidth:1,
@@ -114,4 +185,41 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         // alignItems:'center'
     },
+    viewImage: {
+        marginTop: 10,
+        marginHorizontal: 10,
+        height: DEVICE_HEIGHT/5,
+        backgroundColor:'#AED581',
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius: 5,
+        borderColor:'#23b34c'
+    },
+    viewWrap: {
+        marginHorizontal: 10,
+        marginTop: 10,
+        borderWidth: 1,
+        height: DEVICE_HEIGHT/12,
+        borderColor: '#cccccc',
+        borderRadius:40,
+        justifyContent:'center' ,
+    },
+    viewGui: {
+        marginTop: 20,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginHorizontal: 50,
+        borderColor: "#23b34c",
+        backgroundColor:'#23b34c',
+        height: DEVICE_HEIGHT/12,
+        justifyContent:'center',
+        alignItems:'center'
+
+
+    },
+    imagePost: {
+        width: 60,
+        height: 60,
+
+    }
 })

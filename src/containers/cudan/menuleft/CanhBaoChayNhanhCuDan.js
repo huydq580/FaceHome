@@ -28,6 +28,7 @@ class CanhBaoChayNhanhCuDan extends Component {
             UserBQL1:'',
             placeholdeText: '',
             data: [],
+            //upload imgae
             isCheck:true,
             dataImage: null,
             avatarSource: null,
@@ -48,13 +49,14 @@ class CanhBaoChayNhanhCuDan extends Component {
             })
         })
     }
-    BaoChay () {
+    BaoChay = () => {
         const { InfoUser } = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
+        this.textInput.clear();
         const { callApiCanhBaoChay } = this.props;
-        callApiCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID,  InfoUser[0].FullName, this.state.CanhBao, this.state.linkImg).then((dataCanhBaoChay) => {
+        callApiCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID,  InfoUser[0].FullName, this.state.CanhBao, InfoUser[0].Avatar, this.state.linkImg).then((dataCanhBaoChay) => {
             data = JSON.parse(dataCanhBaoChay);
             if(data.ErrorCode === "00"){
                 Alert.alert(
@@ -86,6 +88,8 @@ class CanhBaoChayNhanhCuDan extends Component {
             // console.log('dataImage1', dataImg)
             this.setState({
                 linkImg: 'http://192.168.1.254:9051' + dataImg
+            }, ()=> {
+                console.log('linkImg', this.state.linkImg)
             })
         })
     }
@@ -121,15 +125,20 @@ class CanhBaoChayNhanhCuDan extends Component {
                         }}
                         placeholder = 'Ban quản lí nhập thông tin tại đây'
                         underlineColorAndroid="transparent"
-                        onChangeText = {(CanhBao) => this.setState({CanhBao})}/>
+                        onChangeText = {(CanhBao) => this.setState({CanhBao})}
+                        ref={input => {
+                            this.textInput = input
+                        }}/>
                 </View>
+                <TouchableOpacity onPress = {this.BaoChay}>
                 <View style = {styles.viewGui}>
-                    <Text style = {{fontSize: 17}}>
+                    <Text style = {{fontSize: 17, color: 'white', fontWeight:'bold'}}>
                         Cảnh báo cháy
                     </Text>
 
 
                 </View>
+                </TouchableOpacity>
 
 
                 <View style = {{flexDirection:'row', marginLeft:20, marginTop:20}}>
