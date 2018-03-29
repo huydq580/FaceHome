@@ -132,25 +132,28 @@ class NhaCuDan extends Component {
 
                     <Text style = {{marginTop:20, fontSize: 20}}>{infoCuDan[0].FullName}</Text>
                 </View>
-                <TouchableOpacity style = {styles.Touch}
-                                  onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanCuDan')}>
+                <TouchableOpacity style = {styles.Touch}>
                     <Text style = {{color: 'white'}}>
                         Nhật ký
                     </Text>
                 </TouchableOpacity>
-                <View style = {{flexDirection: 'column', marginLeft: 40,
-                    backgroundColor:"#42A5F5",width:200,height:100, borderWidth:1,marginTop:8,
-                    justifyContent:'center'
-                }}>
-                    <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
-                    <View style = {{flexDirection:'row', marginLeft:10,}}>
-                        <Text style = {{color: 'white', fontSize:15}}>Tên:</Text>
-                        <Text style = {{color:'white'}}>{infoCuDan[0].FullName}</Text>
-                    </View>
-                    <View style = {{flexDirection:'row', marginLeft:10, }}>
-                        <Text style = {{color: 'white',fontSize:15}}>Số điện thoại:</Text>
-                        <Text style = {{color: 'white'}}>{infoCuDan[0].Phone}</Text>
-                    </View>
+                <View style = {{flexDirection:'row'}}>
+                    <TouchableOpacity onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanCuDan')}>
+                        <View style = {{flexDirection: 'column', marginLeft: 20,
+                            backgroundColor:"#42A5F5",width:DEVICE_WIDTH/2-40,height:100, borderWidth:1,marginTop:8,
+                            justifyContent:'center'
+                        }}>
+                            <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress = { () => this.props.navigation.navigate("ThanhVienCanHo")}>
+                        <View style = {{flexDirection: 'column', marginLeft: 10,
+                            backgroundColor:"#42A5F5",width:DEVICE_WIDTH/2-40,height:100, borderWidth:1,marginTop:8,
+                            justifyContent:'center'
+                        }}>
+                            <Text style ={{marginLeft:20, color:'white'}}>Thành viên căn hộ</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>
                 <View>
@@ -217,7 +220,7 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     Touch: {
-        marginTop: 8,marginLeft: 40,
+        marginTop: 8,marginLeft: 20,
         borderWidth:1, backgroundColor: '#FB8C00', width:100,height:40,
         alignItems:'center', justifyContent:'center'
     },

@@ -8,14 +8,14 @@ import {
     TouchableOpacity, Alert,
 } from 'react-native';
 import moment from 'moment';
-import stylesContainer from "../../components/style";
 import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import {callApiUpdateStatus} from "../../actions/UpdateStatusActions";
+import stylesContainer from "../../../components/style";
+import {callApiUpdateStatus} from "../../../actions/UpdateStatusActions";
 
 
-class TaiKhoanDanCu extends Component {
+class ChiTietThanhVien extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -80,18 +80,18 @@ class TaiKhoanDanCu extends Component {
         // console.log('data', params.dataCuDan)
         {
             params.dataCuDan.Status == 0 ? this.setState({Value: 1}) :
-                // params.dataCuDan.Status == 1 ? this.setState({Value: 2}) :
-                    // params.dataCuDan.Status == 2 ? this.setState({Value: 1}) :
-                        params.dataCuDan.Status == 3 ? this.setState({Value: 1}) :
-                            params.dataCuDan.Status == 4 ? this.setState({Value: 5}) : null
+                params.dataCuDan.Status == 1 ? this.setState({Value: 2}) :
+                params.dataCuDan.Status == 2 ? this.setState({Value: 1}) : null
+                // params.dataCuDan.Status == 3 ? this.setState({Value: 1}) :
+                //     params.dataCuDan.Status == 4 ? this.setState({Value: 5}) : null
         }
         {
             params.dataCuDan.Status == 0 && params.dataCuDan.Position ==3 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
-                // params.dataCuDan.Status == 1 ? this.setState({TrangThai: 'Rời KĐT'}) :
-                //     params.dataCuDan.Status == 2 ? this.setState({TrangThai: 'Phục hồi'}) :
-                        params.dataCuDan.Status == 3 && params.dataCuDan.Position ==3 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
-                            params.dataCuDan.Status == 4  && params.dataCuDan.Position ==3 ? this.setState({TrangThai: 'Xác nhận rời KDT'}) : null
-                                // params.dataCuDan.Status == 5 ? this.setState({TrangThai: 'Duyệt tài khoản'}) : null
+                params.dataCuDan.Status == 1 ? this.setState({TrangThai: 'Khóa tài khoản'}) :
+                    params.dataCuDan.Status == 2 ? this.setState({TrangThai: 'Phục hồi'}) : null
+                // params.dataCuDan.Status == 3 && params.dataCuDan.Position ==3 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
+                //     params.dataCuDan.Status == 4  && params.dataCuDan.Position ==3 ? this.setState({TrangThai: 'Xác nhận rời KDT'}) : null
+            // params.dataCuDan.Status == 5 ? this.setState({TrangThai: 'Duyệt tài khoản'}) : null
         }
         this.setState({
             Ten : params.dataCuDan.FullName,
@@ -124,11 +124,11 @@ class TaiKhoanDanCu extends Component {
                             {this.state.Ten}
                         </Text>
                         <View style = {{marginTop: 8, flexDirection:'row'}}>
-                        <TouchableOpacity onPress = {this.Status}>
-                            <Text style = {{fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#FF3D00', color: '#FF3D00', fontWeight:'bold'}}>
-                                {this.state.TrangThai}
-                            </Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress = {this.Status}>
+                                <Text style = {{fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#FF3D00', color: '#FF3D00', fontWeight:'bold'}}>
+                                    {this.state.TrangThai}
+                                </Text>
+                            </TouchableOpacity>
                             <TouchableOpacity
                                 // onPress = {()=> this.props.navigation.navigate('TinNhanDetails')}
                             >
@@ -253,9 +253,9 @@ const mapDispatchToProps = (dispatch) => {
         callApiUpdateStatus: bindActionCreators( callApiUpdateStatus, dispatch),
     }
 };
-TaiKhoanDanCu = connect( mapStateToProps, mapDispatchToProps)(TaiKhoanDanCu);
+ChiTietThanhVien = connect( mapStateToProps, mapDispatchToProps)(ChiTietThanhVien);
 
-export default TaiKhoanDanCu;
+export default ChiTietThanhVien;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({

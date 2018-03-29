@@ -65,7 +65,7 @@ class QuanLyCuDan extends Component {
         })
         this.SearchDanCu()
     }
-    SearchDanCu = (block_id, status)=>  {
+    SearchDanCu = (block_id, floor_id, status)=>  {
         const {InfoUser, callApiSearchDanCu} = this.props;
         if (InfoUser.length <= 0) {
             return null;
@@ -124,7 +124,7 @@ class QuanLyCuDan extends Component {
                             selectedValue={this.state.Toa}
                             onValueChange={(value) => {
                             this.setState({Toa: value});
-                            this.SearchDanCu(value, "")
+                            this.SearchDanCu(value, "", "")
                             }}>
                             {dataToaNha.map((value) => <Picker.Item key={value.Code} label={value.Ten}
                             value={value.PartID}/>)}
@@ -156,7 +156,7 @@ class QuanLyCuDan extends Component {
                             selectedValue={this.state.Status}
                             onValueChange={(value) => {
                                 this.setState({Status: value})
-                                this.SearchDanCu("", value)
+                                this.SearchDanCu("","", value)
                             }}>
                             <Picker.Item label={'Trạng thái'} value=''/>
                             <Picker.Item label={'Chờ duyệt'} value='0'/>

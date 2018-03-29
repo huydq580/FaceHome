@@ -76,6 +76,8 @@ import MoTaRaoVat from "../containers/raovat/MoTaRaoVat";
 import XemLaiTinDang from "../containers/raovat/XemLaiTinDang";
 import BanLa from "../containers/raovat/BanLa";
 import PickToaNha from "../containers/banquanli/quanlicudan/PickToaNha";
+import ThanhVienCanHo from "../containers/cudan/menuleft/ThanhVienCanHo";
+import ChiTietThanhVien from "../containers/cudan/menuleft/ChiTietThanhVien";
 
 
 const Stack = StackNavigator ({
@@ -531,6 +533,18 @@ const Stack = StackNavigator ({
         screen: PickToaNha,
         navigationOptions: {
             header:  null
+        }
+    },
+    ThanhVienCanHo: {
+        screen: ThanhVienCanHo,
+        navigationOptions: {
+            title: 'Thành viên căn hộ'
+        }
+    },
+    ChiTietThanhVien: {
+        screen: ChiTietThanhVien,
+        navigationOptions: {
+            title: 'Chi tiết thành viên'
         }
     }
 
