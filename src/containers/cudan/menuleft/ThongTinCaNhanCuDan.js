@@ -31,6 +31,7 @@ class ThongTinCaNhanCuDan extends Component {
             Email: '',
             SoHotlineQBL: '',
             NgayThamGia: '',
+            //uoload image
             isCheck:true,
             dataImage: null,
             avatarSource: null,
@@ -99,6 +100,7 @@ class ThongTinCaNhanCuDan extends Component {
                 source={this.state.avatarSource}
                 style={styles.image_circle}
             />
+
         const { infoCuDan } = this.props;
         if (infoCuDan.length <= 0) {
             return null;
@@ -110,9 +112,10 @@ class ThongTinCaNhanCuDan extends Component {
                     {
                         this.state.isCheck ? <TouchableOpacity onPress={this.show.bind(this)}>
                             <Image style={styles.image_circle}
-                                   source={{
-                                       uri: infoCuDan[0].Avatar
-                                   }}
+                                   source={
+                                       infoCuDan[0].Avatar == null ? require('../../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg') : {
+                                       uri: infoCuDan[0].Avatar}
+                                   }
                                    resizeMode="cover"
                             >
                             </Image>

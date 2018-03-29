@@ -11,6 +11,8 @@ import {
     Image,
     ActivityIndicator,
 } from 'react-native';
+import Dimensions from 'Dimensions';
+const DEVICE_WIDTH = Dimensions.get('window').width;
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
@@ -106,7 +108,7 @@ class NhaCuDan extends Component {
         if (this.state.isLoading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
-                    <ActivityIndicator size="large" color="white"/>
+                    <ActivityIndicator size = "large" color = "white"/>
                 </View>
             );
         }
@@ -119,11 +121,16 @@ class NhaCuDan extends Component {
         const {navigation} = this.props;
         return (
             <ScrollView style = {stylesContainer.container}>
-                <View style = {{flexDirection:'row', alignItems:'center'}}>
-                    <View style = {styles.circle}>
-                        <Text>Avatar</Text>
-                    </View>
-                    <Text style = {{color:'red', fontSize: 20}}>{infoCuDan[0].FullName}</Text>
+                <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
+                    <Image style={styles.image_circle}
+                           source={{
+                               uri: infoCuDan[0].Avatar
+                           }}
+                           resizeMode="cover"
+                    >
+                    </Image>
+
+                    <Text style = {{marginTop:20, fontSize: 20}}>{infoCuDan[0].FullName}</Text>
                 </View>
                 <TouchableOpacity style = {styles.Touch}
                                   onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanCuDan')}>
@@ -222,5 +229,15 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
         marginTop:20,
         minHeight:50,
+    },
+    image_circle: {
+        height: DEVICE_WIDTH / 3,
+        width: DEVICE_WIDTH / 3,
+        borderRadius: DEVICE_WIDTH / 6,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10,
+        marginTop: 20
+
     }
 })
