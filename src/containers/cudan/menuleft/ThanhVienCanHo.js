@@ -27,7 +27,7 @@ class ThanhVienCanHo extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchDanCu(InfoUser[0].KDTID, InfoUser[0].BlockID, InfoUser[0].FloorID,InfoUser[0].Status ).then(dataSearchDanCu => {
+        callApiSearchDanCu(InfoUser[0].KDTID, InfoUser[0].BlockID, InfoUser[0].FloorID,255 ).then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
             this.dataSearchDanCu = dataSearchDanCu

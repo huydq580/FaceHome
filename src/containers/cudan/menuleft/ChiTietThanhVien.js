@@ -87,7 +87,7 @@ class ChiTietThanhVien extends Component {
                 //     params.dataCuDan.Status == 4 ? this.setState({Value: 5}) : null
         }
         {
-            params.dataCuDan.Status == 0 && params.dataCuDan.Position ==3 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
+            params.dataCuDan.Status == 0  ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
                 params.dataCuDan.Status == 1 ? this.setState({TrangThai: 'Khóa tài khoản'}) :
                     params.dataCuDan.Status == 2 ? this.setState({TrangThai: 'Phục hồi'}) : null
                 // params.dataCuDan.Status == 3 && params.dataCuDan.Position ==3 ? this.setState({TrangThai: 'Duyệt tài khoản'}) :
