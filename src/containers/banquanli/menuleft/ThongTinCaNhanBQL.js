@@ -16,6 +16,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon1 from 'react-native-vector-icons/Entypo';
 import stylesContainer from "../../../components/style";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
+import PickerImage from "../../../components/PickerImage";
+import {callApiUploadImage} from "../../../actions/SoanTinActions";
 
 class ThongTinCaNhanBQL extends Component {
     constructor(props) {
@@ -32,7 +34,13 @@ class ThongTinCaNhanBQL extends Component {
             SoHotlineQBL: '',
             NgayThamGia: '',
             editable: false,
-            check: true
+            check: true,
+
+            //upload anh
+            isCheck:true,
+            dataImage: null,
+            avatarSource: null,
+            linkImg: '',
 
 
         }
@@ -40,27 +48,26 @@ class ThongTinCaNhanBQL extends Component {
         this.UpdateProfile = this.UpdateProfile.bind(this)
     }
     componentWillMount(){
-        const { InfoUser } = this.props;
-        if (InfoUser.length <= 0) {
-            return null;
+        const {params } = this.props.navigation.state
+        // console.log('params', params)
+
+        {
+            params.InfoBQL[0].Gender = 0 ? this.setState({GioiTinh: 'Nữ'}) :
+                params.InfoBQL[0].Gender = 1 ? this.setState({GioiTinh: 'Nam'}) : null
         }
         {
-            InfoUser[0].Gender = 0 ? this.setState({GioiTinh: 'Nữ'}) :
-                InfoUser[0].Gender = 1 ? this.setState({GioiTinh: 'Nam'}) : null
-        }
-        {
-            InfoUser[0].Position = 1 ? this.setState({ChucVu: 'Trưởng BQL'}) :
-                InfoUser[0].Position = 2 ? this.setState({ChucVu: 'Thành viên BQL'}) : null
+            params.InfoBQL[0].Position = 1 ? this.setState({ChucVu: 'Trưởng BQL'}) :
+                params.InfoBQL[0].Position = 2 ? this.setState({ChucVu: 'Thành viên BQL'}) : null
         }
 
         this.setState({
-            Ten: InfoUser[0].FullName ,
-            NgaySinh: moment(new Date(InfoUser[0].BirdDate)).format("L"),
-            SoCMT: InfoUser[0].CMND,
-            SoDT: InfoUser[0].Phone,
-            Email: InfoUser[0].Email,
-            SoHotlineQBL: InfoUser[0].HotLine,
-            NgayThamGia: moment(new Date(InfoUser[0].CreatedTime)).format("L"),
+            Ten: params.InfoBQL[0].FullName ,
+            NgaySinh: moment(new Date(params.InfoBQL[0].BirdDate)).format("L"),
+            SoCMT: params.InfoBQL[0].CMND,
+            SoDT: params.InfoBQL[0].Phone,
+            Email: params.InfoBQL[0].Email,
+            SoHotlineQBL: params.InfoBQL[0].HotLine,
+            NgayThamGia: moment(new Date(params.InfoBQL[0].CreatedTime)).format("L"),
 
         })
     }
@@ -74,39 +81,73 @@ class ThongTinCaNhanBQL extends Component {
 
     }
     UpdateProfile(){
+        const {params } = this.props.navigation.state
         this.setState({
             check: true,
             editable: true
         })
-        const { callApiUpdateProfile,  InfoUser } = this.props;
-        if (InfoUser.length <= 0) {
-            return null;
-        }
-        console.log('user', InfoUser)
+        const { callApiUpdateProfile } = this.props;
 
-        callApiUpdateProfile(InfoUser[0].ProfileID, InfoUser[0].UserID,'FullName', this.state.Ten).then(dataRes => {
+        callApiUpdateProfile(params.InfoBQL[0].ProfileID, params.InfoBQL[0].UserID,'FullName', this.state.Ten).then(dataRes => {
             console.log('datathongbao', dataRes)
         })
         console.log('ten', this.state.Ten)
     }
-    render (){
-        const { InfoUser } = this.props;
+    show() {
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data, isCheck: false}, ()=>{
+            this.upload()
+        }));
+    }
+
+    upload() {
+        const {InfoUser, callApiUploadImage} = this.props;
         if (InfoUser.length <= 0) {
-            return null;
+            return null
         }
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: 'http://192.168.1.254:9051' + dataImg
+            }, () => {
+                this.UpdateAvt()
+            })
+        })
+    }
+    UpdateAvt () {
+
+        const { callApiUpdateProfile, InfoUser } = this.props
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUpdateProfile(InfoUser[0].ProfileID,InfoUser[0].UserID, "Avatar", this.state.linkImg ).then(dataRes => {
+            data = JSON.parse(dataRes);
+            console.log('upload thanh cong', data)
+        })
+    }
+    render (){
+        const {params } = this.props.navigation.state
+        let img = this.state.avatarSource == null ? null :
+            <Image
+                source={this.state.avatarSource}
+                style={styles.image_circle}
+            />
+
         return(
             <ScrollView style = {stylesContainer.container}>
-                <View style = {{flexDirection:'column', alignItems:'center'}}>
-                    <Image style={styles.image_circle}
-
-                           source={{
-                               uri: InfoUser[0].Avatar
-                           }}
-                           resizeMode="cover"
-                    >
-                    </Image>
-                    <Text style = {{marginTop:10, fontSize: 20}}>{InfoUser[0].FullName}</Text>
-                </View>
+                {
+                    this.state.isCheck ? <TouchableOpacity onPress={this.show.bind(this)}>
+                        <Image style={styles.image_circle}
+                               source={{
+                                   uri: params.InfoBQL[0].Avatar
+                               }}
+                               resizeMode="cover"
+                        >
+                        </Image>
+                    </TouchableOpacity> : img
+                }
+                <Text style = {{marginTop:20, fontSize: 20}}>{params.InfoBQL[0].FullName}</Text>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>
                 <View style = {styles.viewcon}>
                     <View style = {{flexDirection:'row', alignItems: 'center'}}>
@@ -243,7 +284,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        callApiUpdateProfile: bindActionCreators(callApiUpdateProfile, dispatch)
+        callApiUpdateProfile: bindActionCreators(callApiUpdateProfile, dispatch),
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
     }
 };
 

@@ -108,45 +108,8 @@ class Nha extends Component {
             }
         );
     };
-    show() {
-        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data, isCheck: false}, ()=>{
-            this.upload()
-        }));
-    }
 
-    upload() {
-        const {InfoUser, callApiUploadImage} = this.props;
-        if (InfoUser.length <= 0) {
-            return null
-        }
-        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
-            dataImg = JSON.parse(dataImg)
-            dataImg = dataImg.Value
-            console.log('dataImage1', dataImg)
-            this.setState({
-                linkImg: 'http://192.168.1.254:9051' + dataImg
-            }, () => {
-                this.UpdateAvt()
-            })
-        })
-    }
-    UpdateAvt () {
-
-        const { callApiUpdateProfile, InfoUser } = this.props
-        if (InfoUser.length <= 0) {
-            return null
-        }
-        callApiUpdateProfile(InfoUser[0].ProfileID,InfoUser[0].UserID, "Avatar", this.state.linkImg ).then(dataRes => {
-            data = JSON.parse(dataRes);
-            console.log('upload thanh cong', data)
-        })
-    }
     render (){
-        let img = this.state.avatarSource == null ? null :
-            <Image
-                source={this.state.avatarSource}
-                style={styles.image_circle}
-            />
         let InfoProfile = this.state.Profile
         if(InfoProfile.length<=0){
             return null
@@ -164,17 +127,14 @@ class Nha extends Component {
 
             <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
-                    {
-                        this.state.isCheck ? <TouchableOpacity onPress={this.show.bind(this)}>
-                            <Image style={styles.image_circle}
-                                   source={InfoProfile[0].Avatar.length == 0?require('../../../images/Avatar.png'):{
-                                       uri: InfoProfile[0].Avatar
-                                   }}
-                                   resizeMode="cover"
-                            >
-                            </Image>
-                        </TouchableOpacity> : img
-                    }
+                    <Image style={styles.image_circle}
+                           source={{
+                               uri: InfoProfile[0].Avatar
+                           }}
+                           resizeMode="cover"
+                    >
+                    </Image>
+
                     <Text style = {{marginTop:20, fontSize: 20}}>{InfoProfile[0].FullName}</Text>
                 </View>
 
@@ -183,7 +143,7 @@ class Nha extends Component {
                         Nhật ký
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanBQL')}>
+                <TouchableOpacity onPress = {()=>this.props.navigation.navigate('ThongTinCaNhanBQL', {InfoBQL: this.state.Profile})}>
                     <View style = {{flexDirection: 'column', marginLeft: 40,
                         backgroundColor:"#42A5F5",width:200,height:100, borderWidth:1,marginTop:8,
                         justifyContent:'center'
@@ -243,7 +203,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
-        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
         callApiUpdateProfile: bindActionCreators(callApiUpdateProfile, dispatch),
     }
 };
