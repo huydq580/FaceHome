@@ -12,6 +12,7 @@ import {
     ActivityIndicator, Platform,
     AsyncStorage
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import moment from 'moment';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -209,6 +210,10 @@ class SanhChinh extends Component {
     // };
 
     render() {
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
+            return null;
+        }
         if (this.state.isLoading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
@@ -222,8 +227,12 @@ class SanhChinh extends Component {
             <View style={stylesContainer.container}>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                               style={{resizeMode: 'cover', height: 40, width: 30, marginLeft: 10}}>
+                        <Image
+                            source={{
+                                uri: InfoUser[0].Avatar
+                            }}
+                            style={styles.image_circle}
+                            resizeMode="cover">
                         </Image>
                         <View style={{
                             marginLeft: 10,
@@ -288,6 +297,7 @@ const mapDispatchToProps = (dispatch) => {
 SanhChinh = connect(mapStateToProps, mapDispatchToProps)(SanhChinh);
 
 export default SanhChinh
+const DEVICE_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     viewItem: {
         flexDirection: 'row',
@@ -297,6 +307,14 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginTop: 7,
         minHeight: 50,
+    },
+    image_circle: {
+        height: DEVICE_WIDTH / 10,
+        width: DEVICE_WIDTH / 10,
+        borderRadius: DEVICE_WIDTH / 20,
+        marginLeft: 10,
+        // marginTop: 10
+
     },
 
 })

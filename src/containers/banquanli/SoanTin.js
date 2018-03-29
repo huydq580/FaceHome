@@ -7,9 +7,10 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Alert,
-    Button
+    Button, StyleSheet
 } from 'react-native';
 import {bindActionCreators} from 'redux'
+import Dimensions from 'Dimensions';
 import {connect} from 'react-redux'
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
@@ -146,7 +147,11 @@ class SoanTin extends Component {
     }
 
     render() {
-        let img = this.state.avatarSource == null ? null :
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
+            return null;
+        }
+            let img = this.state.avatarSource == null ? null :
             <Image
                 source={this.state.avatarSource}
                 style={{height: 200, width: 200}}
@@ -155,11 +160,15 @@ class SoanTin extends Component {
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
-                        <Image source={require('../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg')}
-                               style={{resizeMode: 'cover', height: 40, width: 30, marginLeft: 10}}>
+                        <Image
+                            source={{
+                                uri: InfoUser[0].Avatar
+                            }}
+                            style={styles.image_circle}
+                            resizeMode="cover">
                         </Image>
                         <View style={{marginLeft: 10}}>
-                            <Text style={{color: 'black'}}>Nguyễn Văn A</Text>
+                            <Text style={{color: 'black'}}>{InfoUser[0].FullName}</Text>
                             <Text>Mọi người</Text>
                         </View>
                     </View>
@@ -208,3 +217,15 @@ const mapDispatchToProps = (dispatch) => {
 
 SoanTin = connect(mapStateToProps, mapDispatchToProps)(SoanTin);
 export default SoanTin;
+const DEVICE_WIDTH = Dimensions.get('window').width;
+const styles = StyleSheet.create({
+    image_circle: {
+        height: DEVICE_WIDTH / 10,
+        width: DEVICE_WIDTH / 10,
+        borderRadius: DEVICE_WIDTH / 20,
+        marginLeft: 10,
+        // marginTop: 10
+
+    },
+
+})
