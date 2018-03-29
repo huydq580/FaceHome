@@ -51,6 +51,7 @@ class ChiTietThanhVien extends Component {
         console.log('RoleID', InfoUser[0].RoleID)
         callApiUpdateStatus(InfoUser[0].RoleID, params.dataCuDan.ProfileID, params.dataCuDan.UserID, this.state.Value ).then(dataRes => {
             data = JSON.parse(dataRes);
+            console.log('data', data)
             if(data.ErrorCode==="00") {
                 Alert.alert(
                     'Alert',

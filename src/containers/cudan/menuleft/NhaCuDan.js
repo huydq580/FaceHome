@@ -113,8 +113,8 @@ class NhaCuDan extends Component {
             );
         }
         // console.log('render')
-        const { infoCuDan } = this.props;
-        if (infoCuDan.length <= 0) {
+        const { infoCuDan, InfoUser } = this.props;
+        if (infoCuDan.length <= 0 || InfoUser.length <=0) {
             return null;
         }
         // console.log('infoBQL', infoCuDan[0].FullName)
@@ -146,14 +146,23 @@ class NhaCuDan extends Component {
                             <Text style ={{marginLeft:10, color:'white'}}>Thông tin cá nhân</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress = { () => this.props.navigation.navigate("ThanhVienCanHo")}>
-                        <View style = {{flexDirection: 'column', marginLeft: 10,
-                            backgroundColor:"#42A5F5",width:DEVICE_WIDTH/2-40,height:100, borderWidth:1,marginTop:8,
-                            justifyContent:'center'
-                        }}>
-                            <Text style ={{marginLeft:20, color:'white'}}>Thành viên căn hộ</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {
+                        InfoUser[0].Position ==3 ?
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate("ThanhVienCanHo")}>
+                            <View style={{
+                                flexDirection: 'column',
+                                marginLeft: 10,
+                                backgroundColor: "#42A5F5",
+                                width: DEVICE_WIDTH / 2 - 40,
+                                height: 100,
+                                borderWidth: 1,
+                                marginTop: 8,
+                                justifyContent: 'center'
+                            }}>
+                                <Text style={{marginLeft: 20, color: 'white'}}>Thành viên căn hộ</Text>
+                            </View>
+                        </TouchableOpacity> : null
+                    }
                 </View>
                 <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 20}}/>
                 <View>
