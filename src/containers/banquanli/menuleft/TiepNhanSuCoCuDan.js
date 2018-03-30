@@ -23,16 +23,21 @@ class TiepNhanSuCoCuDan extends Component {
         }
     }
     componentWillMount(){
-        const { callApiSearchSuCo, InfoUser  } = this.props;
+        this.SearchSuCoKDT()
+
+    }
+    SearchSuCoKDT = (type) => {
+        const { callApiSearchSuCo,InfoUser  } = this.props;
         if (InfoUser.length<=0){
             return null;
         }
-        callApiSearchSuCo(InfoUser[0].KDTID , InfoUser[0].UserID, this.state.SuCo).then(dataRes => {
+        callApiSearchSuCo(InfoUser[0].KDTID, type ).then(dataRes => {
             dataRes = JSON.parse(dataRes)
-            dataRes = dataRes.Value
-            this.setState({
-                dataSuCo: dataRes,
-            })
+            dataRes = dataRes.Value,
+                this.setState({
+                    dataSuCo:dataRes,
+                })
+            console.log('datasuco', dataRes)
         })
 
     }
@@ -47,10 +52,13 @@ class TiepNhanSuCoCuDan extends Component {
                 </TouchableOpacity>
                 <Picker
                     selectedValue={this.state.SuCo}
-                    onValueChange={(itemValue, itemIndex) => this.setState({SuCo: itemValue})}>
+                    onValueChange={(value) => {
+                        this.setState({SuCo: value})
+                        this.SearchSuCoKDT(value)
+                    }}>
                     <Picker.Item label = {'Tất cả'} value = ''/>
-                    <Picker.Item label = {'Nhà riêng'} value ={'key1'}/>
-                    <Picker.Item label = {'Công cộng'} value ={'key2'}/>
+                    <Picker.Item label = {'Nhà riêng'} value ={'1'}/>
+                    <Picker.Item label = {'Công cộng'} value ={'2'}/>
                 </Picker>
                 <FlatList
                     data = {this.state.dataSuCo}

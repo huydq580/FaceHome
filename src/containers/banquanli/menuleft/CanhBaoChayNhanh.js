@@ -28,6 +28,7 @@ class CanhBaoChayNhanh extends Component {
             UserBQL1:'',
             placeholdeText: '',
             data: [],
+            //uploadimage
             isCheck:true,
             dataImage: null,
             avatarSource: null,
@@ -40,7 +41,7 @@ class CanhBaoChayNhanh extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID).then((dataSearch) => {
+        callApiSearchCanhBaoChay(InfoUser[0].KDTID).then((dataSearch) => {
             dataSearch1 = JSON.parse(dataSearch);
             console.log('dataSearch', dataSearch1)
             this.setState({
@@ -48,14 +49,14 @@ class CanhBaoChayNhanh extends Component {
             })
         })
     }
-    BaoChay () {
+    BaoChay = () => {
         const { InfoUser } = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
-        // console.log('userbbql1', UserBQL)
+        this.textInput.clear();
         const { callApiCanhBaoChay } = this.props;
-        callApiCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID,  InfoUser[0].FullName, this.state.CanhBao, this.state.linkImg).then((dataCanhBaoChay) => {
+        callApiCanhBaoChay(InfoUser[0].KDTID, InfoUser[0].UserID,  InfoUser[0].FullName, this.state.CanhBao, InfoUser[0].Avatar, this.state.linkImg).then((dataCanhBaoChay) => {
             data = JSON.parse(dataCanhBaoChay);
             if(data.ErrorCode === "00"){
                 Alert.alert(
@@ -122,8 +123,12 @@ class CanhBaoChayNhanh extends Component {
                         }}
                         placeholder = 'Ban quản lí nhập thông tin tại đây'
                         underlineColorAndroid="transparent"
-                        onChangeText = {(CanhBao) => this.setState({CanhBao})}/>
+                        onChangeText = {(CanhBao) => this.setState({CanhBao})}
+                        ref={input => {
+                            this.textInput = input
+                        }}/>
                 </View>
+                <TouchableOpacity onPress = {this.BaoChay}>
                 <View style = {styles.viewGui}>
                     <Text style = {{fontSize: 17}}>
                         Cảnh báo cháy
@@ -131,6 +136,7 @@ class CanhBaoChayNhanh extends Component {
 
 
                 </View>
+                </TouchableOpacity>
 
 
                 <View style = {{flexDirection:'row', marginLeft:20, marginTop:20}}>

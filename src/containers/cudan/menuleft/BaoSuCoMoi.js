@@ -31,7 +31,6 @@ class BaoSuCoMoi extends Component {
         }
     }
     BaoSuCoMoi(){
-        this.textInput.clear();
         const { InfoUser } = this.props;
         if (InfoUser<=0){
             return null;
@@ -49,7 +48,7 @@ class BaoSuCoMoi extends Component {
                 avatar: "",
                 ten_can_ho: 1002,
                 media: this.state.linkImg,
-                type: this.state.SuCo,
+                type: InfoUser[0].Type,
                 post_content: this.state.NoiDung,
                 lang_name: "vi_VN"
             })
@@ -142,9 +141,8 @@ class BaoSuCoMoi extends Component {
                         placeholder = 'Nhập nội dung sự cố tại đây'
                         underlineColorAndroid="transparent"
                         onChangeText = {(NoiDung) => this.setState({NoiDung})}
-                        ref={input => {
-                            this.textInput = input
-                        }}/>
+
+                    />
                 </View>
                 <TouchableOpacity onPress = {this.BaoSuCoMoi.bind(this)}>
                     <View style = {styles.viewGui}>
