@@ -83,7 +83,7 @@ class TinNhanDetailsCuDan extends Component {
         })
         // receive message to sender
         this.socket.on('receive', (dataReceive) => {
-            // console.log('receive', dataReceive)
+            console.log('receive', dataReceive)
             dataMess = dataReceive.Content;
             //set newMsg = messga receive
             let newMsg = this.state.dataChat;

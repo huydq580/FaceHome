@@ -24,11 +24,15 @@ class StatusItemCuDan extends Component {
             transports: ['websocket'],
         });
         this.state = {
-            TongCmt: ""
+            TongCmt: "",
+            checkLike: true,
         }
     }
 
     LikePost = (PostID, DatePost) => {
+        this.setState({
+            checkLike: false
+        })
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null
@@ -63,7 +67,8 @@ class StatusItemCuDan extends Component {
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
                                 source={{
-                                    uri: item.Avatar
+                                    // uri: item.Avatar
+                                    uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
                                 }}
                                style={styles.image_circle}
                                resizeMode="cover">
@@ -101,11 +106,14 @@ class StatusItemCuDan extends Component {
                     <View style={{flexDirection: 'row', marginTop: 5, justifyContent: 'space-between'}}>
                         <View style={{flexDirection: 'row', marginLeft: 20}}>
                             <Icon1 name="like" size={25} color="#424242"/>
-                            <TouchableOpacity
-                                onPress={()=> this.LikePost()}
-                            >
-                                <Text style={{color: '#424242'}}>Thích</Text>
-                            </TouchableOpacity>
+                            {
+                                this.state.checkLike ?
+                                <TouchableOpacity
+                                    onPress={() => this.LikePost()}
+                                >
+                                    <Text style={{color: '#424242'}}>Thích</Text>
+                                </TouchableOpacity> : <Text style={{color: '#424242'}}> Bỏ thích</Text>
+                            }
                         </View>
                         <View style={{flexDirection: 'row', marginRight: 20}}>
                             <Icon1 name="comment" size={25} color="#424242"/>
@@ -120,7 +128,8 @@ class StatusItemCuDan extends Component {
                                 <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
                                     <Image
                                         source={{
-                                            uri: InfoUser[0].Avatar
+                                            // uri: InfoUser[0].Avatar
+                                            uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
                                         }}
                                         style={styles.image_circle}
                                         resizeMode="cover">

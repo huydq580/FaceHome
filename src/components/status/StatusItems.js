@@ -24,7 +24,8 @@ class StatusItems extends Component {
             transports: ['websocket'],
         });
         this.state = {
-            TongCmt: ""
+            TongCmt: "",
+            checkLike: true,
         }
         this.socket.on('receivelikepost', (dataReceive) => {
             console.log('receivelikepost', dataReceive)
@@ -36,6 +37,9 @@ class StatusItems extends Component {
     }
 
     LikePost = (PostID, DatePost) => {
+        this.setState({
+            checkLike: false
+        })
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null
@@ -73,7 +77,8 @@ class StatusItems extends Component {
                     <View style={{flexDirection: 'row', marginTop: 15, alignItems:'center'}}>
                         <Image
                             source={{
-                                uri: item.Avatar
+                                // uri: item.Avatar
+                                uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
                             }}
                                style={styles.image_circle}
                                resizeMode="cover">
@@ -113,11 +118,14 @@ class StatusItems extends Component {
                     <View style={{flexDirection: 'row', marginTop: 5, justifyContent: 'space-between'}}>
                         <View style={{flexDirection: 'row', marginLeft: 20}}>
                             <Icon1 name="like" size={25} color="#424242"/>
-                            <TouchableOpacity
-                                onPress={()=> this.LikePost(item.PostID)}
-                            >
-                                <Text style={{color: '#424242', fontWeight:'bold'}}>Thích</Text>
-                            </TouchableOpacity>
+                            {
+                                this.state.checkLike ?
+                                    <TouchableOpacity
+                                        onPress={() => this.LikePost()}
+                                    >
+                                        <Text style={{color: '#424242'}}>Thích</Text>
+                                    </TouchableOpacity> : <Text style={{color: '#424242'}}> Bỏ thích</Text>
+                            }
                         </View>
                         <View style={{flexDirection: 'row', marginRight: 20}}>
                             <Icon1 name="comment" size={25} color="#424242"/>
@@ -133,7 +141,8 @@ class StatusItems extends Component {
                                     <Image
                                         source={{
 
-                                            uri: item.Comments[0].Content
+                                            // uri: item.Comments[0].Content
+                                            uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
                                         }}
                                         style={styles.image_circle}
                                         resizeMode="cover">
@@ -217,7 +226,7 @@ const styles = StyleSheet.create({
     },
     imagePost: {
         width: DEVICE_WIDTH,
-        // height: : (height / width) * width
+        height: 250,
         marginTop: 10
     }
 })
