@@ -129,13 +129,13 @@ class TaiKhoanDanCu extends Component {
                                 {this.state.TrangThai}
                             </Text>
                         </TouchableOpacity>
-                            <TouchableOpacity
-                                // onPress = {()=> this.props.navigation.navigate('TinNhanDetails')}
-                            >
-                                <Text style = {{fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#424242', color: '#424242', marginLeft: 20}}>
-                                    Nhắn tin
-                                </Text>
-                            </TouchableOpacity>
+                            {/*<TouchableOpacity*/}
+                                {/*// onPress = {()=> this.props.navigation.navigate('TinNhanDetails')}*/}
+                            {/*>*/}
+                                {/*<Text style = {{fontSize: 18, textDecorationLine: "underline", textDecorationColor:'#424242', color: '#424242', marginLeft: 20}}>*/}
+                                    {/*Nhắn tin*/}
+                                {/*</Text>*/}
+                            {/*</TouchableOpacity>*/}
                         </View>
                     </View>
                 </View>
