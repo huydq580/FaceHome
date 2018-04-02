@@ -4,7 +4,7 @@ import {
     FlatList,
     TouchableOpacity,
     Image,
-    TextInput
+    TextInput, AsyncStorage
 
 } from 'react-native';
 import stylesContainer from "../../components/style";
@@ -78,27 +78,32 @@ class BinhLuanCuDan extends Component {
 
     }
     sendCmt = (CommentID, CreatedDate, Content) => {
-        const {InfoUser} = this.props;
-        if (InfoUser.length <= 0) {
-            return null;
-        }
-        // console.log("msg:", this.input_msg);
-        //object need send to server
-        let dataSendCmt = {
-            RowNum:"",
-            CommentID:CommentID,
-            UserID:InfoUser[0].UserID,
-            FullName:InfoUser[0].FullName,
-            Avartar:InfoUser[0].Avartar,
-            CreatedDate:CreatedDate,
-            UserType:InfoUser[0].UserID,
-            TotalLike:"",
-            Content:Content,
-            TotalRow:"",
-            PostID: "",
-            KDTID: "",
-        }
-        this.socket.emit("comment", dataSendCmt);
+        const { params } = this.props.navigation.state
+        AsyncStorage.getItem("token").then(value => {
+            console.log('value', value)
+            const {InfoUser} = this.props;
+            if (InfoUser.length <= 0) {
+                return null;
+            }
+            // console.log("msg:", this.input_msg);
+            //object need send to server
+            let dataSendCmt = {
+                RowNum: "",
+                CommentID: CommentID,
+                UserID: InfoUser[0].UserID,
+                FullName: InfoUser[0].FullName,
+                Avartar: InfoUser[0].Avartar,
+                CreatedDate: CreatedDate,
+                UserType: InfoUser[0].UserID,
+                TotalLike: "",
+                Content: Content,
+                TotalRow: "",
+                PostID: params.PostId,
+                KDTID: InfoUser[0].KDTID,
+                TokenDevice: value
+            }
+            this.socket.emit("comment", dataSendCmt);
+        })
 
     }
     Comment =() => {

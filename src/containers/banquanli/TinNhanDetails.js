@@ -14,7 +14,6 @@ import SocketIOClient from 'socket.io-client';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import Dimensions from 'Dimensions';
-
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";

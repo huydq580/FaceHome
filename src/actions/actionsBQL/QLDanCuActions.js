@@ -1,6 +1,6 @@
 import { SearchDanCu, URL} from "../../components/Api";
 
-export const callApiSearchDanCu = (kdt_id, block_id,floor_id, status) => {
+export const callApiSearchDanCu = (kdt_id,keyword, block_id,floor_id, status) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + SearchDanCu, {
@@ -14,7 +14,7 @@ export const callApiSearchDanCu = (kdt_id, block_id,floor_id, status) => {
                     page_index: 1,
                     from_date: "",
                     to_date: "",
-                    keyword: "",
+                    keyword: keyword,
                     block_id: block_id,
                     floor_id: floor_id,
                     status: status,

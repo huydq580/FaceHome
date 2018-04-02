@@ -120,9 +120,8 @@ class SanhChinh extends Component {
 
         FCM.getFCMToken().then(token => {
             console.log('token', token)
-            AsyncStorage.getItem("token").then(token_APP => {
+            AsyncStorage.setItem('token', token);
                 this.pushDeviceToken(token);
-            })
             // store fcm token in your server
         });
 
