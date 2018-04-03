@@ -53,13 +53,13 @@ class StatusItems extends Component {
 
         })
     }
-    BinhLuan = (PostID) => {
+    BinhLuan = (PostID, UserID) => {
         const { navigate } = this.props.navigation
         const { callApiSearchCmt } = this.props
         callApiSearchCmt( PostID ).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            navigate('BinhLuanBQL', {PostId: PostID})
+            navigate('BinhLuanBQL', {PostId: PostID, UserId: UserID})
         })
     }
 
@@ -175,7 +175,7 @@ class StatusItems extends Component {
                             resizeMode="cover">
                         </Image>
                         <TouchableOpacity onPress={() => {
-                            this.BinhLuan(item.PostID)
+                            this.BinhLuan(item.PostID, item.UserID)
                         }}
                                           style={{
                                               marginLeft: 10, flex: 1,

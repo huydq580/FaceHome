@@ -19,6 +19,7 @@ import {default as FCM, FCMEvent} from "react-native-fcm";
 import {SOCKET, UpdateProfile, URL} from "../../components/Api";
 import SocketIOClient from "socket.io-client";
 import StatusItemCuDan from "../../components/status/StatusItemCuDan";
+import {callApiSubcribe} from "../../actions/SubcribeActions";
 
 class SanhChinh extends Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class SanhChinh extends Component {
             isLoading: true,
             page_index: 1,
             dataItem: [],
+            Token: '',
         }
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
@@ -73,6 +75,16 @@ class SanhChinh extends Component {
         })
 
     }
+    Subcribe = () => {
+        const {InfoUser, callApiSubcribe} = this.props;
+        if (InfoUser.length <=0) {
+            return null
+        }
+        callApiSubcribe(InfoUser[0].UserID, true).then(dataRes => {
+            // console.log('dataSubcribe',dataRes )
+
+        })
+    }
 
     pushDeviceToken = (token_APP) => {
         const {InfoUser} = this.props
@@ -92,8 +104,15 @@ class SanhChinh extends Component {
                 lang_name: "vi_VN"
             })
         }).then((response) => response.json())
-            .then(data => {
-                console.log("da push thanh cong", data)
+            .then(dataRes => {
+                dataToken = JSON.parse(dataRes)
+                this.setState({
+                    Token: dataToken.Message
+
+                }, () => {
+                    // console.log('hihida vao cai nay')
+                    this.Subcribe()
+                })
 
             }).catch((erro) => {
             console.log('erro', erro);
@@ -281,6 +300,7 @@ const mapDispatchToProps = (dispatch) => {
         // addTodo: bindActionCreators(addTodo, dispatch),
         callApiNhaCuDan: bindActionCreators(callApiNhaCuDan, dispatch),
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
+        callApiSubcribe: bindActionCreators(callApiSubcribe, dispatch)
     }
 };
 

@@ -77,6 +77,10 @@ export const Get_User = "messages/groupmessagebyuser";
 export const Get_Message = "messages/detailmessagebygroupuse";
 export const MsgGroupID = "msg_group/createupdatemsg_group";
 
+//notification
+export const LoginLogoutSubcribe = "pushnotification/loginlogoutsubcribe";
+export const GetlAlNotifcation = "pushnotification/getallnotifcation";
+
 // socket
 export const SOCKET = "http://222.252.16.186:9061/";
 

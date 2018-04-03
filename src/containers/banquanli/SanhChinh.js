@@ -22,6 +22,7 @@ import {callApiSearchPost} from "../../actions/SearchPostActions";
 import FCM, {FCMEvent} from "react-native-fcm";
 import {SOCKET, UpdateProfile, URL} from "../../components/Api";
 import SocketIOClient from "socket.io-client";
+import {callApiSubcribe} from "../../actions/SubcribeActions";
 
 
 class SanhChinh extends Component {
@@ -43,6 +44,7 @@ class SanhChinh extends Component {
             refresh: false,
             isLoading: true,
             page_index: 1,
+            Token: '',
         }
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
@@ -92,6 +94,17 @@ class SanhChinh extends Component {
     }
     componentWillMount () {
     }
+    Subcribe = () => {
+        const {InfoUser, callApiSubcribe} = this.props;
+        if (InfoUser.length <=0) {
+            return null
+        }
+        callApiSubcribe(InfoUser[0].UserID, true).then(dataRes => {
+            console.log('dataSubcribe',dataRes )
+
+        })
+    }
+
 
     pushDeviceToken = (token_APP) => {
         const {InfoUser} = this.props
@@ -111,9 +124,15 @@ class SanhChinh extends Component {
                 lang_name: "vi_VN"
             })
         }).then((response) => response.json())
-            .then(data => {
-                console.log("da push thanh cong", data)
+            .then(dataRes => {
+                dataToken = JSON.parse(dataRes)
+                this.setState({
+                    Token: dataToken.Message
 
+                }, () => {
+                    // console.log('hihida vao cai nay')
+                    this.Subcribe()
+                })
             }).catch((erro) => {
             console.log('erro', erro);
         })
@@ -288,6 +307,7 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
+        callApiSubcribe: bindActionCreators(callApiSubcribe, dispatch),
 
 
     }

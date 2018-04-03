@@ -79,7 +79,7 @@ import PickToaNha from "../containers/banquanli/quanlicudan/PickToaNha";
 import ThanhVienCanHo from "../containers/cudan/menuleft/ThanhVienCanHo";
 import ChiTietThanhVien from "../containers/cudan/menuleft/ChiTietThanhVien";
 import CreateGroup from "../containers/banquanli/CreateGroup";
-import AddMember from "../containers/AddMember";
+import AddMember from "../containers/banquanli/AddMember";
 
 
 const Stack = StackNavigator ({

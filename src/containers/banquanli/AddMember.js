@@ -10,9 +10,9 @@ import {
     ActivityIndicator, Alert
 
 } from 'react-native';
-import AddMemberItem from "../components/AddMemberItem";
+import AddMemberItem from "../../components/AddMemberItem";
 import Dimensions from 'Dimensions';
-import {callApiSearchDanCu} from "../actions/actionsBQL/QLDanCuActions";
+import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -279,7 +279,7 @@ class AddMember extends Component {
 
                             >
                                 <Image
-                                    source={require("../images/close.png")}
+                                    source={require("../../images/close.png")}
                                     style={{ width: 20, height: 20,alignSelf:'center' }}
                                 />
                             </TouchableOpacity>

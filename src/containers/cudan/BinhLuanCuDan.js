@@ -100,7 +100,8 @@ class BinhLuanCuDan extends Component {
                 TotalRow: "",
                 PostID: params.PostId,
                 KDTID: InfoUser[0].KDTID,
-                TokenDevice: value
+                TokenDevice: value,
+                UserIDPost: params.UserId
             }
             this.socket.emit("comment", dataSendCmt);
         })

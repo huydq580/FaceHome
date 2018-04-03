@@ -12,6 +12,7 @@ import UserInput from '../components/dangnhap/UserInput';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiLogin} from "../actions/actionsBQL/LoginActions";
+import {callApiSubcribe} from "../actions/SubcribeActions";
 
 class DangNhap extends Component {
     constructor(props){
@@ -128,7 +129,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        callApiLogin: bindActionCreators(callApiLogin, dispatch)
+        callApiLogin: bindActionCreators(callApiLogin, dispatch),
     }
 };
 
