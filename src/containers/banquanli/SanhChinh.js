@@ -100,7 +100,7 @@ class SanhChinh extends Component {
             return null
         }
         callApiSubcribe(InfoUser[0].UserID, true).then(dataRes => {
-            console.log('dataSubcribe',dataRes )
+            // console.log('dataSubcribe',dataRes )
 
         })
     }

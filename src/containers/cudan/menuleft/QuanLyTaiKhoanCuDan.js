@@ -8,26 +8,27 @@ import {
 import { NavigationActions } from 'react-navigation';
 import stylesContainer from "../../../components/style";
 import Modal from "react-native-modal";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {callApiSubcribe} from "../../../actions/SubcribeActions";
 
-export default class QuanLyTaiKhoanCuDan extends Component {
+class QuanLyTaiKhoanCuDan extends Component {
     constructor(props){
         super(props)
         this.state = {
             visibleModal: null
         };
     }
-    // Logout() {
-    //     AsyncStorage.removeItem('UserID')
-    //     const resetAction = NavigationActions.reset({
-    //         index: 0,
-    //         actions: [
-    //             NavigationActions.navigate({
-    //                 routeName: 'DangNhap',
-    //             }),
-    //         ]
-    //     });
-    //     this.props.navigation.dispatch(resetAction)
-    // }
+    UnSubcribe = () =>  {
+        const {InfoUser, callApiSubcribe} = this.props;
+        if (InfoUser.length <=0) {
+            return null
+        }
+        callApiSubcribe(InfoUser[0].UserID, false).then(dataRes => {
+            // console.log('dataUnSubcribe',dataRes )
+
+        })
+    }
     render (){
         return (
             <View style = {[stylesContainer.container,{justifyContent:'center'}]}>
@@ -76,7 +77,9 @@ export default class QuanLyTaiKhoanCuDan extends Component {
                     style={styles.bottomModal}
                 >
                     <View>
-                        <TouchableOpacity onPress =  {()=> {AsyncStorage.removeItem('UserID')
+                        <TouchableOpacity onPress =  {()=> {
+                            this.UnSubcribe()
+                            AsyncStorage.removeItem('UserID')
                             const resetAction = NavigationActions.reset({
                                 index: 0,
                                 actions: [
@@ -107,6 +110,24 @@ export default class QuanLyTaiKhoanCuDan extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        callApiSubcribe: bindActionCreators(callApiSubcribe, dispatch),
+
+
+    }
+};
+
+QuanLyTaiKhoanCuDan = connect(mapStateToProps, mapDispatchToProps)(QuanLyTaiKhoanCuDan);
+
+export default QuanLyTaiKhoanCuDan
 const styles = StyleSheet.create({
     viewitem : {
         borderWidth: 1,

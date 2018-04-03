@@ -8,8 +8,11 @@ import {
 import { NavigationActions } from 'react-navigation';
 import stylesContainer from "../../../components/style";
 import Modal from "react-native-modal";
+import {bindActionCreators} from "redux";
+import {callApiSubcribe} from "../../../actions/SubcribeActions";
+import {connect} from "react-redux";
 
-export default class QuanLyTaiKhoan extends Component {
+class QuanLyTaiKhoan extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -17,26 +20,16 @@ export default class QuanLyTaiKhoan extends Component {
         };
     }
 
-    // _renderButton = (text, onPress) => (
-    //     <TouchableOpacity onPress={onPress}>
-    //         <View style={styles.button}>
-    //             <Text>{text}</Text>
-    //         </View>
-    //     </TouchableOpacity>
-    // );
 
-    // _renderModalContent = () => (
-    //     <View style={styles.modalContent}>
-    //         <TouchableOpacity OnPress = {this.Logout}>
-    //             <Text>Đăng xuất</Text>
-    //         </TouchableOpacity>
-    //         {this._renderButton("Close", () => this.setState({ visibleModal: null }))}
-    //     </View>
-    // );
+    UnSubcribe = () =>  {
+        const {InfoUser, callApiSubcribe} = this.props;
+        if (InfoUser.length <=0) {
+            return null
+        }
+        callApiSubcribe(InfoUser[0].UserID, false).then(dataRes => {
+            // console.log('dataUnSubcribe',dataRes )
 
-    Logout() {
-        console.log('hihi')
-
+        })
     }
     render (){
         return (
@@ -69,7 +62,9 @@ export default class QuanLyTaiKhoan extends Component {
                     style={styles.bottomModal}
                 >
                    <View>
-                       <TouchableOpacity onPress =  {()=> {AsyncStorage.removeItem('UserID')
+                       <TouchableOpacity onPress =  {()=> {
+                           this.UnSubcribe()
+                           AsyncStorage.removeItem('UserID')
                            const resetAction = NavigationActions.reset({
                                index: 0,
                                actions: [
@@ -100,6 +95,25 @@ export default class QuanLyTaiKhoan extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        callApiSubcribe: bindActionCreators(callApiSubcribe, dispatch),
+
+
+    }
+};
+
+QuanLyTaiKhoan = connect(mapStateToProps, mapDispatchToProps)(QuanLyTaiKhoan);
+
+export default QuanLyTaiKhoan
 const styles = StyleSheet.create({
     viewitem : {
         borderWidth: 1,
