@@ -19,7 +19,7 @@ import {MsgGroupID, URL_SOCKET} from "../../components/Api";
 import ChatGroupBQL from "./ChatGroupBQL";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-class AddMember extends Component {
+class CreateGroup extends Component {
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
 
@@ -346,8 +346,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-AddMember = connect(mapStateToProps, mapDispatchToProps)(AddMember);
-export default AddMember;
+CreateGroup = connect(mapStateToProps, mapDispatchToProps)(CreateGroup);
+export default CreateGroup;
 
 const myStyle = StyleSheet.create({
     image_circle: {
