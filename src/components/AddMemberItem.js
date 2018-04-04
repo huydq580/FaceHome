@@ -7,7 +7,6 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Dimensions from 'Dimensions';
-
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 export default class AddMemberItem extends Component {
@@ -24,25 +23,24 @@ export default class AddMemberItem extends Component {
         else
             return true;
     }
-
     render() {
         const {navigation} = this.props;
-        const {item, index} = this.props.dataItem;
-        console.log("item", item)
+        const {item,index} = this.props.dataItem;
+        // console.log("item",item)
 
         const {fromSearch} = this.props;
-        const {fromDachSach} = this.props;
+        const{fromDachSach} = this.props;
 
         return (
 
             <TouchableOpacity
                 onPress={() => {
-                    if (fromDachSach)
+                    if(fromDachSach)
                         return;
-                    if (fromSearch) {
+                    if(fromSearch){
 
-                        this.props.sendDataClick(item, index);
-                    } else
+                        this.props.sendDataClick(item,index);
+                    }else
                         navigation.navigate('Chat', {dataUser: item});
                 }}
             >

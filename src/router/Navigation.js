@@ -78,9 +78,9 @@ import BanLa from "../containers/raovat/BanLa";
 import PickToaNha from "../containers/banquanli/quanlicudan/PickToaNha";
 import ThanhVienCanHo from "../containers/cudan/menuleft/ThanhVienCanHo";
 import ChiTietThanhVien from "../containers/cudan/menuleft/ChiTietThanhVien";
-import CreateGroup from "../containers/banquanli/CreateGroup";
 import AddMember from "../containers/banquanli/AddMember";
 import CreateGroupCuDan from "../containers/cudan/CreateGroupCuDan";
+import ChatGroupBQL from "../containers/banquanli/ChatGroupBQL";
 
 
 const Stack = StackNavigator ({
@@ -550,18 +550,16 @@ const Stack = StackNavigator ({
             title: 'Chi tiết thành viên'
         }
     },
-    CreateGroup: {
-        screen: CreateGroup,
-        navigationOptions: {
-            title: 'Tạo nhóm mới'
-        }
-    },
+
     AddMember: {
         screen: AddMember,
     },
     CreateGroupCuDan: {
         screen: CreateGroupCuDan
 
+    },
+    ChatGroupBQL: {
+        screen: ChatGroupBQL
     }
 
 

@@ -15,6 +15,8 @@ import Dimensions from 'Dimensions';
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import {MsgGroupID, URL_SOCKET} from "../../components/Api";
+import ChatGroupBQL from "./ChatGroupBQL";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 class AddMember extends Component {
@@ -42,6 +44,7 @@ class AddMember extends Component {
             isLoading: false,
             dataIdUser: [],
             dataCuDan:[],
+            TenGroup:'',
         };
 
         this.timeout = 0;
@@ -56,46 +59,55 @@ class AddMember extends Component {
     }
     actionCreate = () => {
         const { params } = this.props.navigation.state
-        // if (this.fromEdit) {
-        //     Alert.alert("Thông báo", "Chỉnh sửa click");
-        //     return;
-        // }
 
-        // if (this.state.userGroup.length < 2) {
-        //     Alert.alert("Thông báo", "Nhóm phải có ít nhất 3 thành viên");
-        //     return;
-        // }
-        // this.AddMember()
-        this.props.navigation.navigate("ChatGroup", { groupname: params.groupname, IdGroup: params.IdGroup})
+        if (this.state.TenGroup === "") {
+            Alert.alert("Thông báo", "Tên nhóm không được để trống");
+            return;
+        }
+
+        if (this.state.userGroup.length < 2) {
+            Alert.alert("Thông báo", "Nhóm phải có ít nhất 3 thành viên");
+            return;
+        }
+        this.AddMember()
+        // this.props.navigation.navigate("ChatGroup", { groupname: params.groupname, IdGroup: params.IdGroup})
         // Alert.alert("Thông báo","Tạo nhóm thành công");
 
     }
-    // AddMember = () => {
-    //     console.log('id ', this.state.dataIdUser)
-    //     const { params } = this.props.navigation.state
-    //     AsyncStorage.getItem("token").then(value => {
-    //
-    //         fetch(BASE_URL + ADD_MEMBER + params.IdGroup , {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "x-access-token": value
-    //             },
-    //             body: JSON.stringify({
-    //                 memberIds: this.state.dataIdUser
-    //
-    //
-    //             })
-    //         }).then(response => {
-    //             return response.json()
-    //         }).then(dataRes => {
-    //             console.log('add member', dataRes)
-    //
-    //         }).catch(e => {
-    //             console.log("exception", e);
-    //         });
-    //     });
-    // }
+    AddMember = () => {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
+            return null;
+        }
+        fetch(URL_SOCKET + MsgGroupID, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify({
+                MsgGroupID: "",
+                KDTID: InfoUser[0].KDTID,
+                PartID: "",
+                GroupMembers: JSON.stringify(this.state.dataIdUser),
+                GroupName: this.state.TenGroup, //chưa push
+                CreatedDate: "2017-11-10T00:00:00.000Z",
+                DayFlag: 20171110,
+                UserID: InfoUser[0].UserID,
+                FullName: InfoUser[0].FullName,
+                Avartar: null,
+                Status: 1,
+                LastMessage: null,
+                // IsCreate: isCheck,
+            })
+        }).then((response) => {
+            return response.json();
+        }).then(dataRes => {
+            this.props.navigation.navigate("ChatGroupBQL", { title : this.state.TenGroup, MsgGroupID: dataRes.ObjectResult[0].MsgGroupID
+            })
+        }).catch(e => {
+            console.log('exception')
+        })
+    }
 
 
     shouldComponentUpdate() {
@@ -165,7 +177,15 @@ class AddMember extends Component {
     clickItemSearch = (userSelect,index)=>{
         console.log("user select",userSelect);
         let addID = this.state.dataIdUser;
-        addID.push(userSelect.id)
+        addID.push({
+            UserID: userSelect.UserID,
+            FullName: userSelect.FullName,
+            Avartar: userSelect.Avartar,
+            LinkProfile: "",
+            LinkMsg: "",
+            IntUserID: userSelect.IntUserID,
+
+        })
         this.setState({
             dataIdUser: addID
         })
@@ -189,6 +209,24 @@ class AddMember extends Component {
         // console.log('this.state.dataCuDa', this.state.dataCuDan)
         return (
             <ScrollView style={{ flex: 1, margin: 10 }}>
+                <TextInput
+                    style={{
+                        marginTop: 10,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        borderColor: "#000",
+                        shadowColor: "#000",
+                        paddingLeft: 5,
+                        marginBottom: 10,
+                        minHeight: 50
+
+                    }}
+                    placeholder="Nhập tên nhóm"
+                    underlineColorAndroid="transparent"
+                    onChangeText={(TenGroup) => this.setState({TenGroup})}
+                    // defaultValue={this.groupnameOld}
+                />
+
                 <TextInput
                     style={{
                         borderWidth: 1,
