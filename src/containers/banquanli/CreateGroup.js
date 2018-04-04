@@ -44,7 +44,7 @@ class CreateGroup extends Component {
             Alert.alert("Thông báo", "Tên nhóm không được để trống");
             return;
         }
-        // this.CreateGroup()
+        // this.CreateGroupCuDan.js()
         this.props.navigation.navigate("AddMember")
 
 

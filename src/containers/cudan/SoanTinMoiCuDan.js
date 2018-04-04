@@ -25,7 +25,9 @@ class SoanTinMoiCuDan extends Component {
             search: true,
             SearchItem:'',
             dataBQL:'',
+            text: ''
         }
+        this.dataBQL = [];
     }
     componentWillMount(){
         const { InfoUser } = this.props;
@@ -37,6 +39,7 @@ class SoanTinMoiCuDan extends Component {
         callApiGetBQL(InfoUser[0].KDTID).then(dataGetBQL => {
             dataGetBQL = JSON.parse(dataGetBQL)
             dataGetBQL = dataGetBQL.Value
+            this.dataBQL = dataGetBQL
             this.setState({
                 dataBQL: dataGetBQL
             })
@@ -53,15 +56,17 @@ class SoanTinMoiCuDan extends Component {
             search: true
         })
     }
-    SearchUser(input){
-        data = this.state.dataBQL
-        let inputSearch  = data.filter((text)=>{
-            if(text.FullName.indexOf(input)>0){
-                return text;
-            }
+    SearchUser(text){
+        const data = this.dataBQL;
+        const inputSearch = data.filter(function(item){
+            const itemData = item.FullName.toUpperCase()
+            const textData = text.toUpperCase()
+
+            return itemData.indexOf(textData) > -1
         })
         this.setState({
-            dataBQL: inputSearch
+            dataBQL: inputSearch,
+            text: text
         })
     }
 
@@ -81,7 +86,7 @@ class SoanTinMoiCuDan extends Component {
                             <View style = {styles.containerNavbarS}>
                                 <TextInput  placeholder = 'Search'
                                             underlineColorAndroid="transparent"
-                                            onChangeText = {this.SearchUser.bind(this)}/>
+                                            onChangeText = {(text) => this.SearchUser(text)}/>
                             </View>
                             <TouchableOpacity onPress = {this.Cancel}>
                                 <Text style = {{flex:2 , marginLeft:5, fontSize:17}}>cancel</Text>

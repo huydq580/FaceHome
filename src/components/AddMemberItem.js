@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Dimensions from 'Dimensions';
+
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 export default class AddMemberItem extends Component {
@@ -23,24 +24,25 @@ export default class AddMemberItem extends Component {
         else
             return true;
     }
+
     render() {
         const {navigation} = this.props;
-        const {item,index} = this.props.dataItem;
-        // console.log("item",item)
+        const {item, index} = this.props.dataItem;
+        console.log("item", item)
 
-        const{fromSearch} = this.props;
-        const{fromDachSach} = this.props;
+        const {fromSearch} = this.props;
+        const {fromDachSach} = this.props;
 
         return (
 
             <TouchableOpacity
                 onPress={() => {
-                    if(fromDachSach)
+                    if (fromDachSach)
                         return;
-                    if(fromSearch){
+                    if (fromSearch) {
 
-                        this.props.sendDataClick(item,index);
-                    }else
+                        this.props.sendDataClick(item, index);
+                    } else
                         navigation.navigate('Chat', {dataUser: item});
                 }}
             >
@@ -48,12 +50,11 @@ export default class AddMemberItem extends Component {
                       style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <Image style={myStyle.image_circle}
 
-                        //    source={!item.avatar || item.avatar.length == 0?require("../images/logo.png"):{
-                        //        uri:item.avatarUrl
-                        //    }}
-                           source={!item.avatarUrl || item.avatarUrl.length == 0?require("../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg"):{
-                               uri:item.avatarUrl
+                           source={{
+                               // uri: item.Avatar
+                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
                            }}
+
 
                            resizeMode="cover"
                     >
@@ -61,10 +62,10 @@ export default class AddMemberItem extends Component {
                     <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, marginTop: 10, marginBottom: 10}}>
                         <View style={{flex: 1, flexDirection: 'row'}}>
                             <Text style={{flex: 2}} numberOfLines={1}
-                                  ellipsizeMode={'tail'}>{item.firstName + " " + item.lastName}</Text>
-                            <Text style={{flex: 1}}>{item.lastTime}</Text>
+                                  ellipsizeMode={'tail'}>{item.FullName}</Text>
+                            {/*<Text style={{flex: 1}}>{item.lastTime}</Text>*/}
                         </View>
-                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.email}</Text>
+                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.PartName}</Text>
                     </View>
                 </View>
 

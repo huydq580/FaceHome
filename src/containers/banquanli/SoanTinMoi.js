@@ -35,9 +35,10 @@ class SoanTinMoi extends Component {
         }
 
         const { callApiSearchDanCu } = this.props;
-        callApiSearchDanCu(InfoUser[0].KDTID).then(dataSearchDanCu => {
+        callApiSearchDanCu(InfoUser[0].KDTID, "").then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
+            // console.log("dataSearchDanCu", dataSearchDanCu)
             this.dataSearchDanCu = dataSearchDanCu
             this.setState({
                 dataCuDan: dataSearchDanCu
@@ -56,6 +57,7 @@ class SoanTinMoi extends Component {
         })
     }
     SearchUser(text){
+        console.log('this.dataSearchDanCu', this.dataSearchDanCu)
         const data = this.dataSearchDanCu;
         const inputSearch = data.filter(function(item){
             const itemData = item.FullName.toUpperCase()

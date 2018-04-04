@@ -80,6 +80,7 @@ import ThanhVienCanHo from "../containers/cudan/menuleft/ThanhVienCanHo";
 import ChiTietThanhVien from "../containers/cudan/menuleft/ChiTietThanhVien";
 import CreateGroup from "../containers/banquanli/CreateGroup";
 import AddMember from "../containers/banquanli/AddMember";
+import CreateGroupCuDan from "../containers/cudan/CreateGroupCuDan";
 
 
 const Stack = StackNavigator ({
@@ -557,6 +558,10 @@ const Stack = StackNavigator ({
     },
     AddMember: {
         screen: AddMember,
+    },
+    CreateGroupCuDan: {
+        screen: CreateGroupCuDan
+
     }
 
 

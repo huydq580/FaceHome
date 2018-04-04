@@ -52,8 +52,6 @@ class AddMember extends Component {
 
     }
     componentWillMount() {
-        const { params } = this.props.navigation.state
-        console.log('params', params)
         this.props.navigation.setParams({actionCreate: this.actionCreate});
     }
     actionCreate = () => {
@@ -134,7 +132,7 @@ class AddMember extends Component {
     callApi = textSearch => {
         this.setState({ isLoading: true });
         if (textSearch === "") {
-            this.setState({ resultSearch: [], isLoading: false });
+            this.setState({ dataCuDan: [], isLoading: false });
             return;
         }
 
@@ -149,53 +147,20 @@ class AddMember extends Component {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
             this.dataSearchDanCu = dataSearchDanCu
-            // this.setState({
-            //     dataCuDan: dataSearchDanCu
-            // })
+            this.setState({
+                dataCuDan: dataSearchDanCu
+            })
+            console.log('dataSearchDanCu', dataSearchDanCu)
+            Array.prototype.diff = function(a) {
+                return this.filter(function(i) {return a.map(function(e) { return JSON.stringify(e); }).indexOf(JSON.stringify(i)) < 0;});
+            };
             var fillter = dataSearchDanCu;
-                            if(this.state.userGroup.length > 0)
-                                fillter = dataSearchDanCu.diff(this.state.dataCuDan);
+            if(this.state.userGroup.length > 0)
+                fillter = dataSearchDanCu.diff(this.state.userGroup);
 
-                            console.log("fillter",fillter);
-                            this.setState({ resultSearch: fillter, isLoading: false });
+            console.log("fillter",fillter);
+            this.setState({ dataCuDan: fillter });
         })
-
-        // AsyncStorage.getItem("token").then(value => {
-        //
-        //     fetch(URL.BASE_URL + URL.SEARCH_USER + textSearch, {
-        //         method: "GET",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             "x-access-token": value
-        //         }
-        //     })
-        //         .then(response => {
-        //
-        //             return response.json();
-        //         })
-        //         .then(data => {
-        //             console.log("search user data: ", data);
-        //             if (data && data.errorCode == 0) {
-        //
-        //                 //   Array.prototype.diff = function(a) {
-        //                 //     return this.filter(function(i){ return JSON.stringfy(a).indexof(JSON.stringfy(i)) < 0;});
-        //                 // };
-        //
-        //                 Array.prototype.diff = function(a) {
-        //                     return this.filter(function(i) {return a.map(function(e) { return JSON.stringify(e); }).indexOf(JSON.stringify(i)) < 0;});
-        //                 };
-        //                 var fillter = data.data;
-        //                 if(this.state.userGroup.length > 0)
-        //                     fillter = data.data.diff(this.state.userGroup);
-        //
-        //                 console.log("fillter",fillter);
-        //                 this.setState({ resultSearch: fillter, isLoading: false });
-        //             }
-        //         })
-        //         .catch(e => {
-        //             console.log("exception", e);
-        //         });
-        // });
     };
     clickItemSearch = (userSelect,index)=>{
         console.log("user select",userSelect);
@@ -207,12 +172,12 @@ class AddMember extends Component {
         console.log("user index",index);
         var addNew = [...this.state.userGroup,userSelect];
         this.setState({userGroup:addNew});
-        console.log("this.state.resultSearch.length",this.state.resultSearch.length);
-        if(this.state.resultSearch.length == 1){
-            this.setState({resultSearch:[]});
+        // console.log("this.state.resultSearch.length",this.state.resultSearch.length);
+        if(this.state.dataCuDan.length == 1){
+            this.setState({dataCuDan:[]});
         }else{
-            this.state.resultSearch.splice(index,1);
-            this.setState({resultSearch:this.state.resultSearch});
+            this.state.dataCuDan.splice(index,1);
+            this.setState({dataCuDan:this.state.dataCuDan});
         }
 
 
@@ -221,6 +186,7 @@ class AddMember extends Component {
 
     render (){
         const {navigation} = this.props;
+        // console.log('this.state.dataCuDa', this.state.dataCuDan)
         return (
             <ScrollView style={{ flex: 1, margin: 10 }}>
                 <TextInput
@@ -233,14 +199,10 @@ class AddMember extends Component {
                         marginBottom: 10,
                         minHeight:50
                     }}
-                    onChangeText={text =>
-                        this.debounce(
-                            function(e) {
-                                this.callApi(text);
-                            }.bind(this),
-                            1000
-                        )
-                    }
+                    onChangeText={(text)=>this.debounce(function(e){
+
+                        this.callApi(text);
+                    }.bind(this), 1000)}
                     underlineColorAndroid="transparent"
                     placeholder="Thêm thành viên"
                 />
@@ -248,8 +210,8 @@ class AddMember extends Component {
                     showsHorizontalScrollIndicator={false}
                     showVerticalScrollIndicator={false}
                     contentContainerStyle={{margin:4}}
-                    data={this.state.dataCuDan}
-                    renderItem={(item) => (
+                    data={this.state.userGroup}
+                    renderItem={({item}) => (
                         <View
                             style={{
                                 borderRadius: 5,
@@ -292,32 +254,39 @@ class AddMember extends Component {
                 />
                 <View style={{flex:1}}>
                     <FlatList
-                        data={this.state.resultSearch}
+                        data={this.state.dataCuDan}
                         renderItem={(item) => {
 
 
-                            return <AddMemberItem dataItem={item} navigation={navigation} fromSearch={true} sendDataClick={this.clickItemSearch} index={item.index} />;
+                            return (
+                                <AddMemberItem
+                                    dataItem={item}
+                                    navigation={navigation}
+                                    fromSearch={true}
+                                    sendDataClick={this.clickItemSearch}
+                                    index={item.index} />
+                            )
                         }}
                         keyExtractor={(item, index) => index.toString()}
                         ItemSeparatorComponent={this.renderSeparator}
                     />
-                    {this.state.isLoading ? (
-                        <View
-                            style={{
-                                top: 100,
-                                bottom: -10,
-                                left: -10,
-                                right: -10,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                position: "absolute",
-                                zIndex: 1,
-                                backgroundColor: 'rgba(52, 52, 52, 0.3)'
-                            }}
-                        >
-                            <ActivityIndicator size="large" color="green" />
-                        </View>
-                    ) : null}
+                    {/*{this.state.isLoading ? (*/}
+                        {/*<View*/}
+                            {/*style={{*/}
+                                {/*top: 100,*/}
+                                {/*bottom: -10,*/}
+                                {/*left: -10,*/}
+                                {/*right: -10,*/}
+                                {/*justifyContent: "center",*/}
+                                {/*alignItems: "center",*/}
+                                {/*position: "absolute",*/}
+                                {/*zIndex: 1,*/}
+                                {/*backgroundColor: 'rgba(52, 52, 52, 0.3)'*/}
+                            {/*}}*/}
+                        {/*>*/}
+                            {/*<ActivityIndicator size="large" color="green" />*/}
+                        {/*</View>*/}
+                    {/*) : null}*/}
 
                 </View>
             </ScrollView>
