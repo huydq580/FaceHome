@@ -155,10 +155,10 @@ class TinNhan extends Component {
                             this.refs.modal.close()
                             if(Platform.OS === "ios"){
                                 setTimeout(()=>{
-                                    navigation.navigate("AddMember");
+                                    navigation.navigate("CreateGroupBQL");
                                 },500);
                             }else{
-                                navigation.navigate("AddMember");
+                                navigation.navigate("CreateGroupBQL");
                             }
 
 

@@ -19,7 +19,7 @@ import {MsgGroupID, URL_SOCKET} from "../../components/Api";
 import ChatGroupBQL from "./ChatGroupBQL";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-class CreateGroup extends Component {
+class CreateGroupBQL extends Component {
     static navigationOptions = ({navigation}) => {
         const {params = {}} = navigation.state
 
@@ -36,13 +36,23 @@ class CreateGroup extends Component {
     }
     constructor(props) {
         super(props);
-
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
+            return null;
+        }
 
         this.state = {
             resultSearch: [],
             userGroup: [],
             isLoading: false,
-            dataIdUser: [],
+            dataIdUser: [{
+                UserID: InfoUser[0].UserID,
+                FullName: InfoUser[0].FullName,
+                Avartar: InfoUser[0].Avartar,
+                LinkProfile: "",
+                LinkMsg: "",
+                IntUserID: InfoUser[0].IntUserID,
+            }],
             dataCuDan:[],
             TenGroup:'',
         };
@@ -162,7 +172,7 @@ class CreateGroup extends Component {
             this.setState({
                 dataCuDan: dataSearchDanCu
             })
-            console.log('dataSearchDanCu', dataSearchDanCu)
+            // console.log('dataSearchDanCu', dataSearchDanCu)
             Array.prototype.diff = function(a) {
                 return this.filter(function(i) {return a.map(function(e) { return JSON.stringify(e); }).indexOf(JSON.stringify(i)) < 0;});
             };
@@ -170,12 +180,12 @@ class CreateGroup extends Component {
             if(this.state.userGroup.length > 0)
                 fillter = dataSearchDanCu.diff(this.state.userGroup);
 
-            console.log("fillter",fillter);
+            // console.log("fillter",fillter);
             this.setState({ dataCuDan: fillter });
         })
     };
     clickItemSearch = (userSelect,index)=>{
-        console.log("user select",userSelect);
+        // console.log("user select",userSelect);
         let addID = this.state.dataIdUser;
         addID.push({
             UserID: userSelect.UserID,
@@ -189,7 +199,7 @@ class CreateGroup extends Component {
         this.setState({
             dataIdUser: addID
         })
-        console.log("user index",index);
+        // console.log("user index",index);
         var addNew = [...this.state.userGroup,userSelect];
         this.setState({userGroup:addNew});
         // console.log("this.state.resultSearch.length",this.state.resultSearch.length);
@@ -346,8 +356,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-CreateGroup = connect(mapStateToProps, mapDispatchToProps)(CreateGroup);
-export default CreateGroup;
+CreateGroupBQL = connect(mapStateToProps, mapDispatchToProps)(CreateGroupBQL);
+export default CreateGroupBQL;
 
 const myStyle = StyleSheet.create({
     image_circle: {

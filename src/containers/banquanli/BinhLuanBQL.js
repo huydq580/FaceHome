@@ -97,7 +97,7 @@ class BinhLuanBQL extends Component {
                 FullName: InfoUser[0].FullName,
                 Avartar: InfoUser[0].Avartar,
                 CreatedDate: CreatedDate,
-                UserType: InfoUser[0].UserID,
+                UserType: InfoUser[0].UserType,
                 TotalLike: "",
                 Content: Content,
                 TotalRow: "",

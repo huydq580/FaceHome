@@ -78,9 +78,10 @@ import BanLa from "../containers/raovat/BanLa";
 import PickToaNha from "../containers/banquanli/quanlicudan/PickToaNha";
 import ThanhVienCanHo from "../containers/cudan/menuleft/ThanhVienCanHo";
 import ChiTietThanhVien from "../containers/cudan/menuleft/ChiTietThanhVien";
-import AddMember from "../containers/banquanli/AddMember";
+import CreateGroupBQL from "../containers/banquanli/CreateGroupBQL";
 import CreateGroupCuDan from "../containers/cudan/CreateGroupCuDan";
 import ChatGroupBQL from "../containers/banquanli/ChatGroupBQL";
+import ChatGroupCuDan from "../containers/cudan/ChatGroupCuDan";
 
 
 const Stack = StackNavigator ({
@@ -550,18 +551,18 @@ const Stack = StackNavigator ({
             title: 'Chi tiết thành viên'
         }
     },
-
-    AddMember: {
-        screen: AddMember,
+    CreateGroupBQL: {
+        screen: CreateGroupBQL,
     },
     CreateGroupCuDan: {
         screen: CreateGroupCuDan
-
     },
     ChatGroupBQL: {
         screen: ChatGroupBQL
+    },
+    ChatGroupCuDan: {
+        screen: ChatGroupCuDan
     }
-
 
 
 })
