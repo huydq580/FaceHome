@@ -27,6 +27,18 @@ export default class TinNhanItem extends Component {
         else
             return true;
     }
+    // filter  = (item)=> {
+    //     data = item.GroupMembers
+    //     data = JSON.parse(data)
+    //     console.log("data", data)
+    //     function filterMang(data) {
+    //         return data.UserID != "115CCFA3-E03D-4A9A-B8DB-F57A3A5D4F3C";
+    //     }
+    //
+    //     var filtered = data.filter(filterMang);
+    //     console.log('fiet',filtered)
+    //
+    // }
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
@@ -34,7 +46,8 @@ export default class TinNhanItem extends Component {
 
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate('TinNhanDetails', {dataUser: item, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID});
+                    // this.filter(item)
+                    navigation.navigate('TinNhanDetails', {item: item.ChatTo, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID});
                 }}
             >
                 <View key={item.index}

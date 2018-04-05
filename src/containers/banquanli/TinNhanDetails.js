@@ -176,31 +176,34 @@ class TinNhanDetails extends Component {
     //socket event send message
     sendMessage = () => {
         const {params} = this.props.navigation.state
+        console.log('params',params)
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
+        console.log('info user', InfoUser[0])
         if (this.input_msg === "")
             return;
         this.textInput.clear();
-        // console.log("msg:", this.input_msg);
-        //object need send to server
         let dataSend = {
             MsgGroupID: params.MsgGroupID,
             UserID: InfoUser[0].UserID,
             FullName: InfoUser[0].FullName,
             Avartar: "",
-            RefUserID: "",
-            RefName: "",
+            RefUserID: params.item.UserID,
+            RefName: params.item.FullName,
             RefAvartar: "",
+            RefProfileID: params.item.ProfileID,
             Content: this.input_msg,
             CreatedDate: "",
             DayFlag: "",
             KDTID: InfoUser[0].KDTID,
             ProfileID: InfoUser[0].ProfileID,
+            GroupName: params.item.FullName,
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
+        console.log('data',dataSend)
         let dataMesSend = this.input_msg;
         let newMsg = this.state.dataChat;
         newMsg.push({

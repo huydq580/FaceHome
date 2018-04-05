@@ -42,7 +42,7 @@ class SoanTinMoi extends Component {
         callApiSearchDanCu(InfoUser[0].KDTID, "").then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
-            console.log("dataSearchDanCu", dataSearchDanCu)
+            // console.log("dataSearchDanCu", dataSearchDanCu)
             this.dataSearchDanCu = dataSearchDanCu
             this.setState({
                 dataCuDan: dataSearchDanCu
@@ -52,7 +52,7 @@ class SoanTinMoi extends Component {
                     dataGetBQL = JSON.parse(dataGetBQL)
                     dataGetBQL = dataGetBQL.Value
                     this.dataSearchBQL = dataGetBQL
-                    console.log('serach bql', dataGetBQL)
+                    // console.log('serach bql', dataGetBQL)
                     this.setState({
                         dataBQL: dataGetBQL
                     }, ()=> {
@@ -67,17 +67,6 @@ class SoanTinMoi extends Component {
         })
     }
 
-    SearchDanCu = () => {
-
-    }
-    SearchBQL = ()=> {
-        const { InfoUser } = this.props;
-        if (InfoUser.length <= 0) {
-            return null;
-        }
-
-
-    }
     Search = ()=> {
         this.setState({
             search: false
@@ -153,7 +142,7 @@ class SoanTinMoi extends Component {
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 // console.log('dataMsgGroupID',dataMsgGroupID),
                                     // console.log('gui ok')
-                                this.props.navigation.navigate("TinNhanDetails", { title : item.FullName, MsgGroupID: dataMsgGroupID})
+                                this.props.navigation.navigate("TinNhanDetails", { title : item.FullName, MsgGroupID: dataMsgGroupID, item: item})
                             })
 
                         }}>

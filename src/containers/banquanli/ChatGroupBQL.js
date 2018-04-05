@@ -74,7 +74,8 @@ class ChatGroupBQL extends Component {
                 MsgGroupID: params.MsgGroupID,
                 UserID: InfoUser[0].UserID,
                 FullName: InfoUser[0].FullName,
-                Avartar: ""
+                Avartar: "",
+                ProfileID: InfoUser[0].ProfileID
             })
             console.log('login ok')
         })
@@ -86,19 +87,20 @@ class ChatGroupBQL extends Component {
             let newMsg = this.state.dataChat;
             //add message to array
             newMsg.push({
-                Avartar: "",
-                Content: dataMess,
-                CreatedDate: "2018-02-05T09:29:35.383Z",
-                DayFlag: 20180205,
-                FullName: InfoUser[0].FullName,//dataReceive.FullName
-                KDTID: 50,
-                MessageID: "",
-                MsgGroupID: params.MsgGroupID,
-                RefAvartar: "",
-                RefName: "",
-                RefUserID: "",
-                UserID: "",
-                rowNumber: "1"
+                Avartar: dataReceive.Avartar,
+                Content: dataReceive.Content,
+                CreatedDate: dataReceive.CreatedDate,
+                DayFlag: dataReceive.DayFlag,
+                FullName: dataReceive.FullName,
+                KDTID: dataReceive.KDTID,
+                MessageID: dataReceive.MessageID,
+                MsgGroupID: dataReceive.MsgGroupID,
+                RefAvartar: dataReceive.RefAvartar,
+                RefName: dataReceive.RefName,
+                RefUserID: dataReceive.RefUserID,
+                UserID: dataReceive.UserID,
+                rowNumber: dataReceive.rowNumber,
+                ProfileID: dataReceive.ProfileID
             });
             this.setState({dataChat: newMsg});
 
@@ -134,7 +136,8 @@ class ChatGroupBQL extends Component {
         let dataGroup = {
             MsgGroupID: params.MsgGroupID,
             UserID: InfoUser[0].UserID,
-            IntUserID: InfoUser[0].IntUserID
+            IntUserID: InfoUser[0].IntUserID,
+            ProfileID: InfoUser[0].ProfileID
 
         }
         this.socket.emit("logout", dataGroup)
@@ -149,7 +152,7 @@ class ChatGroupBQL extends Component {
             return null;
         }
         const {callApiGetMessage} = this.props;
-        callApiGetMessage(InfoUser[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
+        callApiGetMessage(InfoUser[0].ProfileID,InfoUser[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
             this.setState({
                 dataChat: [...dataMessage, ...this.state.dataChat],
@@ -183,17 +186,31 @@ class ChatGroupBQL extends Component {
         // console.log("msg:", this.input_msg);
         //object need send to server
         let dataSend = {
+            // MsgGroupID: params.MsgGroupID,
+            // UserID: InfoUser[0].UserID,
+            // FullName: InfoUser[0].FullName,
+            // Avartar: "",
+            // RefUserID: "",
+            // RefName: "",
+            // RefAvartar: "",
+            // Content: this.input_msg,
+            // CreatedDate: "",
+            // DayFlag: "",
+            // KDTID: InfoUser[0].KDTID,
             MsgGroupID: params.MsgGroupID,
             UserID: InfoUser[0].UserID,
             FullName: InfoUser[0].FullName,
             Avartar: "",
             RefUserID: "",
-            RefName: "",
+            RefName: params.title,
             RefAvartar: "",
+            RefProfileID: "",
             Content: this.input_msg,
             CreatedDate: "",
             DayFlag: "",
             KDTID: InfoUser[0].KDTID,
+            ProfileID: InfoUser[0].ProfileID,
+            GroupName: params.title,
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
@@ -205,14 +222,15 @@ class ChatGroupBQL extends Component {
             CreatedDate: "2018-02-05T09:29:35.383Z",
             DayFlag: 20180205,
             FullName: InfoUser[0].FullName,
-            KDTID: 50,
+            KDTID: InfoUser[0].KDTID,
             MessageID: "",
             MsgGroupID: params.MsgGroupID,
             RefAvartar: "",
             RefName: "",
             RefUserID: "",
             UserID: InfoUser[0].UserID,
-            rowNumber: "1"
+            rowNumber: "1",
+            ProfileID: InfoUser[0].ProfileID,
         });
         this.setState({dataChat: newMsg});
 

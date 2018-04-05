@@ -187,17 +187,18 @@ class TinNhanDetailsCuDan extends Component {
         let dataSend = {
             MsgGroupID: params.MsgGroupID,
             UserID: InfoUser[0].UserID,
-            FullName: "",
             FullName: InfoUser[0].FullName,
             Avartar: "",
-            RefUserID: "",
-            RefName: "",
-            RefAvartar: "",
+            RefUserID: params.item.UserID,
+            RefName: params.item.FullName,
+            RefAvartar: params.item.RefAvartar,//co bug
+            RefProfileID: params.item.ProfileID,
             Content: this.input_msg,
             CreatedDate: "",
             DayFlag: "",
             KDTID: InfoUser[0].KDTID,
             ProfileID: InfoUser[0].ProfileID,
+            GroupName: params.item.FullName,
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
@@ -209,7 +210,7 @@ class TinNhanDetailsCuDan extends Component {
             CreatedDate: "2018-02-05T09:29:35.383Z",
             DayFlag: 20180205,
             FullName: InfoUser[0].FullName,
-            KDTID: 50,
+            KDTID: InfoUser[0].KDTID,
             MessageID: "",
             MsgGroupID: params.MsgGroupID,
             RefAvartar: "",

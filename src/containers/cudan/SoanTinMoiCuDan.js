@@ -25,9 +25,11 @@ class SoanTinMoiCuDan extends Component {
             search: true,
             SearchItem:'',
             dataBQL:'',
-            text: ''
+            text: '',
+            ArrayUser: [],
         }
-        this.dataBQL = [];
+        this.dataSearchDanCu = [];
+        this.dataSearchBQL = [];
     }
     componentWillMount(){
         const { InfoUser } = this.props;
@@ -35,13 +37,31 @@ class SoanTinMoiCuDan extends Component {
             return null;
         }
 
-        const { callApiGetBQL } = this.props;
-        callApiGetBQL(InfoUser[0].KDTID).then(dataGetBQL => {
-            dataGetBQL = JSON.parse(dataGetBQL)
-            dataGetBQL = dataGetBQL.Value
-            this.dataBQL = dataGetBQL
+        const { callApiSearchDanCu } = this.props;
+        callApiSearchDanCu(InfoUser[0].KDTID, "").then(dataSearchDanCu => {
+            dataSearchDanCu = JSON.parse(dataSearchDanCu)
+            dataSearchDanCu = dataSearchDanCu.Value
+            // console.log("dataSearchDanCu", dataSearchDanCu)
+            this.dataSearchDanCu = dataSearchDanCu
             this.setState({
-                dataBQL: dataGetBQL
+                dataCuDan: dataSearchDanCu
+            }, ()=> {
+                const { callApiGetBQL } = this.props;
+                callApiGetBQL(InfoUser[0].KDTID).then(dataGetBQL => {
+                    dataGetBQL = JSON.parse(dataGetBQL)
+                    dataGetBQL = dataGetBQL.Value
+                    this.dataSearchBQL = dataGetBQL
+                    // console.log('serach bql', dataGetBQL)
+                    this.setState({
+                        dataBQL: dataGetBQL
+                    }, ()=> {
+                        this.setState({
+                            ArrayUser: this.state.dataCuDan.concat(this.state.dataBQL)
+                        })
+
+                    })
+                })
+
             })
         })
 
@@ -57,7 +77,7 @@ class SoanTinMoiCuDan extends Component {
         })
     }
     SearchUser(text){
-        const data = this.dataBQL;
+        const data = this.dataSearchDanCu.concat(this.dataSearchBQL);
         const inputSearch = data.filter(function(item){
             const itemData = item.FullName.toUpperCase()
             const textData = text.toUpperCase()
@@ -65,7 +85,7 @@ class SoanTinMoiCuDan extends Component {
             return itemData.indexOf(textData) > -1
         })
         this.setState({
-            dataBQL: inputSearch,
+            ArrayUser: inputSearch,
             text: text
         })
     }
@@ -94,7 +114,7 @@ class SoanTinMoiCuDan extends Component {
                         </View>
                 }
                 <FlatList
-                    data = {this.state.dataBQL}
+                    data = {this.state.ArrayUser}
                     renderItem = {({item}) =>
                         <TouchableOpacity onPress = {()=>{
                             const { InfoUser } = this.props;
@@ -102,12 +122,24 @@ class SoanTinMoiCuDan extends Component {
                                 return null;
                             }
                             const { callApiMsgGroupID } = this.props;
-                            callApiMsgGroupID(InfoUser[0].KDTID,InfoUser[0].UserID, InfoUser[0].FullName,InfoUser[0].IntUserID, item.UserID,  item.FullName,item.IntUserID,item.FullName, InfoUser[0].UserID, InfoUser[0].FullName).then(dataRes=> {
+                            callApiMsgGroupID(InfoUser[0].KDTID,
+                                InfoUser[0].UserID,
+                                InfoUser[0].ProfileID,
+                                InfoUser[0].FullName,
+                                InfoUser[0].IntUserID,
+                                item.UserID,
+                                item.ProfileID,
+                                item.FullName,
+                                item.IntUserID,
+                                item.FullName,
+                                InfoUser[0].UserID,
+                                InfoUser[0].FullName,
+                                InfoUser[0].ProfileID).then(dataRes=> {
                                 // console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 console.log('dataMsgGroupID',dataMsgGroupID),
                                     // console.log('gui ok')
-                                    this.props.navigation.navigate("TinNhanDetailsCuDan", {title:item.FullName, MsgGroupID: dataMsgGroupID})
+                                    this.props.navigation.navigate("TinNhanDetailsCuDan", {title:item.FullName, MsgGroupID: dataMsgGroupID, item: item})
                             })
 
                         }}>

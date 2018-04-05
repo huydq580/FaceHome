@@ -52,6 +52,7 @@ class CreateGroupBQL extends Component {
                 LinkProfile: "",
                 LinkMsg: "",
                 IntUserID: InfoUser[0].IntUserID,
+                ProfileID: InfoUser[0].ProfileID,
             }],
             dataCuDan:[],
             TenGroup:'',
@@ -104,6 +105,7 @@ class CreateGroupBQL extends Component {
                 DayFlag: 20171110,
                 UserID: InfoUser[0].UserID,
                 FullName: InfoUser[0].FullName,
+                ProfileID: InfoUser[0].ProfileID,
                 Avartar: null,
                 Status: 1,
                 LastMessage: null,
@@ -194,6 +196,7 @@ class CreateGroupBQL extends Component {
             LinkProfile: "",
             LinkMsg: "",
             IntUserID: userSelect.IntUserID,
+            ProfileID: userSelect.ProfileID,
 
         })
         this.setState({
