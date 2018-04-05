@@ -1,6 +1,6 @@
 import {MsgGroupID, URL_SOCKET} from "../components/Api";
 
-export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullName1,IntUserID1,GroupName, UserID2, FullName2, isCheck ) => {
+export const callApiMsgGroupID = (KDTID,UserID, ProfileID,FullName,IntUserID,UserID1,ProfileID1,FullName1,IntUserID1,GroupName, UserID2, FullName2,ProfileID2 ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL_SOCKET + MsgGroupID, {
@@ -15,6 +15,7 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullN
                     GroupMembers: JSON.stringify([
                         {
                             UserID: UserID,
+                            ProfileID: ProfileID,
                             FullName: FullName,
                             Avartar: "",
                             LinkProfile: "",
@@ -23,6 +24,7 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullN
                         },
                         {
                             UserID: UserID1,
+                            ProfileID: ProfileID1,
                             FullName: FullName1,
                             Avartar: "",
                             LinkProfile: "",
@@ -35,6 +37,7 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullN
                     DayFlag: 20171110,
                     UserID: UserID2,
                     FullName: FullName2,
+                    ProfileID: ProfileID2,
                     Avartar: null,
                     Status: 1,
                     LastMessage: null,
@@ -50,7 +53,7 @@ export const callApiMsgGroupID = (KDTID,UserID, FullName,IntUserID,UserID1,FullN
                 })
                 resolve(data);
             }).catch(e => {
-                console.log('exception')
+                console.log('exception', e)
             })
         })
     }

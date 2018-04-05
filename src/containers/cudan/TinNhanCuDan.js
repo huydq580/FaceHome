@@ -45,7 +45,7 @@ class TinNhanCuDan extends Component {
             return null;
         }
         const {callApiGetUser} = this.props;
-        callApiGetUser(InfoUser[0].UserID).then(dataRes => {
+        callApiGetUser(InfoUser[0].ProfileID, InfoUser[0].UserID).then(dataRes => {
             dataUser = dataRes.ObjectResult
             this.setState({
                 dataUser: dataUser,

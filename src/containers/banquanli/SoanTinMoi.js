@@ -17,6 +17,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
 import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
+import {callApiGetBQL} from "../../actions/actionsBQL/BQLActions";
 class SoanTinMoi extends Component {
     constructor(props){
         super(props)
@@ -24,11 +25,14 @@ class SoanTinMoi extends Component {
             search: true,
             SearchItem:'',
             dataCuDan:'',
-            text: ''
+            dataBQL: '',
+            text: '',
+            ArrayUser: [],
         }
         this.dataSearchDanCu = [];
+        this.dataSearchBQL = [];
     }
-    componentWillMount(){
+    componentWillMount() {
         const { InfoUser } = this.props;
         if (InfoUser.length <= 0) {
             return null;
@@ -38,12 +42,40 @@ class SoanTinMoi extends Component {
         callApiSearchDanCu(InfoUser[0].KDTID, "").then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
             dataSearchDanCu = dataSearchDanCu.Value
-            // console.log("dataSearchDanCu", dataSearchDanCu)
+            console.log("dataSearchDanCu", dataSearchDanCu)
             this.dataSearchDanCu = dataSearchDanCu
             this.setState({
                 dataCuDan: dataSearchDanCu
+            }, ()=> {
+                const { callApiGetBQL } = this.props;
+                callApiGetBQL(InfoUser[0].KDTID).then(dataGetBQL => {
+                    dataGetBQL = JSON.parse(dataGetBQL)
+                    dataGetBQL = dataGetBQL.Value
+                    this.dataSearchBQL = dataGetBQL
+                    console.log('serach bql', dataGetBQL)
+                    this.setState({
+                        dataBQL: dataGetBQL
+                    }, ()=> {
+                        this.setState({
+                            ArrayUser: this.state.dataCuDan.concat(this.state.dataBQL)
+                        })
+
+                    })
+                })
+
             })
         })
+    }
+
+    SearchDanCu = () => {
+
+    }
+    SearchBQL = ()=> {
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
+            return null;
+        }
+
 
     }
     Search = ()=> {
@@ -57,15 +89,17 @@ class SoanTinMoi extends Component {
         })
     }
     SearchUser(text){
-        console.log('this.dataSearchDanCu', this.dataSearchDanCu)
-        const data = this.dataSearchDanCu;
+        // console.log('this.dataSearchDanCu', this.dataSearchDanCu)
+        const data = this.dataSearchDanCu.concat(this.dataSearchBQL);
+
+        // console.log('gop mang', data)
         const inputSearch = data.filter(function(item){
             const itemData = item.FullName.toUpperCase()
             const textData = text.toUpperCase()
             return itemData.indexOf(textData) > -1
         })
         this.setState({
-            dataCuDan: inputSearch,
+            ArrayUser: inputSearch,
             text: text
         })
     }
@@ -93,7 +127,7 @@ class SoanTinMoi extends Component {
                     </View>
                 }
                 <FlatList
-                    data = {this.state.dataCuDan}
+                    data = {this.state.ArrayUser}
                     renderItem = {({item}) =>
                         <TouchableOpacity onPress = {()=>{
                             const { InfoUser } = this.props;
@@ -103,15 +137,19 @@ class SoanTinMoi extends Component {
                             const { callApiMsgGroupID } = this.props;
                             callApiMsgGroupID(InfoUser[0].KDTID,
                                 InfoUser[0].UserID,
+                                InfoUser[0].ProfileID,
                                 InfoUser[0].FullName,
                                 InfoUser[0].IntUserID,
                                 item.UserID,
+                                item.ProfileID,
                                 item.FullName,
                                 item.IntUserID,
                                 item.FullName,
                                 InfoUser[0].UserID,
-                                InfoUser[0].FullName).then(dataRes=> {
-                                // console.log('dataMsgGroupID',dataRes)
+                                InfoUser[0].FullName,
+                                InfoUser[0].ProfileID
+                            ).then(dataRes=> {
+                                console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
                                 // console.log('dataMsgGroupID',dataMsgGroupID),
                                     // console.log('gui ok')
@@ -149,6 +187,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchDanCu: bindActionCreators(callApiSearchDanCu, dispatch),
+        callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch),
         callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
     }
 };
