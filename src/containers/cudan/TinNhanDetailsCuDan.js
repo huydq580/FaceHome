@@ -122,7 +122,7 @@ class TinNhanDetailsCuDan extends Component {
 
     }
     componentWillUnmount() {
-        this.socket = SocketIOClient( SOCKET, {
+        this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']
@@ -132,7 +132,7 @@ class TinNhanDetailsCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
-        // console.log('userbql', UserBQL)
+        // console.log('userbql', InfoUser)
         let dataGroup = {
             MsgGroupID: params.MsgGroupID,
             UserID: InfoUser[0].UserID,
@@ -142,7 +142,6 @@ class TinNhanDetailsCuDan extends Component {
         }
         this.socket.emit("logout", dataGroup)
     }
-    
     //get old msg
     getOldMSG = () => {
         const {params} = this.props.navigation.state

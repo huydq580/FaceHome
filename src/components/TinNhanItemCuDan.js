@@ -34,7 +34,8 @@ export default class TinNhanItemCuDan extends Component {
 
             <TouchableOpacity
                 onPress={() => {
-                    navigation.navigate('TinNhanDetailsCuDan', {dataUser: item, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID});
+                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {item: item.ChatTo, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) :
+                        item.IsGroup == 1 ? navigation.navigate('ChatGroupCuDan', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
                 }}
             >
                 <View key={item.index}

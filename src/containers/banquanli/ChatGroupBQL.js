@@ -143,7 +143,6 @@ class ChatGroupBQL extends Component {
         }
         this.socket.emit("logout", dataGroup)
     }
-
     //get old msg
     getOldMSG = () => {
         console.log('so trang', this.state.index)
