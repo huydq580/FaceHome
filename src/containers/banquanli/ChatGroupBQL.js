@@ -42,6 +42,7 @@ class ChatGroupBQL extends Component {
     };
 
     constructor(props) {
+        console.log('day la man chat group')
         super(props)
         this.state = {
             dataChat: [],
@@ -186,17 +187,6 @@ class ChatGroupBQL extends Component {
         // console.log("msg:", this.input_msg);
         //object need send to server
         let dataSend = {
-            // MsgGroupID: params.MsgGroupID,
-            // UserID: InfoUser[0].UserID,
-            // FullName: InfoUser[0].FullName,
-            // Avartar: "",
-            // RefUserID: "",
-            // RefName: "",
-            // RefAvartar: "",
-            // Content: this.input_msg,
-            // CreatedDate: "",
-            // DayFlag: "",
-            // KDTID: InfoUser[0].KDTID,
             MsgGroupID: params.MsgGroupID,
             UserID: InfoUser[0].UserID,
             FullName: InfoUser[0].FullName,

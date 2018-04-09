@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import ChatGroupBQL from "../containers/banquanli/ChatGroupBQL";
 
 
 
@@ -46,8 +47,8 @@ export default class TinNhanItem extends Component {
 
             <TouchableOpacity
                 onPress={() => {
-                    // this.filter(item)
-                    navigation.navigate('TinNhanDetails', {item: item.ChatTo, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID});
+                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetails', {item: item.ChatTo, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) :
+                        item.IsGroup == 1 ? navigation.navigate('ChatGroupBQL', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
                 }}
             >
                 <View key={item.index}

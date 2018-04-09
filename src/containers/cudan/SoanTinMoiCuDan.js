@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import  React, { Component } from 'react';
 import {
     Text,
     StyleSheet,
@@ -16,22 +16,23 @@ import stylesContainer from "../../components/style";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
-import {callApiGetBQL} from "../../actions/actionsBQL/BQLActions";
 import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
+import {callApiGetBQL} from "../../actions/actionsBQL/BQLActions";
 class SoanTinMoiCuDan extends Component {
     constructor(props){
         super(props)
         this.state = {
             search: true,
             SearchItem:'',
-            dataBQL:'',
+            dataCuDan:'',
+            dataBQL: '',
             text: '',
             ArrayUser: [],
         }
         this.dataSearchDanCu = [];
         this.dataSearchBQL = [];
     }
-    componentWillMount(){
+    componentWillMount() {
         const { InfoUser } = this.props;
         if (InfoUser.length <= 0) {
             return null;
@@ -64,8 +65,8 @@ class SoanTinMoiCuDan extends Component {
 
             })
         })
-
     }
+
     Search = ()=> {
         this.setState({
             search: false
@@ -77,11 +78,13 @@ class SoanTinMoiCuDan extends Component {
         })
     }
     SearchUser(text){
+        // console.log('this.dataSearchDanCu', this.dataSearchDanCu)
         const data = this.dataSearchDanCu.concat(this.dataSearchBQL);
+
+        // console.log('gop mang', data)
         const inputSearch = data.filter(function(item){
             const itemData = item.FullName.toUpperCase()
             const textData = text.toUpperCase()
-
             return itemData.indexOf(textData) > -1
         })
         this.setState({
@@ -89,7 +92,6 @@ class SoanTinMoiCuDan extends Component {
             text: text
         })
     }
-
     render () {
         return (
             <View style = {stylesContainer.container}>
@@ -134,12 +136,13 @@ class SoanTinMoiCuDan extends Component {
                                 item.FullName,
                                 InfoUser[0].UserID,
                                 InfoUser[0].FullName,
-                                InfoUser[0].ProfileID).then(dataRes=> {
-                                // console.log('dataMsgGroupID',dataRes)
+                                InfoUser[0].ProfileID
+                            ).then(dataRes=> {
+                                console.log('dataMsgGroupID',dataRes)
                                 dataMsgGroupID = dataRes.ObjectResult[0].MsgGroupID
-                                console.log('dataMsgGroupID',dataMsgGroupID),
-                                    // console.log('gui ok')
-                                    this.props.navigation.navigate("TinNhanDetailsCuDan", {title:item.FullName, MsgGroupID: dataMsgGroupID, item: item})
+                                // console.log('dataMsgGroupID',dataMsgGroupID),
+                                // console.log('gui ok')
+                                this.props.navigation.navigate("TinNhanDetailsCuDan", { title : item.FullName, MsgGroupID: dataMsgGroupID, item: item})
                             })
 
                         }}>
@@ -158,10 +161,6 @@ class SoanTinMoiCuDan extends Component {
                     }
                     keyExtractor={(item, index) => index}
                 />
-
-
-
-
             </View>
         )
 
@@ -170,11 +169,13 @@ class SoanTinMoiCuDan extends Component {
 const mapStateToProps = (state) => {
     return {
         InfoUser: state.GetProfileReducers,
+        infoCuDan: state.QLDanCuReducers
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        callApiSearchDanCu: bindActionCreators(callApiSearchDanCu, dispatch),
         callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch),
         callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
     }

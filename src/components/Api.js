@@ -1,4 +1,5 @@
-export const URL = "http://222.252.16.186:9051/";
+// export const URL = "http://222.252.16.186:9051/";
+export const URL = "http://192.168.0.252:9051/";
 export const Login = "api/Bql/Login";
 //Location
 export const GetData = "api/location/getdata";
@@ -73,7 +74,7 @@ export const SaveComment = "api/SuCo/SaveComment";
 
 //api socket
 // export const URL_SOCKET = "http://222.252.16.186:9060/";
-export const URL_SOCKET = "http://192.168.1.17:9060/";
+export const URL_SOCKET = "http://192.168.0.252:9060/";
 export const Get_User = "messages/groupmessagebyuser";
 export const Get_Message = "messages/detailmessagebygroupuse";
 export const MsgGroupID = "msg_group/createupdatemsg_group";
@@ -84,5 +85,5 @@ export const GetlAlNotifcation = "pushnotification/getallnotifcation";
 
 // socket
 // export const SOCKET = "http://222.252.16.186:9061/";
-export const SOCKET = "http://192.168.1.17:9061/";
+export const SOCKET = "http://192.168.0.252:9061/";
 

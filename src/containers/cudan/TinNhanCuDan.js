@@ -167,7 +167,6 @@ class TinNhanCuDan extends Component {
                             } else {
                                 navigation.navigate("CreateGroupCuDan");
                             }
-history
                         }}
 
                     >

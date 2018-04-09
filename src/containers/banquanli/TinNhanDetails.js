@@ -42,6 +42,7 @@ class TinNhanDetails extends Component {
     };
 
     constructor(props) {
+        console.log('day la man tin nhan details')
         super(props)
         this.state = {
             dataChat: [],

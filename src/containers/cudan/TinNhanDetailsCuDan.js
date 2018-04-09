@@ -191,7 +191,7 @@ class TinNhanDetailsCuDan extends Component {
             Avartar: "",
             RefUserID: params.item.UserID,
             RefName: params.item.FullName,
-            RefAvartar: params.item.RefAvartar,//co bug
+            RefAvartar: "",//co bug
             RefProfileID: params.item.ProfileID,
             Content: this.input_msg,
             CreatedDate: "",
