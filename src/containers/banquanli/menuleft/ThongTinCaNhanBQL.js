@@ -18,6 +18,7 @@ import stylesContainer from "../../../components/style";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 import PickerImage from "../../../components/PickerImage";
 import {callApiUploadImage} from "../../../actions/SoanTinActions";
+import {LINKIMG, URL} from "../../../components/Api";
 
 class ThongTinCaNhanBQL extends Component {
     constructor(props) {
@@ -109,7 +110,7 @@ class ThongTinCaNhanBQL extends Component {
             dataImg = dataImg.Value
             console.log('dataImage1', dataImg)
             this.setState({
-                linkImg: 'http://192.168.1.254:9051' + dataImg
+                linkImg: LINKIMG + dataImg
             }, () => {
                 this.UpdateAvt()
             })

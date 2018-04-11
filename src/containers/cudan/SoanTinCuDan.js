@@ -17,7 +17,7 @@ import PickerImage from "../../components/PickerImage"
 import Icon from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SocketIOClient from "socket.io-client";
-import {SOCKET} from "../../components/Api";
+import {LINKIMG, SOCKET} from "../../components/Api";
 import {callApiCreatePost, callApiUploadImage} from "../../actions/SoanTinActions";
 
 
@@ -99,6 +99,7 @@ class SoanTinCuDan extends Component {
             RowNum: "",
             KDTID: InfoUser[0].KDTID,
             UserID: InfoUser[0].UserID,
+            ProfileID: InfoUser[0].ProfileID,
             FullName: InfoUser[0].FullName,
             Avatar: InfoUser[0].Avatar,
             CreatedDate: CreatedDate,
@@ -138,7 +139,7 @@ class SoanTinCuDan extends Component {
             dataImg = dataImg.Value
             // console.log('dataImage1', dataImg)
             this.setState({
-                linkImg: 'http://192.168.1.254:9051' + dataImg
+                linkImg: LINKIMG + dataImg
             })
         })
     }

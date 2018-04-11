@@ -29,31 +29,7 @@ class Notification extends Component {
         super(props)
 
         this.state = {
-            listNoti:[
-                {
-                    img:'',
-                    title:'title1',
-                    body:'body1',
-                    content:'abcd',
-                    isSeen:false,
-                    time:'2017-03-01 8:00'
-                },
-                {
-                    img:'',
-                    title:'title1',
-                    body:'body1',
-                    content:'abcd',
-                    isSeen:true,
-                    time:'2017-03-01 8:00'
-                },{
-                    img:'',
-                    title:'title1',
-                    body:'body1',
-                    content:'abcd',
-                    isSeen:false,
-                    time:'2017-03-01 8:00'
-                }
-            ]
+            listNoti:[]
         }
 
     }
@@ -69,13 +45,16 @@ class Notification extends Component {
 
             },
             body: JSON.stringify({
-                UserID: InfoUser[0].UserID
+                UserID: InfoUser[0].UserID,
+                ProfileID: InfoUser[0].ProfileID,
             })
         })
             .then((response) => response.json())
             .then((dataRes)=> {
                 // data = JSON.parse(dataRes);
-                console.log('dataRes', dataRes.Error)
+                this.setState({
+                    listNoti: dataRes.ObjectResult
+                })
             }).catch((erro)=> {
             console.log('erro',erro);
         })

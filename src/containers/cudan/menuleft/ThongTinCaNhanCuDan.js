@@ -16,6 +16,7 @@ import PickerImage from "../../../components/PickerImage";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 import {bindActionCreators} from "redux";
 import {callApiUploadImage} from "../../../actions/SoanTinActions";
+import {LINKIMG} from "../../../components/Api";
 
 class ThongTinCaNhanCuDan extends Component {
     constructor(props) {
@@ -77,7 +78,7 @@ class ThongTinCaNhanCuDan extends Component {
             dataImg = dataImg.Value
             console.log('dataImage1', dataImg)
             this.setState({
-                linkImg: 'http://192.168.1.254:9051' + dataImg
+                linkImg: LINKIMG + dataImg
             }, () => {
                 this.UpdateAvt()
             })

@@ -10,39 +10,45 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/Entypo'
 import ThongBaoItem from '../../components/thongbao/ThongBaoItem';
+import {GetlAlNotifcation, URL_SOCKET} from "../../components/Api";
+import {connect} from "react-redux";
 
-export default class Notification extends Component {
+class Notification extends Component {
     constructor(props){
         super(props)
 
         this.state = {
-            listNoti:[
-                {
-                    img:'',
-                    title:'title1',
-                    body:'body1',
-                    content:'abcd',
-                    isSeen:false,
-                    time:'2017-03-01 8:00'
-                },
-                {
-                    img:'',
-                    title:'title1',
-                    body:'body1',
-                    content:'abcd',
-                    isSeen:true,
-                    time:'2017-03-01 8:00'
-                },{
-                    img:'',
-                    title:'title1',
-                    body:'body1',
-                    content:'abcd',
-                    isSeen:false,
-                    time:'2017-03-01 8:00'
-                }
-            ]
+            listNoti:[],
         }
 
+    }
+    componentWillMount() {
+        const { InfoUser } = this.props
+        if (InfoUser.length <=0 ){
+            return null
+        }
+        fetch( URL_SOCKET + GetlAlNotifcation,  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify({
+                UserID: InfoUser[0].UserID,
+                ProfileID: InfoUser[0].ProfileID,
+            })
+        })
+            .then((response) => response.json())
+            .then((dataRes)=> {
+                console.log('data12', dataRes)
+                this.setState({
+                    listNoti: dataRes.ObjectResult
+                }, ()=> {
+                    console.log('listnoti', this.state.listNoti)
+                })
+            }).catch((erro)=> {
+            console.log('erro',erro);
+        })
     }
     render (){
         const {navigation} = this.props;
@@ -79,3 +85,16 @@ export default class Notification extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+};
+
+Notification = connect(mapStateToProps, mapDispatchToProps)(Notification);
+export default Notification

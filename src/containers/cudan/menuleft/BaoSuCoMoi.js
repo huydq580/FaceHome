@@ -13,7 +13,7 @@ import Dimensions from 'Dimensions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import stylesContainer from "../../../components/style";
-import {PostSuco, URL} from "../../../components/Api";
+import {LINKIMG, PostSuco, URL} from "../../../components/Api";
 import PickerImage from "../../../components/PickerImage";
 import {callApiUploadImage} from "../../../actions/SoanTinActions";
 
@@ -97,7 +97,7 @@ class BaoSuCoMoi extends Component {
             dataImg = dataImg.Value
             // console.log('dataImage1', dataImg)
             this.setState({
-                linkImg: 'http://192.168.1.254:9051' + dataImg
+                linkImg: LINKIMG + dataImg
             }, ()=> {
                 console.log('linkImg', this.state.linkImg)
             })

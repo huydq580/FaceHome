@@ -57,6 +57,7 @@ class SanhChinh extends Component {
                 RowNum: dataReceive.RowNum,
                 KDTID: dataReceive.KDTID,
                 UserID: dataReceive.UserID,
+                ProfileID: dataReceive.ProfileID,
                 FullName: dataReceive.FullName,
                 Avatar: dataReceive.Avatar,
                 CreatedDate: dataReceive.CreatedDate,

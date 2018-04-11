@@ -19,6 +19,7 @@ import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/act
 import PickerImage from "../../../components/PickerImage";
 import {callApiUploadImage} from "../../../actions/SoanTinActions";
 import CanhBaoChayItem from "../../../components/canhbaochay/CanhBaoChayItem";
+import {LINKIMG} from "../../../components/Api";
 
 class CanhBaoChayNhanh extends Component {
     constructor(props){
@@ -87,7 +88,7 @@ class CanhBaoChayNhanh extends Component {
             dataImg = dataImg.Value
             // console.log('dataImage1', dataImg)
             this.setState({
-                linkImg: 'http://192.168.1.254:9051' + dataImg
+                linkImg: LINKIMG + dataImg
             })
         })
     }
