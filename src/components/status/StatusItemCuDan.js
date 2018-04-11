@@ -146,7 +146,7 @@ class StatusItemCuDan extends Component {
                                             color: 'black',
                                             fontWeight: 'bold',
                                             fontSize: 13
-                                        }}>{item.FullName}</Text>
+                                        }}>{item.Comments[0].FullName}</Text>
                                         <Text>{item.Comments[0].Content}</Text>
                                     </View>
                                 </View>
