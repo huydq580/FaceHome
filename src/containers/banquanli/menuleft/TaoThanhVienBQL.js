@@ -22,7 +22,7 @@ class TaoThanhVienBQL extends Component{
             SoDienThoai: '',
             Pass: '',
             PassAgain: '',
-            ChucVu: ''
+            ChucVu: 1
         }
 
     }

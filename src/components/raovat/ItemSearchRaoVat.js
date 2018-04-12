@@ -16,7 +16,7 @@ class ItemSearchRaoVat extends Component {
                 <View style = {{flexDirection:'row', marginTop: 5, flex:1}}>
                     <Image style = {styles.image_item}
                            source={{
-                               uri: "http://media.tinmoi.vn/2018/01/23/ban-xe.jpg"
+                               uri: item.Images
                            }}
                            resizeMode="cover">
 

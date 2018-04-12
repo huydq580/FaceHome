@@ -12,6 +12,7 @@ import PickerImage from '../../components/PickerImage'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiUploadImage} from "../../actions/SoanTinActions";
+import {LINKIMG} from "../../components/Api";
 
 class HinhAnhRaoVat extends Component {
     constructor(props) {
@@ -73,7 +74,7 @@ class HinhAnhRaoVat extends Component {
             dataImg = dataImg.Value
             // console.log('dataImage1', dataImg)
             this.setState({
-                linkImg: 'http://192.168.1.254:9051' + dataImg
+                linkImg: LINKIMG + dataImg
             })
         })
     }

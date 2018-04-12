@@ -38,7 +38,7 @@ class ThanhToanHoaDonCuDan extends Component {
             // console.log('toa trong kdt', dataRes)
 
             dataKDT = JSON.parse(dataRes);
-            dataKDT1 = dataKDT.Value;
+            dataKDT.Value ? dataKDT1 = dataKDT.Value : dataKDT1 =[] ;
             dataKDT1.unshift({PartID: "", Ten: 'Tòa Nhà'});
             // console.log('toa trong kdt', dataKDT1)
             this.setState({

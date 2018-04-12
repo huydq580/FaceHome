@@ -31,7 +31,7 @@ export const callApiUploadImage = (user_id, base64Data, extension) => {
     }
 }
 
-export const callApiCreatePost = (kdt_id, user_id, user_type, full_name, post_content, images) => {
+export const callApiCreatePost = (kdt_id, user_id, user_type, full_name, post_content, images, avatar) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + CreatePost, {
@@ -46,7 +46,7 @@ export const callApiCreatePost = (kdt_id, user_id, user_type, full_name, post_co
                     full_name: full_name,
                     post_content: post_content,
                     images: images  ,
-                    avatar: "",
+                    avatar: avatar,
                     videos: "",
                     pin: 1,
                     lang_name: "vi_VN"

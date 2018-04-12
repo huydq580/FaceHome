@@ -41,7 +41,7 @@ class ThayDoiMatKhau extends Component {
                     if(data.ErrorCode==="00") {
                         Alert.alert(
                             'Alert',
-                            data.message,
+                            data.Message,
                             [
                                 {text: 'OK', onPress: () => this.props.navigation.goBack()},
                             ],
@@ -72,16 +72,19 @@ class ThayDoiMatKhau extends Component {
             <View style = {[stylesContainer.container, {justifyContent:'center'}]}>
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Nhập mật khẩu cũ'
+                               secureTextEntry = {true}
                                underlineColorAndroid="transparent"
                                onChangeText = {(oldPass)=>this.setState({oldPass})}/>
                 </View>
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Nhập mật khẩu mới'
+                               secureTextEntry = {true}
                                underlineColorAndroid="transparent"
                                onChangeText = {(newPass)=>this.setState({newPass})}/>
                 </View>
                 <View style = {styles.itemBoder}>
                     <TextInput placeholder = 'Xác nhận mật khẩu mới'
+                               secureTextEntry = {true}
                                underlineColorAndroid="transparent"
                                onChangeText = {(confirmPass)=>this.setState({confirmPass})}/>
                 </View>

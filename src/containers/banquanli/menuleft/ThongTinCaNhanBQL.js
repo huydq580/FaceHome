@@ -50,7 +50,7 @@ class ThongTinCaNhanBQL extends Component {
     }
     componentWillMount(){
         const {params } = this.props.navigation.state
-        // console.log('params', params)
+        console.log('params', params)
 
         {
             params.InfoBQL[0].Gender = 0 ? this.setState({GioiTinh: 'Nữ'}) :
@@ -83,13 +83,17 @@ class ThongTinCaNhanBQL extends Component {
     }
     UpdateProfile(){
         const {params } = this.props.navigation.state
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
         this.setState({
             check: true,
             editable: true
         })
         const { callApiUpdateProfile } = this.props;
 
-        callApiUpdateProfile(params.InfoBQL[0].ProfileID, params.InfoBQL[0].UserID,'FullName', this.state.Ten).then(dataRes => {
+        callApiUpdateProfile(InfoUser[0].ProfileID, InfoUser[0].UserID,'FullName', this.state.Ten).then(dataRes => {
             console.log('datathongbao', dataRes)
         })
         console.log('ten', this.state.Ten)

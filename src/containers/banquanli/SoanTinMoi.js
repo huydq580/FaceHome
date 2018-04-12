@@ -41,7 +41,7 @@ class SoanTinMoi extends Component {
         const { callApiSearchDanCu } = this.props;
         callApiSearchDanCu(InfoUser[0].KDTID, "").then(dataSearchDanCu => {
             dataSearchDanCu = JSON.parse(dataSearchDanCu)
-            dataSearchDanCu = dataSearchDanCu.Value
+            dataSearchDanCu.Value ? dataSearchDanCu = dataSearchDanCu.Value : dataSearchDanCu =[];
             // console.log("dataSearchDanCu", dataSearchDanCu)
             this.dataSearchDanCu = dataSearchDanCu
             this.setState({
@@ -50,7 +50,7 @@ class SoanTinMoi extends Component {
                 const { callApiGetBQL } = this.props;
                 callApiGetBQL(InfoUser[0].KDTID).then(dataGetBQL => {
                     dataGetBQL = JSON.parse(dataGetBQL)
-                    dataGetBQL = dataGetBQL.Value
+                    dataGetBQL.Value ? dataGetBQL = dataGetBQL.Value: dataGetBQL=[];
                     this.dataSearchBQL = dataGetBQL
                     // console.log('serach bql', dataGetBQL)
                     this.setState({

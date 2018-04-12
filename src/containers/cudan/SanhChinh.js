@@ -226,13 +226,13 @@ class SanhChinh extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
-        if (this.state.isLoading) {
-            return (
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
-                    <ActivityIndicator size="large" color="white"/>
-                </View>
-            );
-        }
+        // if (this.state.isLoading) {
+        //     return (
+        //         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
+        //             <ActivityIndicator size="large" color="white"/>
+        //         </View>
+        //     );
+        // }
         const {navigation} = this.props;
         return (
             <View style={stylesContainer.container}>
@@ -262,28 +262,33 @@ class SanhChinh extends Component {
                     </View>
                 </View>
                 <View style={{height: 3, backgroundColor: '#cccccc', marginTop: 10}}/>
-                <FlatList
-                    refreshing={this.state.refresh}
-                    onRefresh={() => {
-                        this.fetchData()
-                    }}
-                    onEndReached={this.handleLoadMore}
-                    onEndReachedThreshold={0.5}
-                    // ListHeaderComponent={this.renderHeader}
-                    // ListFooterComponent={this.renderFooter}
+                {
+                    this.state.dataItem ? <FlatList
+                        refreshing={this.state.refresh}
+                        onRefresh={() => {
+                            this.fetchData()
+                        }}
+                        onEndReached={this.handleLoadMore}
+                        onEndReachedThreshold={0.5}
+                        // ListHeaderComponent={this.renderHeader}
+                        // ListFooterComponent={this.renderFooter}
 
-                    data={this.state.dataItem}
-                    renderItem={(item) => {
-                        return (
-                            <StatusItemCuDan
-                                dataItem={item}
-                                navigation={navigation}/>
+                        data={this.state.dataItem}
+                        renderItem={(item) => {
+                            return (
+                                <StatusItemCuDan
+                                    dataItem={item}
+                                    navigation={navigation}/>
 
-                        )
-                    }
-                    }
-                    keyExtractor={(item, index) => index}
-                />
+                            )
+                        }
+                        }
+                        keyExtractor={(item, index) => index}
+                    /> : <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Text>Không có nội dung để hiển thị</Text>
+                    </View>
+                }
+
             </View>
         )
     }

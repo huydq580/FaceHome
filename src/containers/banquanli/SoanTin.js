@@ -58,7 +58,7 @@ class SoanTin extends Component {
             return null
         }
         console.log('InfoUser[0].KDTID', InfoUser[0].KDTID)
-        callApiCreatePost(InfoUser[0].KDTID,InfoUser[0].UserID, InfoUser[0].Type, InfoUser[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
+        callApiCreatePost(InfoUser[0].KDTID,InfoUser[0].UserID, InfoUser[0].Type, InfoUser[0].FullName, this.state.Status, this.state.linkImg, InfoUser[0].Avatar).then(dataPost => {
             data = JSON.parse(dataPost);
             console.log('thong bao postbai', data)
             if (data.ErrorCode === "00") {

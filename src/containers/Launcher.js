@@ -6,6 +6,7 @@ import {
     AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux'
+import {NavigationActions} from "react-navigation";
 
 class Launcher extends Component{
     constructor(props) {
@@ -30,7 +31,16 @@ class Launcher extends Component{
                 this.props.navigation.navigate('LoadData')
             }
             else {
-                this.props.navigation.navigate(('DangNhap'))
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({
+                            routeName: 'DangNhap',
+                        }),
+                    ]
+                });
+                this.props.navigation.dispatch(resetAction)
+
             }
         })
     }

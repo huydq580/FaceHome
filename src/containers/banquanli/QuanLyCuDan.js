@@ -56,7 +56,7 @@ class QuanLyCuDan extends Component {
 
         callApiGetKDT(InfoUser[0].KDTID).then(dataRes => {
             dataToaNha = JSON.parse(dataRes)
-            dataToaNha = dataToaNha.Value
+            dataToaNha.Value ? dataToaNha = dataToaNha.Value : dataToaNha =[]
             dataToaNha.unshift({PartID: "", Code: "", Ten: 'Tòa nhà'});
             // console.log('dataKDT', dataToaNha)
             this.setState({

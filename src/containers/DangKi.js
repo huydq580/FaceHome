@@ -59,6 +59,7 @@ class DangKi extends Component {
                 dataTinhThanh: dataTinh1
             })
         })
+        this.CallApiTimKiem()
 
     }
     //call api Quan huyen
@@ -79,7 +80,7 @@ class DangKi extends Component {
         const { callApiSearchKDT } = this.props;
         callApiSearchKDT(this.state.keyword,this.state.QuanHuyen,).then(dataRes  => {
             data2 = JSON.parse(dataRes);
-            // console.log('search kdt', data2)
+            console.log('search kdt', data2)
             this.setState({
                 dataKDT : data2.Value
             })
@@ -264,16 +265,19 @@ class DangKi extends Component {
     DangKiGiaoDien(){
         let TaiKhoan = this.state.TaiKhoan;
         let item =_.assign(this.state.item);
+        ArrayKDT = [];
+        ArrayKDT = this.state.dataKDT;
         if (TaiKhoan === 'key1'){
-            this.props.navigation.navigate('NhapThongTinChiTiet',{itemKDT: item})
-            // for(let i = 0; i< dataKDT.length; i++) {
-            //     if (key === (dataKDT[i].TenKDT)) {
-            //         this.props.navigation.navigate('NhapThongTinChiTiet')
-            //     }
-            //     else {
-            //         this.props.navigation.navigate('TaoThongTinKDT')
-            //     }
-            // }
+            // if (this.state.keyword !== )
+            // this.props.navigation.navigate('NhapThongTinChiTiet',{itemKDT: item})
+            for(let i = 0; i< ArrayKDT.length; i++) {
+                if (this.state.keyword === (ArrayKDT[i].TenKDT)) {
+                    this.props.navigation.navigate('NhapThongTinChiTiet', {itemKDT: item})
+                }
+                else {
+                    this.props.navigation.navigate('TaoThongTinKDT', {tenKDT: this.state.keyword, maVung: this.state.QuanHuyen})
+                }
+            }
 
 
         }
