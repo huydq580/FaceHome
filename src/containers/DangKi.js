@@ -269,15 +269,15 @@ class DangKi extends Component {
         ArrayKDT = this.state.dataKDT;
         if (TaiKhoan === 'key1'){
             // if (this.state.keyword !== )
-            // this.props.navigation.navigate('NhapThongTinChiTiet',{itemKDT: item})
-            for(let i = 0; i< ArrayKDT.length; i++) {
-                if (this.state.keyword === (ArrayKDT[i].TenKDT)) {
-                    this.props.navigation.navigate('NhapThongTinChiTiet', {itemKDT: item})
-                }
-                else {
-                    this.props.navigation.navigate('TaoThongTinKDT', {tenKDT: this.state.keyword, maVung: this.state.QuanHuyen})
-                }
-            }
+            this.props.navigation.navigate('NhapThongTinChiTiet',{itemKDT: item})
+            // for(let i = 0; i< ArrayKDT.length; i++) {
+            //     if (this.state.keyword === (ArrayKDT[i].TenKDT)) {
+            //         this.props.navigation.navigate('NhapThongTinChiTiet', {itemKDT: item})
+            //     }
+            //     else {
+            //         this.props.navigation.navigate('TaoThongTinKDT', {tenKDT: this.state.keyword, maVung: this.state.QuanHuyen})
+            //     }
+            // }
 
 
         }

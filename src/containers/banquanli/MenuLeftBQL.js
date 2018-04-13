@@ -12,6 +12,7 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 // import Icon1 from 'react-native-vector-icons/Entypo';
 import ItemLeftMenu from "../../components/leftmenu/ItemLeftMenu";
 import {connect} from "react-redux";
+import {LINKIMG} from "../../components/Api";
 
 class MenuLeftBQL extends Component {
     render (){
@@ -24,7 +25,7 @@ class MenuLeftBQL extends Component {
                 <View style = {{alignItems:'center', justifyContent:'center', minHeight:130}}>
                     <Image style={styles.image_circle}
                            source={{
-                               uri: InfoUser[0].Avatar
+                               uri: InfoUser[0].Avatar == "/Store/lib/noavatar.png" ? LINKIMG + "/Store/lib/noavatar.png" : InfoUser[0].Avatar
                            }}
                            resizeMode="cover"
                     >

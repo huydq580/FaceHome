@@ -20,7 +20,7 @@ import {callApiNhaCuDan} from "../../../actions/actionsCuDan/NhaCuDanActions";
 import StatusItemCuDan from "../../../components/status/StatusItemCuDan";
 import SocketIOClient from "socket.io-client";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
-import {SOCKET} from "../../../components/Api";
+import {LINKIMG, SOCKET} from "../../../components/Api";
 
 
 
@@ -124,7 +124,7 @@ class NhaCuDan extends Component {
                 <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
                     <Image style={styles.image_circle}
                            source={{
-                               uri: infoCuDan[0].Avatar
+                               uri: InfoUser[0].Avatar == "/Store/lib/noavatar.png" ? LINKIMG + "/Store/lib/noavatar.png" : InfoUser[0].Avatar
                            }}
                            resizeMode="cover"
                     >

@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
 import StatusItems from "../../../components/status/StatusItems";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
-import {GetProfileBQL, URL} from "../../../components/Api";
+import {GetProfileBQL, LINKIMG, URL} from "../../../components/Api";
 import PickerImage from "../../../components/PickerImage";
 import {callApiUploadImage} from "../../../actions/SoanTinActions";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
@@ -111,17 +111,19 @@ class Nha extends Component {
 
     render (){
         let InfoProfile = this.state.Profile
-        if(InfoProfile.length<=0){
+        const { InfoUser } = this.props;
+        if(InfoProfile.length <=0 || InfoUser.length.length<=0){
             return null
         }
+
         //ActivityIndicator
-        if (this.state.isLoading) {
-            return (
-                <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
-                    <ActivityIndicator size="large" color="white"/>
-                </View>
-            );
-        }
+        // if (this.state.isLoading) {
+        //     return (
+        //         <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>
+        //             <ActivityIndicator size="large" color="white"/>
+        //         </View>
+        //     );
+        // }
         const {navigation} = this.props;
         return (
 
@@ -129,7 +131,7 @@ class Nha extends Component {
                 <View style = {{flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
                     <Image style={styles.image_circle}
                            source={{
-                               uri: InfoProfile[0].Avatar
+                               uri: InfoUser[0].Avatar == "/Store/lib/noavatar.png" ? LINKIMG + "/Store/lib/noavatar.png" : InfoUser[0].Avatar
                            }}
                            resizeMode="cover"
                     >

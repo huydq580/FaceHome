@@ -105,6 +105,12 @@ const Stack = StackNavigator ({
             title: 'Vui lòng chọn loại tài khoản'
         }
     },
+    TaoThongTinKDT: {
+        screen: TaoThongTinKDT,
+        navigationOptions: {
+            title: "Tạo thông tin KĐT"
+        }
+    },
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
         navigationOptions: {
@@ -115,12 +121,6 @@ const Stack = StackNavigator ({
         screen: NhapThongTinChiTietCuDan,
         navigationOptions: {
             title: 'Nhập thông tin chi tiết'
-        }
-    },
-    TaoThongTinKDT: {
-        screen: TaoThongTinKDT,
-        navigationOptions: {
-            title: "Tạo thông tin KĐT"
         }
     },
     DangKyTaiKhoanBQL: {

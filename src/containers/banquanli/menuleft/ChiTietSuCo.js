@@ -8,17 +8,19 @@ import {
     TouchableOpacity,
     TextInput,
     ScrollView,
-    Picker
+    Picker, Alert
 } from 'react-native';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import CmtItem from "../../../components/status/CmtItem";
-import {SOCKET} from "../../../components/Api";
+import {CreateKDT, GetDetailSuCo, SOCKET, URL} from "../../../components/Api";
 import SocketIOClient from "socket.io-client";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmtSuco} from "../../../actions/SearchCmtSuCoActions";
 import {callApiPostCmtSuCo} from "../../../actions/CmtSuCoActions";
+import moment from "moment/moment";
+import {NavigationActions} from "react-navigation";
 
 class ChiTietSuCo extends Component {
     constructor(props){
@@ -35,7 +37,8 @@ class ChiTietSuCo extends Component {
 
         this.state = {
             dataCmt : ArrayCmt,
-            Status:''
+            Status:'',
+            DetailSuCo: "",
         }
     }
     componentWillMount() {
@@ -76,6 +79,28 @@ class ChiTietSuCo extends Component {
 
 
     }
+    // getDetailsSuCo = () => {
+    //     fetch( URL + GetDetailSuCo,  {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //
+    //         },
+    //         body: JSON.stringify({
+    //             id: 1,
+    //             lang_name: "vi_VN"
+    //         })
+    //     })
+    //         .then((response) => response.json())
+    //         .then((dataRes)=> {
+    //             data = JSON.parse(dataRes);
+    //
+    //             console.log('dataREs', dataRes)
+    //
+    //         }).catch((erro)=> {
+    //         console.log('erro',erro);
+    //     })
+    // }
     sendCmt = ( Content, CreatedTime) => {
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
@@ -114,7 +139,7 @@ class ChiTietSuCo extends Component {
 
     render (){
         const { params } = this.props.navigation.state
-        // console.log('item su co', params.ItemSuCo.Content)
+        console.log('item su co', params)
         return(
             <ScrollView  style={{flex: 1 , backgroundColor:'white'}}>
                 <View style = {{flexDirection:'row'}}>
@@ -131,7 +156,7 @@ class ChiTietSuCo extends Component {
                             <Image style={styles.image_circle}
 
                                    source={{
-                                       uri: 'http://streaming1.danviet.vn/upload/3-2017/images/2017-09-22/150607056296160-a1.jpg'
+                                       uri: params.ItemSuCo.Image
                                    }}
                                    resizeMode="cover"
                             >
@@ -144,25 +169,25 @@ class ChiTietSuCo extends Component {
 
                         </View>
                         <View style = {{marginTop:10}}>
-                            <Text>10h:20</Text>
-                            <Text>20/02/2018</Text>
+                            <Text>{moment(new Date(params.ItemSuCo.CreatedDate)).format("LT")}</Text>
+                            <Text>{moment(new Date(params.ItemSuCo.CreatedDate)).format("L")}</Text>
                         </View>
-                        <View style={{
-                            width: DEVICE_WIDTH / 2 - 10,
-                            marginTop: 10, maxHeight: 40,
-                            alignItems: 'center',
-                            flexDirection: 'row', alignItems: 'center',
-                            borderWidth: 1, borderColor: '#9E9E9E'
-                        }}>
-                            <Picker
-                                style={styles.picker}
-                                selectedValue={this.state.Status}
-                                onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>
-                                <Picker.Item label={'Đã nhận'} value='key1'/>
-                                <Picker.Item label={'Đang xử lý'} value={'key2'}/>
-                                <Picker.Item label={'Đã xử lý'} value={'key3'}/>
-                            </Picker>
-                        </View>
+                        {/*<View style={{*/}
+                            {/*width: DEVICE_WIDTH / 2 - 10,*/}
+                            {/*marginTop: 10, maxHeight: 40,*/}
+                            {/*alignItems: 'center',*/}
+                            {/*flexDirection: 'row', alignItems: 'center',*/}
+                            {/*borderWidth: 1, borderColor: '#9E9E9E'*/}
+                        {/*}}>*/}
+                            {/*<Picker*/}
+                                {/*style={styles.picker}*/}
+                                {/*selectedValue={this.state.Status}*/}
+                                {/*onValueChange={(itemValue, itemIndex) => this.setState({Status: itemValue})}>*/}
+                                {/*<Picker.Item label={'Đã nhận'} value='key1'/>*/}
+                                {/*<Picker.Item label={'Đang xử lý'} value={'key2'}/>*/}
+                                {/*<Picker.Item label={'Đã xử lý'} value={'key3'}/>*/}
+                            {/*</Picker>*/}
+                        {/*</View>*/}
 
                     </View>
                 </View>

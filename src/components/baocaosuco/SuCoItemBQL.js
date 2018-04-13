@@ -10,6 +10,7 @@ import moment from 'moment';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmtSuco} from "../../actions/SearchCmtSuCoActions";
+import {LINKIMG} from "../Api";
 class SuCoItemBQL extends Component {
     constructor(props){
         super(props)
@@ -39,7 +40,7 @@ class SuCoItemBQL extends Component {
                     <View style = {{flexDirection:'row', height:100, alignItems:'center'}}>
                         <Image style = {styles.Img}
                                source={{
-                                   uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
+                                   uri: item.Avatar == "http://image.facehome.vn/avatar/default.png" ? LINKIMG + "/Store/lib/noavatar.png" : item.Avatar
                                }}
                                resizeMode="cover"></Image>
                         <View style = {{flexDirection:'column', flex:1, marginLeft:20, justifyContent:'center'}}>

@@ -102,8 +102,8 @@ class ThongTinCaNhanCuDan extends Component {
                 style={styles.image_circle}
             />
 
-        const { infoCuDan } = this.props;
-        if (infoCuDan.length <= 0) {
+        const { infoCuDan, InfoUser } = this.props;
+        if (infoCuDan.length <= 0 || InfoUser.length <= 0) {
             return null;
         }
         console.log('infoBQL', infoCuDan)
@@ -113,10 +113,9 @@ class ThongTinCaNhanCuDan extends Component {
                     {
                         this.state.isCheck ? <TouchableOpacity onPress={this.show.bind(this)}>
                             <Image style={styles.image_circle}
-                                   source={
-                                       infoCuDan[0].Avatar == null ? require('../../../images/chieu-cao-va-tieu-su-cua-phuong-ly-12-e1482887471940.jpg') : {
-                                       uri: infoCuDan[0].Avatar}
-                                   }
+                                   source={{
+                                       uri: InfoUser[0].Avatar == "/Store/lib/noavatar.png" ? LINKIMG + "/Store/lib/noavatar.png" : InfoUser[0].Avatar
+                                   }}
                                    resizeMode="cover"
                             >
                             </Image>

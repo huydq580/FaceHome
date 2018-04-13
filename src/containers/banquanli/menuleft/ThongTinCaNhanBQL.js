@@ -138,14 +138,17 @@ class ThongTinCaNhanBQL extends Component {
                 source={this.state.avatarSource}
                 style={styles.image_circle}
             />
-
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
+            return null;
+        }
         return(
             <ScrollView style = {stylesContainer.container}>
                 {
                     this.state.isCheck ? <TouchableOpacity onPress={this.show.bind(this)}>
                         <Image style={styles.image_circle}
                                source={{
-                                   uri: params.InfoBQL[0].Avatar
+                                   uri: InfoUser[0].Avatar == "/Store/lib/noavatar.png" ? LINKIMG + "/Store/lib/noavatar.png" : InfoUser[0].Avatar
                                }}
                                resizeMode="cover"
                         >

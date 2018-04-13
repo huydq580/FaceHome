@@ -9,6 +9,7 @@ import {
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import moment from 'moment';
+import {LINKIMG} from "../Api";
 
 export default class CanhBaoChayItemCuDan extends Component {
 
@@ -40,7 +41,7 @@ export default class CanhBaoChayItemCuDan extends Component {
                     <Image style={myStyle.image_circle}
 
                            source={{
-                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
+                               uri: item.Avatar == "/Store/lib/noavatar.png" ? LINKIMG + "/Store/lib/noavatar.png" : item.Avatar
                            }}
                            resizeMode="cover"
                     >
