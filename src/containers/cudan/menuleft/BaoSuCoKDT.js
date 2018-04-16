@@ -9,9 +9,9 @@ import {
 } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import SuCoItemCuDan from "../../../components/baocaosuco/SuCoItemCuDan";
 import stylesContainer from "../../../components/style";
 import {callApiSearchSuCo} from "../../../actions/SuCoActions";
+import SuCoItem from "../../../components/baocaosuco/SuCoItem";
 
 class BaoSuCoKDT extends Component {
     constructor(props){
@@ -63,9 +63,10 @@ class BaoSuCoKDT extends Component {
                     data = {this.state.dataSuCo}
                     renderItem={(item) => {
                         return (
-                            <SuCoItemCuDan
+                            <SuCoItem
                                 dataItem={item}
                                 navigation={navigation}
+                                fromBQL= {true}
                             />
                         )
                     }}

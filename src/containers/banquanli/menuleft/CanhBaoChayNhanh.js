@@ -154,6 +154,7 @@ class CanhBaoChayNhanh extends Component {
                             <CanhBaoChayItem
                                 dataItem={item}
                                 navigation={navigation}
+                                fromBQL= {true}
                             />
                         )
                     }

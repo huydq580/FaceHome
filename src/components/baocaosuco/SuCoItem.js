@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmtSuco} from "../../actions/SearchCmtSuCoActions";
 import {LINKIMG} from "../Api";
-class SuCoItemBQL extends Component {
+class SuCoItem extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -19,6 +19,7 @@ class SuCoItemBQL extends Component {
         }
     }
     ClickItemSuCo = (SuCoID, itemsuco)=> {
+        const {fromBQL} = this.props
         const { callApiSearchCmtSuco, InfoUser } = this.props
         if (InfoUser.length <= 0) {
             return null
@@ -26,7 +27,12 @@ class SuCoItemBQL extends Component {
         console.log('kdt id', InfoUser[0].KDTID)
         console.log('SuCoID', SuCoID)
         callApiSearchCmtSuco(InfoUser[0].KDTID, SuCoID).then(dataRes => {
-            this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID, ItemSuCo: itemsuco})
+            if (fromBQL) {
+                this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID, ItemSuCo: itemsuco})
+            }
+            else {
+                this.props.navigation.navigate('ChiTietSuCoCuDan', {SuCoId: SuCoID, ItemSuCo: itemsuco})
+            }
         })
 
     }
@@ -77,9 +83,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-SuCoItemBQL = connect(mapStateToProps, mapDispatchToProps)(SuCoItemBQL);
+SuCoItem = connect(mapStateToProps, mapDispatchToProps)(SuCoItem);
 
-export default SuCoItemBQL
+export default SuCoItem
 const styles = StyleSheet.create({
     Img : {
         flex:1,

@@ -29,12 +29,19 @@ export default class CanhBaoChayItem extends Component {
 
 
     render() {
-        const {navigation} = this.props;
+        const {navigation, fromBQL, fromCuDan} = this.props;
         const {item} = this.props.dataItem;
         return (
 
             <TouchableOpacity
-                onPress = {()=> this.props.navigation.navigate('ChiTietCanhBaoChay')}
+                onPress = {()=> {
+                    if (fromBQL) {
+                        this.props.navigation.navigate('ChiTietCanhBaoChay')
+                    }
+                    else {
+                        this.props.navigation.navigate('ChiTietCanhBaoChayCuDan')
+                    }
+                }}
             >
                 <View key={item.index}
                       style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>

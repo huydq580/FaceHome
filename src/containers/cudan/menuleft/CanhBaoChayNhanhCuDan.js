@@ -17,9 +17,9 @@ import moment from 'moment';
 import Communications from 'react-native-communications';
 import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/actionsBQL/CanhBaoChayNhanhActions";
 import PickerImage from "../../../components/PickerImage";
-import CanhBaoChayItemCuDan from "../../../components/canhbaochay/CanhBaoChayItemCuDan";
 import {callApiUploadImage} from "../../../actions/SoanTinActions";
 import {LINKIMG} from "../../../components/Api";
+import CanhBaoChayItem from "../../../components/canhbaochay/CanhBaoChayItem";
 
 class CanhBaoChayNhanhCuDan extends Component {
     constructor(props){
@@ -153,9 +153,10 @@ class CanhBaoChayNhanhCuDan extends Component {
                     data = {this.state.data}
                     renderItem = {(item) => {
                         return (
-                            <CanhBaoChayItemCuDan
+                            <CanhBaoChayItem
                                 dataItem={item}
                                 navigation={navigation}
+                                fromCuDan= {true}
                             />
                         )
                     }

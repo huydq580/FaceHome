@@ -18,8 +18,8 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
-import ChatItemCuDan from "../../components/chatItem/ChatItemCuDan";
 import {SOCKET} from "../../components/Api";
+import ChatItem from "../../components/chatItem/ChatItem";
 
 class TinNhanDetailsCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -246,7 +246,7 @@ class TinNhanDetailsCuDan extends Component {
                     renderItem={({item}) => {
                         // console.log('item', item)
                         return (
-                            <ChatItemCuDan
+                            <ChatItem
                                 dataItem={item}
                                 myName={InfoUser[0].UserID}
                             />
