@@ -42,7 +42,7 @@ class TaiKhoanDanCu extends Component {
         //cap nhap thieu gia tri value
         const {params} = this.props.navigation.state;
         const { callApiUpdateStatus } = this.props;
-        console.log('param', params)
+        console.log('param', params.dataCuDan)
         // console.log('value', this.state.Value)
         const {InfoUser} = this.props
         if(InfoUser.length<=0){
@@ -108,6 +108,8 @@ class TaiKhoanDanCu extends Component {
         })
     }
     render (){
+        const {params} = this.props.navigation.state;
+        console.log('param', params.dataCuDan)
         return(
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection: 'row'}}>

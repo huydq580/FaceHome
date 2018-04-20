@@ -44,6 +44,7 @@ class TinNhanCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
+        console.log("InfoUser", InfoUser)
         const {callApiGetUser} = this.props;
         callApiGetUser(InfoUser[0].ProfileID, InfoUser[0].UserID).then(dataRes => {
             dataUser = dataRes.ObjectResult
@@ -51,7 +52,7 @@ class TinNhanCuDan extends Component {
                 dataUser: dataUser,
                 isLoading: false,
             })
-            // console.log('datauser', this.state.dataUser)
+            console.log('datauser', this.state.dataUser)
         })
     }
     renderSeparator = () => {

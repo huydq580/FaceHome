@@ -155,6 +155,7 @@ class TinNhanDetails extends Component {
         const {callApiGetMessage} = this.props;
         callApiGetMessage(InfoUser[0].ProfileID,InfoUser[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
+            console.log('dataMes', dataMessage)
             this.setState({
                 dataChat: [...dataMessage, ...this.state.dataChat],
                 // dataChat: ,
@@ -177,12 +178,13 @@ class TinNhanDetails extends Component {
     //socket event send message
     sendMessage = () => {
         const {params} = this.props.navigation.state
-        console.log('params',params)
+        // console.log('params',params)
+        // console.log('params',params.item)
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
-        console.log('info user', InfoUser[0])
+        // console.log('info user', InfoUser[0])
         if (this.input_msg === "")
             return;
         this.textInput.clear();
@@ -204,7 +206,7 @@ class TinNhanDetails extends Component {
         }
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
-        console.log('data',dataSend)
+        // console.log('data',dataSend)
         let dataMesSend = this.input_msg;
         let newMsg = this.state.dataChat;
         newMsg.push({
@@ -228,6 +230,7 @@ class TinNhanDetails extends Component {
     };
 
     render() {
+        const {params} = this.props.navigation.state
         if (this.state.isLoading) {
             return (
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>

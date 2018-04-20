@@ -64,6 +64,7 @@ class TinNhan extends Component {
     }
 
     render() {
+        // console.log('data user', this.state.dataUser)
         if (this.state.isLoading) {
         return (
             <View style={{flex: 1,justifyContent:'center', alignItems: 'center', backgroundColor: '#718792'}}>

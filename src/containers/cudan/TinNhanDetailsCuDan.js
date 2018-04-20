@@ -152,6 +152,7 @@ class TinNhanDetailsCuDan extends Component {
         const {callApiGetMessage} = this.props;
         callApiGetMessage(InfoUser[0].ProfileID, InfoUser[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
             dataMessage = dataRes.ObjectResult;
+            console.log('dataUser', dataMessage)
             this.setState({
                 dataChat: [...dataMessage, ...this.state.dataChat],
                 // dataChat: ,
@@ -173,10 +174,12 @@ class TinNhanDetailsCuDan extends Component {
     //socket event send message
     sendMessage = () => {
         const {params} = this.props.navigation.state
+        console.log('params.item', params.item)
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
+        console.log('userid', InfoUser[0])
         if (this.input_msg === "")
             return;
         this.textInput.clear();

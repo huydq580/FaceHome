@@ -29,6 +29,7 @@ export default class CuDanItem extends Component {
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
+        console.log('itemcu dan', item)
         return (
 
             <TouchableOpacity

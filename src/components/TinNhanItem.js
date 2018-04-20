@@ -43,11 +43,17 @@ export default class TinNhanItem extends Component {
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
+        // console.log("item", item)
+        // let chatTo = item.ChatTo !== 0 ? item.ChatTo : null
+        // datachatTo = JSON.parse(item.ChatTo)
+        // console.log('chatto', datachatTo)
         return (
 
             <TouchableOpacity
                 onPress={() => {
-                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetails', {item: item.ChatTo, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) :
+                    // navigation.navigate('TinNhanDetails', {item: JSON.parse(item.ChatTo), title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID})
+                    // console.log('tin nhan details', item.ChatTo)
+                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetails', {item: JSON.parse(item.ChatTo), title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) :
                         item.IsGroup == 1 ? navigation.navigate('ChatGroupBQL', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
                 }}
             >

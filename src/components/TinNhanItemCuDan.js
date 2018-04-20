@@ -30,11 +30,15 @@ export default class TinNhanItemCuDan extends Component {
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
+        // console.log('item', item)
+        // let chatTo = item.ChatTo !== 0 ? item.ChatTo : null
+        // datachatTo = JSON.parse(chatTo)
+        // console.log('datachatto', datachatTo)
         return (
 
             <TouchableOpacity
                 onPress={() => {
-                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {item: item.ChatTo, title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) :
+                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {item: JSON.parse(item.ChatTo), title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) :
                         item.IsGroup == 1 ? navigation.navigate('ChatGroupCuDan', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
                 }}
             >

@@ -49,6 +49,7 @@ class BinhLuanCuDan extends Component {
         this.socket.emit('logincomment', {
             UserID: InfoUser[0].UserID,
             PostID: params.PostId,
+            ProfileID: params.ProfileID,
             KDTID: InfoUser[0].KDTID,
         })
         console.log('so luong cmt', this.state.dataCmt)

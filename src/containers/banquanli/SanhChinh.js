@@ -61,6 +61,7 @@ class SanhChinh extends Component {
         this.socket.emit('loginpost', {
             UserID: InfoUser[0].UserID,
             KDTID: InfoUser[0].KDTID,
+            ProfileID: InfoUser[0].ProfileID,
         })
         this.socket.on('receivelikepost', (dataReceive) => {
             console.log('receivelikepost', dataReceive)
@@ -100,7 +101,7 @@ class SanhChinh extends Component {
         if (InfoUser.length <=0) {
             return null
         }
-        callApiSubcribe(InfoUser[0].UserID, true).then(dataRes => {
+        callApiSubcribe(InfoUser[0].UserID, InfoUser[0].ProfileID, true).then(dataRes => {
             // console.log('dataSubcribe',dataRes )
 
         })
