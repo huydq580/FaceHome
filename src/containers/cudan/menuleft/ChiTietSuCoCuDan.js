@@ -105,7 +105,7 @@ class ChiTietSuCoCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null
         }
-        callApiPostCmtSuCo( InfoUser[0].KDTID,params.SuCoId, InfoUser[0].UserID, InfoUser[0].FullName, SendCMT).then(dataRes => {
+        callApiPostCmtSuCo( InfoUser[0].KDTID,params.SuCoId, InfoUser[0].UserID,InfoUser[0].ProfileID,  InfoUser[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
             // console.log('post bai thanh cong', dataRes)
             this.sendCmt(  SendCMT ,data.Value)

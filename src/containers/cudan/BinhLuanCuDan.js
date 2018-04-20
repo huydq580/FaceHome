@@ -120,7 +120,7 @@ class BinhLuanCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null
         }
-        callApiPostCmt(params.PostId, InfoUser[0].UserID, InfoUser[0].Type, InfoUser[0].FullName, SendCMT).then(dataRes => {
+        callApiPostCmt(params.PostId, InfoUser[0].UserID,InfoUser[0].ProfileID, InfoUser[0].Type, InfoUser[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
             this.sendCmt( data.Value.CommentID ,data.Value.CreatedDate, SendCMT)
         })

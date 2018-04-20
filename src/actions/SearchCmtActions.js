@@ -16,6 +16,7 @@ export const callApiSearchCmt = (post_id) => {
                     from_date: "",
                     to_date: "",
                     user_id: "",
+                    profile_id: "",
                     user_type: 255,
                     option: 0,
                     lang_name: "vi_VN"

@@ -16,6 +16,7 @@ export const callApiSearchPost = (page_index, kdt_id) => {
                     from_date: "",
                     to_date: "",
                     user_id: "",
+                    profile_id: "",
                     // user_id: user_id,
                     user_type: 255,
                     pin: 255,

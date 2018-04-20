@@ -1,6 +1,6 @@
 import {CreateCmt, URL} from "../components/Api";
 
-export const callApiPostCmt = (post_id, user_id, user_type, full_name,content ) => {
+export const callApiPostCmt = (post_id, user_id,profile_id, user_type, full_name,content ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + CreateCmt, {
@@ -11,6 +11,7 @@ export const callApiPostCmt = (post_id, user_id, user_type, full_name,content ) 
                 body: JSON.stringify({
                     post_id: post_id,
                     user_id: user_id,
+                    profile_id: profile_id,
                     user_type: user_type,
                     full_name: full_name,
                     avatar: "",

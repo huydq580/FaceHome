@@ -56,7 +56,7 @@ class SoanTinCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null
         }
-        callApiCreatePost(InfoUser[0].KDTID, InfoUser[0].UserID, InfoUser[0].Type, InfoUser[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
+        callApiCreatePost(InfoUser[0].KDTID, InfoUser[0].UserID, InfoUser[0].ProfileID, InfoUser[0].Type, InfoUser[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
             data = JSON.parse(dataPost);
             if (data.ErrorCode === "00") {
                 Alert.alert(
