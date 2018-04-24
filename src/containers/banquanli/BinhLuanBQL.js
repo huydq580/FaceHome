@@ -107,7 +107,8 @@ class BinhLuanBQL extends Component {
                 PostID: params.PostId,
                 KDTID: InfoUser[0].KDTID,
                 TokenDevice: value,
-                UserIDPost: params.UserId
+                UserIDPost: params.UserId,
+                ProfileIDPost: params.ProfileId,
             }
             this.socket.emit("comment", dataSendCmt);
         })

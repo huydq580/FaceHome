@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     Alert,
-    AsyncStorage
+    AsyncStorage,
+    ActivityIndicator
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import UserInput from '../components/dangnhap/UserInput';
@@ -21,6 +22,7 @@ class DangNhap extends Component {
             MatKhau: '',
             showPass: true,
             press: false,
+            isLoading: false
         }
         this.showPass = this.showPass.bind(this);
     }
@@ -34,9 +36,13 @@ class DangNhap extends Component {
    componentDidMount(){
    }
     Login() {
+        this.setState({isLoading: true})
         AsyncStorage.setItem('SoDienThoai', this.state.SoDienThoai)
         const { callApiLogin } = this.props;
         callApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
+            this.setState({
+                isLoading: false,
+            })
             data = JSON.parse(dataLogin);
             if(data.IsError === false && data.ErrorCode === "00"){
                 AsyncStorage.setItem('UserID', data.Value[0].UserID)
@@ -117,6 +123,21 @@ class DangNhap extends Component {
 
 
                 </View>
+                {this.state.isLoading ?
+                    <View style={{
+                        top: -10,
+                        bottom: -10,
+                        left: -10,
+                        right: -10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        zIndex: 1,
+                        backgroundColor: 'rgba(52, 52, 52, 0.3)'
+                    }}>
+                        <ActivityIndicator size="large" color="green"/>
+                    </View> : null
+                }
             </View>
         );
     }

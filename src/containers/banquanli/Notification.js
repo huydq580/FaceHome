@@ -54,6 +54,8 @@ class Notification extends Component {
                 // data = JSON.parse(dataRes);
                 this.setState({
                     listNoti: dataRes.ObjectResult
+                }, ()=> {
+                    console.log('listnoti', this.state.listNoti)
                 })
             }).catch((erro)=> {
             console.log('erro',erro);
