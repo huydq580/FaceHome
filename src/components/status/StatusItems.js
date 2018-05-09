@@ -53,13 +53,13 @@ class StatusItems extends Component {
 
         })
     }
-    BinhLuan = (PostID, UserID) => {
+    BinhLuan = (PostID, UserID, ProfileID) => {
         const { navigate } = this.props.navigation
         const { callApiSearchCmt } = this.props
         callApiSearchCmt( PostID ).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            navigate('BinhLuanBQL', {PostId: PostID, UserId: UserID,ProfileId: Prof, })
+            navigate('BinhLuanBQL', {PostId: PostID, UserId: UserID,ProfileId: ProfileID, })
         })
     }
 
@@ -71,6 +71,7 @@ class StatusItems extends Component {
         }
 
         const {item} = this.props.dataItem;
+        // console.log('item.item.ProfileID', item.ProfileID)
         return (
             <View>
                 <View>
@@ -175,7 +176,8 @@ class StatusItems extends Component {
                             resizeMode="cover">
                         </Image>
                         <TouchableOpacity onPress={() => {
-                            this.BinhLuan(item.PostID, item.UserIDileID, item.ProfileID)
+                            console.log('item.item.ProfileID', item.ProfileID)
+                            this.BinhLuan(item.PostID, item.UserID, item.ProfileID)
                         }}
                                           style={{
                                               marginLeft: 10, flex: 1,

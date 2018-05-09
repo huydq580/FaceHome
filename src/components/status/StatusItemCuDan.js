@@ -44,7 +44,7 @@ class StatusItemCuDan extends Component {
             DatePost: DatePost
         })
     }
-    BinhLuan = (PostID, UserID) => {
+    BinhLuan = (PostID, UserID, ProfileID) => {
         const { callApiSearchCmt } = this.props
         callApiSearchCmt( PostID ).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
@@ -60,6 +60,7 @@ class StatusItemCuDan extends Component {
             return null
         }
         const {item} = this.props.dataItem;
+        console.log('item.item.ProfileID', item.ProfileID)
 
         return (
             <View>

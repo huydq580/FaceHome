@@ -10,8 +10,9 @@ import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/Entypo'
 import ThongBaoItem from '../../components/thongbao/ThongBaoItem';
-import {GetlAlNotifcation, URL_SOCKET} from "../../components/Api";
+import {GetlAlNotifcation, SOCKET, URL_SOCKET} from "../../components/Api";
 import {connect} from "react-redux";
+import SocketIOClient from "socket.io-client";
 
 class Notification extends Component {
     constructor(props){
@@ -20,6 +21,14 @@ class Notification extends Component {
         this.state = {
             listNoti:[],
         }
+        this.socket = SocketIOClient(SOCKET, {
+            pingTimeout: 30000,
+            pingInterval: 30000,
+            transports: ['websocket']
+        });
+        this.socket.on('notification', (dataReceive) => {
+            console.log('notification', dataReceive)
+        })
 
     }
     componentWillMount() {

@@ -12,7 +12,6 @@ import TabNCC from "./nhacungcap/TabNCC";
 import TabCuDan from "./cudan/TabNavigatorCuDan";
 import NhapThongTinChiTiet from "../containers/banquanli/NhapThongTinChiTiet";
 import DangKyTaiKhoanBQL from "../containers/banquanli/DangKyTaiKhoanBQL";
-import NhapThongTinChiTietCuDan from "../containers/cudan/NhapThongTinChiTietCuDan";
 import NhapThongTinNCC from "../containers/nhacungcap/NhapThongTinNCC";
 import QuanLyTaiKhoan from "../containers/banquanli/menuleft/QuanLyTaiKhoan";
 import QuanLyTaiKhoanCuDan from "../containers/cudan/menuleft/QuanLyTaiKhoanCuDan";
@@ -83,6 +82,7 @@ import CreateGroupCuDan from "../containers/cudan/CreateGroupCuDan";
 import ChatGroupBQL from "../containers/banquanli/ChatGroupBQL";
 import ChatGroupCuDan from "../containers/cudan/ChatGroupCuDan";
 import TaoThongTinKDT from "../containers/banquanli/TaoThongTinKDT";
+import Home from "../containers/Home";
 
 
 const Stack = StackNavigator ({
@@ -90,6 +90,12 @@ const Stack = StackNavigator ({
         screen: Launcher,
         navigationOptions: {
             header: null,
+        }
+    },
+    Home :{
+        screen: Home,
+        navigationOptions: {
+            header: null
         }
     },
     DangNhap: {
@@ -113,12 +119,6 @@ const Stack = StackNavigator ({
     },
     NhapThongTinChiTiet: {
         screen: NhapThongTinChiTiet,
-        navigationOptions: {
-            title: 'Nhập thông tin chi tiết'
-        }
-    },
-    NhapThongTinChiTietCuDan: {
-        screen: NhapThongTinChiTietCuDan,
         navigationOptions: {
             title: 'Nhập thông tin chi tiết'
         }
