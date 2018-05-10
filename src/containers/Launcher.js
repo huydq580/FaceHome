@@ -35,7 +35,7 @@ class Launcher extends Component{
                     index: 0,
                     actions: [
                         NavigationActions.navigate({
-                            routeName: 'Home',
+                            routeName: 'TabCuDan',
                         }),
                     ]
                 });

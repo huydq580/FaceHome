@@ -19,7 +19,7 @@ import {connect} from "react-redux";
 import {callApiSearchKDT} from "../actions/KDTActions";
 import KDTItem from "../components/KDTItem";
 
-class Home extends Component {
+class ChuaDangNhap extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -36,11 +36,6 @@ class Home extends Component {
             ],
             ArrKDT: [],
             ArrRaoVat: [
-                {
-                    avt: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg',
-                    username: 'Nguyễn Hiệu',
-                    content: 'Cửa hàng bác tôm chuyên cung cấp rau sạch, thịt sạch'
-                },
                 {
                     avt: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg',
                     username: 'Nguyễn Hiệu',
@@ -91,6 +86,7 @@ class Home extends Component {
                         onChangeText = {(Ten) => this.setState({Ten})}/>
                     </View>
                     <View  style = {{flexDirection: 'row', alignItems:'center', marginRight:5}}>
+                        <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangNhap')}>
                         <View style = {{height: 25, width: 80,
                             alignItems:'center',
                             justifyContent:'center',
@@ -99,15 +95,18 @@ class Home extends Component {
                             borderColor:'black'}}>
                             <Text>Đăng nhập</Text>
                         </View>
-                        <View style = {{height: 25, width: 80,
-                            alignItems:'center',
-                            marginLeft:5,
-                            justifyContent:'center',
-                            borderWidth:1,
-                            backgroundColor:'#90CAF9',
-                            borderColor:'black'}}>
-                            <Text>Đăng ký</Text>
-                        </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress = {() => {this.props.navigation.navigate('DangKyCuDan')}}>
+                            <View style = {{height: 25, width: 80,
+                                alignItems:'center',
+                                marginLeft:5,
+                                justifyContent:'center',
+                                borderWidth:1,
+                                backgroundColor:'#90CAF9',
+                                borderColor:'black'}}>
+                                <Text>Đăng ký</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -174,9 +173,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-Home = connect(mapStateToProps, mapDispatchToProps)(Home);
+ChuaDangNhap = connect(mapStateToProps, mapDispatchToProps)(ChuaDangNhap);
 
-export default Home
+export default ChuaDangNhap
 const styles = StyleSheet.create({
     image_circle: {
         height: DEVICE_WIDTH / 10,

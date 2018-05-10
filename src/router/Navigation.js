@@ -82,7 +82,9 @@ import CreateGroupCuDan from "../containers/cudan/CreateGroupCuDan";
 import ChatGroupBQL from "../containers/banquanli/ChatGroupBQL";
 import ChatGroupCuDan from "../containers/cudan/ChatGroupCuDan";
 import TaoThongTinKDT from "../containers/banquanli/TaoThongTinKDT";
-import Home from "../containers/Home";
+import Home from "../containers/ChuaDangNhap";
+import DangKyCuDan from "../containers/cudan/DangKyCuDan";
+import XacNhanCuDan from "../containers/cudan/XacNhanCuDan";
 
 
 const Stack = StackNavigator ({
@@ -98,10 +100,22 @@ const Stack = StackNavigator ({
             header: null
         }
     },
+    DangKyCuDan: {
+        screen: DangKyCuDan,
+        navigationOptions: {
+            title: 'Đăng ký tài khoản'
+        }
+    },
     DangNhap: {
         screen: DangNhap,
         navigationOptions: {
             header: null,
+        }
+    },
+    XacNhanCuDan: {
+        screen: XacNhanCuDan,
+        navigationOptions: {
+            title: 'Đăng ký tài khoản'
         }
     },
 

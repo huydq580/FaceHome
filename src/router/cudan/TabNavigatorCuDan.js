@@ -11,7 +11,7 @@ const TabCuDan = TabNavigator ({
     SanhChinh: {
         screen: SanhChinh,
         navigationOptions: {
-            title:'Sảnh chính'
+            header: null
         }
     },
     DichVu: {
@@ -29,13 +29,13 @@ const TabCuDan = TabNavigator ({
     Notification: {
         screen: Notification,
         navigationOptions: {
-            title: 'Notification'
+            title: 'Thông báo'
         },
     },
     MenuLeftCuDan: {
         screen: MenuLeftCuDan,
         navigationOptions: {
-            title:'Menu'
+            title:'Thêm'
         }
     }
 
