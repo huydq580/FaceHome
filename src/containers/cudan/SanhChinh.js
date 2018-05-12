@@ -39,19 +39,23 @@ class SanhChinh extends Component {
         })
     }
     renderGiaoDien = () => {
+        const { navigation } = this.props;
         if (this.state.value) {
             return (
-                <ChuaCoCanHo/>
+                <ChuaCoCanHo
+                    navigation={navigation}/>
             )
         }
         else {
             return (
-                <ChuaDangNhap/>
+                <ChuaDangNhap
+                    navigation={navigation}/>
             )
         }
 
     }
     render () {
+        const { navigation } = this.props;
         return (
             <View style = {{flex:1}}>
                 {this.renderGiaoDien()}

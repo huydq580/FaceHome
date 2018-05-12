@@ -96,7 +96,7 @@ class ChuaDangNhap extends Component {
                             <Text>Đăng nhập</Text>
                         </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress = {() => {this.props.navigation.navigate('DangKyCuDan')}}>
+                        <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangKyCuDan')}>
                             <View style = {{height: 25, width: 80,
                                 alignItems:'center',
                                 marginLeft:5,
