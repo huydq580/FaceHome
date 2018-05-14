@@ -36,7 +36,7 @@ import TinNhan from "../containers/banquanli/TinNhan";
 import TinNhanDetails from "../containers/banquanli/TinNhanDetails";
 import BinhLuanBQL from "../containers/banquanli/BinhLuanBQL";
 import ChiTietSuCo from "../containers/banquanli/menuleft/ChiTietSuCo";
-import NhaCuDan from "../containers/cudan/menuleft/NhaCuDan";
+import TaiKhoanCuaBanCuDan from "../containers/cudan/menuleft/TaiKhoanCuaBanCuDan";
 import HangXom from "../containers/cudan/menuleft/HangXom";
 import LienLacNhanhBQL from "../containers/cudan/menuleft/LienLacNhanhBQL";
 import DangKyDichVuKDT from "../containers/cudan/menuleft/DangKyDichVuKDT";
@@ -318,8 +318,8 @@ const Stack = StackNavigator ({
     },
 
     //Stack Cu Dan
-    NhaCuDan: {
-        screen: NhaCuDan,
+    TaiKhoanCuaBanCuDan: {
+        screen: TaiKhoanCuaBanCuDan,
         navigationOptions: {
             title: 'Nhà'
 

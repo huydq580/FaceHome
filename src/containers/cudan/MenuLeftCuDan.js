@@ -34,7 +34,7 @@ class MenuLeftCuDan extends Component {
                 <View style = {{height:1, backgroundColor:'#cccccc', marginTop:8}}/>
                 <ItemLeftMenu title ="Nhà [Tên căn hộ]"
                               nameIcon = "home"
-                              onPress = {()=> this.props.navigation.navigate('NhaCuDan')}
+                              onPress = {()=> this.props.navigation.navigate('TaiKhoanCuaBanCuDan')}
                 />
                 <ItemLeftMenu title ="Hàng xóm"
                               nameIcon = "home"

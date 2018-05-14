@@ -23,6 +23,7 @@ class ChuaDangNhap extends Component {
     constructor(props){
         super(props)
         this.state = {
+            TimKiem: "",
             imageSlider: [
                 {
                     thumbnail: 'http://file4.batdongsan.com.vn/2015/12/03/hmcVYWuR/20151203133249-f154.jpg'
@@ -83,7 +84,7 @@ class ChuaDangNhap extends Component {
                         placeholder = 'Tìm kiếm'
                         returnKeyType = {"next"}
                         // underlineColorAndroid="transparent"
-                        onChangeText = {(Ten) => this.setState({Ten})}/>
+                        onChangeText = {(TimKiem) => this.setState({TimKiem})}/>
                     </View>
                     <View  style = {{flexDirection: 'row', alignItems:'center', marginRight:5}}>
                         <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangNhap')}>
