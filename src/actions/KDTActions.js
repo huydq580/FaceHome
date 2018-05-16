@@ -31,7 +31,7 @@ export const callApiSearchKDT = (keyword,ma_vung ) => {
                 })
                 resolve(data);
             }).catch(e => {
-                console.log('exception')
+                console.log('exception', e)
             })
         })
     }
@@ -64,7 +64,7 @@ export const callApiGetKDT = (kdt_id, option, parent_id) => {
                 })
                 resolve(data);
             }).catch(e => {
-                console.log('exception')
+                console.log('exception', e)
             })
         })
     }

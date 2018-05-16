@@ -85,6 +85,8 @@ import TaoThongTinKDT from "../containers/banquanli/TaoThongTinKDT";
 import Home from "../containers/ChuaDangNhap";
 import DangKyCuDan from "../containers/cudan/DangKyCuDan";
 import XacNhanCuDan from "../containers/cudan/XacNhanCuDan";
+import ThemCanHoMoi from "../containers/cudan/ThemCanHoMoi";
+import DangKiNhaCungCap from "../containers/cudan/DangKiNhaCungCap";
 
 
 const Stack = StackNavigator ({
@@ -583,6 +585,18 @@ const Stack = StackNavigator ({
     },
     ChatGroupCuDan: {
         screen: ChatGroupCuDan
+    },
+    ThemCanHoMoi: {
+        screen: ThemCanHoMoi,
+        navigationOptions: {
+            title: "Thêm căn hộ mới"
+        }
+    },
+    DangKiNhaCungCap: {
+        screen: DangKiNhaCungCap,
+        navigationOptions:{
+            title: "Đăng ký nhà cung cấp"
+        }
     }
 
 

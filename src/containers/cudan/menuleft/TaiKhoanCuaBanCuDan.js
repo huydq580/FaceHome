@@ -171,11 +171,13 @@ class TaiKhoanCuaBanCuDan extends Component {
                     </Text>
                     <Text  style = {{flex:1}}>Mã: ABCDEF</Text>
                 </View>
-                <View>
-                    <View style = {{height: 30, width: 150, marginLeft: DEVICE_WIDTH/2,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
-                        <Text>Thêm căn hộ mới</Text>
+                <TouchableOpacity onPress = {()=> this.props.navigation.navigate("ThemCanHoMoi")}>
+                    <View>
+                        <View style = {{height: 30, width: 150, marginLeft: DEVICE_WIDTH/2,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
+                            <Text>Thêm căn hộ mới</Text>
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View style = {{flexDirection: 'row', alignItems: 'center'}}>
                     <Image
                         source={
@@ -190,10 +192,6 @@ class TaiKhoanCuaBanCuDan extends Component {
                         </Text>
                         <View style = {{height:1, backgroundColor:'#9E9E9E', width: DEVICE_WIDTH}}/>
                     </View>
-
-
-
-
 
                 </View>
                 <Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>
@@ -211,8 +209,34 @@ class TaiKhoanCuaBanCuDan extends Component {
                         )
                     }}
                     keyExtractor={(item, index) => index.toString()}
-
                 />
+                <Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>
+                    TSQ EUROLAND – T2B - P0908
+                </Text>
+                <View style = {{flexDirection: 'row', alignItems: 'center'}}>
+                    <Image
+                        source={
+                            require('../../../images/info.png')
+                        }
+                        style={styles.info}
+                        resizeMode="cover">
+                    </Image>
+                    <View style = {{marginLeft: 10, marginTop: 10,}}>
+                        <Text style = {{color: 'black'}}>
+                            Nhà cung cấp dịch vụ
+                        </Text>
+                        <View style = {{height:1, backgroundColor:'#9E9E9E', width: DEVICE_WIDTH}}/>
+                    </View>
+
+                </View>
+                <View style = {{marginHorizontal: 20, marginTop: 10,  marginBottom:10}}>
+                    <Text style = {{color: "black"}}>Trở thành nhà cung cấp dịch vụ để khách hàng xung
+                        quanh bạn có thể nhìn thấy và sử dụng dịch vụ của bạn</Text>
+                </View>
+
+
+
+
             </ScrollView>
 
         )

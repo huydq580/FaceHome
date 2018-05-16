@@ -20,7 +20,7 @@ export default class KDTItem extends Component {
                            source={
                                require('../images/Commercial_buy_online_cart_sell_sale_offer.png')
                            }
-                           resizeMode="stretch"
+                           resizeMode="cover"
                     >
                     </Image>
                     <Text>{item.TenKDT.slice(0,12)}</Text>
@@ -37,18 +37,5 @@ const styles = StyleSheet.create({
 
         marginRight: 10,
         marginBottom: 10,
-
-    },
-    view_infovideo: {
-        height: DEVICE_HEIGHT / 8,
-        width: DEVICE_HEIGHT / 3.5,
-    },
-    duration: {
-        position: "absolute",
-        bottom: 15,
-        right: DEVICE_WIDTH-DEVICE_HEIGHT/4,
-        backgroundColor: 'black',
-        borderRadius: 3,
-        justifyContent:'flex-end'
     }
 })

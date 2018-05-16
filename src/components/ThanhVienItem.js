@@ -15,15 +15,16 @@ export default class ThanhVienItem extends Component {
         const { item } = this.props.dataItem;
         return (
             <TouchableOpacity>
-                <View style={{ flexDirection: 'column', marginTop: 15, justifyContent:'center', alignItems:'center' }}>
+                <View style={{flexDirection: 'column', marginTop: 15, justifyContent:'center', alignItems:'center' ,  width:DEVICE_WIDTH/3}}>
                     <Image style={styles.image_circle}
                            source={{
-                              uri: item.avt
-                           }}
-                           resizeMode="stretch"
+                               uri: item.avt
+                           }
+                           }
+                           resizeMode="cover"
                     >
                     </Image>
-                    <Text>{item.username}</Text>
+                    <Text style = {{marginTop: 5}}>{item.username}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -32,23 +33,12 @@ export default class ThanhVienItem extends Component {
 }
 const styles = StyleSheet.create({
     image_circle: {
-        width:DEVICE_WIDTH/3-30,
-        height:DEVICE_WIDTH/3-30,
-
+        width:50,
+        height:50,
+        borderRadius: 25,
+        marginLeft: 10,
         marginRight: 10,
-        marginBottom: 10,
+
 
     },
-    view_infovideo: {
-        height: DEVICE_HEIGHT / 8,
-        width: DEVICE_HEIGHT / 3.5,
-    },
-    duration: {
-        position: "absolute",
-        bottom: 15,
-        right: DEVICE_WIDTH-DEVICE_HEIGHT/4,
-        backgroundColor: 'black',
-        borderRadius: 3,
-        justifyContent:'flex-end'
-    }
 })

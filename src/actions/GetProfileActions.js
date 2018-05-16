@@ -28,7 +28,7 @@ export const callApiGetProfile = (profile_id, user_id, user_type, option) => {
                 })
                 resolve(data);
             }).catch(e => {
-                console.log('exception')
+                console.log('exception', e)
             })
         })
     }
