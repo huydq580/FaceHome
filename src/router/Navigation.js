@@ -86,7 +86,8 @@ import Home from "../containers/ChuaDangNhap";
 import DangKyCuDan from "../containers/cudan/DangKyCuDan";
 import XacNhanCuDan from "../containers/cudan/XacNhanCuDan";
 import GioiThieuKDT from "../containers/cudan/GioiThieuKDT";
-import ThemCanHoMoi from "../containers/cudan/ThemCanHoMoi";
+import DangKyNhaCungCap from "../containers/cudan/menuleft/DangKyNhaCungCap";
+import QuanLyCanHo from "../containers/cudan/menuleft/QuanLyCanHo";
 
 
 const Stack = StackNavigator ({
@@ -586,12 +587,15 @@ const Stack = StackNavigator ({
     ChatGroupCuDan: {
         screen: ChatGroupCuDan
     },
-    ThemCanHoMoi: {
-        screen: ThemCanHoMoi
+    QuanLyCanHo: {
+        screen: QuanLyCanHo
     },
 
     GioiThieuKDT: {
         screen: GioiThieuKDT
+    },
+    DangKyNhaCungCap: {
+        screen: DangKyNhaCungCap
     }
 
 

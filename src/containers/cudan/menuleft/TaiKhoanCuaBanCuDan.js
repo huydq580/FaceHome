@@ -22,10 +22,22 @@ import SocketIOClient from "socket.io-client";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
 import {LINKIMG, SOCKET} from "../../../components/Api";
 import ThanhVienItem from "../../../components/ThanhVienItem";
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
 
 
 
 class TaiKhoanCuaBanCuDan extends Component {
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+
+        return {
+            title:'Tài khoản của bạn',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
     constructor(props){
         super(props)
         this.state = {
@@ -48,7 +60,7 @@ class TaiKhoanCuaBanCuDan extends Component {
     render () {
         const { navigation } = this.props;
         return (
-            <ScrollView>
+            <ScrollView style = {stylesContainer.container}>
                 <View style = {{flexDirection:'row', alignItems: 'center'}}>
                     <Image
                         source={{
@@ -160,21 +172,21 @@ class TaiKhoanCuaBanCuDan extends Component {
 
                 </View>
                 <View style = {{flexDirection: 'row', marginTop: 10, marginLeft: 15}}>
-                    <Text style = {{color: '#039BE5', flex:2}}>
+                    <Text style = {{color: '#039BE5', flex:2, fontWeight:'bold'}}>
                         TSQ EUROLAND – T2B - P0908
                     </Text>
                     <Text  style = {{flex:1}}>Mã: ABCDEF</Text>
                 </View>
                 <View style = {{flexDirection: 'row', marginTop: 10, marginLeft: 15}}>
-                    <Text style = {{color: '#039BE5', flex:2}}>
+                    <Text style = {{color: '#039BE5', flex:2, fontWeight:'bold'}}>
                         TSQ EUROLAND – T2B - P0908
                     </Text>
                     <Text  style = {{flex:1}}>Mã: ABCDEF</Text>
                 </View>
-                <TouchableOpacity onPress = {()=> this.props.navigation.navigate("ThemCanHoMoi")}>
+                <TouchableOpacity onPress = {()=> this.props.navigation.navigate("QuanLyCanHo")}>
                     <View>
                         <View style = {{height: 30, width: 150, marginLeft: DEVICE_WIDTH/2,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
-                            <Text>Thêm căn hộ mới</Text>
+                            <Text>Quản lý căn hộ</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -232,6 +244,36 @@ class TaiKhoanCuaBanCuDan extends Component {
                 <View style = {{marginHorizontal: 20, marginTop: 10,  marginBottom:10}}>
                     <Text style = {{color: "black"}}>Trở thành nhà cung cấp dịch vụ để khách hàng xung
                         quanh bạn có thể nhìn thấy và sử dụng dịch vụ của bạn</Text>
+                </View>
+                <TouchableOpacity onPress = {()=> this.props.navigation.navigate('DangKyNhaCungCap')}>
+                    <View style = {{justifyContent:'center',
+                        alignItems:'center', borderWidth: 1,
+                        borderRadius: 3, height: 30,marginLeft: DEVICE_WIDTH/2,
+                    width: 90}}>
+                        <Text>
+                            Đăng kí
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                <View style = {{flexDirection: 'row',marginTop: 10, alignItems:'center'}}>
+                    <Image
+                        source={
+                            require('../../../images/changephone.png')
+                        }
+                        style={styles.info}
+                        resizeMode="cover">
+                    </Image>
+                    <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi số điện thoại</Text>
+                </View>
+                <View style = {{flexDirection: 'row',marginTop: 5, alignItems:'center', marginBottom: 10}}>
+                    <Image
+                        source={
+                            require('../../../images/changepass.jpeg')
+                        }
+                        style={styles.info}
+                        resizeMode="cover">
+                    </Image>
+                    <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi mật khẩu</Text>
                 </View>
 
 
