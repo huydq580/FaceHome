@@ -145,7 +145,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                 <View style = {{flexDirection: 'row', alignItems: 'center'}}>
                     <Image
                         source={
-                            require('../../../images/info.png')
+                            require('../../../images/house-icon.png')
                         }
                         style={styles.info}
                         resizeMode="cover">
@@ -181,7 +181,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                 <View style = {{flexDirection: 'row', alignItems: 'center'}}>
                     <Image
                         source={
-                            require('../../../images/info.png')
+                            require('../../../images/Thanhvien.png')
                         }
                         style={styles.info}
                         resizeMode="cover">
@@ -216,7 +216,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                 <View style = {{flexDirection: 'row', alignItems: 'center'}}>
                     <Image
                         source={
-                            require('../../../images/info.png')
+                            require('../../../images/mua-hang.png')
                         }
                         style={styles.info}
                         resizeMode="cover">
