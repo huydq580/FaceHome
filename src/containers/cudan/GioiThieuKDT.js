@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import {
     View,
     Text
-} from 'react';
+} from 'react-native'
 
-class DangKiNhaCungCap extends Component {
+class GioiThieuKDT extends Component{
     render () {
         return (
             <View>
-                <Text>Dang ki nha cung cap</Text>
+                <Text>Gioi thieu kdt</Text>
             </View>
         )
     }
 }
-export default DangKiNhaCungCap
+export default GioiThieuKDT

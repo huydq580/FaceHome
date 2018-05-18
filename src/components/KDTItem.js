@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import GioiThieuKDT from "../containers/cudan/GioiThieuKDT";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -14,7 +15,7 @@ export default class KDTItem extends Component {
     render() {
         const { item } = this.props.dataItem;
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress = {()=> this.props.navigation.navigate('GioiThieuKDT', {title: item.TenKDT.slice(0,12)})}>
                 <View style={{ flexDirection: 'column', marginTop: 15, justifyContent:'center', alignItems:'center' }}>
                     <Image style={styles.image_circle}
                            source={

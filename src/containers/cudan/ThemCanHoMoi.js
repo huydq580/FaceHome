@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     View,
     Text
-} from 'react';
+} from 'react-native';
 
 class ThemCanHoMoi extends Component {
     render () {

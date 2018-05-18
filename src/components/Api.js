@@ -1,5 +1,5 @@
 // export const URL = "http://222.252.16.186:9051/";
-export const URL = " http://118.70.117.190:9051/";
+export const URL = "http://118.70.117.190:9051/";
 export const LINKIMG = "http://118.70.117.190:9051";
 export const LINKVIDEO = "http://192.168.0.252:9051";
 export const Login = "api/Bql/Login";

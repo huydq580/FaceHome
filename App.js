@@ -11,6 +11,7 @@ import {
   Text,
   View,
     AsyncStorage,
+    YellowBox,
     DeviceEventEmitter
 } from 'react-native';
 
@@ -22,6 +23,7 @@ import Stack from './src/router/Navigation'
 import SocketIOClient from "socket.io-client";
 import ChuyenDiaDiem from "./src/containers/cudan/menuleft/ChuyenDiaDiem";
 import TaiKhoanCuaBanCuDan from "./src/containers/cudan/menuleft/TaiKhoanCuaBanCuDan";
+import GioiThieuKDT from "./src/containers/cudan/GioiThieuKDT";
 
 export default class App extends Component<{}> {
     // componentDidMount() {
@@ -38,6 +40,11 @@ export default class App extends Component<{}> {
     //         })
     // }
     render() {
+        YellowBox.ignoreWarnings([
+            'Warning: componentWillMount is deprecated',
+            'Warning: componentWillReceiveProps is deprecated',
+            'Warning: isMounted(...) is deprecated'
+        ]);
     return (
         <Provider store={store}>
           <Stack/>

@@ -93,6 +93,7 @@ class ChuaDangNhap extends Component {
                             justifyContent:'center',
                             borderWidth:1,
                             backgroundColor:'#90CAF9',
+                            borderRadius: 3,
                             borderColor:'black'}}>
                             <Text>Đăng nhập</Text>
                         </View>
@@ -103,6 +104,7 @@ class ChuaDangNhap extends Component {
                                 marginLeft:5,
                                 justifyContent:'center',
                                 borderWidth:1,
+                                borderRadius: 3,
                                 backgroundColor:'#90CAF9',
                                 borderColor:'black'}}>
                                 <Text>Đăng ký</Text>
