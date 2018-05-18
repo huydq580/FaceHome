@@ -117,7 +117,7 @@ class ChuaDangNhap extends Component {
                     imageSlider={this.state.imageSlider}
 
                 />
-                <Text style = {{fontSize:15, color: "#9CCC65", marginLeft:17, marginTop:10}}>Cộng đồng Facehome</Text>
+                <Text style = {{fontSize:15, color: "#9CCC65", marginLeft:17, marginTop:10}}>CỘNG ĐỒNG FACEHOME</Text>
                 <View style = {{backgroundColor:'black', marginHorizontal:15, height:1}}/>
                 <FlatList
                     data={this.state.ArrKDT}
@@ -133,7 +133,7 @@ class ChuaDangNhap extends Component {
                     keyExtractor={(item, index) => index.toString()}
 
                 />
-                <Text style = {{fontSize:15, color: "#9CCC65", marginLeft:17, marginTop:10}}>Tin rao vặt</Text>
+                <Text style = {{fontSize:15, color: "#9CCC65", marginLeft:17, marginTop:10}}>CHỢ FACEHOME</Text>
                 <View style = {{backgroundColor:'black', marginHorizontal:15, height:1}}/>
                 <FlatList
                     data={this.state.ArrRaoVat}

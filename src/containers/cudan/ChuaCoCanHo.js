@@ -286,7 +286,7 @@ class ChuaCoCanHo extends Component {
                             )
                         }
                         }
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => index.toString()}
                     /> : <View style={{justifyContent: 'center', alignItems: 'center'}}>
                         <Text>Không có nội dung để hiển thị</Text>
                     </View>

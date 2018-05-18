@@ -8,7 +8,19 @@ import {
 } from 'react-native'
 import SlideImage from "../../components/SlideImage";
 import CheckBox from 'react-native-check-box'
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 class XacNhanCuDan extends Component {
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+
+        return {
+            title:'Đăng kí tài khoản',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
     constructor(props){
         super(props)
         this.state = {
