@@ -24,6 +24,7 @@ import SocketIOClient from "socket.io-client";
 import ChuyenDiaDiem from "./src/containers/cudan/menuleft/ChuyenDiaDiem";
 import TaiKhoanCuaBanCuDan from "./src/containers/cudan/menuleft/TaiKhoanCuaBanCuDan";
 import GioiThieuKDT from "./src/containers/cudan/GioiThieuKDT";
+import CapMaCanHo from "./src/containers/cudan/menuleft/CapMaCanHo";
 
 export default class App extends Component<{}> {
     // componentDidMount() {

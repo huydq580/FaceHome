@@ -127,6 +127,7 @@ class ChuaDangNhap extends Component {
                             <KDTItem
                                 dataItem={item}
                                 navigation={navigation}
+                                fromDangNhap={false}
                             />
                         )
                     }}
