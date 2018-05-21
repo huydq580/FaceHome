@@ -25,6 +25,8 @@ import ChuyenDiaDiem from "./src/containers/cudan/menuleft/ChuyenDiaDiem";
 import TaiKhoanCuaBanCuDan from "./src/containers/cudan/menuleft/TaiKhoanCuaBanCuDan";
 import GioiThieuKDT from "./src/containers/cudan/GioiThieuKDT";
 import CapMaCanHo from "./src/containers/cudan/menuleft/CapMaCanHo";
+import QuanLyCanHo from "./src/containers/cudan/menuleft/QuanLyCanHo";
+import DangKyNhaCungCap from "./src/containers/cudan/menuleft/DangKyNhaCungCap";
 
 export default class App extends Component<{}> {
     // componentDidMount() {
@@ -48,7 +50,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <Stack/>
+          <DangKyNhaCungCap/>
         </Provider>
     );
   }
