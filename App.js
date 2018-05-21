@@ -50,7 +50,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <DangKyNhaCungCap/>
+          <Stack/>
         </Provider>
     );
   }

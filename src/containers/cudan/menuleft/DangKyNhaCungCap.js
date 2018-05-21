@@ -3,8 +3,11 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput
+    TextInput,
+    TouchableOpacity
 } from 'react-native';
+import Dimensions from 'Dimensions';
+const DEVICE_WIDTH = Dimensions.get('window').width;
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
 
 class DangKyNhaCungCap extends Component {
@@ -46,10 +49,10 @@ class DangKyNhaCungCap extends Component {
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <View
-                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 70, flex: 1}}>
+                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
                         <TextInput
                             style={{marginLeft: 10, padding: 0}}
-                            placeholder='Nhập mật khẩu '
+                            placeholder='Loại hình dịch vụ '
                             underlineColorAndroid="transparent"
                             returnKeyType={"next"}
                             onChangeText={(Ho) => this.setState({Ho})}/>
@@ -58,16 +61,70 @@ class DangKyNhaCungCap extends Component {
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                     <View
-                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 70, flex: 1}}>
+                        style={{height: 100, borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
                         <TextInput
                             style={{marginLeft: 10, padding: 0}}
-                            placeholder='Nhập mật khẩu '
+                            placeholder='Mô tả dịch vụ '
                             underlineColorAndroid="transparent"
                             returnKeyType={"next"}
                             onChangeText={(Ho) => this.setState({Ho})}/>
                     </View>
                     {/*<Text>(*)</Text>*/}
                 </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <View
+                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
+                        <TextInput
+                            style={{marginLeft: 10, padding: 0}}
+                            placeholder='Tên nhà cung cấp '
+                            underlineColorAndroid="transparent"
+                            returnKeyType={"next"}
+                            onChangeText={(Ho) => this.setState({Ho})}/>
+                    </View>
+                    {/*<Text>(*)</Text>*/}
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <View
+                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
+                        <TextInput
+                            style={{marginLeft: 10, padding: 0}}
+                            placeholder='Số điện thoại liên hệ'
+                            underlineColorAndroid="transparent"
+                            returnKeyType={"next"}
+                            onChangeText={(Ho) => this.setState({Ho})}/>
+                    </View>
+                    {/*<Text>(*)</Text>*/}
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                    <View
+                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
+                        <TextInput
+                            style={{marginLeft: 10, padding: 0}}
+                            placeholder='Địa chỉ cửa hàng'
+                            underlineColorAndroid="transparent"
+                            returnKeyType={"next"}
+                            onChangeText={(Ho) => this.setState({Ho})}/>
+                    </View>
+                    {/*<Text>(*)</Text>*/}
+                </View>
+                <View style = {{marginTop: 10, flexDirection: 'row', justifyContent: 'space-between', marginHorizontal:50, alignItems:'center'}}>
+                    <Text style = {{color: 'black'}}>
+                        Hình ảnh
+                    </Text>
+                    <TouchableOpacity onPress = {()=> this.props.navigation.navigate('DangKyNhaCungCap')}>
+                        <View style = {{justifyContent:'center',
+                            alignItems:'center', borderWidth: 1,
+                            borderRadius: 3, height: 30,
+                            width: 90}}>
+                            <Text>
+                               Tải lên
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                </View>
+                <Text style = {{color: "black", marginLeft: 50, marginTop:10}}>Xác nhận vị trí cửa hàng trên bản đồ</Text>
+
             </View>
         )
     }

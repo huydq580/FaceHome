@@ -14,7 +14,7 @@ export default class ThanhVienItem extends Component {
     render() {
         const { item } = this.props.dataItem;
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress = {()=> this.props.navigation.navigate('CuDanKhac')}>
                 <View style={{flexDirection: 'column', marginTop: 15, justifyContent:'center', alignItems:'center' ,  width:DEVICE_WIDTH/3}}>
                     <Image style={styles.image_circle}
                            source={{

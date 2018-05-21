@@ -89,6 +89,7 @@ import GioiThieuKDT from "../containers/cudan/GioiThieuKDT";
 import DangKyNhaCungCap from "../containers/cudan/menuleft/DangKyNhaCungCap";
 import QuanLyCanHo from "../containers/cudan/menuleft/QuanLyCanHo";
 import CapMaCanHo from "../containers/cudan/menuleft/CapMaCanHo";
+import CuDanKhac from "../containers/cudan/menuleft/CuDanKhac";
 
 
 const Stack = StackNavigator ({
@@ -600,6 +601,9 @@ const Stack = StackNavigator ({
     },
     CapMaCanHo: {
         screen: CapMaCanHo
+    },
+    CuDanKhac: {
+        screen: CuDanKhac
     }
 
 
