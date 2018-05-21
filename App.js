@@ -27,6 +27,7 @@ import GioiThieuKDT from "./src/containers/cudan/GioiThieuKDT";
 import CapMaCanHo from "./src/containers/cudan/menuleft/CapMaCanHo";
 import QuanLyCanHo from "./src/containers/cudan/menuleft/QuanLyCanHo";
 import DangKyNhaCungCap from "./src/containers/cudan/menuleft/DangKyNhaCungCap";
+import CuDanKhac from "./src/containers/cudan/menuleft/CuDanKhac";
 
 export default class App extends Component<{}> {
     // componentDidMount() {
@@ -50,7 +51,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <Stack/>
+          <CuDanKhac/>
         </Provider>
     );
   }
