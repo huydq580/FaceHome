@@ -90,6 +90,7 @@ import DangKyNhaCungCap from "../containers/cudan/menuleft/DangKyNhaCungCap";
 import QuanLyCanHo from "../containers/cudan/menuleft/QuanLyCanHo";
 import CapMaCanHo from "../containers/cudan/menuleft/CapMaCanHo";
 import CuDanKhac from "../containers/cudan/menuleft/CuDanKhac";
+import ThongTinNhaCungCap from "../containers/cudan/menuleft/ThongTinNhaCungCap";
 
 
 const Stack = StackNavigator ({
@@ -604,6 +605,9 @@ const Stack = StackNavigator ({
     },
     CuDanKhac: {
         screen: CuDanKhac
+    },
+    ThongTinNhaCungCap: {
+        screen: ThongTinNhaCungCap
     }
 
 
