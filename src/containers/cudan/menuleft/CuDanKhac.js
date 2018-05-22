@@ -16,6 +16,11 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
 import stylesContainer from "../../../components/style";
 
+import images from "../../../components/images";
+import Header from "../../../components/taikhoancuabancudan/Header";
+import TitleView from "../../../components/taikhoancuabancudan/TitleView";
+import ThongTinItem from "../../../components/cudankhac/ThongTinItem";
+
 class CuDanKhac extends  Component{
     static navigationOptions = ({ navigation }) => {
         const { params = {} } = navigation.state
@@ -31,86 +36,24 @@ class CuDanKhac extends  Component{
     render (){
         return (
             <ScrollView style = {stylesContainer.container}>
-                <View style = {{flexDirection:'row', alignItems: 'center'}}>
-                    <Image
-                        source={{
-                            // uri: item.Avatar
-                            uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                        }}
-                        style={styles.circle}
-                        resizeMode="cover">
-                    </Image>
-                    <View style = {{marginLeft: 10}}>
-                        <Text style = {{color: 'black', fontWeight: 'bold'}}>Nguyễn Văn Hiệu</Text>
-                        <Text>Xem trang nhà của bạn</Text>
-                    </View>
+                <Header source = {{uri: "https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg"}}
+                        textName = "Nguyễn Văn Hiệu"
+                        Title = "Xem trang cá nhân của bạn"/>
+               <TitleView titleText = "Thông tin cơ bản"
+                            source = {images.thongtincoban}/>
 
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                        source={
-                            require('../../../images/info.png')
-                        }
-                        style={styles.info}
-                        resizeMode="cover">
-                    </Image>
-                    <View style = {{marginLeft: 10, marginTop: 10}}>
-                        <Text style = {{color: 'black'}}>
-                            Thông tin cơ bản
-                        </Text>
-                        <View style = {{height:1, backgroundColor:'#9E9E9E', width: DEVICE_WIDTH}}/>
-                    </View>
+                <ThongTinItem title = 'Họ tên'
+                                value = "Nguyễn Văn Hiệu"/>
+                <ThongTinItem title = 'Ngày sinh'
+                              value = "16/01/1995"/>
+                <ThongTinItem title = 'Số điện thoại'
+                              value = "0963250395"/>
+                <ThongTinItem title = 'Giới tính'
+                              value = ""/>
+                <ThongTinItem title = 'Email'
+                              value = "Anhhieuuet@gmail.com"/>
 
-
-                </View>
                 <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 10}}>
-                    <Text style = {{flex:1, color: 'black'}}>Họ tên</Text>
-                    <View style = {{flex:3,}}>
-
-                            <Text style = {{marginLeft: 5}}>Nguyễn Văn Hiệu</Text>
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>Ngày sinh</Text>
-                    <View style = {{flex:3,}}>
-                            <Text style = {{marginLeft: 5}}>16/01/1995</Text>
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>SĐT</Text>
-                    <View style = {{flex:3,}}>
-
-                            <Text style = {{marginLeft: 5}}>0963250395</Text>
-
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>Giới tính</Text>
-
-                    <View style = {{flex:3,}}>
-                            <Text style = {{marginLeft: 5}}></Text>
-
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>Email</Text>
-                    <View style = {{flex:3,}}>
-
-                            <Text style = {{marginLeft: 5}}>anhhieuuet@gmail.com</Text>
-
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
                     <Text style = {{flex:1, color: 'black'}}>Căn hộ</Text>
                     <View style = {{flex:3,}}>
 
@@ -120,6 +63,8 @@ class CuDanKhac extends  Component{
                     </View>
 
                 </View>
+                <TitleView titleText = "Bài viết gần đây"
+                           source = {images.thongtincoban}/>
             </ScrollView>
         )
     }

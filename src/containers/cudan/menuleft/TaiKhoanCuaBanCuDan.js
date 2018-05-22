@@ -17,12 +17,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
 import {callApiNhaCuDan} from "../../../actions/actionsCuDan/NhaCuDanActions";
-import StatusItemCuDan from "../../../components/status/StatusItemCuDan";
-import SocketIOClient from "socket.io-client";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
-import {LINKIMG, SOCKET} from "../../../components/Api";
-import ThanhVienItem from "../../../components/ThanhVienItem";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
+import Header from "../../../components/taikhoancuabancudan/Header";
+import images from "../../../components/images";
+import TitleView from "../../../components/taikhoancuabancudan/TitleView";
+import ThongTinItem from "../../../components/taikhoancuabancudan/ThongTinItem";
+import ThanhVienItem from "../../../components/ThanhVienItem";
 
 
 
@@ -61,88 +62,22 @@ class TaiKhoanCuaBanCuDan extends Component {
         const { navigation } = this.props;
         return (
             <ScrollView style = {stylesContainer.container}>
-                <View style = {{flexDirection:'row', alignItems: 'center'}}>
-                    <Image
-                        source={{
-                            // uri: item.Avatar
-                            uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                        }}
-                        style={styles.circle}
-                        resizeMode="cover">
-                    </Image>
-                    <View style = {{marginLeft: 10}}>
-                        <Text style = {{color: 'black', fontWeight: 'bold'}}>Nguyễn Văn Hiệu</Text>
-                        <Text>Xem trang nhà của bạn</Text>
-                    </View>
+                <Header source = {{uri: "https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg"}}
+                        textName = "Nguyễn Văn Hiệu"
+                        Title = "Xem trang cá nhân của bạn"/>
+                <TitleView titleText = "Thông tin cơ bản"
+                           source = {images.thongtincoban}/>
+                <ThongTinItem title = 'Họ tên'
+                              value = "Nguyễn Văn Hiệu"/>
+                <ThongTinItem title = 'Ngày sinh'
+                              value = "16/01/1995"/>
+                <ThongTinItem title = 'Số điện thoại'
+                              value = "0963250395"/>
+                <ThongTinItem title = 'Giới tính'
+                              value = ""/>
+                <ThongTinItem title = 'Email'
+                              value = "anhhieuuet@gmail.com"/>
 
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                        source={
-                            require('../../../images/info.png')
-                        }
-                        style={styles.info}
-                        resizeMode="cover">
-                    </Image>
-                    <View style = {{marginLeft: 10, marginTop: 10}}>
-                        <Text style = {{color: 'black'}}>
-                            Thông tin cơ bản
-                        </Text>
-                        <View style = {{height:1, backgroundColor:'#9E9E9E', width: DEVICE_WIDTH}}/>
-                    </View>
-
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 10}}>
-                    <Text style = {{flex:1, color: 'black'}}>Họ tên</Text>
-                    <View style = {{flex:3,}}>
-                        <View style = {styles.viewItem}>
-                            <Text style = {{marginLeft: 5}}>Nguyễn Văn Hiệu</Text>
-                        </View>
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>Ngày sinh</Text>
-                    <View style = {{flex:3,}}>
-                        <View style = {styles.viewItem}>
-                            <Text style = {{marginLeft: 5}}>16/01/1995</Text>
-                        </View>
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>SĐT</Text>
-                    <View style = {{flex:3,}}>
-                        <View style = {styles.viewItem}>
-                            <Text style = {{marginLeft: 5}}>0963250395</Text>
-                        </View>
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>Giới tính</Text>
-                    <View style = {{flex:3,}}>
-                        <View style = {styles.viewItem}>
-                            <Text style = {{marginLeft: 5}}></Text>
-                        </View>
-
-                    </View>
-
-                </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center', marginLeft: 20,marginTop: 5}}>
-                    <Text style = {{flex:1, color: 'black'}}>Email</Text>
-                    <View style = {{flex:3,}}>
-                        <View style = {styles.viewItem}>
-                            <Text style = {{marginLeft: 5}}>anhhieuuet@gmail.com</Text>
-                        </View>
-
-                    </View>
-
-                </View>
                 <View style = {{flexDirection: 'row', marginLeft: 20,marginTop: 5}}>
                     <Text style = {{ color: 'black'}}>Avatar</Text>
                     <Image
@@ -154,23 +89,8 @@ class TaiKhoanCuaBanCuDan extends Component {
                         resizeMode="cover">
                     </Image>
                 </View>
-                <View style = {{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                        source={
-                            require('../../../images/house-icon.png')
-                        }
-                        style={styles.info}
-                        resizeMode="cover">
-                    </Image>
-                    <View style = {{marginLeft: 10, marginTop: 10}}>
-                        <Text style = {{color: 'black'}}>
-                            Căn hộ của bạn
-                        </Text>
-                        <View style = {{height:1, backgroundColor:'#9E9E9E', width: DEVICE_WIDTH}}/>
-                    </View>
-
-
-                </View>
+                <TitleView titleText = "Căn hộ của bạn"
+                           source = {images.thongtincoban}/>
                 <View style = {{flexDirection: 'row', marginTop: 10, marginLeft: 15}}>
                     <Text style = {{color: '#039BE5', flex:2, fontWeight:'bold'}}>
                         TSQ EUROLAND – T2B - P0908
@@ -190,22 +110,8 @@ class TaiKhoanCuaBanCuDan extends Component {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <View style = {{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                        source={
-                            require('../../../images/Thanhvien.png')
-                        }
-                        style={styles.info}
-                        resizeMode="cover">
-                    </Image>
-                    <View style = {{marginLeft: 10, marginTop: 10}}>
-                        <Text style = {{color: 'black'}}>
-                            Thành viên căn hộ
-                        </Text>
-                        <View style = {{height:1, backgroundColor:'#9E9E9E', width: DEVICE_WIDTH}}/>
-                    </View>
-
-                </View>
+                <TitleView titleText = "Thành viên căn hộ"
+                           source = {images.thongtincoban}/>
                 <Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>
                     TSQ EUROLAND – T2B - P0908
                 </Text>
@@ -225,22 +131,8 @@ class TaiKhoanCuaBanCuDan extends Component {
                 <Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>
                     TSQ EUROLAND – T2B - P0908
                 </Text>
-                <View style = {{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                        source={
-                            require('../../../images/mua-hang.png')
-                        }
-                        style={styles.info}
-                        resizeMode="cover">
-                    </Image>
-                    <View style = {{marginLeft: 10, marginTop: 10,}}>
-                        <Text style = {{color: 'black'}}>
-                            Nhà cung cấp dịch vụ
-                        </Text>
-                        <View style = {{height:1, backgroundColor:'#9E9E9E', width: DEVICE_WIDTH}}/>
-                    </View>
-
-                </View>
+                <TitleView titleText = "Nhà cung cấp dịch vụ"
+                           source = {images.thongtincoban}/>
                 <View style = {{marginHorizontal: 20, marginTop: 10,  marginBottom:10}}>
                     <Text style = {{color: "black"}}>Trở thành nhà cung cấp dịch vụ để khách hàng xung
                         quanh bạn có thể nhìn thấy và sử dụng dịch vụ của bạn</Text>
@@ -275,10 +167,6 @@ class TaiKhoanCuaBanCuDan extends Component {
                     </Image>
                     <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi mật khẩu</Text>
                 </View>
-
-
-
-
             </ScrollView>
 
         )
