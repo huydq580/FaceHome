@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/dist/EvilIcons'
 import ShowModal from "../../components/modal/ShowModal";
 import stylesContainer from "../../components/style";
 import images from "../../components/images";
+import DichVuItem from "../../components/dichvu/DichVuItem";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
@@ -59,24 +60,24 @@ export default class DichVu extends Component {
                     name: 'Nguyễn Văn Hiệu',
                     chucvu: 'Ban Quản Lý',
                     tendichvu: 'Dịch vụ giữ xe ô tô, xe máy',
-                    content: 'Ban quản lý cung cấp dịch vụ trông giữ ô tô xe máy theo đơn giá xe máy 100K/\n' +
-                    'tháng. Ô tô 1.5M/tháng'
+                    content: 'Ban quản lý cung cấp dịch vụ trông giữ ô tô xe máy theo đơn giá xe máy 100K tháng. Ô tô 1.5M/tháng',
+                    sdt: "0963250395"
                 },
                 {
                     avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
                     name: 'Nguyễn Văn Hiệu',
                     chucvu: 'Ban Quản Lý',
-                    tendichvu: 'Dịch vụ giữ xe ô tô, xe máy',
-                    content: 'Ban quản lý cung cấp dịch vụ trông giữ ô tô xe máy theo đơn giá xe máy 100K/\n' +
-                    'tháng. Ô tô 1.5M/tháng'
+                    tendichvu: 'Dịch vụ vệ sinh gia đình',
+                    content: 'Ban quản lý cung cấp dịch vụ lau dọn vệ sinh căn hộ',
+                    sdt: "0963250395"
                 },
                 {
                     avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
-                    name: 'Nguyễn Văn Hiệu',
-                    chucvu: 'Ban Quản Lý',
-                    tendichvu: 'Dịch vụ giữ xe ô tô, xe máy',
-                    content: 'Ban quản lý cung cấp dịch vụ trông giữ ô tô xe máy theo đơn giá xe máy 100K/\n' +
-                    'tháng. Ô tô 1.5M/tháng'
+                    name: 'Vũ Mạnh Cường',
+                    chucvu: 'Nhà cung cấp',
+                    tendichvu: 'Dịch vụ trông trẻ, giúp việc nhà',
+                    content: 'Bác Son 50 tuổi nhận trông giữ trẻ chuyển nghiệp, cung cấp dịch vụ giúp việc gia đình uy tín',
+                    sdt: "0963250395"
                 }
             ]
 
@@ -114,7 +115,7 @@ export default class DichVu extends Component {
     }
 
     render() {
-
+        const {navigation} = this.props;
         return (
             <ScrollView style={stylesContainer.container}>
                 <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
@@ -126,14 +127,26 @@ export default class DichVu extends Component {
                         // underlineColorAndroid="transparent"
                         onChangeText={(TimKiem) => this.setState({TimKiem})}/>
                 </View>
-                <View>
                     <FlatList
                         data={this.state.ArrDichVu}
                         renderItem={this._renderItem}
                         extraData={this.state}
                         keyExtractor={(item, index) => index.toString()}
                     />
-                </View>
+                <FlatList
+                    data={this.state.ArrAll}
+                    renderItem={(item) => {
+                        return (
+                            <DichVuItem
+                                dataItem={item}
+                                navigation={navigation}
+                            />
+                        )
+                    }}
+                    extraData={this.state}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+
             </ScrollView>
 
 
