@@ -4,7 +4,8 @@ import {
     Text,
     TouchableOpacity,
     FlatList,
-    Button
+    Button, AsyncStorage, StyleSheet,
+    Image
 } from 'react-native';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -13,6 +14,7 @@ import ThongBaoItem from '../../components/thongbao/ThongBaoItem';
 import {GetlAlNotifcation, SOCKET, URL_SOCKET} from "../../components/Api";
 import {connect} from "react-redux";
 import SocketIOClient from "socket.io-client";
+    import images from "../../components/images";
 
 class Notification extends Component {
     constructor(props){
@@ -20,6 +22,7 @@ class Notification extends Component {
 
         this.state = {
             listNoti:[],
+            value:""
         }
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -59,24 +62,62 @@ class Notification extends Component {
             console.log('erro',erro);
         })
     }
+    componentDidMount() {
+        AsyncStorage.getItem('UserID').then((value) => {
+            this.setState({
+                value: value
+            })
+        })
+    }
+
     render (){
         const {navigation} = this.props;
         return (
-            <View style={{flex:1}}>
-                <FlatList
-                    data={this.state.listNoti}
-                    renderItem={(item) => {
-                        return (
-                            <ThongBaoItem
-                                dataItem={item}
-                                navigation={navigation}
-                            />
-                        )
-                    }}
-                    keyExtractor={(item, index) => index.toString()}
-                    ItemSeparatorComponent={this.renderSeparator}
-                />
-            </View>
+           <View style = {{flex:1}}>
+               {
+                   !this.state.value ? <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
+                       <View style = {{justifyContent:'center', flex:4, alignItems:'center'}}>
+                           <Image
+                               source={images.khongcothongbao}
+                               style={styles.notification}
+                               resizeMode="cover"
+                           >
+
+                           </Image>
+                           <Text style = {{fontSize: 16}}>Không có thông báo nào</Text>
+
+                       </View>
+                       <View style={{justifyContent: 'center', flex:1}}>
+                           <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangNhap')}>
+                               <View style={styles.viewDangNhap}>
+                                   <Text style={styles.textDangNhap}>Đăng nhập</Text>
+                               </View>
+                           </TouchableOpacity>
+                           <View style = {{alignItems:'center'}}>
+
+                               <Text style = {{fontSize: 18, marginTop: 5}}>Hãy đăng nhập vào chung cư của bạn</Text>
+                           </View>
+                       </View>
+
+
+                   </View> :  <View style={{flex:1}}>
+                       <FlatList
+                           data={this.state.listNoti}
+                           renderItem={(item) => {
+                               return (
+                                   <ThongBaoItem
+                                       dataItem={item}
+                                       navigation={navigation}
+                                   />
+                               )
+                           }}
+                           keyExtractor={(item, index) => index.toString()}
+                           ItemSeparatorComponent={this.renderSeparator}
+                       />
+                   </View>
+               }
+
+           </View>
         );
     }
 
@@ -107,3 +148,33 @@ const mapDispatchToProps = (dispatch) => {
 
 Notification = connect(mapStateToProps, mapDispatchToProps)(Notification);
 export default Notification
+    const styles = StyleSheet.create({
+        icondichvu: {
+            marginLeft: 10,
+            width: 25,
+            height: 25,
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        notification: {
+            width: 100,
+            height: 100,
+        },
+        viewDangNhap: {
+            borderWidth: 1,
+            borderRadius: 5,
+            backgroundColor: '#01579B',
+            marginHorizontal: 40,
+            height: 50,
+            justifyContent:'center',
+            alignItems:'center',
+            borderColor:'#01579B'
+        },
+        textDangNhap: {
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: 15
+        }
+
+
+    })

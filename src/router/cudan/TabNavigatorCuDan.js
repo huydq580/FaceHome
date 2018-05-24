@@ -56,7 +56,6 @@ const TabCuDan = TabNavigator ({
     MenuLeftCuDan: {
         screen: MenuLeftCuDan,
         navigationOptions: {
-            title:'Thêm',
             tabBarIcon: ({tintColor}) => (
                 <Icon2 name="dots-horizontal" size={25}
                        style={{ color: tintColor }}/>

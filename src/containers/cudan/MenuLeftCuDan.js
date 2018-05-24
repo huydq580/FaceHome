@@ -27,10 +27,7 @@ class MenuLeftCuDan extends Component {
 
     }
     render (){
-        const { InfoUser } = this.props
-        if (InfoUser.length <=0 ) {
-            return null
-        }
+
         return (
             <ScrollView style = {{flexDirection:'column', backgroundColor:'white'}}>
                 <ItemLeftMenu title ="Tài khoản của bạn"

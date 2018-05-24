@@ -9,7 +9,7 @@ import {
     WebView,
     ActivityIndicator,
     TextInput,
-    FlatList
+    FlatList, AsyncStorage
 } from 'react-native';
 
 
@@ -25,11 +25,11 @@ import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 export default class DichVu extends Component {
-    static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
 
         return {
-            title:'Dịch vụ',
+            title: 'Dịch vụ',
             headerStyle: {backgroundColor: BACKGROUND_HEADER},
             headerTitleStyle: {color: TITLE_HEADER},
             headerTintColor: TITLE_HEADER,
@@ -41,6 +41,7 @@ export default class DichVu extends Component {
         super(props);
 
         this.state = {
+            value: "",
             isDisabled: false,
             isLoading: false,
             itemSelected: 1,
@@ -96,6 +97,14 @@ export default class DichVu extends Component {
         }
     }
 
+    componentDidMount() {
+        AsyncStorage.getItem('UserID').then((value) => {
+            this.setState({
+                value: value
+            })
+        })
+    }
+
     _renderItem = ({item}) => {
         return (
             <TouchableOpacity
@@ -107,7 +116,7 @@ export default class DichVu extends Component {
                 }}
 
             >
-                <View style={{height: 30, alignItems: 'center', flexDirection:'row'}}>
+                <View style={{height: 30, alignItems: 'center', flexDirection: 'row'}}>
                     <Image
                         source={
                             item.icon
@@ -115,12 +124,12 @@ export default class DichVu extends Component {
                         style={styles.icondichvu}
                         resizeMode="cover">
                     </Image>
-                    <View style = {{flex:1, justifyContent:'center', alignItems:'center'}}>
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={{color: 'black'}}>{item.dichvu}</Text>
                     </View>
 
                 </View>
-                <View style = {{height:1, backgroundColor: '#4FC3F7'}}/>
+                <View style={{height: 1, backgroundColor: '#4FC3F7'}}/>
             </TouchableOpacity>
         );
     }
@@ -128,38 +137,68 @@ export default class DichVu extends Component {
     render() {
         const {navigation} = this.props;
         return (
-            <ScrollView style={stylesContainer.container}>
-                <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
-                    <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
-                    <TextInput
-                        style={{marginLeft: 5, flex: 1}}
-                        placeholder='Tìm kiếm'
-                        returnKeyType={"next"}
-                        // underlineColorAndroid="transparent"
-                        onChangeText={(TimKiem) => this.setState({TimKiem})}/>
-                </View>
-                    <FlatList
-                        data={this.state.ArrDichVu}
-                        renderItem={this._renderItem}
-                        extraData={this.state}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                <FlatList
-                    data={this.state.ArrAll}
-                    renderItem={(item) => {
-                        return (
-                            <DichVuItem
-                                dataItem={item}
-                                navigation={navigation}
+            <View style={{flex: 1}}>
+                {
+                    !this.state.value ?
+                        <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
+                            <View style = {{justifyContent:'center', flex:4, alignItems:'center'}}>
+                                <Image
+                                    source={images.khongcothongbao}
+                                    style={styles.notification}
+                                    resizeMode="cover"
+                                >
+
+                                </Image>
+                                <Text style = {{fontSize: 16}}>Không có thông báo nào</Text>
+
+                            </View>
+                            <View style={{justifyContent: 'center', flex:1}}>
+                                <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangNhap')}>
+                                    <View style={styles.viewDangNhap}>
+                                        <Text style={styles.textDangNhap}>Đăng nhập</Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <View style = {{alignItems:'center'}}>
+
+                                    <Text style = {{fontSize: 18, marginTop: 5}}>Hãy đăng nhập vào chung cư của bạn</Text>
+                                </View>
+                            </View>
+
+
+                        </View> : <ScrollView style={stylesContainer.container}>
+                            <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
+                                <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
+                                <TextInput
+                                    style={{marginLeft: 5, flex: 1}}
+                                    placeholder='Tìm kiếm'
+                                    returnKeyType={"next"}
+                                    // underlineColorAndroid="transparent"
+                                    onChangeText={(TimKiem) => this.setState({TimKiem})}/>
+                            </View>
+                            <FlatList
+                                data={this.state.ArrDichVu}
+                                renderItem={this._renderItem}
+                                extraData={this.state}
+                                keyExtractor={(item, index) => index.toString()}
                             />
-                        )
-                    }}
-                    extraData={this.state}
-                    keyExtractor={(item, index) => index.toString()}
-                />
+                            <FlatList
+                                data={this.state.ArrAll}
+                                renderItem={(item) => {
+                                    return (
+                                        <DichVuItem
+                                            dataItem={item}
+                                            navigation={navigation}
+                                        />
+                                    )
+                                }}
+                                extraData={this.state}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
 
-            </ScrollView>
+                        </ScrollView>
 
+                }
+            </View>
 
         )
     }
@@ -170,10 +209,27 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         alignItems: 'center',
-        justifyContent:'center'
+        justifyContent: 'center'
     },
-
-
+    notification: {
+        width: 100,
+        height: 100,
+    },
+    viewDangNhap: {
+        borderWidth: 1,
+        borderRadius: 5,
+        backgroundColor: '#01579B',
+        marginHorizontal: 40,
+        height: 50,
+        justifyContent:'center',
+        alignItems:'center',
+        borderColor:'#01579B'
+    },
+    textDangNhap: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 15
+    }
 
 
 })
