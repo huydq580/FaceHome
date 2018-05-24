@@ -15,6 +15,7 @@ import {
 
 import Dimensions from 'Dimensions';
 import Icon from 'react-native-vector-icons/dist/EvilIcons'
+import Icon1 from 'react-native-vector-icons/dist/FontAwesome'
 import stylesContainer from "../../../components/style";
 import images from "../../../components/images";
 import DichVuItem from "../../../components/dichvu/DichVuItem";
@@ -104,6 +105,26 @@ export default class ChoFaceHome extends Component {
                     time: '04/04/18 9h00',
                     content: 'Cửa hàng Bác Tôm chuyên cung cấp rau sạch, thịt sạch',
 
+                },
+                {
+                    avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
+                    name: 'Vũ Mạnh Cường',
+                    time: '04/04/18 9h00',
+                    content: 'Cửa hàng Bác Tôm chuyên cung cấp rau sạch, thịt sạch',
+
+                }, {
+                    avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
+                    name: 'Vũ Mạnh Cường',
+                    time: '04/04/18 9h00',
+                    content: 'Cửa hàng Bác Tôm chuyên cung cấp rau sạch, thịt sạch',
+
+                },
+                {
+                    avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
+                    name: 'Vũ Mạnh Cường',
+                    time: '04/04/18 9h00',
+                    content: 'Cửa hàng Bác Tôm chuyên cung cấp rau sạch, thịt sạch',
+
                 }
             ]
 
@@ -143,6 +164,7 @@ export default class ChoFaceHome extends Component {
     render() {
         const {navigation} = this.props;
         return (
+            <View style = {{flex:1}}>
             <ScrollView style={stylesContainer.container}>
                 <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
                     <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
@@ -174,6 +196,26 @@ export default class ChoFaceHome extends Component {
                 />
 
             </ScrollView>
+                <TouchableOpacity
+                    style={{
+                        borderWidth: 1,
+                        borderColor: '#FFC107',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: 70,
+                        position: 'absolute',
+                        bottom: 10,
+                        right: 10,
+                        height: 70,
+                        backgroundColor: '#FFCA28',
+                        borderRadius: 100,
+                    }}
+
+                >
+                    <Icon1 name="plus" size={30} color="#29B6F6"/>
+                    <Text style = {{color: 'black', fontWeight:'bold', fontSize: 12}}>Đăng tin</Text>
+                </TouchableOpacity>
+            </View>
 
 
         )
