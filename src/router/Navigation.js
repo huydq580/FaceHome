@@ -91,6 +91,8 @@ import QuanLyCanHo from "../containers/cudan/menuleft/QuanLyCanHo";
 import CapMaCanHo from "../containers/cudan/menuleft/CapMaCanHo";
 import CuDanKhac from "../containers/cudan/menuleft/CuDanKhac";
 import ThongTinNhaCungCap from "../containers/cudan/menuleft/ThongTinNhaCungCap";
+import ChoFaceHome from "../containers/cudan/menuleft/ChoFaceHome";
+import BepAnGiaDinh from "../containers/cudan/menuleft/BepAnGiaDinh";
 
 
 const Stack = StackNavigator ({
@@ -608,6 +610,12 @@ const Stack = StackNavigator ({
     },
     ThongTinNhaCungCap: {
         screen: ThongTinNhaCungCap
+    },
+    ChoFaceHome: {
+        screen: ChoFaceHome
+    },
+    BepAnGiaDinh: {
+        screen: BepAnGiaDinh
     }
 
 

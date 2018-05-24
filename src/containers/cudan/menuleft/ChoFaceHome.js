@@ -13,23 +13,22 @@ import {
 } from 'react-native';
 
 
-import Modal from 'react-native-modalbox';
 import Dimensions from 'Dimensions';
 import Icon from 'react-native-vector-icons/dist/EvilIcons'
-import ShowModal from "../../components/modal/ShowModal";
-import stylesContainer from "../../components/style";
-import images from "../../components/images";
-import DichVuItem from "../../components/dichvu/DichVuItem";
-import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
+import stylesContainer from "../../../components/style";
+import images from "../../../components/images";
+import DichVuItem from "../../../components/dichvu/DichVuItem";
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
+import ChoFaceHomeItem from "../../../components/chofacehome/ChoFaceHomeItem";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-export default class DichVu extends Component {
+export default class ChoFaceHome extends Component {
     static navigationOptions = ({ navigation }) => {
         const { params = {} } = navigation.state
 
         return {
-            title:'Dịch vụ',
+            title:'Chợ FaceHome',
             headerStyle: {backgroundColor: BACKGROUND_HEADER},
             headerTitleStyle: {color: TITLE_HEADER},
             headerTintColor: TITLE_HEADER,
@@ -41,54 +40,70 @@ export default class DichVu extends Component {
         super(props);
 
         this.state = {
-            isDisabled: false,
-            isLoading: false,
             itemSelected: 1,
-            isShow: false,
-            ArrDichVu: [
+            ArrCategory: [
                 {
                     key: 1,
                     value: 1,
                     icon: images.tatcadichvu,
-                    dichvu: "Tất cả dịch vụ"
+                    thumuc: "Tất cả"
                 },
                 {
                     key: 2,
                     value: 2,
                     icon: images.tatcadichvu,
-                    dichvu: "Dịch vụ tòa nhà"
+                    thumuc: "Tin đăng của bạn"
                 },
                 {
                     key: 3,
                     value: 3,
                     icon: images.tatcadichvu,
-                    dichvu: "Dịch vụ xung quanh khu đô thị"
+                    thumuc: "Đồ diện tử"
+                },
+                {
+                    key: 4,
+                    value: 4,
+                    icon: images.tatcadichvu,
+                    thumuc: "Nội ngoại thất"
+                },
+                {
+                    key: 5,
+                    value: 5,
+                    icon: images.tatcadichvu,
+                    thumuc: "Thời trang mỹ phẩm"
+                },
+                {
+                    key: 6,
+                    value: 6,
+                    icon: images.tatcadichvu,
+                    thumuc: "Xe cộ"
+                },
+                {
+                    key: 7,
+                    value: 7,
+                    icon: images.tatcadichvu,
+                    thumuc: "Khác"
                 }
             ],
             ArrAll: [
                 {
                     avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
                     name: 'Nguyễn Văn Hiệu',
-                    chucvu: 'Ban Quản Lý',
-                    tendichvu: 'Dịch vụ giữ xe ô tô, xe máy',
-                    content: 'Ban quản lý cung cấp dịch vụ trông giữ ô tô xe máy theo đơn giá xe máy 100K tháng. Ô tô 1.5M/tháng',
-                    sdt: "0963250395"
+                    time: '04/04/18 9h00',
+                    content: 'Cửa hàng Bác Tôm chuyên cung cấp rau sạch, thịt sạch',
                 },
                 {
                     avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
                     name: 'Nguyễn Văn Hiệu',
-                    chucvu: 'Ban Quản Lý',
-                    tendichvu: 'Dịch vụ vệ sinh gia đình',
-                    content: 'Ban quản lý cung cấp dịch vụ lau dọn vệ sinh căn hộ',
-                    sdt: "0963250395"
+                    time: '04/04/18 9h00',
+                    content: 'Cửa hàng Bác Tôm chuyên cung cấp rau sạch, thịt sạch',
                 },
                 {
                     avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
                     name: 'Vũ Mạnh Cường',
-                    chucvu: 'Nhà cung cấp',
-                    tendichvu: 'Dịch vụ trông trẻ, giúp việc nhà',
-                    content: 'Bác Son 50 tuổi nhận trông giữ trẻ chuyển nghiệp, cung cấp dịch vụ giúp việc gia đình uy tín',
-                    sdt: "0963250395"
+                    time: '04/04/18 9h00',
+                    content: 'Cửa hàng Bác Tôm chuyên cung cấp rau sạch, thịt sạch',
+
                 }
             ]
 
@@ -116,7 +131,7 @@ export default class DichVu extends Component {
                         resizeMode="cover">
                     </Image>
                     <View style = {{flex:1, justifyContent:'center', alignItems:'center'}}>
-                        <Text style={{color: 'black'}}>{item.dichvu}</Text>
+                        <Text style={{color: 'black'}}>{item.thumuc}</Text>
                     </View>
 
                 </View>
@@ -138,17 +153,17 @@ export default class DichVu extends Component {
                         // underlineColorAndroid="transparent"
                         onChangeText={(TimKiem) => this.setState({TimKiem})}/>
                 </View>
-                    <FlatList
-                        data={this.state.ArrDichVu}
-                        renderItem={this._renderItem}
-                        extraData={this.state}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
+                <FlatList
+                    data={this.state.ArrCategory}
+                    renderItem={this._renderItem}
+                    extraData={this.state}
+                    keyExtractor={(item, index) => index.toString()}
+                />
                 <FlatList
                     data={this.state.ArrAll}
                     renderItem={(item) => {
                         return (
-                            <DichVuItem
+                            <ChoFaceHomeItem
                                 dataItem={item}
                                 navigation={navigation}
                             />

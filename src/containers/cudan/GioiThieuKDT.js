@@ -72,7 +72,7 @@ class GioiThieuKDT extends Component{
                     </Text>
                 </View>
                 <View style = {[styles.titleView, {marginTop: 10}]}>
-                    <Text style = {styles.titleText}>Quy định, nội quy khu đô thị TSQ EUROLAND</Text>
+                    <Text style = {styles.titleText}>Các địa chỉ liên lạc cần biết</Text>
 
                 </View>
                 <View style = {[styles.contentView, {marginTop: 5}]}>
