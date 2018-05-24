@@ -6,6 +6,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
+import StarRating from 'react-native-star-rating';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
@@ -13,6 +14,9 @@ export default class ChoFaceHomeItem extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            starCount: 3.5
+        }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -24,6 +28,11 @@ export default class ChoFaceHomeItem extends Component {
             return true;
     }
 
+    onStarRatingPress(rating) {
+        this.setState({
+            starCount: rating
+        });
+    }
 
 
     render() {
@@ -51,22 +60,36 @@ export default class ChoFaceHomeItem extends Component {
 
                 </View>
                 <View style = {{flexDirection:'row', justifyContent: 'space-between', alignItems:'center', marginTop: 5, marginLeft: 15}}>
-                    <View style = {{flexDirection:'row'}}>
+                    <View>
                     </View>
-                    <TouchableOpacity onPress = {()=> this.props.navigation.navigate('DangKyNhaCungCap')}>
-                        <View style = {{justifyContent:'center',
-                            alignItems:'center', borderWidth: 1,
-                            borderRadius: 3, height: 30, marginRight: 10,
-                            width: 90}}>
-                            <Text>
-                                Nhắn tin
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+                   <View style = {{flexDirection:'row', alignItems:'center'}}>
+                       <StarRating
+                           disabled={false}
+                           emptyStar={'ios-star-outline'}
+                           fullStar={'ios-star'}
+                           halfStar={'ios-star-half'}
+                           iconSet={'Ionicons'}
+                           maxStars={5}
+                           rating={this.state.starCount}
+                           selectedStar={(rating) => this.onStarRatingPress(rating)}
+                           fullStarColor={'yellow'}
+                           starSize={20}
+                       />
+                       <TouchableOpacity onPress = {()=> this.props.navigation.navigate('DangKyNhaCungCap')}>
+                           <View style = {{justifyContent:'center',
+                               alignItems:'center', borderWidth: 1,
+                               borderRadius: 3, height: 30, marginRight: 10, marginLeft: 15,
+                               width: 90}}>
+                               <Text>
+                                   Nhắn tin
+                               </Text>
+                           </View>
+                       </TouchableOpacity>
+
+                   </View>
 
                 </View>
-
-            </View>
+                   </View>
 
         )
     }
