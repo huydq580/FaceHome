@@ -67,8 +67,9 @@ class TaiKhoanCuaBanCuDan extends Component {
                         Title = "Xem trang cá nhân của bạn"/>
                 <TitleView titleText = "Thông tin cơ bản"
                            source = {images.thongtincoban}/>
-                <ThongTinItem title = 'Họ tên'
-                              value = "Nguyễn Văn Hiệu"/>
+                <ThongTinItem
+                              value = "Nguyễn Văn Hiệu"
+                              title = 'Họ tên'/>
                 <ThongTinItem title = 'Ngày sinh'
                               value = "16/01/1995"/>
                 <ThongTinItem title = 'Số điện thoại'

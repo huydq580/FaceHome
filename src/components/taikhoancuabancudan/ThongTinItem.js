@@ -11,13 +11,10 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 class ThongTinItem extends Component {
     render() {
         return (
-            <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10}}>
-                <Text style={{flex: 1, color: 'black'}}>{this.props.title}</Text>
-                <View style={{flex: 3,}}>
-                    <View style={styles.viewItem}>
-                        <Text style={{marginLeft: 5}}>{this.props.value}</Text>
-                    </View>
-
+            <View style={{flexDirection: 'column', marginLeft: 20, marginTop: 10}}>
+                <Text style={{flex: 1, color: 'black'}}>{this.props.value}</Text>
+                <View style = {{flexDirection:'row'}}>
+                <Text>{this.props.title}</Text>
                 </View>
 
             </View>

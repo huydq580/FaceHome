@@ -38,135 +38,20 @@ class SoanTinCuDan extends Component {
         });
     }
 
-    //handle event header
-    static navigationOptions = ({navigation}) => {
-        const {params = {}} = navigation.state
-
-        return {
-            headerRight: <TouchableOpacity style={{marginRight: 10}}
-                                           onPress={() => params.handleSave()}>
-                <Text style={{color: "#1565C0"}}>Chia sẻ</Text>
-            </TouchableOpacity>
-        }
-    }
-
-    // function header
-    share() {
-        const {InfoUser, callApiCreatePost} = this.props;
-        if (InfoUser.length <= 0) {
-            return null
-        }
-        callApiCreatePost(InfoUser[0].KDTID, InfoUser[0].UserID, InfoUser[0].ProfileID, InfoUser[0].Type, InfoUser[0].FullName, this.state.Status, this.state.linkImg).then(dataPost => {
-            data = JSON.parse(dataPost);
-            if (data.ErrorCode === "00") {
-                Alert.alert(
-                    'Alert',
-                    data.Message,
-                    [
-                        {
-                            text: 'OK', onPress: () => {
-                                this.sendPost( data.Value.CreatedTime, this.state.Status,data.Value.PostID)
-                                this.props.navigation.goBack()
-                            }
-                        },
-                    ],
-                    {cancelable: false}
-                )
-            }
-            else {
-                Alert.alert(
-                    'Alert',
-                    data.Message,
-                    [
-                        {text: 'OK', onPress: () => console.log('OK Pressed')},
-                    ],
-                    {cancelable: false}
-                )
-            }
-
-        })
-
-    }
-
-    sendPost = (CreatedDate, Content, PostID) => {
-        const {InfoUser} = this.props;
-        if (InfoUser.length <= 0) {
-            return null;
-        }
-        // console.log("msg:", this.input_msg);
-        //object need send to server
-        let dataSendPost = {
-            RowNum: "",
-            KDTID: InfoUser[0].KDTID,
-            UserID: InfoUser[0].UserID,
-            ProfileID: InfoUser[0].ProfileID,
-            FullName: InfoUser[0].FullName,
-            Avatar: InfoUser[0].Avatar,
-            CreatedDate: CreatedDate,
-            UserType: 255,
-            TotalComment: "",
-            TotalLike: "",
-            TotalShare: "",
-            PostContent: Content,
-            TotalRow: "",
-            PostID: PostID,
-            Comments:'',
-            Images: this.state.linkImg
-        }
-        this.socket.emit("post", dataSendPost);
-
-    }
-
-    componentDidMount() {
-        // call function SaveDetails
-        this.props.navigation.setParams({handleSave: this.share.bind(this)});
-    }
-
-    //call function PickerImage component(upload image local)
-    show() {
-        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}, ()=>{
-            this.upload()
-        }));
-    }
-
-    upload() {
-        const {InfoUser, callApiUploadImage} = this.props;
-        if (InfoUser.length <= 0) {
-            return null
-        }
-        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
-            dataImg = JSON.parse(dataImg)
-            dataImg = dataImg.Value
-            // console.log('dataImage1', dataImg)
-            this.setState({
-                linkImg: LINKIMG + dataImg
-            })
-        })
-    }
-
     render() {
-        const {InfoUser} = this.props
-        if (InfoUser.length <= 0) {
-            return null;
-        }
-        let img = this.state.avatarSource == null ? null :
-            <Image
-                source={this.state.avatarSource}
-                style={{height: 200, width: 200}}
-            />
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
                             source={{
-                                uri: InfoUser[0].Avatar
+                                uri: "https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg"
                             }}
                             style={styles.image_circle}
                             resizeMode="cover">
                         </Image>
                         <View style={{marginLeft: 10}}>
-                            <Text style={{color: 'black'}}>{InfoUser[0].FullName}</Text>
+                            <Text style={{color: 'black'}}>Nguyễn Văn Hiệu</Text>
                             <Text>Mọi người</Text>
                         </View>
                     </View>
@@ -177,11 +62,6 @@ class SoanTinCuDan extends Component {
                                    placeholderTextSize="20"/>
                     </View>
                 </View>
-                {/*<TouchableOpacity onPress={this.upload.bind(this)}>*/}
-                {/*<Text style = {{fontSize: 30}}>Upload</Text>*/}
-                {/*</TouchableOpacity>*/}
-
-                {img}
 
                 <View style={{
                     flexDirection: 'row',
@@ -191,7 +71,7 @@ class SoanTinCuDan extends Component {
                     alignItems: 'center'
                 }}>
                     <Text>Thêm vào bài viết của bạn</Text>
-                    <TouchableOpacity onPress={this.show.bind(this)}>
+                    <TouchableOpacity>
                         <Icon name="md-images" size={30} color="#900"
                               style={{flex: 1}}/>
                     </TouchableOpacity>
@@ -203,20 +83,6 @@ class SoanTinCuDan extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-    return {
-        InfoUser: state.GetProfileReducers,
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
-        callApiCreatePost: bindActionCreators(callApiCreatePost, dispatch)
-    }
-};
-
-SoanTinCuDan = connect(mapStateToProps, mapDispatchToProps)(SoanTinCuDan);
 export default SoanTinCuDan;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
