@@ -116,9 +116,6 @@ const Stack = StackNavigator ({
     },
     DangNhap: {
         screen: DangNhap,
-        navigationOptions: {
-            header: null,
-        }
     },
     XacNhanCuDan: {
         screen: XacNhanCuDan,

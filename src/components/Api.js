@@ -2,13 +2,18 @@
 export const URL = "http://118.70.117.190:9051/";
 export const LINKIMG = "http://118.70.117.190:9051";
 export const LINKVIDEO = "http://192.168.0.252:9051";
-export const Login = "api/Bql/Login";
 //Location
 export const GetData = "api/location/getdata";
 //KDT
 export const Search = "api/kdt/search";
 export const GetKDTParts = "api/kdt/getkdtparts";
 export const CreateKDT = "api/KDT/CreateKDT";
+
+//User
+export const Regrister = "api/Users/Regrister";
+export const InsertProfile = "api/Users/InsertProfile";
+export const Login = "api/Users/Login";
+// export const ChangePassword = "api/Users/ChangePassword";
 
 //BQL
 export const RegisterBQL = "api/bql/register";

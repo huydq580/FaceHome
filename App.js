@@ -30,6 +30,7 @@ import DangKyNhaCungCap from "./src/containers/cudan/menuleft/DangKyNhaCungCap";
 import CuDanKhac from "./src/containers/cudan/menuleft/CuDanKhac";
 import DichVu from "./src/containers/cudan/DichVu";
 import SoanTinCuDan from "./src/containers/cudan/SoanTinCuDan";
+import ChuaCoCanHo from "./src/containers/cudan/DaCoCanHo";
 
 export default class App extends Component<{}> {
     // componentDidMount() {
@@ -53,7 +54,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <SoanTinCuDan/>
+          <Stack/>
         </Provider>
     );
   }

@@ -21,7 +21,7 @@ import SocketIOClient from "socket.io-client";
 import StatusItemCuDan from "../../components/status/StatusItemCuDan";
 import {callApiSubcribe} from "../../actions/SubcribeActions";
 import ChuaDangNhap from "../ChuaDangNhap";
-import ChuaCoCanHo from "./ChuaCoCanHo";
+import DaCoCanHo from "./DaCoCanHo";
 
 class SanhChinh extends Component {
     constructor (props){
@@ -42,7 +42,7 @@ class SanhChinh extends Component {
         const { navigation } = this.props;
         if (this.state.value) {
             return (
-                <ChuaCoCanHo
+                <DaCoCanHo
                     navigation={navigation}/>
             )
         }

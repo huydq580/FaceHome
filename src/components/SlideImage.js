@@ -40,7 +40,7 @@ export default class SlideImage extends Component {
 
     }
     componentWillReceiveProps(nextProps, nextState) {
-        console.log("props", nextProps);
+        // console.log("props", nextProps);
         // if (nextProps.imageSlider.length > 0) {
         //     const  imageSlider  = nextProps.imageSlider;
 
@@ -60,7 +60,7 @@ export default class SlideImage extends Component {
 
 
     render() {
-        console.log("state",this.state);
+        // console.log("state",this.state);
         const { imageSlider } = this.props;
         var imgs = [];
         for (var i = 0; i < imageSlider.length; i++) {

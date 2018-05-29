@@ -8,6 +8,11 @@ import {
 import SlideImage from "../../components/SlideImage";
 import CheckBox from 'react-native-check-box'
 import {BACKGROUND_HEADER, TITLE_HEADER} from '../../Constants'
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {callApiPostCmt} from "../../actions/PostCmtActions";
+import {CallApiDangKy} from "../../actions/cudan/DangKyActions";
+import UserInput from "../../components/dangnhap/UserInput";
 
 class DangKyCuDan extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -24,6 +29,9 @@ class DangKyCuDan extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            SoDienThoai: "",
+            FullName: "",
+            MatKhau: "",
             imageSlider: [
                 {
                     thumbnail: 'http://file4.batdongsan.com.vn/2015/12/03/hmcVYWuR/20151203133249-f154.jpg'
@@ -36,6 +44,12 @@ class DangKyCuDan extends Component {
                 }
             ],
         }
+    }
+    DangKy = () => {
+        const { CallApiDangKy } = this.props
+        CallApiDangKy("09632501950", "Đặng Minh Bảo", "123456").then(data => {
+            console.log('data', data)
+        })
     }
 
     onClick = () => {
@@ -52,58 +66,43 @@ class DangKyCuDan extends Component {
                         imageSlider={this.state.imageSlider}
 
                     />
-                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <View style={{
-                            borderWidth: 1,
-                            borderColor: 'black',
-                            marginTop: 30,
-                            marginHorizontal: 70,
-                            flex: 1
-                        }}>
-                            <TextInput
-                                style={{marginLeft: 10, padding: 0}}
-                                placeholder='Nhập họ tên '
-                                underlineColorAndroid="transparent"
-                                returnKeyType={"next"}
-                                onChangeText={(Ho) => this.setState({Ho})}/>
-                        </View>
-                        {/*<Text>(*)</Text>*/}
-                    </View>
-                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <View
-                            style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 70, flex: 1}}>
-                            <TextInput
-                                style={{marginLeft: 10, padding: 0}}
-                                placeholder='Nhập số điện thoại '
-                                underlineColorAndroid="transparent"
-                                returnKeyType={"next"}
-                                onChangeText={(Ho) => this.setState({Ho})}/>
-                        </View>
-                        {/*<Text>(*)</Text>*/}
-                    </View>
-                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <View
-                            style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 70, flex: 1}}>
-                            <TextInput
-                                style={{marginLeft: 10, padding: 0}}
-                                placeholder='Nhập mật khẩu '
-                                underlineColorAndroid="transparent"
-                                returnKeyType={"next"}
-                                onChangeText={(Ho) => this.setState({Ho})}/>
-                        </View>
-                        {/*<Text>(*)</Text>*/}
-                    </View>
-                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                        <View
-                            style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 70, flex: 1}}>
-                            <TextInput
-                                style={{marginLeft: 10, padding: 0}}
-                                placeholder='Nhập lại mật khẩu '
-                                underlineColorAndroid="transparent"
-                                returnKeyType={"next"}
-                                onChangeText={(Ho) => this.setState({Ho})}/>
-                        </View>
-                        {/*<Text>(*)</Text>*/}
+                    <View style = {{marginTop: 20}}>
+                    <UserInput
+                        keyboardType={'numeric'}
+                        placeholder={'Nhập họ tên'}
+                        autoCapitalize={'none'}
+                        returnKeyType={'done'}
+                        autoCorrect={false}
+                        style = {{marginTop: 20}}
+                        onChangeText ={(FullName) => this.setState({FullName})}
+                    />
+                    <UserInput
+                        keyboardType={'numeric'}
+                        placeholder={'Nhập số điện thoại'}
+                        autoCapitalize={'none'}
+                        returnKeyType={'done'}
+                        autoCorrect={false}
+                        style = {{marginTop: 20}}
+                        onChangeText ={(SoDienThoai) => this.setState({SoDienThoai})}
+                    />
+                    <UserInput
+                        keyboardType={'numeric'}
+                        placeholder={'Nhập mật khẩu'}
+                        autoCapitalize={'none'}
+                        returnKeyType={'done'}
+                        autoCorrect={false}
+                        style = {{marginTop: 20}}
+                        onChangeText ={(MatKhau) => this.setState({MatKhau})}
+                    />
+                    <UserInput
+                        keyboardType={'numeric'}
+                        placeholder={'Nhập lại mật khẩu'}
+                        autoCapitalize={'none'}
+                        returnKeyType={'done'}
+                        autoCorrect={false}
+                        style = {{marginTop: 20}}
+                        onChangeText ={(MatKhau) => this.setState({MatKhau})}
+                    />
                     </View>
                     <View style={{flexDirection: 'row', marginHorizontal: 70, alignItems: 'center', marginTop: 10}}>
                         <CheckBox
@@ -134,7 +133,7 @@ class DangKyCuDan extends Component {
                                 <Text style={{color: "black"}}>Xác nhận</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {this.DangKy}>
                             <View style={{
                                 borderWidth: 1,
                                 borderRadius: 5,
@@ -162,4 +161,19 @@ class DangKyCuDan extends Component {
     }
 }
 
+
+const mapStateToProps = (state) => {
+    return {
+        // InfoUser: state.DangKy,
+        // tongCmt: state.SearchCmtReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        CallApiDangKy: bindActionCreators(CallApiDangKy, dispatch)
+    }
+};
+
+DangKyCuDan = connect(mapStateToProps, mapDispatchToProps)(DangKyCuDan);
 export default DangKyCuDan

@@ -1,37 +1,27 @@
-import {Login, URL} from "../../components/Api";
+import {Regrister, URL} from "../../components/Api";
 
-// let nextTodoId = 0
-// export const addTodo = text => {
-//     return {
-//         type: 'LOGIN',
-//         id: nextTodoId++,
-//         text
-//     }
-// }
-
-
-export const CallApiLogin = (sdt, mk) => {
+export const CallApiDangKy = (Username, FullName, Password) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL+Login, {
+            fetch(URL+Regrister, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    so_dien_thoai: sdt,
-                    mat_khau: mk,
+                    Username: Username,
+                    FullName: FullName,
+                    Password: Password,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                data1 = JSON.parse(data);
-                console.log('data response', data1);
-                // console.log('data response', data.IsError);
+                // console.log('datanha1', data)
+                // data1 = JSON.parse(data);
                 dispatch({
-                    type: 'LOGIN',
-                    payload: data1.Value
+                    type: 'DANG_KY',
+                    payload: data.Value,
                 })
                 resolve(data);
             }).catch(e => {

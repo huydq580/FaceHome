@@ -30,6 +30,7 @@ import SearchRaoVatReducers from './raovat/SearchRaoVatReducers';
 import SearchHoaDonReducers from './hoadon/SearchHoaDonReducers';
 import GetDetailsHoaDonReducers from './hoadon/GetDetailsHoaDonReducers';
 import SubcribeReducers from './SubcribeReducers';
+import DangKyReducers from "./cudan/DangKyReducers";
 
 
 const appStore = combineReducers({
@@ -63,7 +64,10 @@ const appStore = combineReducers({
     SearchRaoVatReducers,
     SearchHoaDonReducers,
     GetDetailsHoaDonReducers,
-    SubcribeReducers
+    SubcribeReducers,
+
+    //Moi
+    DangKy : DangKyReducers
 
 })
 

@@ -199,7 +199,7 @@ class DangKi extends Component {
                         />
                     </View>
                     <View style = {{alignItems: 'center', marginTop: 10}}>
-                        <TouchableOpacity onPress = {this.CallApiTimKiem.bind(this)}>
+                        <TouchableOpacity>
                             <Text>Tìm kiếm</Text>
                         </TouchableOpacity>
                     </View>
