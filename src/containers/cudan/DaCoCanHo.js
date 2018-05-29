@@ -82,10 +82,10 @@ class DaCoCanHo extends Component {
         if (InfoUser.length <=0) {
             return null
         }
-        console.log('InfoUser[0].ProfileID', InfoUser[0].ProfileID)
-        console.log('InfoUser[0].UserID', InfoUser[0].UserID)
+        // console.log('InfoUser[0].ProfileID', InfoUser[0].ProfileID)
+        // console.log('InfoUser[0].UserID', InfoUser[0].UserID)
         callApiSubcribe(InfoUser[0].UserID, InfoUser[0].ProfileID, true).then(dataRes => {
-            console.log('dataSubcribe',dataRes )
+            // console.log('dataSubcribe',dataRes )
 
         })
     }
@@ -132,7 +132,7 @@ class DaCoCanHo extends Component {
         const {callApiNhaCuDan} = this.props;
         callApiNhaCuDan(InfoUser[0].ProfileID, InfoUser[0].UserID, InfoUser[0].Type).then(dataNha => {
             dataNhaCuDan = JSON.parse(dataNha);
-            console.log('data1', dataNhaCuDan)
+            // console.log('data1', dataNhaCuDan)
 
         })
         // this.fetchData()

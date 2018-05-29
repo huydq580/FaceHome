@@ -1,6 +1,6 @@
 const GetProfileReducers = (state = [], action) => {
     switch (action.type) {
-        case 'NHA_BQL':
+        case 'GET_PROFILE':
             return action.payload
         default:
             return state

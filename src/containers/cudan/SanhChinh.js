@@ -13,13 +13,7 @@ import Dimensions from 'Dimensions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import stylesContainer from "../../components/style";
-import {callApiNhaCuDan} from "../../actions/actionsCuDan/NhaCuDanActions";
-import {callApiSearchPost} from "../../actions/SearchPostActions";
-import {default as FCM, FCMEvent} from "react-native-fcm";
-import {SOCKET, UpdateProfile, URL} from "../../components/Api";
-import SocketIOClient from "socket.io-client";
-import StatusItemCuDan from "../../components/status/StatusItemCuDan";
-import {callApiSubcribe} from "../../actions/SubcribeActions";
+
 import ChuaDangNhap from "../ChuaDangNhap";
 import DaCoCanHo from "./DaCoCanHo";
 
@@ -32,6 +26,11 @@ class SanhChinh extends Component {
 
     }
     componentDidMount () {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
+            return null;
+        }
+        console.log('InfoUser', InfoUser)
         AsyncStorage.getItem('UserID').then((value)=> {
             this.setState({
                 value: value
@@ -65,6 +64,18 @@ class SanhChinh extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+};
+
+SanhChinh = connect(mapStateToProps, mapDispatchToProps)(SanhChinh);
 export default SanhChinh;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({

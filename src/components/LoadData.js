@@ -10,7 +10,7 @@ import {callApiGetProfile} from "../actions/GetProfileActions";
 
 class LoadData extends Component {
     constructor(props){
-        // console.log('constructor')
+        console.log('constructor')
         super(props)
         this.state = {
         }
@@ -64,9 +64,10 @@ class LoadData extends Component {
 
         AsyncStorage.getItem('UserID').then((value)=> {
             const {callApiGetProfile} = this.props;
-            callApiGetProfile("", value, "", 100).then(dataRes => {
-                dataProfile = JSON.parse(dataRes);
-                console.log('data', dataProfile)
+            callApiGetProfile(value, 100).then(dataRes => {
+                console.log('dataProfile', dataRes)
+                // dataProfile = JSON.parse(dataRes);
+                // console.log('data', dataProfile)
             })
         })
     }

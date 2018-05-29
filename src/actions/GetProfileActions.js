@@ -1,19 +1,17 @@
-import { GetProfileBQL, URL } from "../components/Api";
+import {LoadUserProfile, URL} from "../components/Api";
 
 
 
-export const callApiGetProfile = (profile_id, user_id, user_type, option) => {
+export const callApiGetProfile = (user_id, option) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            fetch(URL+GetProfileBQL, {
+            fetch(URL+LoadUserProfile, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    profile_id: profile_id,
                     user_id: user_id,
-                    user_type: user_type,
                     option: option,
                     lang_name: "vi_VN"
                 })
@@ -21,10 +19,11 @@ export const callApiGetProfile = (profile_id, user_id, user_type, option) => {
                 return response.json();
             }).then(data => {
                 // console.log('datanha1', data)
-                data1 = JSON.parse(data);
+                // data1 = JSON.parse(data);
+                // console.log('dataProfile', data1)
                 dispatch({
-                    type: 'NHA_BQL',
-                    payload: data1.Value,
+                    type: 'GET_PROFILE',
+                    payload: data.Value,
                 })
                 resolve(data);
             }).catch(e => {
