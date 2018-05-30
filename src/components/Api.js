@@ -14,6 +14,7 @@ export const Regrister = "api/Users/Regrister";
 export const InsertProfile = "api/Users/InsertProfile";
 export const Login = "api/Users/Login";
 export const LoadUserProfile = "api/Users/LoadUserProfile";
+export const LoadProfileInHouse = "api/Users/LoadProfileInHouse";
 
 // export const ChangePassword = "api/Users/ChangePassword";
 

@@ -24,6 +24,7 @@ import images from "../../../components/images";
 import TitleView from "../../../components/taikhoancuabancudan/TitleView";
 import ThongTinItem from "../../../components/taikhoancuabancudan/ThongTinItem";
 import ThanhVienItem from "../../../components/ThanhVienItem";
+import {CallApiThanhVienCanHo} from "../../../actions/cudan/ThanhVienCanHoActions";
 
 
 
@@ -58,17 +59,35 @@ class TaiKhoanCuaBanCuDan extends Component {
             ]
         }
     }
+    componentDidMount() {
+        this.GetUserInHouse()
+
+    }
+    GetUserInHouse = () => {
+        const { InfoUser, CallApiThanhVienCanHo } = this.props
+        if (InfoUser.length <= 0 ) {
+            return null
+        }
+        CallApiThanhVienCanHo(InfoUser[0].UserID, 0).then(dataRes => {
+            console.log('Thanh vien can ho', dataRes)
+
+        })
+    }
     render () {
+        const { InfoUser } = this.props
+        if (InfoUser.length <= 0 ) {
+            return null
+        }
         const { navigation } = this.props;
         return (
             <ScrollView style = {stylesContainer.container}>
                 <Header source = {{uri: "https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg"}}
-                        textName = "Nguyễn Văn Hiệu"
+                        textName = {InfoUser[0].FullName}
                         Title = "Xem trang cá nhân của bạn"/>
                 <TitleView titleText = "Thông tin cơ bản"
                            source = {images.thongtincoban}/>
                 <ThongTinItem
-                              value = "Nguyễn Văn Hiệu"
+                              value = {InfoUser[0].FullName}
                               title = 'Họ tên'/>
                 <ThongTinItem title = 'Ngày sinh'
                               value = "16/01/1995"/>
@@ -186,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
         // addTodo: bindActionCreators(addTodo, dispatch),
         callApiNhaCuDan: bindActionCreators(callApiNhaCuDan, dispatch),
         callApiSearchPost: bindActionCreators(callApiSearchPost, dispatch),
+        CallApiThanhVienCanHo: bindActionCreators(CallApiThanhVienCanHo, dispatch),
     }
 };
 

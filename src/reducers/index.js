@@ -32,6 +32,7 @@ import GetDetailsHoaDonReducers from './hoadon/GetDetailsHoaDonReducers';
 import SubcribeReducers from './SubcribeReducers';
 import DangKyReducers from "./cudan/DangKyReducers";
 import ThemCanHoReducers from "./cudan/ThemCanHoReducers";
+import ThanhVienCanHoReducers from "./cudan/ThanhVienCanHoReducers";
 
 
 const appStore = combineReducers({
@@ -69,7 +70,10 @@ const appStore = combineReducers({
 
     //Moi
     DangKy : DangKyReducers,
-    ThemCanHoReducers
+    ThemCanHoReducers,
+    ThanhVienCanHoReducers,
+
+
 
 })
 
