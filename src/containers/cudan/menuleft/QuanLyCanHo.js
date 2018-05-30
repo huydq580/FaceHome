@@ -16,6 +16,7 @@ import KDTItem from "../../../components/KDTItem";
 import {callApiSearchKDT} from "../../../actions/KDTActions";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
+import {CallApiThemCanHo} from "../../../actions/cudan/ThemCanHoActions";
 
 class QuanLyCanHo extends Component {
 
@@ -30,10 +31,21 @@ class QuanLyCanHo extends Component {
 
         }
     }
+    ThemCanHo = () => {
+        const { InfoUser, CallApiThemCanHo } = this.props;
+        if (InfoUser.length <=0 ) {
+            return null
+        }
+        console.log("InfoUser", InfoUser)
+        CallApiThemCanHo(InfoUser[0].IntUserID, InfoUser[0].UserID, InfoUser[0].Username,this.state.MaCanHo, InfoUser[0].Email).then(dataRes => {
+            console.log('themcanho', dataRes)
+        })
+    }
     constructor(props){
         super(props)
         this.state = {
             ArrKDT: [],
+            MaCanHo: "",
 
         }
     }
@@ -124,11 +136,13 @@ class QuanLyCanHo extends Component {
                             placeholder='Nhập mã căn hộ'
                             underlineColorAndroid="transparent"
                             returnKeyType={"next"}
-                            onChangeText={(Ho) => this.setState({Ho})}/>
+                            onChangeText={(MaCanHo) => this.setState({MaCanHo})}/>
                     </View>
-                    <View style = {{marginLeft: 10, height: 30, width: DEVICE_WIDTH/3-10,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center'}}>
-                        <Text>Thêm</Text>
-                    </View>
+                    <TouchableOpacity onPress = {this.ThemCanHo}>
+                        <View style = {{marginLeft: 10, height: 30, width: DEVICE_WIDTH/3-10,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center'}}>
+                            <Text>Thêm</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <View style = {{marginHorizontal: 20, marginTop: 10}}>
                     <Text style = {{color: 'black'}}>
@@ -160,12 +174,14 @@ class QuanLyCanHo extends Component {
 }
 const mapStateToProps = (state) => {
     return {
+        InfoUser: state.GetProfileReducers,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchKDT: bindActionCreators(callApiSearchKDT, dispatch),
+        CallApiThemCanHo: bindActionCreators(CallApiThemCanHo, dispatch),
     }
 };
 
