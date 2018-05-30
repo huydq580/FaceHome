@@ -4,7 +4,9 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    Alert,
+    ActivityIndicator
 } from 'react-native'
 import CheckBox from 'react-native-check-box'
 import {bindActionCreators} from "redux";
@@ -31,6 +33,7 @@ class DangNhap extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            isLoading: false,
             SoDienThoai: "",
             MatKhau: "",
             imageSlider: [
@@ -55,14 +58,16 @@ class DangNhap extends Component {
                 isLoading: false,
             })
             data = JSON.parse(dataLogin);
-            let dataLtProfile = data.Value[0].LtProfile ? data.Value[0].LtProfile : null
+            let userid = data.Value ? data.Value[0].UserID : null
+            // console.log('userid', userid)
+            let dataLtProfile = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile : null
             dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
-            console.log("dataProfile", dataProfile)
+            // console.log("dataProfile", dataProfile)
+            let type = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile.Type : null
 
-            console.log('data', data)
             if(data.IsError === false && data.ErrorCode === "00"){
-                AsyncStorage.setItem('UserID', data.Value[0].UserID)
-                AsyncStorage.setItem('Type', dataProfile[0].Type.toString())
+                AsyncStorage.setItem('UserID', userid)
+                AsyncStorage.setItem('Type', type)
                 this.props.navigation.navigate('LoadData')
 
             }
@@ -76,7 +81,7 @@ class DangNhap extends Component {
                     error: true
                 })
                 Alert.alert(
-                    'Error',
+                    'Thông báo',
                     data.Message,
                     [
                         {text: 'OK', onPress: () => console.log('OK Pressed')},
@@ -157,6 +162,21 @@ class DangNhap extends Component {
                     <Text style={{fontSize: 13}}>*Số điện thoại được đùng để xác minh tài khoản qua tin nhắn OTP</Text>
                     <Text style={{fontSize: 13}}>*Để được hỗ trợ vui lòng liên hệ qua fanpage</Text>
                 </View>
+                {this.state.isLoading ?
+                    <View style={{
+                        top: -10,
+                        bottom: -10,
+                        left: -10,
+                        right: -10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        zIndex: 1,
+                        backgroundColor: 'rgba(52, 52, 52, 0.3)'
+                    }}>
+                        <ActivityIndicator size="large" color="green"/>
+                    </View> : null
+                }
 
             </View>
         )

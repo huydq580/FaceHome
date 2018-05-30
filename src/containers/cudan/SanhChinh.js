@@ -16,12 +16,14 @@ import stylesContainer from "../../components/style";
 
 import ChuaDangNhap from "../ChuaDangNhap";
 import DaCoCanHo from "./DaCoCanHo";
+import ChuaCoCanHo from "./ChuaCoCanHo";
 
 class SanhChinh extends Component {
     constructor (props){
         super(props)
         this.state = {
-            value: ''
+            value: '',
+            LtProfile: "",
         }
 
     }
@@ -33,17 +35,28 @@ class SanhChinh extends Component {
         console.log('InfoUser', InfoUser)
         AsyncStorage.getItem('UserID').then((value)=> {
             this.setState({
-                value: value
+                value: value,
+                LtProfile : InfoUser[0].LtProfile
+
             })
         })
     }
     renderGiaoDien = () => {
         const { navigation } = this.props;
-        if (this.state.value) {
-            return (
-                <DaCoCanHo
-                    navigation={navigation}/>
-            )
+        if (this.state.value ) {
+            if (this.state.LtProfile){
+                return (
+                    <DaCoCanHo
+                        navigation={navigation}/>
+                )
+            }
+            else {
+                return (
+                    <ChuaCoCanHo
+                        navigation={navigation}/>
+                )
+            }
+
         }
         else {
             return (
