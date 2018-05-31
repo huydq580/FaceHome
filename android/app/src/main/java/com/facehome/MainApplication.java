@@ -12,6 +12,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 //home spressed
 import com.evanjmg.RNHomePressedPackage;
+import com.airbnb.android.react.maps.MapsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ImagePickerPackage(),
           new VectorIconsPackage(),
           new FIRMessagingPackage(),
-          new RNHomePressedPackage()
+          new RNHomePressedPackage(),
+          new MapsPackage()
       );
     }
 

@@ -16,6 +16,9 @@
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyDqLlhZ5Ec4P_jN3I9oc0Na0PF6a5dnO8c"/>
         <receiver android:name="com.evollu.react.fcm.FIRLocalMessagingPublisher"/>
         <receiver android:enabled="true" android:exported="true"  android:name="com.evollu.react.fcm.FIRSystemBootEventReceiver">
             <intent-filter>
