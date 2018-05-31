@@ -59,12 +59,14 @@ class DangNhap extends Component {
             })
             data = JSON.parse(dataLogin);
             let userid = data.Value ? data.Value[0].UserID : null
-            // console.log('userid', userid)
+            console.log('userid', userid)
             let dataLtProfile = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile : null
             dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
-            // console.log("dataProfile", dataProfile)
-            let type = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile.Type : null
-
+            console.log("dataProfile", dataProfile)
+            console.log("dataProfile0", dataProfile[0])
+            console.log("dataProfile1", dataProfile[0].Type)
+            let type =  dataProfile[0].Type.toString()
+            console.log('type', type)
             if(data.IsError === false && data.ErrorCode === "00"){
                 AsyncStorage.setItem('UserID', userid)
                 AsyncStorage.setItem('Type', type)
