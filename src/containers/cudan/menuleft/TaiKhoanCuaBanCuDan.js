@@ -56,24 +56,30 @@ class TaiKhoanCuaBanCuDan extends Component {
                     avt: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg',
                     username: 'Thủy Top'
                 }
-            ]
+            ],
+            ArrToa: [],
         }
     }
     componentDidMount() {
         this.GetUserInHouse()
 
     }
+
     GetUserInHouse = () => {
+        console.log('hih')
         const { InfoUser, CallApiThanhVienCanHo } = this.props
         if (InfoUser.length <= 0 ) {
             return null
         }
         CallApiThanhVienCanHo(InfoUser[0].UserID, 0).then(dataRes => {
-            console.log('Thanh vien can ho', dataRes)
+            this.setState({
+                ArrToa: dataRes.Value ? dataRes.Value : null
+            })
 
         })
     }
     render () {
+
         const { InfoUser } = this.props
         if (InfoUser.length <= 0 ) {
             return null
@@ -132,25 +138,38 @@ class TaiKhoanCuaBanCuDan extends Component {
                 </TouchableOpacity>
                 <TitleView titleText = "Thành viên căn hộ"
                            source = {images.thongtincoban}/>
-                <Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>
-                    TSQ EUROLAND – T2B - P0908
-                </Text>
                 <FlatList
-                    data={this.state.ArrThanhVien}
-                    numColumns={3}
-                    renderItem={(item) => {
+                    data={this.state.ArrToa}
+                    renderItem={({item}) => {
                         return (
-                            <ThanhVienItem
-                                dataItem={item}
-                                navigation={navigation}
-                            />
+                            <View>
+                            <Text style = {{fontSize: 16, color: '#039BE5',fontWeight:'bold', marginLeft: 15, marginTop: 10}}>{item.KDT} - {item.Block} - {item.Floor}</Text>
+                                <FlatList
+                                    data={this.state.ArrThanhVien}
+                                    numColumns={3}
+                                    renderItem={(item) => {
+                                        return (
+                                            <ThanhVienItem
+                                                dataItem={item}
+                                                navigation={navigation}
+                                            />
+                                        )
+                                    }}
+                                    keyExtractor={(item, index) => index.toString()}
+                                />
+                            </View>
+
                         )
                     }}
                     keyExtractor={(item, index) => index.toString()}
                 />
-                <Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>
-                    TSQ EUROLAND – T2B - P0908
-                </Text>
+                {/*<Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>*/}
+                    {/*TSQ EUROLAND – T2B - P0908*/}
+                {/*</Text>*/}
+
+                {/*<Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>*/}
+                    {/*TSQ EUROLAND – T2B - P0908*/}
+                {/*</Text>*/}
                 <TitleView titleText = "Nhà cung cấp dịch vụ"
                            source = {images.thongtincoban}/>
                 <View style = {{marginHorizontal: 20, marginTop: 10,  marginBottom:10}}>

@@ -7,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import images from "./images";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -18,9 +19,9 @@ export default class ThanhVienItem extends Component {
                 <View style={{flexDirection: 'column', marginTop: 15, justifyContent:'center', alignItems:'center' ,  width:DEVICE_WIDTH/3}}>
                     <Image style={styles.image_circle}
                            source={{
+                               // !item.Avatar ? images.noavatar : {uri : item.Avatar}
                                uri: item.avt
-                           }
-                           }
+                           }}
                            resizeMode="cover"
                     >
                     </Image>
