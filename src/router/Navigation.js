@@ -93,6 +93,7 @@ import CuDanKhac from "../containers/cudan/menuleft/CuDanKhac";
 import ThongTinNhaCungCap from "../containers/cudan/menuleft/ThongTinNhaCungCap";
 import ChoFaceHome from "../containers/cudan/menuleft/ChoFaceHome";
 import BepAnGiaDinh from "../containers/cudan/menuleft/BepAnGiaDinh";
+import SearchFaceHome from "../containers/cudan/SearchFaceHome";
 
 
 const Stack = StackNavigator ({
@@ -613,6 +614,12 @@ const Stack = StackNavigator ({
     },
     BepAnGiaDinh: {
         screen: BepAnGiaDinh
+    },
+    SearchFaceHome: {
+        screen: SearchFaceHome,
+        navigationOptions:{
+            header: null
+        }
     }
 
 

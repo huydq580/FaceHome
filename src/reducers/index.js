@@ -33,6 +33,7 @@ import SubcribeReducers from './SubcribeReducers';
 import DangKyReducers from "./cudan/DangKyReducers";
 import ThemCanHoReducers from "./cudan/ThemCanHoReducers";
 import ThanhVienCanHoReducers from "./cudan/ThanhVienCanHoReducers";
+import RequestRegCodeReducers from "./cudan/RequestRegCodeReducers";
 
 
 const appStore = combineReducers({
@@ -72,6 +73,7 @@ const appStore = combineReducers({
     DangKy : DangKyReducers,
     ThemCanHoReducers,
     ThanhVienCanHoReducers,
+    RequestRegCodeReducers,
 
 
 

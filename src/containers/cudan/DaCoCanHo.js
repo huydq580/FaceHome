@@ -7,9 +7,12 @@ import {
     FlatList,
     ScrollView,
     ActivityIndicator,
-    AsyncStorage, StyleSheet
+    AsyncStorage, StyleSheet,
+
+    TextInput
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import Icon from 'react-native-vector-icons/dist/EvilIcons'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import stylesContainer from "../../components/style";
@@ -20,6 +23,7 @@ import {SOCKET, UpdateProfile, URL} from "../../components/Api";
 import SocketIOClient from "socket.io-client";
 import StatusItemCuDan from "../../components/status/StatusItemCuDan";
 import {callApiSubcribe} from "../../actions/SubcribeActions";
+import images from "../../components/images";
 
 class DaCoCanHo extends Component {
     constructor(props) {
@@ -32,6 +36,7 @@ class DaCoCanHo extends Component {
             page_index: 1,
             dataItem: [],
             Token: '',
+            TimKiem: "",
         }
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
@@ -239,12 +244,19 @@ class DaCoCanHo extends Component {
         const {navigation} = this.props;
         return (
             <View style={stylesContainer.container}>
+                <TouchableOpacity onPress = {() => this.props.navigation.navigate('SearchFaceHome')}>
+                <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center', borderWidth:1, borderColor:'#F06292'}}>
+                    <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
+                    <Text>Tìm kiếm</Text>
+                </View>
+                </TouchableOpacity>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
-                            source={{
-                                uri: InfoUser[0].Avatar
-                            }}
+                            source={
+                                // uri: InfoUser[0].Avatar
+                                !InfoUser[0].Avatar ? images.noavatar : {uri : InfoUser[0].Avatar}
+                            }
                             style={styles.image_circle}
                             resizeMode="cover">
                         </Image>
@@ -258,7 +270,7 @@ class DaCoCanHo extends Component {
                             alignItems: 'center'
                         }}>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('SoanTinCuDan')}>
-                                <Text>Soạn đăng bản tin cho KĐT</Text>
+                                <Text>Bạn muốn nói gì?</Text>
                             </TouchableOpacity>
                         </View>
 

@@ -137,7 +137,7 @@ class DangNhap extends Component {
                         <CheckBox
                         style={{}}
                         onClick={() => this.onClick()}
-                        isChecked={data.checked}
+                        // isChecked={data.checked}
                         // leftText={leftText}
                         />
                         <Text style={{marginLeft: 10, textDecorationLine: 'underline'}}>Điều khoản và dịch vụ</Text>

@@ -18,7 +18,7 @@ export const callApiGetUser = (ProfileID,UserID) => {
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                // console.log('data_user',data)
+                // console.log('data_user',da   ta)
                 dispatch({
                     type: 'MESSAGE',
                     payload: data.ObjectResult

@@ -31,6 +31,8 @@ import CuDanKhac from "./src/containers/cudan/menuleft/CuDanKhac";
 import DichVu from "./src/containers/cudan/DichVu";
 import SoanTinCuDan from "./src/containers/cudan/SoanTinCuDan";
 import ChuaCoCanHo from "./src/containers/cudan/DaCoCanHo";
+import SearchFaceHome from "./src/containers/cudan/SearchFaceHome";
+import SearchDanCuItem from "./src/components/searchfacehome/SearchDanCuItem";
 
 export default class App extends Component<{}> {
     // componentDidMount() {
@@ -54,7 +56,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <Stack/>
+          <SearchDanCuItem/>
         </Provider>
     );
   }
