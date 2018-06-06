@@ -7,6 +7,7 @@ import {
 
 class SearchDanCuItem extends Component {
     render() {
+        const {item} = this.props.dataItem;
         return (
             <View  style = {{ marginTop: 10, marginLeft: 15}}>
                 <View style = {{flexDirection:'row', alignItems: 'center'}}>
@@ -18,7 +19,7 @@ class SearchDanCuItem extends Component {
                         resizeMode="cover">
                     </Image>
                     <View style = {{marginLeft: 10}}>
-                        <Text style = {{color: 'black', fontSize: 17}}>Nguyễn Văn Hiệu</Text>
+                        <Text style = {{color: 'black', fontSize: 17}}>{item.FullName}</Text>
                     </View>
                 </View>
                 <View style = {{height:1, backgroundColor:'#BDBDBD', marginTop: 10}}/>

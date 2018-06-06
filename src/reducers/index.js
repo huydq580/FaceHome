@@ -34,6 +34,7 @@ import DangKyReducers from "./cudan/DangKyReducers";
 import ThemCanHoReducers from "./cudan/ThemCanHoReducers";
 import ThanhVienCanHoReducers from "./cudan/ThanhVienCanHoReducers";
 import RequestRegCodeReducers from "./cudan/RequestRegCodeReducers";
+import SearchFaceHomeReducers from "./cudan/SearchFaceHomeReducers";
 
 
 const appStore = combineReducers({
@@ -74,6 +75,7 @@ const appStore = combineReducers({
     ThemCanHoReducers,
     ThanhVienCanHoReducers,
     RequestRegCodeReducers,
+    SearchFaceHomeReducers
 
 
 

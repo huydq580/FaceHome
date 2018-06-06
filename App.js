@@ -56,7 +56,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <SearchDanCuItem/>
+          <Stack/>
         </Provider>
     );
   }
