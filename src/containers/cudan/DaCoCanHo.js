@@ -43,7 +43,7 @@ class DaCoCanHo extends Component {
             return null;
         }
         this.fetchData()
-        this.socket = SocketIOClient( SOCKET, {
+        this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']
@@ -73,18 +73,19 @@ class DaCoCanHo extends Component {
                 TotalShare: dataReceive.TotalShare,
                 PostContent: dataReceive.PostContent,
                 TotalRow: dataReceive.TotalRow,
-                PostID:dataReceive.PostID,
-                Comments:dataReceive.Comments,
-                Images:dataReceive.Images,
+                PostID: dataReceive.PostID,
+                Comments: dataReceive.Comments,
+                Images: dataReceive.Images,
             });
             this.setState({dataItem: newPost});
 
         })
 
     }
+
     Subcribe = () => {
         const {InfoUser, callApiSubcribe} = this.props;
-        if (InfoUser.length <=0) {
+        if (InfoUser.length <= 0) {
             return null
         }
         // console.log('InfoUser[0].ProfileID', InfoUser[0].ProfileID)
@@ -155,7 +156,7 @@ class DaCoCanHo extends Component {
 
         this.notificationListener = FCM.on(FCMEvent.Notification, async (notif) => {
 
-            console.log("receive noti listent", notif);
+            // console.log("receive noti listent", notif);
             // optional, do some component related stuff
             if (notif && notif.opened_from_tray && notif.opened_from_tray == 1) {
                 return;
@@ -183,7 +184,7 @@ class DaCoCanHo extends Component {
         // sometimes Android kills activity when app goes to background, and when resume it broadcasts notification before JS is run. You can use FCM.getInitialNotification() to capture those missed events.
         // initial notification will be triggered all the time even when open app by icon so send some action identifier when you send notification
         FCM.getInitialNotification().then(notif => {
-            console.log("click noti:", notif)
+            // console.log("click noti:", notif)
         });
     }
 
@@ -195,7 +196,7 @@ class DaCoCanHo extends Component {
         callApiSearchPost(this.state.page_index, InfoUser[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            console.log('bai viet sanh chinh', dataBaiViet)
+            // console.log('bai viet sanh chinh', dataBaiViet)
             if (dataBaiViet.length <= 0) {
                 return null
             }
@@ -213,7 +214,7 @@ class DaCoCanHo extends Component {
                 page_index: this.state.page_index + 1
             },
             () => {
-                console.log('index', this.state.page_index)
+                // console.log('index', this.state.page_index)
                 this.fetchData();
             }
         );
@@ -244,18 +245,24 @@ class DaCoCanHo extends Component {
         const {navigation} = this.props;
         return (
             <View style={stylesContainer.container}>
-                <TouchableOpacity onPress = {() => this.props.navigation.navigate('SearchFaceHome')}>
-                <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center', borderWidth:1, borderColor:'#F06292'}}>
-                    <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
-                    <Text>Tìm kiếm</Text>
-                </View>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('SearchFaceHome')}>
+                    <View style={{
+                        flexDirection: 'row',
+                        marginHorizontal: 20,
+                        alignItems: 'center',
+                        borderWidth: 1,
+                        borderColor: '#FCE4EC'
+                    }}>
+                        <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
+                        <Text>Tìm kiếm</Text>
+                    </View>
                 </TouchableOpacity>
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
                             source={
                                 // uri: InfoUser[0].Avatar
-                                !InfoUser[0].Avatar ? images.noavatar : {uri : InfoUser[0].Avatar}
+                                !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
                             }
                             style={styles.image_circle}
                             resizeMode="cover">
@@ -296,8 +303,9 @@ class DaCoCanHo extends Component {
                                     navigation={navigation}/>
 
                             )
+                            }
                         }
-                        }
+                        extraData={this.state}
                         keyExtractor={(item, index) => index.toString()}
                     /> : <View style={{justifyContent: 'center', alignItems: 'center'}}>
                         <Text>Không có nội dung để hiển thị</Text>

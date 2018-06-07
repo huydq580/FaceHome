@@ -15,6 +15,9 @@ import {bindActionCreators} from "redux";
 import {CallApiSearchFaceHome} from "../../actions/cudan/SearchFaceHomeActions";
 import SearchDanCuItem from "../../components/searchfacehome/SearchDanCuItem";
 import DichVuItem from "../../components/dichvu/DichVuItem";
+import StatusItemCuDan from "../../components/status/StatusItemCuDan";
+import SearchBaiVietItem from "../../components/searchfacehome/SearchBaiVietItem";
+import KDTItem from "../../components/KDTItem";
 
 class SearchFaceHome extends Component {
     constructor(props){
@@ -41,7 +44,7 @@ class SearchFaceHome extends Component {
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
         // console.log('dataProfile', dataProfile)
         // console.log('infoUser', InfoUser)
-        CallApiSearchFaceHome("h",dataProfile[0].KDTID ).then(dataRes => {
+        CallApiSearchFaceHome("ecohome",dataProfile[0].KDTID ).then(dataRes => {
             dataSearchFaceHome = JSON.parse(dataRes.Value)
             console.log("dataSearchFaceHome", dataSearchFaceHome)
             this.setState({
@@ -55,7 +58,7 @@ class SearchFaceHome extends Component {
         })
     }
     render () {
-        console.log('this.state.Arry', this.state.ArrMember)
+        console.log('this.state.Arry', this.state.ArrPost)
         const { navigation} = this.props
         return (
             <View style = {{flex:1, backgroundColor:'white'}}>
@@ -76,10 +79,38 @@ class SearchFaceHome extends Component {
                 // tabBarPosition='overlayTop'
             >
                 <ScrollView tabLabel='Bài viết'>
-                    <Text>content</Text>
+                    <View style = {{flex:1}}>
+                        <FlatList
+                            data={this.state.ArrPost}
+                            renderItem={(item) => {
+                                return (
+                                    <SearchBaiVietItem
+                                        dataItem={item}
+                                        navigation={navigation}
+                                    />
+                                )
+                            }}
+                            extraData={this.state}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
                 </ScrollView>
                 <ScrollView tabLabel='Đô thị'>
-                    <Text>content</Text>
+                    <View style = {{flex:1}}>
+                        <FlatList
+                            data={this.state.ArrKDT}
+                            renderItem={(item) => {
+                                return (
+                                    <KDTItem
+                                        dataItem={item}
+                                        navigation={navigation}
+                                    />
+                                )
+                            }}
+                            extraData={this.state}
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
                 </ScrollView>
                 <ScrollView tabLabel='Dân cư'>
                     <View style = {{flex:1}}>
