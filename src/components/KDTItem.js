@@ -32,7 +32,7 @@ export default class KDTItem extends Component {
                                resizeMode="cover"
                         >
                         </Image>
-                        <Text>{item.TenKDT.slice(0,12)}</Text>
+                        <Text>{item.TenKDT}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
