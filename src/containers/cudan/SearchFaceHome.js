@@ -18,6 +18,7 @@ import DichVuItem from "../../components/dichvu/DichVuItem";
 import StatusItemCuDan from "../../components/status/StatusItemCuDan";
 import SearchBaiVietItem from "../../components/searchfacehome/SearchBaiVietItem";
 import KDTItem from "../../components/KDTItem";
+import SearchDichVuItem from "../../components/searchfacehome/SearchDichVuItem";
 
 class SearchFaceHome extends Component {
     constructor(props){
@@ -30,10 +31,11 @@ class SearchFaceHome extends Component {
             ArrMember: "",
             ArrSale: "",
             ArrService: "",
+            isShow: false,
         }
     }
     componentDidMount () {
-        this.SearchFaceHome()
+        // this.SearchFaceHome()
     }
     SearchFaceHome = () => {
         const { CallApiSearchFaceHome, InfoUser } = this.props
@@ -58,15 +60,22 @@ class SearchFaceHome extends Component {
         })
     }
     render () {
-        console.log('this.state.ArryPost', this.state.ArrPost)
-        console.log('this.state.ArryMember', this.state.ArrMember)
-        console.log('this.state.ArryKDT', this.state.ArrKDT)
-        console.log('this.state.ArrySale', this.state.ArrSale)
+        // console.log('this.state.ArryPost', this.state.ArrPost)
+        // console.log('this.state.ArryMember', this.state.ArrMember)
+        // console.log('this.state.ArryKDT', this.state.ArrKDT)
+        // console.log('this.state.ArrySale', this.state.ArrSale)
+        // console.log('this.state.ArryService', this.state.ArrService)
         const { navigation} = this.props
         return (
             <View style = {{flex:1, backgroundColor:'white'}}>
                 <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
-                    <TouchableOpacity onPress = {this.SearchFaceHome}>
+                    <TouchableOpacity onPress = {() => {
+                        this.SearchFaceHome(),
+                        this.setState({
+                            isShow: true
+                        })
+                    }
+                    }>
                     <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
                     </TouchableOpacity>
                     <TextInput
@@ -76,103 +85,106 @@ class SearchFaceHome extends Component {
                         // underlineColorAndroid="transparent"
                         onChangeText={(TimKiem) => this.setState({TimKiem})}/>
                 </View>
-            <ScrollableTabView
-                style={styles.container}
-                // renderTabBar={() => <DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)'/>}
-                // tabBarPosition='overlayTop'
-            >
-                <ScrollView tabLabel='Bài viết'>
-                    {
-                        this.state.ArrPost ?
-                        <View style={{flex: 1}}>
-                            <FlatList
-                                data={this.state.ArrPost}
-                                renderItem={(item) => {
-                                    return (
-                                        <SearchBaiVietItem
-                                            dataItem={item}
-                                            navigation={navigation}
-                                        />
-                                    )
-                                }}
-                                extraData={this.state}
-                                keyExtractor={(item, index) => index.toString()}
-                            />
-                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
-                                <Text>Không có dữ liệu hiển thị</Text>
-                            </View>
-                    }
-                </ScrollView>
-                <ScrollView tabLabel='Đô thị'>
-                    {
-                        this.state.ArrKDT ?
-                        <View style={{flex: 1}}>
-                            <FlatList
-                                data={this.state.ArrKDT}
-                                renderItem={(item) => {
-                                    return (
-                                        <KDTItem
-                                            dataItem={item}
-                                            navigation={navigation}
-                                        />
-                                    )
-                                }}
-                                extraData={this.state}
-                                keyExtractor={(item, index) => index.toString()}
-                            />
-                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
-                                <Text>Không có dữ liệu hiển thị</Text>
-                            </View>
-                    }
-                </ScrollView>
-                <ScrollView tabLabel='Dân cư'>
-                    {
-                        this.state.ArrMember ?
-                        <View style={{flex: 1}}>
-                            <FlatList
-                                data={this.state.ArrMember}
-                                renderItem={(item) => {
-                                    return (
-                                        <SearchDanCuItem
-                                            dataItem={item}
-                                            navigation={navigation}
-                                        />
-                                    )
-                                }}
-                                extraData={this.state}
-                                keyExtractor={(item, index) => index.toString()}
-                            />
-                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
-                                <Text>Không có dữ liệu hiển thị</Text>
-                            </View>
-                    }
-                </ScrollView>
-                <ScrollView tabLabel='Dịch vụ'>
-                    {
-                        this.state.ArrService ?
-                        <View style={{flex: 1, backgroundColor: 'white'}}>
-                            <FlatList
-                                data={this.state.ArrService}
-                                renderItem={(item) => {
-                                    return (
-                                        <DichVuItem
-                                            dataItem={item}
-                                            navigation={navigation}
-                                        />
-                                    )
-                                }}
-                                extraData={this.state}
-                                keyExtractor={(item, index) => index.toString()}
-                            />
-                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
-                                <Text>Không có dữ liệu hiển thị</Text>
-                            </View>
-                    }
-                </ScrollView>
-                <ScrollView tabLabel='Rao vặt'>
-                    <Text>content</Text>
-                </ScrollView>
-            </ScrollableTabView>
+                {
+                    this.state.isShow == true ?
+                        <ScrollableTabView
+                            style={styles.container}
+                            // renderTabBar={() => <DefaultTabBar backgroundColor='rgba(255, 255, 255, 0.7)'/>}
+                            // tabBarPosition='overlayTop'
+                        >
+                            <ScrollView tabLabel='Bài viết'>
+                                {
+                                    this.state.ArrPost ?
+                                        <View style={{flex: 1}}>
+                                            <FlatList
+                                                data={this.state.ArrPost}
+                                                renderItem={(item) => {
+                                                    return (
+                                                        <SearchBaiVietItem
+                                                            dataItem={item}
+                                                            navigation={navigation}
+                                                        />
+                                                    )
+                                                }}
+                                                extraData={this.state}
+                                                keyExtractor={(item, index) => index.toString()}
+                                            />
+                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                            <Text>Không có dữ liệu hiển thị</Text>
+                                        </View>
+                                }
+                            </ScrollView>
+                            <ScrollView tabLabel='Đô thị'>
+                                {
+                                    this.state.ArrKDT ?
+                                        <View style={{flex: 1}}>
+                                            <FlatList
+                                                data={this.state.ArrKDT}
+                                                renderItem={(item) => {
+                                                    return (
+                                                        <KDTItem
+                                                            dataItem={item}
+                                                            navigation={navigation}
+                                                        />
+                                                    )
+                                                }}
+                                                extraData={this.state}
+                                                keyExtractor={(item, index) => index.toString()}
+                                            />
+                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                            <Text>Không có dữ liệu hiển thị</Text>
+                                        </View>
+                                }
+                            </ScrollView>
+                            <ScrollView tabLabel='Dân cư'>
+                                {
+                                    this.state.ArrMember ?
+                                        <View style={{flex: 1}}>
+                                            <FlatList
+                                                data={this.state.ArrMember}
+                                                renderItem={(item) => {
+                                                    return (
+                                                        <SearchDanCuItem
+                                                            dataItem={item}
+                                                            navigation={navigation}
+                                                        />
+                                                    )
+                                                }}
+                                                extraData={this.state}
+                                                keyExtractor={(item, index) => index.toString()}
+                                            />
+                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                            <Text>Không có dữ liệu hiển thị</Text>
+                                        </View>
+                                }
+                            </ScrollView>
+                            <ScrollView tabLabel='Dịch vụ'>
+                                {
+                                    this.state.ArrService ?
+                                        <View style={{flex: 1, backgroundColor: 'white'}}>
+                                            <FlatList
+                                                data={this.state.ArrService}
+                                                renderItem={(item) => {
+                                                    return (
+                                                        <SearchDichVuItem
+                                                            dataItem={item}
+                                                            navigation={navigation}
+                                                        />
+                                                    )
+                                                }}
+                                                extraData={this.state}
+                                                keyExtractor={(item, index) => index.toString()}
+                                            />
+                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                            <Text>Không có dữ liệu hiển thị</Text>
+                                        </View>
+                                }
+                            </ScrollView>
+                            <ScrollView tabLabel='Rao vặt'>
+                                <Text>content</Text>
+                            </ScrollView>
+                        </ScrollableTabView> : null
+                }
             </View>
         )
     }
@@ -195,7 +207,6 @@ export default SearchFaceHome
 
     const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
     },
     icon: {
         width: 300,
