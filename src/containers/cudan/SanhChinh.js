@@ -71,6 +71,7 @@ class SanhChinh extends Component {
         return (
             <View style = {{flex:1}}>
                 {this.renderGiaoDien()}
+                
             </View>
 
         )

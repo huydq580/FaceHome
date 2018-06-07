@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     FlatList
 } from 'react-native';
-import ScrollableTabView, { DefaultTabBar, } from 'react-native-scrollable-tab-view';
+import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
@@ -21,7 +21,7 @@ import KDTItem from "../../components/KDTItem";
 import SearchDichVuItem from "../../components/searchfacehome/SearchDichVuItem";
 
 class SearchFaceHome extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             dataProfile: "",
@@ -34,23 +34,25 @@ class SearchFaceHome extends Component {
             isShow: false,
         }
     }
-    componentDidMount () {
+
+    componentDidMount() {
         // this.SearchFaceHome()
     }
+
     SearchFaceHome = () => {
-        const { CallApiSearchFaceHome, InfoUser } = this.props
-        if (InfoUser.length <=0 ){
+        const {CallApiSearchFaceHome, InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
         let dataLtProfile = InfoUser[0].LtProfile ? InfoUser[0].LtProfile : null
-        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         // console.log('dataProfile', dataProfile)
         // console.log('infoUser', InfoUser)
-        CallApiSearchFaceHome(this.state.TimKiem,dataProfile[0].KDTID ).then(dataRes => {
+        CallApiSearchFaceHome(this.state.TimKiem, dataProfile[0].KDTID).then(dataRes => {
             dataSearchFaceHome = JSON.parse(dataRes.Value)
             console.log("dataSearchFaceHome", dataSearchFaceHome)
             this.setState({
-                ArrPost: dataSearchFaceHome.Post.length ? dataSearchFaceHome.Post : null ,
+                ArrPost: dataSearchFaceHome.Post.length ? dataSearchFaceHome.Post : null,
                 ArrMember: dataSearchFaceHome.Member.length ? dataSearchFaceHome.Member : null,
                 ArrKDT: dataSearchFaceHome.KDT.length ? dataSearchFaceHome.KDT : null,
                 ArrSale: dataSearchFaceHome.Sale.length ? dataSearchFaceHome.Sale : null,
@@ -59,24 +61,25 @@ class SearchFaceHome extends Component {
 
         })
     }
-    render () {
+
+    render() {
         // console.log('this.state.ArryPost', this.state.ArrPost)
         // console.log('this.state.ArryMember', this.state.ArrMember)
         // console.log('this.state.ArryKDT', this.state.ArrKDT)
         // console.log('this.state.ArrySale', this.state.ArrSale)
         // console.log('this.state.ArryService', this.state.ArrService)
-        const { navigation} = this.props
+        const {navigation} = this.props
         return (
-            <View style = {{flex:1, backgroundColor:'white'}}>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
                 <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
-                    <TouchableOpacity onPress = {() => {
+                    <TouchableOpacity onPress={() => {
                         this.SearchFaceHome(),
-                        this.setState({
-                            isShow: true
-                        })
+                            this.setState({
+                                isShow: true
+                            })
                     }
                     }>
-                    <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
+                        <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
                     </TouchableOpacity>
                     <TextInput
                         style={{marginLeft: 5, flex: 1}}
@@ -85,6 +88,7 @@ class SearchFaceHome extends Component {
                         // underlineColorAndroid="transparent"
                         onChangeText={(TimKiem) => this.setState({TimKiem})}/>
                 </View>
+
                 {
                     this.state.isShow == true ?
                         <ScrollableTabView
@@ -109,7 +113,7 @@ class SearchFaceHome extends Component {
                                                 extraData={this.state}
                                                 keyExtractor={(item, index) => index.toString()}
                                             />
-                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                        </View> : <View style={{alignItems: 'center', marginTop: 10}}>
                                             <Text>Không có dữ liệu hiển thị</Text>
                                         </View>
                                 }
@@ -131,7 +135,7 @@ class SearchFaceHome extends Component {
                                                 extraData={this.state}
                                                 keyExtractor={(item, index) => index.toString()}
                                             />
-                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                        </View> : <View style={{alignItems: 'center', marginTop: 10}}>
                                             <Text>Không có dữ liệu hiển thị</Text>
                                         </View>
                                 }
@@ -153,7 +157,7 @@ class SearchFaceHome extends Component {
                                                 extraData={this.state}
                                                 keyExtractor={(item, index) => index.toString()}
                                             />
-                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                        </View> : <View style={{alignItems: 'center', marginTop: 10}}>
                                             <Text>Không có dữ liệu hiển thị</Text>
                                         </View>
                                 }
@@ -175,7 +179,7 @@ class SearchFaceHome extends Component {
                                                 extraData={this.state}
                                                 keyExtractor={(item, index) => index.toString()}
                                             />
-                                        </View> : <View style = {{alignItems:'center', marginTop: 10}}>
+                                        </View> : <View style={{alignItems: 'center', marginTop: 10}}>
                                             <Text>Không có dữ liệu hiển thị</Text>
                                         </View>
                                 }
@@ -205,9 +209,8 @@ const mapDispatchToProps = (dispatch) => {
 SearchFaceHome = connect(mapStateToProps, mapDispatchToProps)(SearchFaceHome);
 export default SearchFaceHome
 
-    const styles = StyleSheet.create({
-    container: {
-    },
+const styles = StyleSheet.create({
+    container: {},
     icon: {
         width: 300,
         height: 300,
