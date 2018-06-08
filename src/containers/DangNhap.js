@@ -49,6 +49,9 @@ class DangNhap extends Component {
             ],
         }
     }
+    componentDidMount () {
+        const {params } = this.props.navag
+    }
     Login() {
         this.setState({isLoading: true})
         AsyncStorage.setItem('SoDienThoai', this.state.SoDienThoai)
