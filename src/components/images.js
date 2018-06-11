@@ -5,6 +5,9 @@ const images = {
     thongtincoban: require('../images/thongtincoban.png'),
     tatcadichvu: require('../images/tatcadichvu.png'),
     khongcothongbao: require('../images/khongcothongbao.png'),
-    noavatar: require('../images/noavatar.png')
+    noavatar: require('../images/noavatar.png'),
+    vote: require('../images/vote.jpg'),
+    warning: require('../images/warning.png'),
+    mess_admin: require('../images/mess_admin.png'),
 }
 export default images;

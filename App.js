@@ -33,6 +33,7 @@ import SoanTinCuDan from "./src/containers/cudan/SoanTinCuDan";
 import ChuaCoCanHo from "./src/containers/cudan/DaCoCanHo";
 import SearchFaceHome from "./src/containers/cudan/SearchFaceHome";
 import SearchDanCuItem from "./src/components/searchfacehome/SearchDanCuItem";
+import ThamDoYKien from "./src/components/soanbaivietcudan/ThamDoYKien";
 
 export default class App extends Component<{}> {
     // componentDidMount() {
@@ -56,7 +57,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <Stack/>
+          <ThamDoYKien/>
         </Provider>
     );
   }

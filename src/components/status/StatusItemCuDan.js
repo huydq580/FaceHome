@@ -82,16 +82,16 @@ class StatusItemCuDan extends Component {
                     <View style={{marginHorizontal: 10, marginTop: 10}}>
                         <Text style={{color: '#212121'}}>{item.PostContent}</Text>
                     </View>
-                    {
-                        item.Images !== "http://192.168.1.254:9051" ?
-                            <Image source={{
-                                uri: item.Images
-                            }}
-                                   style={styles.imagePost}
-                                   resizeMode="cover">
-                            </Image>
-                            : null
-                    }
+                    {/*{*/}
+                        {/*item.Images !== "http://192.168.1.254:9051" ?*/}
+                            {/*<Image source={{*/}
+                                {/*uri: ""*/}
+                            {/*}}*/}
+                                   {/*style={styles.imagePost}*/}
+                                   {/*resizeMode="cover">*/}
+                            {/*</Image>*/}
+                            {/*: null*/}
+                    {/*}*/}
                     <View style={{flexDirection: 'row', marginTop: 20, justifyContent: 'space-between'}}>
                         <View style={{flexDirection: 'row', marginLeft: 10}}>
                             <Text>{item.TotalLike}</Text>

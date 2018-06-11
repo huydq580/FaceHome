@@ -128,7 +128,7 @@ export default class TaoThongTinKDT extends Component {
                             </View>
 
                     }
-                    keyExtractor={(item, index) => index}
+                        keyExtractor={(item, index) => index}
                 />
                 <TouchableOpacity onPress = {this.CreateKDT}>
                     <View style = {[styles.itemBoder, {alignItems:'center',minHeight:40, justifyContent: 'center', backgroundColor: '#2196F3'}]} >

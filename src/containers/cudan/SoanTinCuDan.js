@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Alert,
-    Button, StyleSheet
+    Button, StyleSheet,
+    Keyboard
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import {bindActionCreators} from 'redux'
@@ -19,6 +20,9 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SocketIOClient from "socket.io-client";
 import {LINKIMG, SOCKET} from "../../components/Api";
 import {callApiCreatePost, callApiUploadImage} from "../../actions/SoanTinActions";
+import images from "../../components/images";
+import TypePost from "../../components/soanbaivietcudan/TypePost";
+import Toolbar from "../../components/soanbaivietcudan/Toolbar";
 
 
 class SoanTinCuDan extends Component {
@@ -30,6 +34,7 @@ class SoanTinCuDan extends Component {
             avatarSource: null,
             dataImage: null,
             resizedImageUri: '',
+            isCheck: true,
         }
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -38,45 +43,22 @@ class SoanTinCuDan extends Component {
         });
     }
 
+    handleTextInput = () => {
+        this.setState({
+            isCheck: false
+        })
+
+    }
+
     render() {
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
-                <View>
-                    <View style={{flexDirection: 'row', marginTop: 15}}>
-                        <Image
-                            source={{
-                                uri: "https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg"
-                            }}
-                            style={styles.image_circle}
-                            resizeMode="cover">
-                        </Image>
-                        <View style={{marginLeft: 10}}>
-                            <Text style={{color: 'black'}}>Nguyễn Văn Hiệu</Text>
-                            <Text>Mọi người</Text>
-                        </View>
-                    </View>
-                    <View style={{marginHorizontal: 10, marginTop: 10}}>
-                        <TextInput placeholder='Soạn tin mới'
-                                   underlineColorAndroid="transparent"
-                                   onChangeText={(Status) => this.setState({Status})}
-                                   placeholderTextSize="20"/>
-                    </View>
-                </View>
 
-                <View style={{
-                    flexDirection: 'row',
-                    marginTop: 50,
-                    minHeight: 30,
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                }}>
-                    <Text>Thêm vào bài viết của bạn</Text>
-                    <TouchableOpacity>
-                        <Icon name="md-images" size={30} color="#900"
-                              style={{flex: 1}}/>
-                    </TouchableOpacity>
+                {
+                    this.state.isCheck ? <TypePost/> : <Toolbar/>
+                }
 
-                </View>
+
             </View>
         );
     }
@@ -85,6 +67,7 @@ class SoanTinCuDan extends Component {
 
 export default SoanTinCuDan;
 const DEVICE_WIDTH = Dimensions.get('window').width;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     image_circle: {
         height: DEVICE_WIDTH / 10,
