@@ -30,6 +30,7 @@ class SoanTinCuDan extends Component {
         super(props)
         this.state = {
             linkImg: URL,
+            ListToa: [],
             Status: '',
             avatarSource: null,
             dataImage: null,
@@ -66,7 +67,17 @@ class SoanTinCuDan extends Component {
     ThamDoYKien = () => {
         this.setState({
             isCheck1: false,
-            isCheck: false
+            isCheck: false,
+            ArrOptions: [
+                {
+                    option: "Lựa chọn 1",
+                    id: 1,
+                },
+                {
+                    option: "Lựa chọn 2",
+                    id: 2
+                }
+            ]
         })
     }
 
@@ -102,7 +113,66 @@ class SoanTinCuDan extends Component {
         })
     }
 
+    DangBaiViet = () => {
+        const { callApiCreatePost, InfoUser } = this.props
+        if (InfoUser.length <=0) {
+            return null
+        }
+        let dataLtProfile = ( InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        console.log('dataPro', dataProfile)
+        console.log('dataPro', dataProfile[0].KDTID)
+        callApiCreatePost(
+            dataProfile[0].KDTID,
+            InfoUser[0].UserID,
+            InfoUser[0].IntUserID,
+            dataProfile[0].Type,
+            InfoUser[0].FullName,
+            this.state.Status,
+            this.state.linkImg,
+            InfoUser[0].Avatar,
+            this.state.ArrOptions).then(dataPost => {
+            // data = JSON.parse(dataPost);
+            console.log('thong bao postbai', dataPost)
+            // if (data.ErrorCode === "00") {
+            //     Alert.alert(
+            //         'Alert',
+            //         data.Message,
+            //         [
+            //             {
+            //                 text: 'OK', onPress: () => {
+            //                     this.sendPost( data.Value.CreatedTime, this.state.Status,data.Value.PostID)
+            //                     this.props.navigation.goBack()
+            //                 }
+            //             },
+            //         ],
+            //         {cancelable: false}
+            //     )
+            // }
+            // else {
+            //     Alert.alert(
+            //         'Alert',
+            //         data.Message,
+            //         [
+            //             {text: 'OK', onPress: () => console.log('OK Pressed')},
+            //         ],
+            //         {cancelable: false}
+            //     )
+            // }
+
+        })
+
+    }
+
+
+
     render() {
+        const {  InfoUser } = this.props
+        if (InfoUser.length <=0) {
+            return null
+        }
+
+        // console.log('infouser', InfoUser)
         let img = this.state.avatarSource == null ? null :
             <Image
                 source={this.state.avatarSource}
@@ -170,11 +240,19 @@ class SoanTinCuDan extends Component {
                                         borderColor:'#E0E0E0',
                                         borderWidth: 1, width: "85%",
                                     }}>
-                                        <TextInput placeholder={item.option}
+                                        <TextInput placeholder = {item.option}
                                                    style = {{padding:0, marginLeft: 10, flex:1}}
                                                    underlineColorAndroid="transparent"
-                                                   onChangeText={(Status) => this.setState({Status})}
                                                    placeholderTextSize="20"
+                                                   onChangeText = {(text)=>{
+                                                       const ArrOptions = this.state.ArrOptions.map(toa=>{
+                                                           if(toa == item) {
+                                                               toa.option = text
+                                                           }
+                                                           return toa;
+                                                       })
+                                                       this.setState({ArrOptions}, ()=> console.log('listToa', ArrOptions))
+                                                   }}
                                         />
 
                                     </View>
@@ -267,7 +345,7 @@ class SoanTinCuDan extends Component {
                                 <Icon name="md-images" size={25} color="#900"
                                       style={{flex: 1}}/>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress = {() => this.DangBaiViet()}>
                                 <View style = {{marginLeft: 10,marginRight: 10, backgroundColor:'#B3E5FC', borderWidth:1, borderRadius:3, borderColor:'#81D4FA', alignItems:'center', justifyContent:'center', height:25, width:65}}>
                                     <Text>Đăng</Text>
                                 </View>

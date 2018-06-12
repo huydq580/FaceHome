@@ -100,7 +100,7 @@ export default class TaoThongTinKDT extends Component {
                 <View style = {styles.itemBoder}>
                     <Picker
                         selectedValue={
-                            this.state.ToaNha //cái này là gì thế, số lượng à? vâng. Đặt tên bêến ko ổn nhé
+                            this.state.ToaNha
                         }
                         onValueChange={(value) => {
                             this.change(value)

@@ -1,7 +1,7 @@
 import {CreatePost, URL} from "../../components/Api";
 
 
-export const callApiCreatePost = (kdt_id, user_id, profile_id, user_type, full_name, post_content, images, avatar) => {
+export const callApiCreatePost = (kdt_id, user_id, intUser, user_type, full_name, post_content, images, avatar, ltPoll) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + CreatePost, {
@@ -12,14 +12,15 @@ export const callApiCreatePost = (kdt_id, user_id, profile_id, user_type, full_n
                 body: JSON.stringify({
                     kdt_id: kdt_id,
                     user_id: user_id,
-                    profile_id: profile_id,
+                    intUser: intUser,
                     user_type: user_type,
                     full_name: full_name,
                     post_content: post_content,
                     images: images  ,
                     avatar: avatar,
+                    ltPoll: ltPoll,
                     videos: "",
-                    pin: 1,
+                    pin: 0,
                     lang_name: "vi_VN"
 
                 })
