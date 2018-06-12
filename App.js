@@ -57,7 +57,7 @@ export default class App extends Component<{}> {
         ]);
     return (
         <Provider store={store}>
-          <ThamDoYKien/>
+          <Stack/>
         </Provider>
     );
   }

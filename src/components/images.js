@@ -9,5 +9,6 @@ const images = {
     vote: require('../images/vote.jpg'),
     warning: require('../images/warning.png'),
     mess_admin: require('../images/mess_admin.png'),
+    insert: require('../images/insert.png'),
 }
 export default images;
