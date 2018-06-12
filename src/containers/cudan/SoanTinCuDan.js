@@ -24,6 +24,7 @@ import images from "../../components/images";
 import {callApiUploadImage} from "../../actions/cudan/UploadImageActions";
 import {callApiCreatePost} from "../../actions/cudan/CreatePostActions";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
+import {NavigationActions} from "react-navigation";
 
 
 class SoanTinCuDan extends Component {
@@ -49,6 +50,7 @@ class SoanTinCuDan extends Component {
             resizedImageUri: '',
             isCheck: true,
             isCheck1: true,
+            type: 0,
             ArrOptions: [
                 {
                     option: "Lựa chọn 1",
@@ -80,13 +82,14 @@ class SoanTinCuDan extends Component {
         this.setState({
             isCheck1: false,
             isCheck: false,
+            type :1,
             ArrOptions: [
                 {
-                    option: "Lựa chọn 1",
+                    OptionContent: "Lựa chọn 1",
                     id: 1,
                 },
                 {
-                    option: "Lựa chọn 2",
+                    OptionContent: "Lựa chọn 2",
                     id: 2
                 }
             ]
@@ -98,7 +101,7 @@ class SoanTinCuDan extends Component {
         // console.log('push')
         // console.log('ArrOptions', this.state.ArrOptions)
         var ArrMoi = this.state.ArrOptions
-        ArrMoi.push({"option": `Lựa chọn ${index + 2}`})
+        ArrMoi.push({"OptionContent": `Lựa chọn ${index + 2}`})
         this.setState({
             ArrOptions: ArrMoi
         })
@@ -121,9 +124,19 @@ class SoanTinCuDan extends Component {
             // console.log('dataImage1', dataImg)
             this.setState({
                 linkImg: LINKIMG + dataImg
-            }, console.log('linkImg', this.state.linkImg))
+            }, () => console.log('linkImg', this.state.linkImg))
         })
     }
+    // componentWillUnmount() {
+    //     this.state.Status ? Alert.alert(
+    //         'Thông báo',
+    //         data.Message,
+    //         [
+    //             {text: 'OK', onPress: () => console.log('OK Pressed')},
+    //         ],
+    //         {cancelable: false}
+    //     ) : null
+    // }
 
     DangBaiViet = () => {
         const { callApiCreatePost, InfoUser } = this.props
@@ -133,7 +146,7 @@ class SoanTinCuDan extends Component {
         let dataLtProfile = ( InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
         console.log('dataPro', dataProfile)
-        console.log('dataPro', dataProfile[0].KDTID)
+        console.log("type", this.state.type)
         callApiCreatePost(
             dataProfile[0].KDTID,
             InfoUser[0].UserID,
@@ -143,34 +156,25 @@ class SoanTinCuDan extends Component {
             this.state.Status,
             this.state.linkImg,
             InfoUser[0].Avatar,
+            this.state.type,
             this.state.ArrOptions).then(dataPost => {
-            // data = JSON.parse(dataPost);
-            console.log('thong bao postbai', dataPost)
-            // if (data.ErrorCode === "00") {
-            //     Alert.alert(
-            //         'Alert',
-            //         data.Message,
-            //         [
-            //             {
-            //                 text: 'OK', onPress: () => {
-            //                     this.sendPost( data.Value.CreatedTime, this.state.Status,data.Value.PostID)
-            //                     this.props.navigation.goBack()
-            //                 }
-            //             },
-            //         ],
-            //         {cancelable: false}
-            //     )
-            // }
-            // else {
-            //     Alert.alert(
-            //         'Alert',
-            //         data.Message,
-            //         [
-            //             {text: 'OK', onPress: () => console.log('OK Pressed')},
-            //         ],
-            //         {cancelable: false}
-            //     )
-            // }
+            data = JSON.parse(dataPost);
+            console.log('thong bao postbai', data)
+            if (data.ErrorCode === "00") {
+                this.props.navigation.dispatch(NavigationActions.pop({
+                    n: 2,
+                }))
+            }
+            else {
+                Alert.alert(
+                    'Thông báo',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    {cancelable: false}
+                )
+            }
 
         })
 
@@ -234,7 +238,7 @@ class SoanTinCuDan extends Component {
                         </View>
                     </View>
                     <View style={{marginHorizontal: 10, marginTop: 10}}>
-                        <TextInput placeholder='Đặt câu hỏi'
+                        <TextInput placeholder='Đặt câu hỏi?'
                                    underlineColorAndroid="transparent"
                                    onChangeText={(Status) => this.setState({
                                        Status
@@ -261,7 +265,7 @@ class SoanTinCuDan extends Component {
                                                    onChangeText = {(text)=>{
                                                        const ArrOptions = this.state.ArrOptions.map(toa=>{
                                                            if(toa == item) {
-                                                               toa.option = text
+                                                               toa.OptionContent = text
                                                            }
                                                            return toa;
                                                        })

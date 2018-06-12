@@ -1,7 +1,7 @@
 import {CreatePost, URL} from "../../components/Api";
 
 
-export const callApiCreatePost = (kdt_id, user_id, intUser, user_type, full_name, post_content, images, avatar, ltPoll) => {
+export const callApiCreatePost = (kdt_id, user_id, intUser, user_type, full_name, post_content, images, avatar, type, ltPoll) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + CreatePost, {
@@ -18,6 +18,7 @@ export const callApiCreatePost = (kdt_id, user_id, intUser, user_type, full_name
                     post_content: post_content,
                     images: images  ,
                     avatar: avatar,
+                    type: type,
                     ltPoll: ltPoll,
                     videos: "",
                     pin: 0,
