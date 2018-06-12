@@ -193,10 +193,15 @@ class DaCoCanHo extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
-        callApiSearchPost(this.state.page_index, InfoUser[0].KDTID).then(dataRes => {
+        let dataLtProfile = ( InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        callApiSearchPost(this.state.page_index, dataProfile[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            // console.log('bai viet sanh chinh', dataBaiViet)
+            let dataPoll = ( dataBaiViet[0].Poll) ? dataBaiViet[0].Poll : null
+            dataPoll1 = dataPoll ? JSON.parse(dataPoll): null;
+            console.log('dataPoll', dataPoll1)
+            console.log('bai viet sanh chinh', dataBaiViet)
             if (dataBaiViet.length <= 0) {
                 return null
             }

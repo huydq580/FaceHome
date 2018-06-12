@@ -14,6 +14,7 @@ import {SOCKET} from "../Api";
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import { callApiSearchCmt } from "../../actions/SearchCmtActions";
+import images from "../images";
 
 class StatusItemCuDan extends Component {
     constructor(props) {
@@ -67,10 +68,9 @@ class StatusItemCuDan extends Component {
                 <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
-                                source={{
-                                    // uri: item.Avatar
-                                    uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                                }}
+                                source={
+                                    item.Avatar == "http://image.facehome.vn/avatar/default.png" ? images.noavatar : {uri: item.Avatar}
+                                }
                                style={styles.image_circle}
                                resizeMode="cover">
                         </Image>
