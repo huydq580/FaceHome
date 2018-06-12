@@ -23,9 +23,21 @@ import {LINKIMG, SOCKET, URL} from "../../components/Api";
 import images from "../../components/images";
 import {callApiUploadImage} from "../../actions/cudan/UploadImageActions";
 import {callApiCreatePost} from "../../actions/cudan/CreatePostActions";
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 
 
 class SoanTinCuDan extends Component {
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+
+        return {
+            title:'Tạo bài viết',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
     constructor(props) {
         super(props)
         this.state = {
@@ -183,14 +195,15 @@ class SoanTinCuDan extends Component {
                 {this.state.isCheck1 ? <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
-                            source={{
-                                uri: "https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg"
-                            }}
+                            source={
+                                // uri: InfoUser[0].Avatar
+                                !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
+                            }
                             style={styles.image_circle}
                             resizeMode="cover">
                         </Image>
                         <View style={{marginLeft: 10}}>
-                            <Text style={{color: 'black'}}>Nguyễn Văn Hiệu</Text>
+                            <Text style={{color: 'black'}}>{InfoUser[0].FullName}</Text>
                             <Text>Mọi người</Text>
                         </View>
                     </View>
@@ -208,9 +221,10 @@ class SoanTinCuDan extends Component {
                 </View> : <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
-                            source={{
-                                uri: "https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg"
-                            }}
+                            source={
+                                // uri: InfoUser[0].Avatar
+                                !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
+                            }
                             style={styles.image_circle}
                             resizeMode="cover">
                         </Image>

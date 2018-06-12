@@ -87,7 +87,10 @@ class TaiKhoanCuaBanCuDan extends Component {
         const { navigation } = this.props;
         return (
             <ScrollView style = {stylesContainer.container}>
-                <Header source = {{uri: "https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg"}}
+                <Header source={
+                    // uri: InfoUser[0].Avatar
+                    !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
+                }
                         textName = {InfoUser[0].FullName}
                         Title = "Xem trang cá nhân của bạn"/>
                 <TitleView titleText = "Thông tin cơ bản"
