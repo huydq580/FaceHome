@@ -17,9 +17,9 @@ import { connect } from 'react-redux'
 import Communications from 'react-native-communications';
 import {callApiCanhBaoChay, callApiSearchCanhBaoChay} from "../../../actions/actionsBQL/CanhBaoChayNhanhActions";
 import PickerImage from "../../../components/PickerImage";
-import {callApiUploadImage} from "../../../actions/SoanTinActions";
 import CanhBaoChayItem from "../../../components/canhbaochay/CanhBaoChayItem";
 import {LINKIMG} from "../../../components/Api";
+import {callApiUploadImage} from "../../../actions/cudan/UploadImageActions";
 
 class CanhBaoChayNhanh extends Component {
     constructor(props){

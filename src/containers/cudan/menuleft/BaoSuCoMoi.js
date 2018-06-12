@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import stylesContainer from "../../../components/style";
 import {LINKIMG, PostSuco, URL} from "../../../components/Api";
 import PickerImage from "../../../components/PickerImage";
-import {callApiUploadImage} from "../../../actions/SoanTinActions";
+import {callApiUploadImage} from "../../../actions/cudan/UploadImageActions";
 
 class BaoSuCoMoi extends Component {
     constructor(props){

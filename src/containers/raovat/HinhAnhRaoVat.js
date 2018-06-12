@@ -11,8 +11,8 @@ import Dimensions from 'Dimensions';
 import PickerImage from '../../components/PickerImage'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {callApiUploadImage} from "../../actions/SoanTinActions";
 import {LINKIMG} from "../../components/Api";
+import {callApiUploadImage} from "../../actions/cudan/UploadImageActions";
 
 class HinhAnhRaoVat extends Component {
     constructor(props) {

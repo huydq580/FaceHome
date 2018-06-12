@@ -18,21 +18,18 @@ import {connect} from 'react-redux'
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
 import Icon from 'react-native-vector-icons/Ionicons';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SocketIOClient from "socket.io-client";
-import {LINKIMG, SOCKET} from "../../components/Api";
-import {callApiCreatePost, callApiUploadImage} from "../../actions/SoanTinActions";
+import {LINKIMG, SOCKET, URL} from "../../components/Api";
 import images from "../../components/images";
-import TypePost from "../../components/soanbaivietcudan/TypePost";
-import Toolbar from "../../components/soanbaivietcudan/Toolbar";
-import Post from "../../components/soanbaivietcudan/Post";
+import {callApiUploadImage} from "../../actions/cudan/UploadImageActions";
+import {callApiCreatePost} from "../../actions/cudan/CreatePostActions";
 
 
 class SoanTinCuDan extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            linkImg: 'http://192.168.1.254:9051',
+            linkImg: URL,
             Status: '',
             avatarSource: null,
             dataImage: null,
@@ -57,29 +54,60 @@ class SoanTinCuDan extends Component {
         });
     }
 
+    //show toolbar
     handleTextInput = () => {
         this.setState({
             isCheck: false
         })
 
     }
+
+    //show tham do y kien
     ThamDoYKien = () => {
         this.setState({
             isCheck1: false,
             isCheck: false
         })
     }
+
+    //them 1 lua chon
     Push = (index) => {
-        console.log('push')
-        console.log('ArrOptions', this.state.ArrOptions)
+        // console.log('push')
+        // console.log('ArrOptions', this.state.ArrOptions)
         var ArrMoi = this.state.ArrOptions
         ArrMoi.push({"option": `Lựa chọn ${index + 2}`})
         this.setState({
             ArrOptions: ArrMoi
-        }, () => console.log('this.state.ArrOptions', this.state.ArrOptions))
+        })
+    }
+    //show image
+    show() {
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}, ()=>{
+            this.upload()
+        }));
+    }
+    // upload image
+    upload() {
+        const {InfoUser, callApiUploadImage} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        callApiUploadImage(InfoUser[0].UserID, this.state.dataImage).then(dataImg => {
+            dataImg = JSON.parse(dataImg)
+            dataImg = dataImg.Value
+            // console.log('dataImage1', dataImg)
+            this.setState({
+                linkImg: LINKIMG + dataImg
+            }, console.log('linkImg', this.state.linkImg))
+        })
     }
 
     render() {
+        let img = this.state.avatarSource == null ? null :
+            <Image
+                source={this.state.avatarSource}
+                style={{height: 200, width: 200}}
+            />
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
                 {this.state.isCheck1 ? <View>
@@ -106,6 +134,7 @@ class SoanTinCuDan extends Component {
                                    }}
                         />
                     </View>
+                    {img}
                 </View> : <View>
                     <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Image
@@ -234,7 +263,7 @@ class SoanTinCuDan extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style = {{flexDirection:'row'}}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={this.show.bind(this)}>
                                 <Icon name="md-images" size={25} color="#900"
                                       style={{flex: 1}}/>
                             </TouchableOpacity>
@@ -255,6 +284,20 @@ class SoanTinCuDan extends Component {
 
 }
 
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
+        callApiCreatePost: bindActionCreators(callApiCreatePost, dispatch)
+    }
+};
+
+SoanTinCuDan = connect(mapStateToProps, mapDispatchToProps)(SoanTinCuDan);
 export default SoanTinCuDan;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;

@@ -21,19 +21,6 @@ import store from './src/store'
 import Stack from './src/router/Navigation'
 
 import SocketIOClient from "socket.io-client";
-import ChuyenDiaDiem from "./src/containers/cudan/menuleft/ChuyenDiaDiem";
-import TaiKhoanCuaBanCuDan from "./src/containers/cudan/menuleft/TaiKhoanCuaBanCuDan";
-import GioiThieuKDT from "./src/containers/cudan/GioiThieuKDT";
-import CapMaCanHo from "./src/containers/cudan/menuleft/CapMaCanHo";
-import QuanLyCanHo from "./src/containers/cudan/menuleft/QuanLyCanHo";
-import DangKyNhaCungCap from "./src/containers/cudan/menuleft/DangKyNhaCungCap";
-import CuDanKhac from "./src/containers/cudan/menuleft/CuDanKhac";
-import DichVu from "./src/containers/cudan/DichVu";
-import SoanTinCuDan from "./src/containers/cudan/SoanTinCuDan";
-import ChuaCoCanHo from "./src/containers/cudan/DaCoCanHo";
-import SearchFaceHome from "./src/containers/cudan/SearchFaceHome";
-import SearchDanCuItem from "./src/components/searchfacehome/SearchDanCuItem";
-import ThamDoYKien from "./src/components/soanbaivietcudan/ThamDoYKien";
 
 export default class App extends Component<{}> {
     // componentDidMount() {

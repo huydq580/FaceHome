@@ -20,7 +20,6 @@ import StatusItems from "../../../components/status/StatusItems";
 import {callApiSearchPost} from "../../../actions/SearchPostActions";
 import {GetProfileBQL, LINKIMG, URL} from "../../../components/Api";
 import PickerImage from "../../../components/PickerImage";
-import {callApiUploadImage} from "../../../actions/SoanTinActions";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 
 

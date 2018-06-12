@@ -17,8 +17,8 @@ import Icon1 from 'react-native-vector-icons/Entypo';
 import stylesContainer from "../../../components/style";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 import PickerImage from "../../../components/PickerImage";
-import {callApiUploadImage} from "../../../actions/SoanTinActions";
 import {LINKIMG, URL} from "../../../components/Api";
+import {callApiUploadImage} from "../../../actions/cudan/UploadImageActions";
 
 class ThongTinCaNhanBQL extends Component {
     constructor(props) {

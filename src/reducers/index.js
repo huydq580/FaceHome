@@ -6,7 +6,6 @@ import CanhBaoChayNhanhReducers from './reducersBQl/CanhBaoChayNhanhReducers'
 import BQLReducers from './reducersBQl/BQLReducers'
 import QLDanCuReducers from './reducersBQl/QLDanCuReducers'
 import NhaCuDanReducers from './reducersCuDan/NhaCuDanReducers'
-import SoanTinReducers from './SoanTinReducers'
 import TinhThanhReducers from './TinhThanhReducers'
 import QuanHuyenReducers from './QuanHuyenReducers'
 import KDTReducers from './KDTReducers';
@@ -35,6 +34,8 @@ import ThemCanHoReducers from "./cudan/ThemCanHoReducers";
 import ThanhVienCanHoReducers from "./cudan/ThanhVienCanHoReducers";
 import RequestRegCodeReducers from "./cudan/RequestRegCodeReducers";
 import SearchFaceHomeReducers from "./cudan/SearchFaceHomeReducers";
+import UploadImageReducers from "./cudan/UploadImageReducers";
+import CreatePostReducers from "./cudan/CreatePostReducers";
 
 
 const appStore = combineReducers({
@@ -45,7 +46,6 @@ const appStore = combineReducers({
     BQLReducers,
     QLDanCuReducers,
     NhaCuDanReducers,
-    SoanTinReducers,
     TinhThanhReducers,
     QuanHuyenReducers,
     KDTReducers,
@@ -75,7 +75,10 @@ const appStore = combineReducers({
     ThemCanHoReducers,
     ThanhVienCanHoReducers,
     RequestRegCodeReducers,
-    SearchFaceHomeReducers
+    SearchFaceHomeReducers,
+    CreatePostReducers,
+    UploadImageReducers
+
 
 
 

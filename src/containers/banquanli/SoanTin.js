@@ -16,9 +16,10 @@ import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
 import Icon from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {callApiCreatePost, callApiUploadImage} from "../../actions/SoanTinActions";
 import SocketIOClient from "socket.io-client";
 import {LINKIMG, SOCKET} from "../../components/Api";
+import {callApiCreatePost} from "../../actions/cudan/CreatePostActions";
+import {callApiUploadImage} from "../../actions/cudan/UploadImageActions";
 
 
 class SoanTin extends Component {

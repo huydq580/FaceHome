@@ -15,8 +15,8 @@ import stylesContainer from "../../../components/style";
 import PickerImage from "../../../components/PickerImage";
 import {callApiUpdateProfile} from "../../../actions/actionsBQL/UpdateProfileActions";
 import {bindActionCreators} from "redux";
-import {callApiUploadImage} from "../../../actions/SoanTinActions";
 import {LINKIMG} from "../../../components/Api";
+import {callApiUploadImage} from "../../../actions/cudan/UploadImageActions";
 
 class ThongTinCaNhanCuDan extends Component {
     constructor(props) {
