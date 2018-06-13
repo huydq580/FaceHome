@@ -113,6 +113,7 @@ class BinhLuanCuDan extends Component {
     }
     Comment =() => {
         const { params } = this.props.navigation.state
+        console.log("params", params)
         if (this.input_msg === "")
             return;
         this.textInput.clear();
@@ -121,9 +122,10 @@ class BinhLuanCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null
         }
-        callApiPostCmt(params.PostId, InfoUser[0].UserID,InfoUser[0].ProfileID, InfoUser[0].Type, InfoUser[0].FullName, SendCMT).then(dataRes => {
+        callApiPostCmt(params.PostId, InfoUser[0].UserID,"", InfoUser[0].Type, InfoUser[0].FullName, SendCMT).then(dataRes => {
             data = JSON.parse(dataRes);
-            this.sendCmt( data.Value.CommentID ,data.Value.CreatedDate, SendCMT)
+            console.log('data', data)
+            // this.sendCmt( data.Value.CommentID ,data.Value.CreatedDate, SendCMT)
         })
     }
     render (){

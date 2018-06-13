@@ -1,141 +1,118 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
+    StyleSheet,
     View,
     Text,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity
+    Dimensions,
+    TouchableOpacity,
 } from 'react-native';
-import Dimensions from 'Dimensions';
-const DEVICE_WIDTH = Dimensions.get('window').width;
-import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
 
-class DangKyNhaCungCap extends Component {
-    static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
+import MapView, { Marker, ProviderPropType } from 'react-native-maps';
+import flagPinkImg from '../../../images/insert.png';
 
-        return {
-            title:'Đăng kí tài khoản',
-            headerStyle: {backgroundColor: BACKGROUND_HEADER},
-            headerTitleStyle: {color: TITLE_HEADER},
-            headerTintColor: TITLE_HEADER,
+const { width, height } = Dimensions.get('window');
 
-        }
+const ASPECT_RATIO = width / height;
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+let id = 0;
+
+class DangKyNhaCungCap extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            region: {
+                latitude: LATITUDE,
+                longitude: LONGITUDE,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+            },
+            markers: [],
+        };
+
+        this.onMapPress = this.onMapPress.bind(this);
     }
-    render () {
-        return(
-            <View>
-                <View style = {styles.headerView}>
-                    <Text style = {styles.headerText}>
-                        Trở thành nhà cung cấp của Facehome bạn sẽ có cơ hội quảng
-                        cáo sản phẩm dịch vụ cho toàn bộ cộng đồng dân cư quanh khu
-                        vực của bạn. Cộng đồng cư dân sẽ nhìn thấy dịch vụ của bạn
-                        trong mục dịch vụ của ứng dụng và có thể nhắn tin trực tiếp tới
-                        bạn qua ứng dụng Facehome
-                    </Text>
 
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <View
-                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
-                        <TextInput
-                            style={{marginLeft: 10, padding: 0}}
-                            placeholder='Nhập mật khẩu '
-                            underlineColorAndroid="transparent"
-                            returnKeyType={"next"}
-                            onChangeText={(Ho) => this.setState({Ho})}/>
-                    </View>
+    onMapPress(e) {
+        this.setState({
+            markers: [
+                ...this.state.markers,
+                {
+                    coordinate: e.nativeEvent.coordinate,
+                    key: `foo${id++}`,
+                },
+            ],
+        });
+    }
 
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <View
-                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
-                        <TextInput
-                            style={{marginLeft: 10, padding: 0}}
-                            placeholder='Loại hình dịch vụ '
-                            underlineColorAndroid="transparent"
-                            returnKeyType={"next"}
-                            onChangeText={(Ho) => this.setState({Ho})}/>
-                    </View>
-                    {/*<Text>(*)</Text>*/}
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <View
-                        style={{height: 100, borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
-                        <TextInput
-                            style={{marginLeft: 10, padding: 0}}
-                            placeholder='Mô tả dịch vụ '
-                            underlineColorAndroid="transparent"
-                            returnKeyType={"next"}
-                            onChangeText={(Ho) => this.setState({Ho})}/>
-                    </View>
-                    {/*<Text>(*)</Text>*/}
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <View
-                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
-                        <TextInput
-                            style={{marginLeft: 10, padding: 0}}
-                            placeholder='Tên nhà cung cấp '
-                            underlineColorAndroid="transparent"
-                            returnKeyType={"next"}
-                            onChangeText={(Ho) => this.setState({Ho})}/>
-                    </View>
-                    {/*<Text>(*)</Text>*/}
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <View
-                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
-                        <TextInput
-                            style={{marginLeft: 10, padding: 0}}
-                            placeholder='Số điện thoại liên hệ'
-                            underlineColorAndroid="transparent"
-                            returnKeyType={"next"}
-                            onChangeText={(Ho) => this.setState({Ho})}/>
-                    </View>
-                    {/*<Text>(*)</Text>*/}
-                </View>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                    <View
-                        style={{borderWidth: 1, borderColor: 'black', marginTop: 5, marginHorizontal: 50, flex: 1}}>
-                        <TextInput
-                            style={{marginLeft: 10, padding: 0}}
-                            placeholder='Địa chỉ cửa hàng'
-                            underlineColorAndroid="transparent"
-                            returnKeyType={"next"}
-                            onChangeText={(Ho) => this.setState({Ho})}/>
-                    </View>
-                    {/*<Text>(*)</Text>*/}
-                </View>
-                <View style = {{marginTop: 10, flexDirection: 'row', justifyContent: 'space-between', marginHorizontal:50, alignItems:'center'}}>
-                    <Text style = {{color: 'black'}}>
-                        Hình ảnh
-                    </Text>
-                    <TouchableOpacity onPress = {()=> this.props.navigation.navigate('DangKyNhaCungCap')}>
-                        <View style = {{justifyContent:'center',
-                            alignItems:'center', borderWidth: 1,
-                            borderRadius: 3, height: 30,
-                            width: 90}}>
-                            <Text>
-                               Tải lên
-                            </Text>
-                        </View>
+    render() {
+        return (
+            <View style={styles.container}>
+                <MapView
+                    style={ styles.map }
+                    initialRegion={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                />
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        onPress={() => this.setState({ markers: [] })}
+                        style={styles.bubble}
+                    >
+                        <Text>Tap to create a marker of random color</Text>
                     </TouchableOpacity>
-
                 </View>
-                <Text style = {{color: "black", marginLeft: 50, marginTop:10}}>Xác nhận vị trí cửa hàng trên bản đồ</Text>
-
             </View>
-        )
+        );
     }
 }
-export default DangKyNhaCungCap
+
 const styles = StyleSheet.create({
-    headerView : {
-        marginHorizontal: 20,
-        marginTop: 10
+    container: {
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
     },
-    headerText: {
-        color: 'black'
-    }
-})
+    map: {
+        ...StyleSheet.absoluteFillObject,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    bubble: {
+        backgroundColor: 'rgba(255,255,255,0.7)',
+        paddingHorizontal: 18,
+        paddingVertical: 12,
+        borderRadius: 20,
+    },
+    latlng: {
+        width: 200,
+        alignItems: 'stretch',
+    },
+    button: {
+        width: 80,
+        paddingHorizontal: 12,
+        alignItems: 'center',
+        marginHorizontal: 10,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginVertical: 20,
+        backgroundColor: 'transparent',
+    },
+});
+
+export default DangKyNhaCungCap;
