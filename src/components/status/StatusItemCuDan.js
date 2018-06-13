@@ -75,8 +75,6 @@ class StatusItemCuDan extends Component {
             return null
         }
         const {item} = this.props.dataItem;
-        console.log('item', this.state.ArrPoll)
-
         return (
             <View>
                 {
