@@ -1,7 +1,7 @@
 // export const URL = "http://222.252.16.186:9051/";
-export const URL = "http://118.70.117.190:9051/";
+export const URL = "http://192.168.0.200:9051/";
 export const LINKIMG = "http://118.70.117.190:9051";
-export const LINKVIDEO = "http://192.168.0.252:9051";
+export const LINKVIDEO = "http://192.168.0.200:9051";
 //Location
 export const GetData = "api/location/getdata";
 //KDT
@@ -85,7 +85,7 @@ export const SaveComment = "api/SuCo/SaveComment";
 
 //api socket
 // export const URL_SOCKET = "http://222.252.16.186:9060/";
-export const URL_SOCKET = "http://118.70.117.190:9060/";
+export const URL_SOCKET = "http://192.168.0.200:9060/";
 export const Get_User = "messages/groupmessagebyuser";
 export const Get_Message = "messages/detailmessagebygroupuse";
 export const MsgGroupID = "msg_group/createupdatemsg_group";
@@ -96,5 +96,5 @@ export const GetlAlNotifcation = "pushnotification/getallnotifcation";
 
 // socket
 // export const SOCKET = "http://222.252.16.186:9061/";
-export const SOCKET = "http://118.70.117.190:9061/";
+export const SOCKET = "http://192.168.0.200:9061/";
 

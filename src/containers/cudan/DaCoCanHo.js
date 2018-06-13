@@ -198,9 +198,6 @@ class DaCoCanHo extends Component {
         callApiSearchPost(this.state.page_index, dataProfile[0].KDTID).then(dataRes => {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
-            let dataPoll = ( dataBaiViet[0].Poll) ? dataBaiViet[0].Poll : null
-            dataPoll1 = dataPoll ? JSON.parse(dataPoll): null;
-            console.log('dataPoll', dataPoll1)
             console.log('bai viet sanh chinh', dataBaiViet)
             if (dataBaiViet.length <= 0) {
                 return null
