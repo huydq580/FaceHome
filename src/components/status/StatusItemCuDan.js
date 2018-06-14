@@ -12,7 +12,7 @@ import moment from 'moment';
 import Dimensions from 'Dimensions';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
 import SocketIOClient from "socket.io-client";
-import {LikePost, SOCKET, URL_SOCKET} from "../Api";
+import {LikePost, SOCKET, URL, URL_SOCKET} from "../Api";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmt} from "../../actions/SearchCmtActions";
@@ -126,8 +126,13 @@ class StatusItemCuDan extends Component {
     }
     componentDidMount () {
         const {item} = this.props.dataItem;
+        let dataLike = ( item.LikePost ) ? item.LikePost : null
+        // ArrUserLiked = dataLike ? JSON.parse(dataLike): null;
+        // console.log('userLiked', ArrUserLiked)
         let dataPoll = ( item.Poll) ? item.Poll : null
+        console.log('item.dataPoll', dataPoll)
         Poll = dataPoll ? JSON.parse(dataPoll): null;
+        console.log('poll', Poll)
         this.setState({
             ArrPoll: Poll
         })
@@ -161,7 +166,7 @@ class StatusItemCuDan extends Component {
                             <Text style={{color: '#212121'}}>{item.PostContent}</Text>
                         </View>
                         {
-                            (item.Images == "http://118.70.117.190:9051/" || item.Images == "") ?
+                            (item.Images == URL || item.Images == "") ?
                                 null
                                 : <Image source={{
                                     uri: item.Images
