@@ -126,13 +126,19 @@ class StatusItemCuDan extends Component {
     }
     componentDidMount () {
         const {item} = this.props.dataItem;
+        //ArrUser Liked
         let dataLike = ( item.LikePost ) ? item.LikePost : null
-        // ArrUserLiked = dataLike ? JSON.parse(dataLike): null;
+        ArrUserLiked = dataLike ? JSON.parse(dataLike): null;
+        //Get Arr IntUserID
+        var ArrIntUserID = ArrUserLiked.map(function(o) { return o.IntUserID; });
+        // console.log('value', values)
+
+        if (ArrIntUserID.indexOf(this.props.InfoUser[0].IntUserID) > -1) {
+            this.setState({ liked: true })
+        }
         // console.log('userLiked', ArrUserLiked)
         let dataPoll = ( item.Poll) ? item.Poll : null
-        console.log('item.dataPoll', dataPoll)
         Poll = dataPoll ? JSON.parse(dataPoll): null;
-        console.log('poll', Poll)
         this.setState({
             ArrPoll: Poll
         })
