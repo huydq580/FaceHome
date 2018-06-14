@@ -4,14 +4,15 @@ import {
     Text,
     TouchableOpacity,
     Image, StyleSheet,
-    FlatList
+    FlatList,
+    Alert
 
 } from 'react-native'
 import moment from 'moment';
 import Dimensions from 'Dimensions';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
 import SocketIOClient from "socket.io-client";
-import {SOCKET} from "../Api";
+import {LikePost, SOCKET, URL_SOCKET} from "../Api";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmt} from "../../actions/SearchCmtActions";
@@ -27,29 +28,93 @@ class StatusItemCuDan extends Component {
             transports: ['websocket'],
 
         });
+        this.countliked = this.props.dataItem.item.TotalLike;
         this.state = {
             TongCmt: "",
             checkLike: true,
-            ArrPoll: []
+            ArrPoll: [],
+            liked: false,
+            countLike: this.countliked,
         }
     }
     onClick = () => {
         console.log('hihi')
     }
-    LikePost = (PostID, DatePost) => {
-        this.setState({
-            checkLike: false
-        })
+    likePost = (PostID) => {
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null
         }
-        this.socket.emit('likepost', {
-            UserID: InfoUser[0].UserID,
-            PostID: PostID,
-            FullName: InfoUser[0].FullName,
-            DatePost: DatePost
-        })
+        fetch(URL_SOCKET + LikePost, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IntUserID: InfoUser[0].IntUserID,
+                PostID:PostID,
+                FullName: InfoUser[0].FullName,
+                Islike: true,
+                TableLog:0
+
+
+            })
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            console.log("data like", data);
+            if(data.Error === null) {
+                let currentLike = this.state.countLike;
+                currentLike++;
+
+                this.setState({ liked: true, countLike: currentLike });
+            }
+            else {
+                Alert.alert("Thông báo", "có lỗi sảy ra");
+            }
+        }).catch(e => {
+            console.log("exception", e);
+            Alert.alert("Thông báo", "Có lỗi khi like");
+        });
+
+    }
+
+    unlikePost = (PostID) => {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        fetch(URL_SOCKET + LikePost, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                IntUserID: InfoUser[0].IntUserID,
+                PostID:PostID,
+                FullName: InfoUser[0].FullName,
+                Islike: false,
+                TableLog:0
+
+
+            })
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            if(data.Error === null) {
+                let currentLike = this.state.countLike;
+                currentLike--;
+
+                this.setState({ liked: false, countLike: currentLike });
+            }
+            else {
+                Alert.alert("Thông báo", "có lỗi sảy ra");
+            }
+        }).catch(e => {
+            console.log("exception", e);
+            Alert.alert("Thông báo", "Có lỗi khi like");
+        });
+
     }
     BinhLuan = (PostID, UserID, ProfileID) => {
         const {callApiSearchCmt} = this.props
@@ -107,7 +172,7 @@ class StatusItemCuDan extends Component {
                         }
                         <View style={{flexDirection: 'row', marginTop: 20, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'row', marginLeft: 10}}>
-                                <Text>{item.TotalLike}</Text>
+                                <Text>{this.state.countLike}</Text>
                                 <Icon1 name="like" size={25} color="#424242"/>
                             </View>
                             <View style={{flexDirection: 'row', marginRight: 10}}>
@@ -119,15 +184,12 @@ class StatusItemCuDan extends Component {
                         <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
                         <View style={{flexDirection: 'row', marginTop: 5, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'row', marginLeft: 20}}>
-                                <Icon1 name="like" size={25} color="#424242"/>
-                                {
-                                    this.state.checkLike ?
-                                        <TouchableOpacity
-                                            onPress={() => this.LikePost()}
-                                        >
-                                            <Text style={{color: '#424242'}}>Thích</Text>
-                                        </TouchableOpacity> : <Text style={{color: '#424242'}}> Bỏ thích</Text>
-                                }
+                                <Icon1 name="like" size={25} color={this.state.liked ? "blue" : "#424242"} />
+                                <TouchableOpacity
+                                    onPress={() => this.state.liked ? this.unlikePost(item.PostID) : this.likePost(item.PostID)}
+                                >
+                                    <Text style={{ color: this.state.liked ? 'blue' : null }}>Thích</Text>
+                                </TouchableOpacity>
                             </View>
                             <View style={{flexDirection: 'row', marginRight: 20}}>
                                 <Icon1 name="comment" size={25} color="#424242"/>
@@ -249,7 +311,7 @@ class StatusItemCuDan extends Component {
                         />
                         <View style={{flexDirection: 'row', marginTop: 20, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'row', marginLeft: 10}}>
-                                <Text>{item.TotalLike}</Text>
+                                <Text>{this.state.countLike}</Text>
                                 <Icon1 name="like" size={25} color="#424242"/>
                             </View>
                             <View style={{flexDirection: 'row', marginRight: 10}}>
@@ -261,15 +323,12 @@ class StatusItemCuDan extends Component {
                         <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
                         <View style={{flexDirection: 'row', marginTop: 5, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'row', marginLeft: 20}}>
-                                <Icon1 name="like" size={25} color="#424242"/>
-                                {
-                                    this.state.checkLike ?
-                                        <TouchableOpacity
-                                            onPress={() => this.LikePost()}
-                                        >
-                                            <Text style={{color: '#424242'}}>Thích</Text>
-                                        </TouchableOpacity> : <Text style={{color: '#424242'}}> Bỏ thích</Text>
-                                }
+                                <Icon1 name="like" size={25} color={this.state.liked ? "blue" : "#424242"} />
+                                <TouchableOpacity
+                                    onPress={() => this.state.liked ? this.unlikePost(item.PostID) : this.likePost(item.PostID)}
+                                >
+                                    <Text style={{ color: this.state.liked ? 'blue' : null }}>Thích</Text>
+                                </TouchableOpacity>
                             </View>
                             <View style={{flexDirection: 'row', marginRight: 20}}>
                                 <Icon1 name="comment" size={25} color="#424242"/>

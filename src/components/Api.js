@@ -98,3 +98,5 @@ export const GetlAlNotifcation = "pushnotification/getallnotifcation";
 // export const SOCKET = "http://222.252.16.186:9061/";
 export const SOCKET = "http://192.168.0.200:9061/";
 
+//LikePost
+export const LikePost = "post/likepost";
