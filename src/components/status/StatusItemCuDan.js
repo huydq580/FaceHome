@@ -172,7 +172,7 @@ class StatusItemCuDan extends Component {
         const {item} = this.props.dataItem;
         //ArrUser Liked
         let dataLike = (item.LikePost) ? item.LikePost : null
-        ArrUserLiked = dataLike ? JSON.parse(dataLike) : null;
+        ArrUserLiked = dataLike ? JSON.parse(dataLike) : [];
         //Get Arr IntUserID
         var ArrIntUserID = ArrUserLiked.map(function (o) {
             return o.IntUserID;

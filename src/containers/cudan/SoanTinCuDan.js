@@ -62,12 +62,26 @@ class SoanTinCuDan extends Component {
                 }
             ]
         }
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        console.log('dataProfile', dataProfile)
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
             transports: ['websocket']
         });
+        this.socket.emit('loginpost', {
+            KDTID: dataProfile[0].KDTID,
+            IntUserID: InfoUser[0].IntUserID,
+
+        })
+
     }
+
 
     //show toolbar
     handleTextInput = () => {
@@ -137,6 +151,29 @@ class SoanTinCuDan extends Component {
     //         {cancelable: false}
     //     ) : null
     // }
+    SendPost = (PostID, CreatedDate, PostContent, Images, PollVote, Type) => {
+        const { InfoUser } = this.props
+        if (InfoUser.length <=0 ) {
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        let dataSendPost = {
+            KDTID: dataProfile[0].KDTID,
+            IntUserID: InfoUser[0].IntUserID,
+            PostID: PostID,
+            FullName:InfoUser[0].FullName ,
+            CreatedDate: CreatedDate,
+            PostContent: PostContent,
+            Avatar: InfoUser[0].Avatar ? InfoUser[0].Avatar : "http://image.facehome.vn/avatar/default.png",
+            UserType: 2,
+            Images: Images,
+            PollVote:PollVote,
+            Type: Type,
+            Comments: [],
+        }
+        this.socket.emit("post", dataSendPost);
+    }
 
     DangBaiViet = () => {
         const { callApiCreatePost, InfoUser } = this.props
@@ -145,8 +182,8 @@ class SoanTinCuDan extends Component {
         }
         let dataLtProfile = ( InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
-        console.log('dataPro', dataProfile)
-        console.log("type", this.state.type)
+        // console.log('dataPro', dataProfile)
+        // console.log("type", this.state.type)
         callApiCreatePost(
             dataProfile[0].KDTID,
             InfoUser[0].UserID,
@@ -161,6 +198,7 @@ class SoanTinCuDan extends Component {
             data = JSON.parse(dataPost);
             console.log('thong bao postbai', data)
             if (data.ErrorCode === "00") {
+                this.SendPost(data.Value.PostID, data.Value.CreatedTime, this.state.Status, this.state.linkImg, this.state.ArrOptions, this.state.type)
                 this.props.navigation.dispatch(NavigationActions.pop({
                     n: 2,
                 }))

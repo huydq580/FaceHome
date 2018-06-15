@@ -42,6 +42,8 @@ class DaCoCanHo extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
         this.fetchData()
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -49,9 +51,8 @@ class DaCoCanHo extends Component {
             transports: ['websocket']
         });
         this.socket.emit('loginpost', {
-            UserID: InfoUser[0].UserID,
-            KDTID: InfoUser[0].KDTID,
-            ProfileID: InfoUser[0].ProfileID,
+            KDTID: dataProfile[0].KDTID,
+            IntUserID: InfoUser[0].IntUserID,
         })
         this.socket.on('receivepost', (dataReceive) => {
             console.log('receivepost', dataReceive)
@@ -59,24 +60,7 @@ class DaCoCanHo extends Component {
             //set newMsg = messga receive
             let newPost = this.state.dataItem;
             //add message to array
-            newPost.unshift({
-                RowNum: dataReceive.RowNum,
-                KDTID: dataReceive.KDTID,
-                UserID: dataReceive.UserID,
-                ProfileID: dataReceive.ProfileID,
-                FullName: dataReceive.FullName,
-                Avatar: dataReceive.Avatar,
-                CreatedDate: dataReceive.CreatedDate,
-                UserType: dataReceive.UserType,
-                TotalComment: dataReceive.TotalComment,
-                TotalLike: dataReceive.TotalLike,
-                TotalShare: dataReceive.TotalShare,
-                PostContent: dataReceive.PostContent,
-                TotalRow: dataReceive.TotalRow,
-                PostID: dataReceive.PostID,
-                Comments: dataReceive.Comments,
-                Images: dataReceive.Images,
-            });
+            newPost.unshift(dataReceive);
             this.setState({dataItem: newPost});
 
         })
