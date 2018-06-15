@@ -11,9 +11,10 @@ import stylesContainer from "../../components/style";
 import CmtItem from "../../components/status/CmtItem";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {callApiPostCmt} from "../../actions/PostCmtActions";
+import {callApiPostCmt} from "../../actions/cudan/PostCmtActions";
 import SocketIOClient from "socket.io-client";
 import {SOCKET} from "../../components/Api";
+import TextInputChat from "../../components/TextInputChat";
 
 class BinhLuanCuDan extends Component {
     constructor(props){
@@ -36,7 +37,7 @@ class BinhLuanCuDan extends Component {
     }
     componentWillMount() {
         const { params } = this.props.navigation.state
-        // console.log('params', params.PostId)
+        console.log('params', params)
         const { InfoUser } = this.props;
         if (InfoUser.length <= 0) {
             return null;
@@ -46,11 +47,11 @@ class BinhLuanCuDan extends Component {
             pingInterval: 30000,
             transports: ['websocket']
         });
+        console.log('this.socket', this.socket)
         this.socket.emit('logincomment', {
-            UserID: InfoUser[0].UserID,
-            PostID: params.PostId,
-            ProfileID: params.ProfileID,
-            KDTID: InfoUser[0].KDTID,
+            PostID: params.InfoUserPost.PostID,
+            IntUserID: InfoUser[0].IntUserID,
+            KDTID: params.InfoUserPost.KDTID,
         })
         console.log('so luong cmt', this.state.dataCmt)
         this.socket.on('receivecomment', (dataReceive) => {
@@ -60,17 +61,14 @@ class BinhLuanCuDan extends Component {
             newCmt = this.state.dataCmt;
             //add message to array
             newCmt.push({
-                RowNum:dataReceive.RowNum,
-                CommentID:dataReceive.CommentID,
-                UserID:dataReceive.UserID,
-                ProfileID:dataReceive.ProfileID,
-                FullName:dataReceive.FullName,
-                Avartar:dataReceive.Avartar,
-                CreatedDate:dataReceive.CreatedDate,
-                UserType:dataReceive.UserType,
-                TotalLike:dataReceive.TotalLike,
+                Avatar: dataReceive.Avatar,
                 Content:dataReceive.Content,
-                TotalRow:dataReceive.TotalRow
+                DatePost:dataReceive.DatePost,
+                FullName:dataReceive.FullName,
+                IntUserID :dataReceive.IntUserID,
+                IntUserIDPost: dataReceive.IntUserIDPost,
+                KDTID:dataReceive.KDTID,
+                PostID: dataReceive.PostID
             });
             this.setState({dataCmt: newCmt});
 
@@ -79,7 +77,7 @@ class BinhLuanCuDan extends Component {
 
 
     }
-    sendCmt = (CommentID, CreatedDate, Content) => {
+    sendCmt = ( DatePost, Content) => {
         const { params } = this.props.navigation.state
         AsyncStorage.getItem("token").then(value => {
             console.log('value', value)
@@ -90,42 +88,39 @@ class BinhLuanCuDan extends Component {
             // console.log("msg:", this.input_msg);
             //object need send to server
             let dataSendCmt = {
-                RowNum: "",
-                CommentID: CommentID,
-                UserID: InfoUser[0].UserID,
-                ProfileID: InfoUser[0].ProfileID,
-                FullName: InfoUser[0].FullName,
-                Avartar: InfoUser[0].Avartar,
-                CreatedDate: CreatedDate,
-                UserType: InfoUser[0].UserID,
-                TotalLike: "",
+                KDTID: params.InfoUserPost.KDTID,
+                IntUserID: InfoUser[0].IntUserID,
+                PostID: params.InfoUserPost.PostID,
+                FullName:InfoUser[0].FullName ,
+                DatePost: DatePost,
                 Content: Content,
-                TotalRow: "",
-                PostID: params.PostId,
-                KDTID: InfoUser[0].KDTID,
-                TokenDevice: value,
-                UserIDPost: params.UserId,
-                ProfileIDPost: params.ProfileId,
+                TokenDevice : value,
+                Avatar: InfoUser[0].Avatar ? InfoUser[0].Avatar : "",
+                IntUserIDPost: params.InfoUserPost.IntUserID
             }
             this.socket.emit("comment", dataSendCmt);
+            // console.log('dataSendCmt', dataSendCmt)
         })
 
     }
-    Comment =() => {
+    Comment =(text) => {
         const { params } = this.props.navigation.state
-        console.log("params", params)
-        if (this.input_msg === "")
-            return;
-        this.textInput.clear();
-        let SendCMT = this.input_msg;
         const { callApiPostCmt, InfoUser } = this.props;
+        if (InfoUser.length <=0){
+            return null
+        }
+        // console.log("params", params)
+        if (text === "")
+            return;
+        let avt =  InfoUser[0].Avatar ? InfoUser[0].Avatar : ""
+        let SendCMT = text;
+
         if (InfoUser.length <= 0) {
             return null
         }
-        callApiPostCmt(params.PostId, InfoUser[0].UserID,"", InfoUser[0].Type, InfoUser[0].FullName, SendCMT).then(dataRes => {
+        callApiPostCmt(params.InfoUserPost.PostID, InfoUser[0].UserID,InfoUser[0].IntUserID, 2, InfoUser[0].FullName, SendCMT, avt).then(dataRes => {
             data = JSON.parse(dataRes);
-            console.log('data', data)
-            // this.sendCmt( data.Value.CommentID ,data.Value.CreatedDate, SendCMT)
+            this.sendCmt( data.Value.CreatedTime, SendCMT)
         })
     }
     render (){
@@ -140,7 +135,7 @@ class BinhLuanCuDan extends Component {
                             />
                         )
                     }}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     onEndReachedThreshold={100}
                     showsVerticalScrollIndicator={false}
                     ref={ref => this.flatList = ref}
@@ -154,54 +149,10 @@ class BinhLuanCuDan extends Component {
                     }
                     }
                 />
-                <View style={{
-                    flexWrap: 'wrap',
-                    flexDirection: 'row',
-                    paddingBottom: 5,
-                    alignSelf: 'center',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <TouchableOpacity>
-                        <Image
-                            style={{
-                                width: 40,
-                                aspectRatio: 1,
-                                paddingBottom: 10,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                paddingTop: 10,
-                            }}
-                            source={require('../../images/camera.png')}
-                        />
-                    </TouchableOpacity>
-                    <TextInput
-                        style={{flex: 1}}
-                        placeholder={"Nhập vào đây..."}
-                        onChangeText={
-                            (text) => this.input_msg = text}
-                        ref={input => {
-                            this.textInput = input
-                        }}
-
-
-                    />
-                    <TouchableOpacity
-                        onPress={this.Comment}
-                    >
-                        <Image
-                            style={{
-                                width: 40,
-                                paddingBottom: 10,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                paddingTop: 10,
-                                aspectRatio: 1
-                            }}
-                            source={require('../../images/send.png')}
-                        />
-                    </TouchableOpacity>
-                </View>
+                <TextInputChat
+                    style={{marginTop:5}}
+                    Comment={this.Comment}
+                />
 
             </View>
         );

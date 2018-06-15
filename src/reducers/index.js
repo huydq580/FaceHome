@@ -16,7 +16,7 @@ import MessagesReducers from './MessagesReducers';
 import MessagesDetailsReducers from './MessagesDetailsReducers';
 import MsgGroupIDReducers from './MsgGroupIDReducers'
 import SearchPostReducers from './SearchPostReducers'
-import PostCmtReducers from './PostCmtReducers'
+import PostCmtReducers from './cudan/PostCmtReducers'
 import SearchCmtReducers from './SearchCmtReducers'
 import CmtSuCoReducers from './CmtSuCoReducers'
 import SearchCmtSuCoReducers from './SearchCmtSuCoReducers';

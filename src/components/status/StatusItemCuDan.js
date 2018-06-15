@@ -12,7 +12,7 @@ import moment from 'moment';
 import Dimensions from 'Dimensions';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
 import SocketIOClient from "socket.io-client";
-import {LikePost, SOCKET, URL, URL_SOCKET} from "../Api";
+import {LikePost, PollVote, SOCKET, URL, URL_SOCKET} from "../Api";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmt} from "../../actions/SearchCmtActions";
@@ -35,8 +35,10 @@ class StatusItemCuDan extends Component {
             ArrPoll: [],
             liked: false,
             countLike: this.countliked,
+            countCheck: "",
         }
     }
+
     onClick = () => {
         console.log('hihi')
     }
@@ -52,10 +54,10 @@ class StatusItemCuDan extends Component {
             },
             body: JSON.stringify({
                 IntUserID: InfoUser[0].IntUserID,
-                PostID:PostID,
+                PostID: PostID,
                 FullName: InfoUser[0].FullName,
                 Islike: true,
-                TableLog:0
+                TableLog: 0
 
 
             })
@@ -63,11 +65,11 @@ class StatusItemCuDan extends Component {
             return response.json()
         }).then(data => {
             console.log("data like", data);
-            if(data.Error === null) {
+            if (data.Error === null) {
                 let currentLike = this.state.countLike;
                 currentLike++;
 
-                this.setState({ liked: true, countLike: currentLike });
+                this.setState({liked: true, countLike: currentLike});
             }
             else {
                 Alert.alert("Thông báo", "có lỗi sảy ra");
@@ -91,21 +93,21 @@ class StatusItemCuDan extends Component {
             },
             body: JSON.stringify({
                 IntUserID: InfoUser[0].IntUserID,
-                PostID:PostID,
+                PostID: PostID,
                 FullName: InfoUser[0].FullName,
                 Islike: false,
-                TableLog:0
+                TableLog: 0
 
 
             })
         }).then(response => {
             return response.json()
         }).then(data => {
-            if(data.Error === null) {
+            if (data.Error === null) {
                 let currentLike = this.state.countLike;
                 currentLike--;
 
-                this.setState({ liked: false, countLike: currentLike });
+                this.setState({liked: false, countLike: currentLike});
             }
             else {
                 Alert.alert("Thông báo", "có lỗi sảy ra");
@@ -116,29 +118,73 @@ class StatusItemCuDan extends Component {
         });
 
     }
-    BinhLuan = (PostID, UserID, ProfileID) => {
+
+    youChecked = (PostID, PollID) => {
+        const {InfoUser} = this.props;
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        fetch(URL + PollVote, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                PostID: PostID,
+                PollID: PollID,
+                IntUser: InfoUser[0].IntUserID,
+                IsLike: 0,
+                isLog: 0,
+                lang_name: "vi_VN"
+
+
+            })
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            if (data.Error === null) {
+                let currentCheck = this.state.countCheck;
+                currentLike++;
+
+                this.setState({liked: false, countCheck: currentLike});
+            }
+            else {
+                Alert.alert("Thông báo", "có lỗi sảy ra");
+            }
+        }).catch(e => {
+            console.log("exception", e);
+            Alert.alert("Thông báo", "Có lỗi khi like");
+        });
+    }
+    youUnChecked = () => {
+
+    }
+    BinhLuan = (PostID, item) => {
         const {callApiSearchCmt} = this.props
         callApiSearchCmt(PostID).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            this.props.navigation.navigate('BinhLuanCuDan', {PostId: PostID, UserId: UserID, ProfileId: ProfileID})
+            this.props.navigation.navigate('BinhLuanCuDan', {InfoUserPost: item})
         })
     }
-    componentDidMount () {
+
+    componentDidMount() {
         const {item} = this.props.dataItem;
         //ArrUser Liked
-        let dataLike = ( item.LikePost ) ? item.LikePost : null
-        ArrUserLiked = dataLike ? JSON.parse(dataLike): null;
+        let dataLike = (item.LikePost) ? item.LikePost : null
+        ArrUserLiked = dataLike ? JSON.parse(dataLike) : null;
         //Get Arr IntUserID
-        var ArrIntUserID = ArrUserLiked.map(function(o) { return o.IntUserID; });
+        var ArrIntUserID = ArrUserLiked.map(function (o) {
+            return o.IntUserID;
+        });
         // console.log('value', values)
 
         if (ArrIntUserID.indexOf(this.props.InfoUser[0].IntUserID) > -1) {
-            this.setState({ liked: true })
+            this.setState({liked: true})
         }
         // console.log('userLiked', ArrUserLiked)
-        let dataPoll = ( item.Poll) ? item.Poll : null
-        Poll = dataPoll ? JSON.parse(dataPoll): null;
+        let dataPoll = (item.Poll) ? item.Poll : null
+        Poll = dataPoll ? JSON.parse(dataPoll) : null;
         this.setState({
             ArrPoll: Poll
         })
@@ -165,7 +211,7 @@ class StatusItemCuDan extends Component {
                             </Image>
                             <View style={{marginLeft: 10}}>
                                 <Text style={{color: 'black', fontWeight: 'bold'}}>{item.FullName}</Text>
-                                <Text>{moment(item.CreatedDate).startOf("hour").fromNow()}</Text>
+                                <Text>{moment(item.CreatedDate).format("HH:mm, DD-MM-YYYY")}</Text>
                             </View>
                         </View>
                         <View style={{marginHorizontal: 10, marginTop: 10}}>
@@ -195,11 +241,11 @@ class StatusItemCuDan extends Component {
                         <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
                         <View style={{flexDirection: 'row', marginTop: 5, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'row', marginLeft: 20}}>
-                                <Icon1 name="like" size={25} color={this.state.liked ? "blue" : "#424242"} />
+                                <Icon1 name="like" size={25} color={this.state.liked ? "blue" : "#424242"}/>
                                 <TouchableOpacity
                                     onPress={() => this.state.liked ? this.unlikePost(item.PostID) : this.likePost(item.PostID)}
                                 >
-                                    <Text style={{ color: this.state.liked ? 'blue' : null }}>Thích</Text>
+                                    <Text style={{color: this.state.liked ? 'blue' : null}}>Thích</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{flexDirection: 'row', marginRight: 20}}>
@@ -214,10 +260,9 @@ class StatusItemCuDan extends Component {
                                 <View>
                                     <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
                                         <Image
-                                            source={{
-                                                // uri: InfoUser[0].Avatar
-                                                uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                                            }}
+                                            source={
+                                                item.Comments[0].Avartar == "http://image.facehome.vn/avatar/default.png" ? images.noavatar : {uri: item.Comments[0].Avartar}
+                                            }
                                             style={styles.image_circle}
                                             resizeMode="cover">
                                         </Image>
@@ -250,7 +295,7 @@ class StatusItemCuDan extends Component {
                                 resizeMode="cover">
                             </Image>
                             <TouchableOpacity onPress={() => {
-                                this.BinhLuan(item.PostID, item.UserID, item.ProfileID)
+                                this.BinhLuan(item.PostID, item)
                             }}
                                               style={{
                                                   marginLeft: 10, flex: 1,
@@ -278,25 +323,30 @@ class StatusItemCuDan extends Component {
                             </Image>
                             <View style={{marginLeft: 10}}>
                                 <Text style={{color: 'black', fontWeight: 'bold'}}>{item.FullName}</Text>
-                                <Text>{moment(item.CreatedDate).startOf("hour").fromNow()}</Text>
+                                <Text>{moment(item.CreatedDate).format("HH:mm, DD-MM-YYYY")}</Text>
                             </View>
                         </View>
                         <View style={{marginHorizontal: 10, marginTop: 10}}>
                             <Text style={{color: '#212121'}}>{item.PostContent}</Text>
                         </View>
                         <FlatList
-                            style = {{marginTop: 5}}
+                            style={{marginTop: 5}}
                             data={this.state.ArrPoll}
                             renderItem={({item}) => {
                                 return (
-                                    <View style={{flexDirection: 'row', alignItems:'center',  marginTop: 5, flexDirection:'row'}}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        marginTop: 5,
+                                        flexDirection: 'row'
+                                    }}>
                                         <View style={{
                                             marginLeft: 15,
                                             flexDirection: 'row',
-                                            borderColor:'#E0E0E0',
+                                            borderColor: '#E0E0E0',
                                             borderWidth: 1, width: "80%",
-                                            backgroundColor:'#EEEEEE',
-                                            alignItems:'center'
+                                            backgroundColor: '#EEEEEE',
+                                            alignItems: 'center'
                                         }}>
                                             <CheckBox
                                                 style={{marginLeft: 2}}
@@ -304,12 +354,11 @@ class StatusItemCuDan extends Component {
                                                 isChecked={data.checked}
                                                 // leftText={leftText}
                                             />
-                                            <Text style = {{marginLeft: 10}}>{item.OptionContent}</Text>
+                                            <Text style={{marginLeft: 10}}>{item.OptionContent}</Text>
 
                                         </View>
 
-                                            <Text style = {{marginLeft: 15, color: 'black'}}>{item.TotalVote}</Text>
-
+                                        <Text style={{marginLeft: 15, color: 'black'}}>{item.TotalVote + 1}</Text>
 
 
                                     </View>
@@ -334,11 +383,11 @@ class StatusItemCuDan extends Component {
                         <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 5}}/>
                         <View style={{flexDirection: 'row', marginTop: 5, justifyContent: 'space-between'}}>
                             <View style={{flexDirection: 'row', marginLeft: 20}}>
-                                <Icon1 name="like" size={25} color={this.state.liked ? "blue" : "#424242"} />
+                                <Icon1 name="like" size={25} color={this.state.liked ? "blue" : "#424242"}/>
                                 <TouchableOpacity
                                     onPress={() => this.state.liked ? this.unlikePost(item.PostID) : this.likePost(item.PostID)}
                                 >
-                                    <Text style={{ color: this.state.liked ? 'blue' : null }}>Thích</Text>
+                                    <Text style={{color: this.state.liked ? 'blue' : null}}>Thích</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{flexDirection: 'row', marginRight: 20}}>
@@ -353,10 +402,9 @@ class StatusItemCuDan extends Component {
                                 <View>
                                     <View style={{flexDirection: 'row', marginTop: 15, marginRight: 15}}>
                                         <Image
-                                            source={{
-                                                // uri: InfoUser[0].Avatar
-                                                uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                                            }}
+                                            source={
+                                                item.Comments[0].Avartar == "http://image.facehome.vn/avatar/default.png" ? images.noavatar : {uri: item.Comments[0].Avartar}
+                                            }
                                             style={styles.image_circle}
                                             resizeMode="cover">
                                         </Image>
@@ -389,7 +437,7 @@ class StatusItemCuDan extends Component {
                                 resizeMode="cover">
                             </Image>
                             <TouchableOpacity onPress={() => {
-                                this.BinhLuan(item.PostID, item.UserID, item.ProfileID)
+                                this.BinhLuan(item.PostID, item)
                             }}
                                               style={{
                                                   marginLeft: 10, flex: 1,

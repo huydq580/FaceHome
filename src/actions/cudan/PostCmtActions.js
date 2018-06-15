@@ -1,6 +1,6 @@
-import {CreateCmt, URL} from "../components/Api";
+import {CreateCmt, URL} from "../../components/Api";
 
-export const callApiPostCmt = (post_id, user_id,profile_id, user_type, full_name,content ) => {
+export const callApiPostCmt = (post_id, user_id,intUser , user_type, full_name,content, avatar ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + CreateCmt, {
@@ -11,13 +11,13 @@ export const callApiPostCmt = (post_id, user_id,profile_id, user_type, full_name
                 body: JSON.stringify({
                     post_id: post_id,
                     user_id: user_id,
-                    profile_id: profile_id,
+                    intUser: intUser,
                     user_type: user_type,
                     full_name: full_name,
-                    avatar: "",
+                    content: content,
+                    avatar: avatar,
                     images: "",
                     videos: "",
-                    content: content,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {

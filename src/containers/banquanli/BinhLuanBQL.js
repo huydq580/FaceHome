@@ -11,7 +11,7 @@ import stylesContainer from "../../components/style";
 import CmtItem from "../../components/status/CmtItem";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {callApiPostCmt} from "../../actions/PostCmtActions";
+import {callApiPostCmt} from "../../actions/cudan/PostCmtActions";
 import SocketIOClient from "socket.io-client";
 import {SOCKET} from "../../components/Api";
 

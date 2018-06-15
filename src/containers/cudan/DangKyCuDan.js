@@ -10,7 +10,7 @@ import CheckBox from 'react-native-check-box'
 import {BACKGROUND_HEADER, TITLE_HEADER} from '../../Constants'
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {callApiPostCmt} from "../../actions/PostCmtActions";
+import {callApiPostCmt} from "../../actions/cudan/PostCmtActions";
 import {CallApiDangKy} from "../../actions/cudan/DangKyActions";
 import UserInput from "../../components/dangnhap/UserInput";
 

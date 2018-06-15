@@ -100,3 +100,6 @@ export const SOCKET = "http://192.168.0.200:9061/";
 
 //LikePost
 export const LikePost = "post/likepost";
+
+//Poll
+export const PollVote = "api/Post/PollVote";
