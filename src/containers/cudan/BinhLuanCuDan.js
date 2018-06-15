@@ -124,6 +124,7 @@ class BinhLuanCuDan extends Component {
         })
     }
     render (){
+        console.log('dataCmt', this.state.dataCmt)
         return (
             <View style = {stylesContainer.container}>
                 <FlatList

@@ -8,20 +8,21 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import Dimensions from 'Dimensions';
+import images from "../images";
 
 class CmtItem extends Component {
     render (){
         const {item} = this.props.dataItem;
+        console.log('item', item)
         const { navigation } = this.props;
         return (
             <View style = {{flex:1}}>
                 <View style = {{flexDirection: 'row'}}>
                     <Image style={styles.image_circle}
 
-                           source={{
-                               // uri: item.Avartar
-                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                           }}
+                           source={
+                               (item.Avartar == "http://image.facehome.vn/avatar/default.png" || item.Avatar == "") ? images.noavatar : {uri: item.Avartar}
+                           }
                            resizeMode="cover"
                     >
                     </Image>
@@ -30,7 +31,7 @@ class CmtItem extends Component {
                 <View style = {styles.viewCmt}>
                     <Text style = {styles.textCmt}>{item.Content}</Text>
                     <View style = {{flexDirection:'row'}}>
-                        <Text>{moment(item.CreatedDate).startOf("hour").fromNow()}</Text>
+                        <Text>{moment(item.CreatedDate).format("HH:mm, DD-MM-YYYY")}</Text>
                         <Text style = {{marginLeft:15, color:'black'}}>Like</Text>
                         <Text style = {{marginLeft:15, color: 'black'}}>Reply</Text>
                     </View>
