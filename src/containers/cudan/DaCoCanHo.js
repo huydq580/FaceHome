@@ -61,7 +61,9 @@ class DaCoCanHo extends Component {
             let newPost = this.state.dataItem;
             //add message to array
             newPost.unshift(dataReceive);
-            this.setState({dataItem: newPost});
+            this.setState({dataItem: newPost}, () => {
+                console.log('dataitemmm', this.state.dataItem)
+            });
 
         })
 
