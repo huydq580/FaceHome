@@ -461,9 +461,6 @@ const Stack = StackNavigator ({
     },
     BinhLuanCuDan: {
         screen: BinhLuanCuDan,
-        navigationOptions: {
-            header: null
-        }
     },
     ChiTietThongTinKDTCuDan: {
         screen: ChiTietThongTinKDTCuDan,

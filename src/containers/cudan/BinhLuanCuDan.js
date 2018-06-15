@@ -15,8 +15,20 @@ import {callApiPostCmt} from "../../actions/cudan/PostCmtActions";
 import SocketIOClient from "socket.io-client";
 import {SOCKET} from "../../components/Api";
 import TextInputChat from "../../components/TextInputChat";
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 
 class BinhLuanCuDan extends Component {
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+
+        return {
+            title:'Bình luận',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
     constructor(props){
         super(props)
         this.input_msg = '';
