@@ -9,7 +9,6 @@ export default class GioiThieuCuDan extends Component {
         return(
             <View>
                 <Text>Gioi Thieu</Text>
-                <Text></Text>
             </View>
         )
     }

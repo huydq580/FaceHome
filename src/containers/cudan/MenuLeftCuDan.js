@@ -75,7 +75,7 @@ class MenuLeftCuDan extends Component {
                 />
                 <ItemLeftMenu title ="Giới thiệu"
                               nameIcon = "bell-ring"
-                              onPress = {()=> this.props.navigation.navigate('BaoSuCoKDT')}
+                              onPress = {()=> this.props.navigation.navigate('GioiThieuCuDan')}
                 />
 
                 <ItemLeftMenu title ="Quản lí tài khoản"

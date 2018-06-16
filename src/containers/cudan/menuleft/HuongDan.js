@@ -16,29 +16,9 @@ export default class HuongDan extends Component {
     }
     render () {
         return (
-            <ScrollableTabView
-                initialPage={0}
-                tabBarBackgroundColor="white"
-                // tabBarUnderlineStyle={{borderBottomColor: 'aqua'}}
-                tabBarActiveTextColor="#1CAADE"
-                tabBarUnderlineStyle={{ backgroundColor: '#1CAADE', borderColor: '#1CAADE', borderBottomWidth: 0.1, borderBottomColor: '#1CAADE' }}
-                // renderTabBar={() => }
-            >
-                {
-                    this.state.tab.map((data, index) => {
-                        return
-
-                        <FlatList
-                            data={data1}
-                            // renderItem={({ item }) => }
-                            keyExtractor={item => item.id}
-                            numColumns={2} />
-
-
-                    })
-                }
-
-            </ScrollableTabView>
+            <View>
+                <Text>Hướng dẫn</Text>
+            </View>
         )
     }
 

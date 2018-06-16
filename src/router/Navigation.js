@@ -355,7 +355,7 @@ const Stack = StackNavigator ({
     BaoSuCoKDT: {
         screen: BaoSuCoKDT,
         navigationOptions: {
-            title: 'Báo cáo sự cố KĐT'
+            title: 'Phản ánh sự cố'
         }
     },
     ThanhToanHoaDonCuDan: {
