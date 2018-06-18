@@ -168,7 +168,7 @@ class SoanTinCuDan extends Component {
             Avatar: InfoUser[0].Avatar ? InfoUser[0].Avatar : "http://image.facehome.vn/avatar/default.png",
             UserType: 2,
             Images: Images,
-            PollVote:PollVote,
+            Poll:PollVote,
             Type: Type,
             Comments: [],
         }
@@ -254,6 +254,7 @@ class SoanTinCuDan extends Component {
                                    underlineColorAndroid="transparent"
                                    onChangeText={(Status) => this.setState({Status})}
                                    placeholderTextSize="20"
+                                   returnKeyType = {"search"}
                                    onFocus={() => {
                                        this.handleTextInput()
                                    }}
@@ -278,6 +279,7 @@ class SoanTinCuDan extends Component {
                     <View style={{marginHorizontal: 10, marginTop: 10}}>
                         <TextInput placeholder='Đặt câu hỏi?'
                                    underlineColorAndroid="transparent"
+                                   returnKeyType = {"next"}
                                    onChangeText={(Status) => this.setState({
                                        Status
                                    })}
@@ -296,7 +298,7 @@ class SoanTinCuDan extends Component {
                                         borderColor:'#E0E0E0',
                                         borderWidth: 1, width: "85%",
                                     }}>
-                                        <TextInput placeholder = {item.option}
+                                        <TextInput placeholder = {item.OptionContent}
                                                    style = {{padding:0, marginLeft: 10, flex:1}}
                                                    underlineColorAndroid="transparent"
                                                    placeholderTextSize="20"
