@@ -18,6 +18,7 @@ import {connect} from 'react-redux'
 import stylesContainer from "../../components/style";
 import PickerImage from "../../components/PickerImage"
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon1 from 'react-native-vector-icons/FontAwesome';
 import SocketIOClient from "socket.io-client";
 import {LINKIMG, SOCKET, URL} from "../../components/Api";
 import images from "../../components/images";
@@ -28,17 +29,18 @@ import {NavigationActions} from "react-navigation";
 
 
 class SoanTinCuDan extends Component {
-    static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
 
         return {
-            title:'Tạo bài viết',
+            title: 'Tạo bài viết',
             headerStyle: {backgroundColor: BACKGROUND_HEADER},
             headerTitleStyle: {color: TITLE_HEADER},
             headerTintColor: TITLE_HEADER,
 
         }
     }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -48,8 +50,8 @@ class SoanTinCuDan extends Component {
             avatarSource: null,
             dataImage: null,
             resizedImageUri: '',
-            isCheck: true,
-            isCheck1: true,
+            isCheckToolBar: 1,
+            isCheckContent: 1,
             type: 0,
             ArrOptions: [
                 {
@@ -62,12 +64,12 @@ class SoanTinCuDan extends Component {
                 }
             ]
         }
-        const { InfoUser } = this.props;
+        const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null
         }
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
-        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         console.log('dataProfile', dataProfile)
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -86,7 +88,7 @@ class SoanTinCuDan extends Component {
     //show toolbar
     handleTextInput = () => {
         this.setState({
-            isCheck: false
+            isCheckToolBar: 4
         })
 
     }
@@ -94,9 +96,9 @@ class SoanTinCuDan extends Component {
     //show tham do y kien
     ThamDoYKien = () => {
         this.setState({
-            isCheck1: false,
-            isCheck: false,
-            type :1,
+            isCheckContent: 2,
+            isCheckToolBar: 2,
+            type: 1,
             ArrOptions: [
                 {
                     OptionContent: "Lựa chọn 1",
@@ -120,12 +122,14 @@ class SoanTinCuDan extends Component {
             ArrOptions: ArrMoi
         })
     }
+
     //show image
     show() {
-        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}, ()=>{
+        PickerImage((source, data) => this.setState({avatarSource: source, dataImage: data}, () => {
             this.upload()
         }));
     }
+
     // upload image
     upload() {
         const {InfoUser, callApiUploadImage} = this.props;
@@ -141,6 +145,7 @@ class SoanTinCuDan extends Component {
             }, () => console.log('linkImg', this.state.linkImg))
         })
     }
+
     // componentWillUnmount() {
     //     this.state.Status ? Alert.alert(
     //         'Thông báo',
@@ -152,23 +157,23 @@ class SoanTinCuDan extends Component {
     //     ) : null
     // }
     SendPost = (PostID, CreatedDate, PostContent, Images, PollVote, Type) => {
-        const { InfoUser } = this.props
-        if (InfoUser.length <=0 ) {
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
-        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         let dataSendPost = {
             KDTID: dataProfile[0].KDTID,
             IntUserID: InfoUser[0].IntUserID,
             PostID: PostID,
-            FullName:InfoUser[0].FullName ,
+            FullName: InfoUser[0].FullName,
             CreatedDate: CreatedDate,
             PostContent: PostContent,
             Avatar: InfoUser[0].Avatar ? InfoUser[0].Avatar : "http://image.facehome.vn/avatar/default.png",
             UserType: 2,
             Images: Images,
-            Poll:PollVote,
+            Poll: PollVote,
             Type: Type,
             Comments: [],
         }
@@ -176,12 +181,12 @@ class SoanTinCuDan extends Component {
     }
 
     DangBaiViet = () => {
-        const { callApiCreatePost, InfoUser } = this.props
-        if (InfoUser.length <=0) {
+        const {callApiCreatePost, InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
-        let dataLtProfile = ( InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
-        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         // console.log('dataPro', dataProfile)
         // console.log("type", this.state.type)
         callApiCreatePost(
@@ -219,10 +224,9 @@ class SoanTinCuDan extends Component {
     }
 
 
-
     render() {
-        const {  InfoUser } = this.props
-        if (InfoUser.length <=0) {
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
 
@@ -234,118 +238,152 @@ class SoanTinCuDan extends Component {
             />
         return (
             <View style={[stylesContainer.container, {justifyContent: 'space-between'}]}>
-                {this.state.isCheck1 ? <View>
-                    <View style={{flexDirection: 'row', marginTop: 15}}>
-                        <Image
-                            source={
-                                // uri: InfoUser[0].Avatar
-                                !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
-                            }
-                            style={styles.image_circle}
-                            resizeMode="cover">
-                        </Image>
-                        <View style={{marginLeft: 10}}>
-                            <Text style={{color: 'black'}}>{InfoUser[0].FullName}</Text>
-                            <Text>Mọi người</Text>
+                <View>
+                    <View style={{
+                        flexDirection: 'row',
+                        marginTop: 15,
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end'
+                    }}>
+                        <View style={{flexDirection: "row"}}>
+                            <Image
+                                source={
+                                    // uri: InfoUser[0].Avatar
+                                    !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
+                                }
+                                style={styles.image_circle}
+                                resizeMode="cover">
+                            </Image>
+                            <View style={{marginLeft: 10}}>
+                                <Text style={{color: 'black'}}>{InfoUser[0].FullName}</Text>
+                                <Text>Mọi người</Text>
+                            </View>
                         </View>
+                        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                            <View style={{
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                borderWidth: 1,
+                                borderColor: "black",
+                                backgroundColor: "#80DEEA",
+                                height: 25,
+                                width: 90,
+                                marginRight: 10,
+                                borderRadius: 3
+                            }}>
+                                <Text>Hủy bài viết</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
-                    <View style={{marginHorizontal: 10, marginTop: 10}}>
-                        <TextInput placeholder='Bạn muốn nói gì?'
-                                   underlineColorAndroid="transparent"
-                                   onChangeText={(Status) => this.setState({Status})}
-                                   placeholderTextSize="20"
-                                   returnKeyType = {"search"}
-                                   onFocus={() => {
-                                       this.handleTextInput()
-                                   }}
-                        />
-                    </View>
-                    {img}
-                </View> : <View>
-                    <View style={{flexDirection: 'row', marginTop: 15}}>
-                        <Image
-                            source={
-                                // uri: InfoUser[0].Avatar
-                                !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
-                            }
-                            style={styles.image_circle}
-                            resizeMode="cover">
-                        </Image>
-                        <View style={{marginLeft: 10}}>
-                            <Text style={{color: 'black'}}>Nguyễn Văn Hiệu</Text>
-                            <Text>Mọi người</Text>
-                        </View>
-                    </View>
-                    <View style={{marginHorizontal: 10, marginTop: 10}}>
-                        <TextInput placeholder='Đặt câu hỏi?'
-                                   underlineColorAndroid="transparent"
-                                   returnKeyType = {"next"}
-                                   onChangeText={(Status) => this.setState({
-                                       Status
-                                   })}
-                                   placeholderTextSize="20"
-                        />
-                    </View>
-                    <FlatList
-                        data={this.state.ArrOptions}
-                        renderItem={({item, index}) => {
-                            return (
-                                <View style={{flexDirection: 'row', alignItems:'center',  marginTop: 10}}>
-                                    <View style={{
-                                        marginLeft: 10,
-                                        borderRadius: 15,
-                                        flexDirection: 'row',
-                                        borderColor:'#E0E0E0',
-                                        borderWidth: 1, width: "85%",
-                                    }}>
-                                        <TextInput placeholder = {item.OptionContent}
-                                                   style = {{padding:0, marginLeft: 10, flex:1}}
-                                                   underlineColorAndroid="transparent"
-                                                   placeholderTextSize="20"
-                                                   onChangeText = {(text)=>{
-                                                       const ArrOptions = this.state.ArrOptions.map(toa=>{
-                                                           if(toa == item) {
-                                                               toa.OptionContent = text
-                                                           }
-                                                           return toa;
-                                                       })
-                                                       this.setState({ArrOptions}, ()=> console.log('listToa', ArrOptions))
-                                                   }}
-                                        />
+                    {this.state.isCheckContent == 1 ?
+                        <View>
 
-                                    </View>
-                                    {
-                                        index === (this.state.ArrOptions.length - 1) ?
-                                            <View style = {{justifyContent:"center", alignItems:'center', width: "15%"}}>
-                                                <TouchableOpacity onPress={() => this.Push(index)}>
-                                                    <Image
-                                                        source={images.insert}
-                                                        style={{height: 25, width: 25}}
-                                                        resizeMode="cover">
-                                                    </Image>
-                                                </TouchableOpacity>
-                                            </View>
-                                            : null
-                                    }
-
-
+                            <View style={{marginHorizontal: 10, marginTop: 10}}>
+                                <TextInput placeholder='Bạn muốn nói gì?'
+                                           underlineColorAndroid="transparent"
+                                           onChangeText={(Status) => this.setState({Status})}
+                                           placeholderTextSize="20"
+                                           returnKeyType={"search"}
+                                           onFocus={() => {
+                                               this.handleTextInput()
+                                           }}
+                                />
+                            </View>
+                            {img}
+                        </View> : this.state.isCheckContent == 2 ?
+                            <View>
+                                <View style={{marginHorizontal: 10, marginTop: 10}}>
+                                    <TextInput placeholder='Đặt câu hỏi?'
+                                               underlineColorAndroid="transparent"
+                                               returnKeyType={"next"}
+                                               onChangeText={(Status) => this.setState({
+                                                   Status
+                                               })}
+                                               placeholderTextSize="20"
+                                    />
                                 </View>
-                            )
-                        }}
+                                <FlatList
+                                    data={this.state.ArrOptions}
+                                    renderItem={({item, index}) => {
+                                        return (
+                                            <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
+                                                <View style={{
+                                                    marginLeft: 10,
+                                                    borderRadius: 15,
+                                                    flexDirection: 'row',
+                                                    borderColor: '#E0E0E0',
+                                                    borderWidth: 1, width: "85%",
+                                                }}>
+                                                    <TextInput placeholder={item.OptionContent}
+                                                               style={{padding: 0, marginLeft: 10, flex: 1}}
+                                                               underlineColorAndroid="transparent"
+                                                               placeholderTextSize="20"
+                                                               onChangeText={(text) => {
+                                                                   const ArrOptions = this.state.ArrOptions.map(toa => {
+                                                                       if (toa == item) {
+                                                                           toa.OptionContent = text
+                                                                       }
+                                                                       return toa;
+                                                                   })
+                                                                   this.setState({ArrOptions}, () => console.log('listToa', ArrOptions))
+                                                               }}
+                                                    />
 
-                        extraData={this.state}
-                        keyExtractor={(item, index) => index.toString()}
+                                                </View>
+                                                {
+                                                    index === (this.state.ArrOptions.length - 1) ?
+                                                        <View style={{
+                                                            justifyContent: "center",
+                                                            alignItems: 'center',
+                                                            width: "15%"
+                                                        }}>
+                                                            <TouchableOpacity onPress={() => this.Push(index)}>
+                                                                <Image
+                                                                    source={images.insert}
+                                                                    style={{height: 25, width: 25}}
+                                                                    resizeMode="cover">
+                                                                </Image>
+                                                            </TouchableOpacity>
+                                                        </View>
+                                                        : null
+                                                }
 
-                    />
+
+                                            </View>
+                                        )
+                                    }}
+
+                                    extraData={this.state}
+                                    keyExtractor={(item, index) => index.toString()}
+
+                                />
 
 
+                            </View> : this.state.isCheckContent == 3 ? <View>
+                                <View>
+
+                                    <View style={{marginHorizontal: 10, marginTop: 10}}>
+                                        <TextInput placeholder='Nhập nội dung?'
+                                                   underlineColorAndroid="transparent"
+                                                   onChangeText={(Status) => this.setState({Status})}
+                                                   placeholderTextSize="20"
+                                                   returnKeyType={"search"}
+                                                   // onFocus={() => {
+                                                   //     this.handleTextInput()
+                                                   // }}
+                                        />
+                                    </View>
+                                </View>
+
+                            </View> : null
+                    }
                 </View>
-                }
+
 
                 {
-                    this.state.isCheck ? <View>
+                    this.state.isCheckToolBar == 1 ? <View>
                         <View style={{height: 1, backgroundColor: '#E0E0E0', marginTop: 7}}/>
-                        <TouchableOpacity onPress = {() => this.ThamDoYKien()}>
+                        <TouchableOpacity onPress={() => this.ThamDoYKien()}>
                             <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 7}}>
                                 <Image
                                     source={images.vote}
@@ -356,7 +394,14 @@ class SoanTinCuDan extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style={{height: 1, backgroundColor: '#E0E0E0', marginTop: 7}}/>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {() => {
+                            this.setState({
+                                isCheckContent : 3,
+                                isCheckToolBar : 3,
+
+                            })
+                            // Keyboard.dismiss()
+                        }}>
                             <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 7}}>
                                 <Image
                                     source={images.warning}
@@ -375,42 +420,170 @@ class SoanTinCuDan extends Component {
                                     style={{height: 25, width: 25, marginLeft: 15}}
                                     resizeMode="cover">
                                 </Image>
-                                <Text style={{marginLeft: 10, color: 'black', fontSize: 16}}>Nhắn tin tới ban quản lý</Text>
+                                <Text style={{marginLeft: 10, color: 'black', fontSize: 16}}>Nhắn tin tới ban quản
+                                    lý</Text>
                             </View>
                         </TouchableOpacity>
                         <View style={{height: 1, backgroundColor: '#E0E0E0', marginTop: 7}}/>
 
-                    </View> :  <View style={{
+                    </View> :  this.state.isCheckToolBar ==2 ? <View style={{
                         flexDirection: 'row',
                         marginTop: 50,
                         minHeight: 30,
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                        <TouchableOpacity onPress = {() => {
+                        <TouchableOpacity onPress={() => {
                             this.setState({
-                                isCheck:true
+                                isCheckToolBar: 1,
+                                isCheckContent: 1
 
                             })
                             Keyboard.dismiss()
                         }}>
-                            <View style = {{marginLeft: 10, borderWidth:1, height: 25, borderColor:"#E0E0E0", backgroundColor:'#EEEEEE', justifyContent:'center', width:DEVICE_WIDTH/2-20}}>
-                                <Text style = {{marginLeft: 5}}>Chọn kiểu bài viết</Text>
+                            <View style={{
+                                marginLeft: 10,
+                                // borderWidth: 1,
+                                // height: 25,
+                                // borderColor: "#E0E0E0",
+                                // backgroundColor: '#EEEEEE',
+                                alignItems: 'center',
+                                // width: DEVICE_WIDTH / 2 - 20,
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{marginLeft: 5}}>Hủy thăm dò ý kiến</Text>
+                                <Icon1 name="close" size={25} color="#757575" style = {{marginLeft: 5}}/>
                             </View>
                         </TouchableOpacity>
-                        <View style = {{flexDirection:'row'}}>
-                            <TouchableOpacity onPress={this.show.bind(this)}>
-                                <Icon name="md-images" size={25} color="#900"
-                                      style={{flex: 1}}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress = {() => this.DangBaiViet()}>
-                                <View style = {{marginLeft: 10,marginRight: 10, backgroundColor:'#B3E5FC', borderWidth:1, borderRadius:3, borderColor:'#81D4FA', alignItems:'center', justifyContent:'center', height:25, width:65}}>
+                        <View style={{flexDirection: 'row'}}>
+                            {/*<TouchableOpacity onPress={this.show.bind(this)}>*/}
+                                {/*<Icon name="md-images" size={25} color="#900"*/}
+                                      {/*style={{flex: 1}}/>*/}
+                            {/*</TouchableOpacity>*/}
+                            <TouchableOpacity onPress={() => this.DangBaiViet()}>
+                                <View style={{
+                                    marginLeft: 10,
+                                    marginRight: 10,
+                                    backgroundColor: '#B3E5FC',
+                                    borderWidth: 1,
+                                    borderRadius: 3,
+                                    borderColor: '#81D4FA',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    height: 25,
+                                    width: 65
+                                }}>
                                     <Text>Đăng</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
 
-                    </View>
+                    </View> : this.state.isCheckToolBar == 3 ? <View style={{
+                        flexDirection: 'row',
+                        marginTop: 50,
+                        minHeight: 30,
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}>
+                        <TouchableOpacity onPress={() => {
+                            this.setState({
+                                isCheckToolBar: 1,
+                                isCheckContent: 1
+
+                            })
+                            Keyboard.dismiss()
+                        }}>
+                            <View style={{
+                                marginLeft: 10,
+                                // borderWidth: 1,
+                                // height: 25,
+                                // borderColor: "#E0E0E0",
+                                // backgroundColor: '#EEEEEE',
+                                alignItems: 'center',
+                                // width: DEVICE_WIDTH / 2 - 20,
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{marginLeft: 5}}>Hủy phản ánh sự cố</Text>
+                                <Icon1 name="close" size={25} color="#757575" style = {{marginLeft: 5}}/>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={{flexDirection: 'row'}}>
+                            {/*<Icon1 name="close" size={20} color="#EEEEEE"/>*/}
+                            <TouchableOpacity onPress={this.show.bind(this)}>
+                                <Icon name="md-images" size={25} color="#900"
+                                      style={{flex: 1}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.DangBaiViet()}>
+                                <View style={{
+                                    marginLeft: 10,
+                                    marginRight: 10,
+                                    backgroundColor: '#B3E5FC',
+                                    borderWidth: 1,
+                                    borderRadius: 3,
+                                    borderColor: '#81D4FA',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    height: 25,
+                                    width: 65
+                                }}>
+                                    <Text>Đăng</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                    </View> : this.state.isCheckToolBar == 4 ? <View style={{
+                        flexDirection: 'row',
+                        marginTop: 50,
+                        minHeight: 30,
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}>
+                        <TouchableOpacity onPress={() => {
+                            this.setState({
+                                isCheckToolBar: 1,
+                                isCheckContent: 1
+
+                            })
+                            Keyboard.dismiss()
+                        }}>
+                            <View style={{
+                                marginLeft: 10,
+                                borderWidth: 1,
+                                height: 25,
+                                borderColor: "#E0E0E0",
+                                backgroundColor: '#EEEEEE',
+                                alignItems: 'center',
+                                width: DEVICE_WIDTH / 2 - 20,
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{marginLeft: 5}}>Chọn kiểu bài viết</Text>
+                                {/*<Icon1 name="close" size={25} color="#757575" style = {{marginLeft: 5}}/>*/}
+                            </View>
+                        </TouchableOpacity>
+                        <View style={{flexDirection: 'row'}}>
+                            <TouchableOpacity onPress={this.show.bind(this)}>
+                                <Icon name="md-images" size={25} color="#900"
+                                      style={{flex: 1}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.DangBaiViet()}>
+                                <View style={{
+                                    marginLeft: 10,
+                                    marginRight: 10,
+                                    backgroundColor: '#B3E5FC',
+                                    borderWidth: 1,
+                                    borderRadius: 3,
+                                    borderColor: '#81D4FA',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    height: 25,
+                                    width: 65
+                                }}>
+                                    <Text>Đăng</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                    </View> : null
                 }
 
 
