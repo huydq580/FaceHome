@@ -374,7 +374,7 @@ class SoanTinCuDan extends Component {
                                         />
                                     </View>
                                 </View>
-
+                                {img}
                             </View> : null
                     }
                 </View>
