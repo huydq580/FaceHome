@@ -18,14 +18,13 @@ export default class ThanhVienItem extends Component {
             <TouchableOpacity onPress = {()=> this.props.navigation.navigate('CuDanKhac')}>
                 <View style={{flexDirection: 'column', marginTop: 15, justifyContent:'center', alignItems:'center' ,  width:DEVICE_WIDTH/3}}>
                     <Image style={styles.image_circle}
-                           source={{
-                               // !item.Avatar ? images.noavatar : {uri : item.Avatar}
-                               uri: item.avt
-                           }}
+                           source={
+                               !item.Avatar ? images.noavatar : {uri: item.Avatar}
+                           }
                            resizeMode="cover"
                     >
                     </Image>
-                    <Text style = {{marginTop: 5}}>{item.username}</Text>
+                    <Text style = {{marginTop: 5}}>{item.FullName}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -34,9 +33,9 @@ export default class ThanhVienItem extends Component {
 }
 const styles = StyleSheet.create({
     image_circle: {
-        width:50,
-        height:50,
-        borderRadius: 25,
+        width:40,
+        height:40,
+        borderRadius: 20,
         marginLeft: 10,
         marginRight: 10,
 

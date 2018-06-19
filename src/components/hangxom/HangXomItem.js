@@ -19,9 +19,7 @@ export default class HangXomItem extends Component {
                        }}
                        resizeMode="cover"
                 >
-                    <Text style = {{marginTop:DEVICE_WIDTH / 3-50, color:'#2196F3',fontWeight:'bold'}}>Send | {item.phong}</Text>
                 </ImageBackground>
-
             </TouchableOpacity>
         )
     }

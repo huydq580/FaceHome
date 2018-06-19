@@ -37,6 +37,7 @@ import UploadImageReducers from "./cudan/UploadImageReducers";
 import CreatePostReducers from "./cudan/CreatePostReducers";
 import PostSuCoReducers from "./suco/PostSuCoReducers";
 import SearchSuCoReducers from "./suco/SearchSuCoReducers";
+import SearchCuDanReducers from "./cudan/SearchCuDanReducers"
 
 
 const appStore = combineReducers({
@@ -79,7 +80,8 @@ const appStore = combineReducers({
     CreatePostReducers,
     UploadImageReducers,
     PostSuCoReducers,
-    SearchSuCoReducers
+    SearchSuCoReducers,
+    SearchCuDanReducers
 
 
 
