@@ -50,7 +50,6 @@ import ThongTinCaNhanCuDan from "../containers/cudan/menuleft/ThongTinCaNhanCuDa
 import ThayDoiMatKhauCuDan from "../containers/cudan/menuleft/ThayDoiMatKhauCuDan";
 import ChiTietCanhBaoChayCuDan from "../containers/cudan/menuleft/ChiTietCanhBaoChayCuDan";
 import ChiTietSuCoCuDan from "../containers/cudan/menuleft/ChiTietSuCoCuDan";
-import BaoSuCoMoi from "../containers/cudan/menuleft/BaoSuCoMoi";
 import SoanTinMoi from "../containers/banquanli/SoanTinMoi";
 import Contact from "../containers/banquanli/Contact";
 import TinNhanDetailsCuDan from "../containers/cudan/TinNhanDetailsCuDan";
@@ -416,12 +415,6 @@ const Stack = StackNavigator ({
         screen: ChiTietSuCoCuDan,
         navigationOptions: {
             title: 'Chi tiết sự cố'
-        }
-    },
-    BaoSuCoMoi: {
-        screen: BaoSuCoMoi,
-        navigationOptions: {
-            title: 'Báo sự cố mới'
         }
     },
     SoanTinMoi: {

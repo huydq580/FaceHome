@@ -160,15 +160,16 @@ class SoanTinCuDan extends Component {
         })
     }
 
-    // componentWillUnmount() {
-    //     this.state.Status ? Alert.alert(
-    //         'Thông báo',
-    //         data.Message,
-    //         [
-    //             {text: 'OK', onPress: () => console.log('OK Pressed')},
-    //         ],
-    //         {cancelable: false}
-    //     ) : null
+    // componentDidMount() {
+    //     console.log('componentdidmount')
+    //     console.log('thís.state', this.state.isCheckToolBar)
+    //     const {fromSuCo} = this.props
+    //     if (fromSuCo) {
+    //         this.setState({
+    //             isCheckContent: 3,
+    //             isCheckToolBar: 3,
+    //         })
+    //     }
     // }
     SendPost = (PostID, CreatedDate, PostContent, Images, PollVote, Type) => {
         const {InfoUser} = this.props
@@ -253,14 +254,15 @@ class SoanTinCuDan extends Component {
             InfoUser[0].Avatar,
             dataProfile[0].PartName,
             this.state.linkImg,
-            dataProfile[0].Type,
+            // dataProfile[0].Type,
             this.state.itemSelected,
+            0,
             this.state.Status,
-            ""
+            "",
 
         ).then(dataRes => {
             data = JSON.parse(dataRes);
-            // console.log('thong bao postbai', data)
+            console.log('thong bao postbai', data)
             if (data.ErrorCode === "00") {
                 this.props.navigation.dispatch(NavigationActions.pop({
                     n: 2,

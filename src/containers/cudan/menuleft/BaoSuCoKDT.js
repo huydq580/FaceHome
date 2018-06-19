@@ -13,10 +13,12 @@ import Icon from 'react-native-vector-icons/dist/EvilIcons'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
-import SuCoItem from "../../../components/baocaosuco/SuCoItem";
-import images from "../../../components/images";
-import moment from "moment/moment";
+
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
+import {callApiSearchSuCo} from "../../../actions/suco/SearchSuCoActions";
+import images from "../../../components/images";
+import moment from 'moment';
+import SuCoItem from "../../../components/baocaosuco/SuCoItem";
 
 class BaoSuCoKDT extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -34,44 +36,29 @@ class BaoSuCoKDT extends Component {
         super(props)
         this.state  = {
             SuCo: '',
-            dataSuCo: [
-                {
-                    avt: "https://media.ngoisao.vn/resize_580/news/2018/04/13/phuong-ly-mua-xe-5-ngoisao.vn-w960-h719.jpg",
-                    fullname: "Nguyễn Văn Hiệu",
-                    time: "4h, 16/06/2018",
-                    title: "Nứt đường ống cấp nước",
-                    content: "Nhà vệ sinh P0908 đang bị rò nước thấm khắp tường rồi",
-                    img: "http://media.thuonghieucongluan.vn/uploads/2018_03_26/chung-cu-carina-1522052532.jpg"
-                },
-                {
-                    avt: "https://media.ngoisao.vn/resize_580/news/2018/04/13/phuong-ly-mua-xe-5-ngoisao.vn-w960-h719.jpg",
-                    fullname: "Nguyễn Văn Hiệu",
-                    time: "4h, 16/06/2018",
-                    title: "Nứt đường ống cấp nước",
-                    content: "Nhà vệ sinh P0908 đang bị rò nước thấm khắp tường rồi",
-                    img: "http://media.thuonghieucongluan.vn/uploads/2018_03_26/chung-cu-carina-1522052532.jpg"
-                }
-            ]
+            dataSuCo: []
         }
     }
-    // componentWillMount(){
-    //    this.SearchSuCoKDT()
-    // }
-    // SearchSuCoKDT = (type) => {
-    //     const { callApiSearchSuCo,InfoUser  } = this.props;
-    //     if (InfoUser.length<=0){
-    //         return null;
-    //     }
-    //     callApiSearchSuCo(InfoUser[0].KDTID, type ).then(dataRes => {
-    //         dataRes = JSON.parse(dataRes)
-    //         dataRes = dataRes.Value,
-    //             this.setState({
-    //                 dataSuCo:dataRes,
-    //             })
-    //         console.log('datasuco', dataRes)
-    //     })
-    //
-    // }
+    componentDidMount(){
+       this.SearchSuCo()
+    }
+    SearchSuCo = () => {
+        const { callApiSearchSuCo ,InfoUser  } = this.props;
+        if (InfoUser.length<=0){
+            return null;
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        callApiSearchSuCo(dataProfile[0].KDTID, 1, "" ).then(dataRes => {
+            dataRes = JSON.parse(dataRes)
+            dataRes = dataRes.Value,
+                this.setState({
+                    dataSuCo: dataRes,
+                })
+            console.log('datasuco', dataRes)
+        })
+
+    }
     render(){
         const {navigation} = this.props;
         return(
@@ -92,7 +79,7 @@ class BaoSuCoKDT extends Component {
                     <Text style = {{color: "#EF5350"}}>
                         PHẢN ÁNH - GÓP Ý CỦA BẠN
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress = {() => this.props.navigation.navigate("SoanTinCuDan")}>
                         <View style = {{
                             borderWidth: 1,
                             height: 25,
@@ -109,32 +96,12 @@ class BaoSuCoKDT extends Component {
                 <View style = {{height:1 , backgroundColor: 'black', marginHorizontal: 10}}/>
                 <FlatList
                     data={this.state.dataSuCo}
-                    renderItem={({item}) => {
+                    renderItem={(item) => {
                         return (
-                            <View>
-                                <View style={{flexDirection: 'row', marginTop: 15}}>
-                                    <Image
-                                        source={{
-                                            uri: item.avt
-                                        }}
-                                        style={styles.image_circle}
-                                        resizeMode="cover">
-                                    </Image>
-                                    <View style={{marginLeft: 10}}>
-                                        <Text style={{color: 'black', fontWeight: 'bold'}}>{item.fullname}</Text>
-                                        <Text>{item.time}</Text>
-                                    </View>
-                                </View>
-                                <View style={{marginHorizontal: 10, marginTop: 10}}>
-                                    <Text style={{color: '#212121'}}>{item.content}</Text>
-                                </View>
-                                <Image source={{
-                                    uri: item.img
-                                }}
-                                       style={styles.imagePost}
-                                       resizeMode="cover">
-                                </Image>
-                            </View>
+                            <SuCoItem
+                                dataItem={item}
+                                navigation={navigation}
+                                fromSuCo={false}/>
                         )
                     }}
 
@@ -147,20 +114,19 @@ class BaoSuCoKDT extends Component {
         )
     }
 }
-// const mapStateToProps = (state) => {
-//     return {
-//         InfoUser: state.GetProfileReducers,
-//     }
-// };
-//
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         // addTodo: bindActionCreators(addTodo, dispatch),
-//         callApiSearchSuCo: bindActionCreators(callApiSearchSuCo, dispatch)
-//     }
-// };
-//
-// BaoSuCoKDT = connect(mapStateToProps, mapDispatchToProps)(BaoSuCoKDT);
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiSearchSuCo: bindActionCreators(callApiSearchSuCo, dispatch)
+    }
+};
+
+BaoSuCoKDT = connect(mapStateToProps, mapDispatchToProps)(BaoSuCoKDT);
 export default BaoSuCoKDT;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
