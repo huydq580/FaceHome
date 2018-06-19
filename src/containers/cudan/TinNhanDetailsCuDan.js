@@ -127,6 +127,7 @@ class TinNhanDetailsCuDan extends Component {
             pingInterval: 30000,
             transports: ['websocket']
         });
+
         const {params} = this.props.navigation.state
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {

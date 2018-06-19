@@ -38,10 +38,19 @@ class CuDanKhac extends Component {
     render() {
         return (
             <ScrollView style={stylesContainer.container}>
-                <Header
-                    source={{uri: "https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg"}}
-                    textName="Nguyễn Văn Hiệu"
-                    Title="Xem trang cá nhân của bạn"/>
+                <View style = {{flexDirection: 'row', justifyContent:'space-between', alignItems: 'flex-end'}}>
+                    <Header
+                        source={{uri: "https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg"}}
+                        textName="Nguyễn Văn Hiệu"
+                        Title=""/>
+                    <TouchableOpacity onPress = {()=> {
+                        this.props.navigation.navigate("TinNhanDetailsCuDan", {title: "Nguyen Van Hieu"})
+                    }}>
+                        <View style = {{marginRight: 15, borderRadius: 3, borderWidth: 1, height: 30, width: 90, alignItems: 'center', justifyContent: 'center', borderColor: "#616161", backgroundColor: "#EEEEEE" }}>
+                            <Text>Nhắn tin</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 <TitleView titleText="Thông tin cơ bản"
                            source={images.thongtincoban}/>
 

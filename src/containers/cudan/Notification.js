@@ -15,8 +15,20 @@ import {GetlAlNotifcation, SOCKET, URL_SOCKET} from "../../components/Api";
 import {connect} from "react-redux";
 import SocketIOClient from "socket.io-client";
     import images from "../../components/images";
+    import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 
 class Notification extends Component {
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+
+        return {
+            title: 'Thông báo',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
     constructor(props){
         super(props)
 

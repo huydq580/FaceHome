@@ -20,8 +20,20 @@ import TinNhanItemCuDan from "../../components/TinNhanItemCuDan";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Modal from 'react-native-modalbox';
 import CreateGroupCuDan from "./CreateGroupCuDan";
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 
 class TinNhanCuDan extends Component {
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
+
+        return {
+            title: 'Tin nhắn',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
     constructor(props) {
         // console.log('constructor')
         super(props)
