@@ -6,10 +6,11 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     Platform,
+    TextInput
 
 } from 'react-native'
 import TinNhanItem from "../../components/TinNhanItem";
-import Icon from 'react-native-vector-icons/dist/Entypo'
+import Icon from 'react-native-vector-icons/dist/EvilIcons'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Dimensions from 'Dimensions';
@@ -91,13 +92,22 @@ class TinNhanCuDan extends Component {
         const {navigation} = this.props;
         return (
             <View style={stylesContainer.container}>
-                {/*<TouchableOpacity onPress = {()=> this.props.navigation.navigate('SoanTinMoiCuDan')}>*/}
-                {/*<Text style = {{textDecorationLine: "underline",*/}
-                {/*marginTop:15,*/}
-                {/*textDecorationColor:'#BDBDBD',*/}
-                {/*marginLeft:250,*/}
-                {/*marginBottom:10}}>Soạn tin mới</Text>*/}
-                {/*</TouchableOpacity>*/}
+                <View style={{
+                    flexDirection: 'row',
+                    marginHorizontal: 20,
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: '#FCE4EC'
+                }}>
+                    <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
+                    <TextInput placeholder='Tìm kiếm'
+                               underlineColorAndroid="transparent"
+                               onChangeText={(TimKiem) => this.setState({TimKiem})}
+                               placeholderTextSize="20"
+                               style = {{padding: 0, marginLeft: 10, flex:1}}
+                               // returnKeyType={"search"}
+                    />
+                </View>
                 <FlatList
                     refreshing={this.state.refresh}
                     onRefresh={() => {
@@ -116,76 +126,76 @@ class TinNhanCuDan extends Component {
                     ItemSeparatorComponent={this.renderSeparator}
                     style={{marginTop: 8}}
                 />
-                <TouchableOpacity
-                    style={{
-                        borderWidth: 1,
-                        borderColor: '#01a699',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: 70,
-                        position: 'absolute',
-                        bottom: 10,
-                        right: 10,
-                        height: 70,
-                        backgroundColor: '#fff',
-                        borderRadius: 100,
-                    }}
+                {/*<TouchableOpacity*/}
+                    {/*style={{*/}
+                        {/*borderWidth: 1,*/}
+                        {/*borderColor: '#01a699',*/}
+                        {/*alignItems: 'center',*/}
+                        {/*justifyContent: 'center',*/}
+                        {/*width: 70,*/}
+                        {/*position: 'absolute',*/}
+                        {/*bottom: 10,*/}
+                        {/*right: 10,*/}
+                        {/*height: 70,*/}
+                        {/*backgroundColor: '#fff',*/}
+                        {/*borderRadius: 100,*/}
+                    {/*}}*/}
 
-                    onPress={() => this.refs.modal.open()}
+                    {/*onPress={() => this.refs.modal.open()}*/}
 
-                >
-                    <Icon name="plus" size={30} color="#01a699"/>
-                </TouchableOpacity>
-
-
-                <Modal style={{
-                    height: 100,
-                    width: DEVICE_WIDTH - 50,
-                }}
-                       swipeArea={20}
-                       position={"center"} ref={"modal"} isDisabled={false}
+                {/*>*/}
+                    {/*<Icon name="plus" size={30} color="#01a699"/>*/}
+                {/*</TouchableOpacity>*/}
 
 
-                >
-                    <TouchableOpacity
-                        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
-
-                        onPress={() => {
-
-
-                            this.refs.modal.close()
-                            if (Platform.OS === "ios") {
-                                setTimeout(() => {
-                                    navigation.navigate("SoanTinMoiCuDan");
-                                }, 500);
-                            } else {
-                                navigation.navigate("SoanTinMoiCuDan");
-                            }
+                {/*<Modal style={{*/}
+                    {/*height: 100,*/}
+                    {/*width: DEVICE_WIDTH - 50,*/}
+                {/*}}*/}
+                       {/*swipeArea={20}*/}
+                       {/*position={"center"} ref={"modal"} isDisabled={false}*/}
 
 
-                        }}
+                {/*>*/}
+                    {/*<TouchableOpacity*/}
+                        {/*style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}*/}
 
-                    >
-                        <Text style={{color: 'black'}}>Tin nhắn mới</Text>
-                    </TouchableOpacity>
-                    <View style={{height: 1, backgroundColor: 'gray'}}></View>
-                    <TouchableOpacity
-                        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
-                        onPress={() => {
-                            this.refs.modal.close()
-                            if (Platform.OS === "ios") {
-                                setTimeout(() => {
-                                    navigation.navigate("CreateGroupCuDan");
-                                }, 500);
-                            } else {
-                                navigation.navigate("CreateGroupCuDan");
-                            }
-                        }}
+                        {/*onPress={() => {*/}
 
-                    >
-                        <Text style={{color: 'black'}}>Nhóm mới</Text>
-                    </TouchableOpacity>
-                </Modal>
+
+                            {/*this.refs.modal.close()*/}
+                            {/*if (Platform.OS === "ios") {*/}
+                                {/*setTimeout(() => {*/}
+                                    {/*navigation.navigate("SoanTinMoiCuDan");*/}
+                                {/*}, 500);*/}
+                            {/*} else {*/}
+                                {/*navigation.navigate("SoanTinMoiCuDan");*/}
+                            {/*}*/}
+
+
+                        {/*}}*/}
+
+                    {/*>*/}
+                        {/*<Text style={{color: 'black'}}>Tin nhắn mới</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<View style={{height: 1, backgroundColor: 'gray'}}></View>*/}
+                    {/*<TouchableOpacity*/}
+                        {/*style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}*/}
+                        {/*onPress={() => {*/}
+                            {/*this.refs.modal.close()*/}
+                            {/*if (Platform.OS === "ios") {*/}
+                                {/*setTimeout(() => {*/}
+                                    {/*navigation.navigate("CreateGroupCuDan");*/}
+                                {/*}, 500);*/}
+                            {/*} else {*/}
+                                {/*navigation.navigate("CreateGroupCuDan");*/}
+                            {/*}*/}
+                        {/*}}*/}
+
+                    {/*>*/}
+                        {/*<Text style={{color: 'black'}}>Nhóm mới</Text>*/}
+                    {/*</TouchableOpacity>*/}
+                {/*</Modal>*/}
                 {this.state.isLoading ?
                     <View style={{
                         top: -10,
