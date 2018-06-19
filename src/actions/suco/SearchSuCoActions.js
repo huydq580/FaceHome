@@ -1,7 +1,7 @@
+import {SearchSuCo, URL} from "../../components/Api";
 
-import {SearchSuCo, URL} from "../components/Api";
 
-export const callApiSearchSuCo = (kdt_id,type) => {
+export const callApiSearchSuCo = (kdt_id,type, emergency ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + SearchSuCo, {
@@ -10,29 +10,32 @@ export const callApiSearchSuCo = (kdt_id,type) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    kdt_id: kdt_id,
-                    user_id: "",
-                    type: type,
-                    status: 0,
-                    keyword: "",
                     page_index: 1,
                     page_size: 100,
+                    kdt_id: kdt_id,
+                    keyword: "",
+                    user_id: "",
+                    intUser: "",
+                    status: 255,
+                    type: type,
                     option: 0,
                     from_date: "",
                     to_date: "",
+                    emergency: emergency,
                     lang_name: "vi_VN"
                 })
             }).then((response) => {
                 return response.json();
-            }).then(data => {
-                data1 = JSON.parse(data);
+            }).then(dataPost => {
+                data1 = JSON.parse(dataPost);
+                // console.log('post', data1)
                 dispatch({
-                    type: 'SU_CO',
-                    payload: data1.Value
+                    type: 'SEARCH_SUCO',
+                    payload: data1
                 })
-                resolve(data);
+                resolve(dataPost);
             }).catch(e => {
-                console.log('exception')
+                console.log('exception', e)
             })
         })
     }

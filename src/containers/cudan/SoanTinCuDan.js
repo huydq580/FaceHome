@@ -26,7 +26,7 @@ import {callApiUploadImage} from "../../actions/cudan/UploadImageActions";
 import {callApiCreatePost} from "../../actions/cudan/CreatePostActions";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 import {NavigationActions} from "react-navigation";
-
+import {callApiPostSuCo} from "../../actions/suco/PostSuCoActions";
 
 class SoanTinCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -50,8 +50,8 @@ class SoanTinCuDan extends Component {
             avatarSource: null,
             dataImage: null,
             resizedImageUri: '',
-            isCheckToolBar: 1,
-            isCheckContent: 1,
+            isCheckToolBar: 1, //interface toolbar
+            isCheckContent: 1, // interface content
             type: 0,
             ArrOptions: [
                 {
@@ -62,7 +62,21 @@ class SoanTinCuDan extends Component {
                     option: "Lựa chọn 2",
                     id: 2
                 }
-            ]
+            ],
+
+            ArrButton: [
+                {
+                    key: 1,
+                    value: 1,
+                    option: "Nhà riêng"
+                },
+                {
+                    key: 2,
+                    value: 2,
+                    option: "Chung"
+                },
+            ],
+            itemSelected: 1, //button radio
         }
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
@@ -108,7 +122,7 @@ class SoanTinCuDan extends Component {
                     OptionContent: "Lựa chọn 2",
                     id: 2
                 }
-            ]
+            ],
         })
     }
 
@@ -199,9 +213,9 @@ class SoanTinCuDan extends Component {
             this.state.linkImg,
             InfoUser[0].Avatar,
             this.state.type,
-            this.state.ArrOptions).then(dataPost => {
-            data = JSON.parse(dataPost);
-            console.log('thong bao postbai', data)
+            this.state.ArrOptions).then(dataRes => {
+            data = JSON.parse(dataRes);
+            // console.log('thong bao postbai', data)
             if (data.ErrorCode === "00") {
                 this.SendPost(data.Value.PostID, data.Value.CreatedTime, this.state.Status, this.state.linkImg, this.state.ArrOptions, this.state.type)
                 this.props.navigation.dispatch(NavigationActions.pop({
@@ -219,6 +233,49 @@ class SoanTinCuDan extends Component {
                 )
             }
 
+        })
+
+    }
+
+    PostSuCo = () => {
+        const { callApiPostSuCo, InfoUser } = this.props
+        if (InfoUser.length <=0){
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        console.log('dataProfile[0].Type', dataProfile[0].Type)
+        callApiPostSuCo(
+            dataProfile[0].KDTID,
+            InfoUser[0].UserID,
+            InfoUser[0].IntUserID,
+            InfoUser[0].FullName,
+            InfoUser[0].Avatar,
+            dataProfile[0].PartName,
+            this.state.linkImg,
+            dataProfile[0].Type,
+            this.state.itemSelected,
+            this.state.Status,
+            ""
+
+        ).then(dataRes => {
+            data = JSON.parse(dataRes);
+            // console.log('thong bao postbai', data)
+            if (data.ErrorCode === "00") {
+                this.props.navigation.dispatch(NavigationActions.pop({
+                    n: 2,
+                }))
+            }
+            else {
+                Alert.alert(
+                    'Thông báo',
+                    data.Message,
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    {cancelable: false}
+                )
+            }
         })
 
     }
@@ -368,9 +425,9 @@ class SoanTinCuDan extends Component {
                                                    onChangeText={(Status) => this.setState({Status})}
                                                    placeholderTextSize="20"
                                                    returnKeyType={"search"}
-                                                   // onFocus={() => {
-                                                   //     this.handleTextInput()
-                                                   // }}
+                                            // onFocus={() => {
+                                            //     this.handleTextInput()
+                                            // }}
                                         />
                                     </View>
                                 </View>
@@ -394,10 +451,10 @@ class SoanTinCuDan extends Component {
                             </View>
                         </TouchableOpacity>
                         <View style={{height: 1, backgroundColor: '#E0E0E0', marginTop: 7}}/>
-                        <TouchableOpacity onPress = {() => {
+                        <TouchableOpacity onPress={() => {
                             this.setState({
-                                isCheckContent : 3,
-                                isCheckToolBar : 3,
+                                isCheckContent: 3,
+                                isCheckToolBar: 3,
 
                             })
                             // Keyboard.dismiss()
@@ -426,7 +483,7 @@ class SoanTinCuDan extends Component {
                         </TouchableOpacity>
                         <View style={{height: 1, backgroundColor: '#E0E0E0', marginTop: 7}}/>
 
-                    </View> :  this.state.isCheckToolBar ==2 ? <View style={{
+                    </View> : this.state.isCheckToolBar == 2 ? <View style={{
                         flexDirection: 'row',
                         marginTop: 50,
                         minHeight: 30,
@@ -452,13 +509,13 @@ class SoanTinCuDan extends Component {
                                 flexDirection: 'row'
                             }}>
                                 <Text style={{marginLeft: 5}}>Hủy thăm dò ý kiến</Text>
-                                <Icon1 name="close" size={25} color="#757575" style = {{marginLeft: 5}}/>
+                                <Icon1 name="close" size={25} color="#757575" style={{marginLeft: 5}}/>
                             </View>
                         </TouchableOpacity>
                         <View style={{flexDirection: 'row'}}>
                             {/*<TouchableOpacity onPress={this.show.bind(this)}>*/}
-                                {/*<Icon name="md-images" size={25} color="#900"*/}
-                                      {/*style={{flex: 1}}/>*/}
+                            {/*<Icon name="md-images" size={25} color="#900"*/}
+                            {/*style={{flex: 1}}/>*/}
                             {/*</TouchableOpacity>*/}
                             <TouchableOpacity onPress={() => this.DangBaiViet()}>
                                 <View style={{
@@ -478,59 +535,89 @@ class SoanTinCuDan extends Component {
                             </TouchableOpacity>
                         </View>
 
-                    </View> : this.state.isCheckToolBar == 3 ? <View style={{
-                        flexDirection: 'row',
-                        marginTop: 50,
-                        minHeight: 30,
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}>
-                        <TouchableOpacity onPress={() => {
-                            this.setState({
-                                isCheckToolBar: 1,
-                                isCheckContent: 1
+                    </View> : this.state.isCheckToolBar == 3 ? <View>
+                        <View style = {{flexDirection:'row', alignItems:'center'}}>
+                            <Text style = {{marginLeft: 10}}>Loại phản ánh</Text>
+                            <FlatList
+                                data={this.state.ArrButton}
+                                horizontal={true}
+                                renderItem={({item}) => {
+                                    return (
+                                        <View style = {{flexDirection:'row', alignItems:'center'}}>
+                                            <TouchableOpacity onPress={() => {
+                                                this.setState({itemSelected: item.key}, () => {
+                                                    console.log('itemselected', this.state.itemSelected)
+                                                })
+                                            }}>
+                                            <View style = {{marginLeft: 10, borderWidth: 1, height: 18, width: 18, borderRadius:9, justifyContent: "center", alignItems:'center', borderColor: "#BDBDBD"}}>
+                                                <View style = {{borderWidth: 1, borderRadius: 5, width: 10, height: 10, backgroundColor: this.state.itemSelected === item.key ? '#616161' : '#BDBDBD', borderColor:"#BDBDBD"}}>
 
-                            })
-                            Keyboard.dismiss()
+                                                </View>
+                                            </View>
+                                            </TouchableOpacity>
+                                           <Text style = {{marginLeft: 10}}>{item.option}</Text>
+                                        </View>
+                                    )
+                                }}
+                                extraData={this.state}
+                                keyExtractor={(item, index) => index.toString()}
+
+                            />
+                        </View>
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            minHeight: 30,
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
                         }}>
-                            <View style={{
-                                marginLeft: 10,
-                                // borderWidth: 1,
-                                // height: 25,
-                                // borderColor: "#E0E0E0",
-                                // backgroundColor: '#EEEEEE',
-                                alignItems: 'center',
-                                // width: DEVICE_WIDTH / 2 - 20,
-                                flexDirection: 'row'
+                            <TouchableOpacity onPress={() => {
+                                this.setState({
+                                    isCheckToolBar: 1,
+                                    isCheckContent: 1
+
+                                })
+                                Keyboard.dismiss()
                             }}>
-                                <Text style={{marginLeft: 5}}>Hủy phản ánh sự cố</Text>
-                                <Icon1 name="close" size={25} color="#757575" style = {{marginLeft: 5}}/>
-                            </View>
-                        </TouchableOpacity>
-                        <View style={{flexDirection: 'row'}}>
-                            {/*<Icon1 name="close" size={20} color="#EEEEEE"/>*/}
-                            <TouchableOpacity onPress={this.show.bind(this)}>
-                                <Icon name="md-images" size={25} color="#900"
-                                      style={{flex: 1}}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.DangBaiViet()}>
                                 <View style={{
                                     marginLeft: 10,
-                                    marginRight: 10,
-                                    backgroundColor: '#B3E5FC',
-                                    borderWidth: 1,
-                                    borderRadius: 3,
-                                    borderColor: '#81D4FA',
+                                    // borderWidth: 1,
+                                    // height: 25,
+                                    // borderColor: "#E0E0E0",
+                                    // backgroundColor: '#EEEEEE',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: 25,
-                                    width: 65
+                                    // width: DEVICE_WIDTH / 2 - 20,
+                                    flexDirection: 'row'
                                 }}>
-                                    <Text>Đăng</Text>
+                                    <Text style={{marginLeft: 5}}>Hủy phản ánh sự cố</Text>
+                                    <Icon1 name="close" size={25} color="#757575" style={{marginLeft: 5}}/>
                                 </View>
                             </TouchableOpacity>
-                        </View>
+                            <View style={{flexDirection: 'row'}}>
+                                {/*<Icon1 name="close" size={20} color="#EEEEEE"/>*/}
+                                <TouchableOpacity onPress={this.show.bind(this)}>
+                                    <Icon name="md-images" size={25} color="#900"
+                                          style={{flex: 1}}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.PostSuCo()}>
+                                    <View style={{
+                                        marginLeft: 10,
+                                        marginRight: 10,
+                                        backgroundColor: '#B3E5FC',
+                                        borderWidth: 1,
+                                        borderRadius: 3,
+                                        borderColor: '#81D4FA',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        height: 25,
+                                        width: 65
+                                    }}>
+                                        <Text>Đăng</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
 
+                        </View>
                     </View> : this.state.isCheckToolBar == 4 ? <View style={{
                         flexDirection: 'row',
                         marginTop: 50,
@@ -602,7 +689,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
-        callApiCreatePost: bindActionCreators(callApiCreatePost, dispatch)
+        callApiCreatePost: bindActionCreators(callApiCreatePost, dispatch),
+        callApiPostSuCo: bindActionCreators(callApiPostSuCo, dispatch),
     }
 };
 

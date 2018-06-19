@@ -13,7 +13,6 @@ import Icon from 'react-native-vector-icons/dist/EvilIcons'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
-import {callApiSearchSuCo} from "../../../actions/SuCoActions";
 import SuCoItem from "../../../components/baocaosuco/SuCoItem";
 import images from "../../../components/images";
 import moment from "moment/moment";

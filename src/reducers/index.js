@@ -10,7 +10,6 @@ import TinhThanhReducers from './TinhThanhReducers'
 import QuanHuyenReducers from './QuanHuyenReducers'
 import KDTReducers from './KDTReducers';
 import UpdateProfileReducers from './reducersBQl/UpdateProfileReducers'
-import SuCoReducers from './SuCoReducers'
 import SocketReducers from './SocketReducers';
 import MessagesReducers from './MessagesReducers';
 import MessagesDetailsReducers from './MessagesDetailsReducers';
@@ -36,6 +35,8 @@ import RequestRegCodeReducers from "./cudan/RequestRegCodeReducers";
 import SearchFaceHomeReducers from "./cudan/SearchFaceHomeReducers";
 import UploadImageReducers from "./cudan/UploadImageReducers";
 import CreatePostReducers from "./cudan/CreatePostReducers";
+import PostSuCoReducers from "./suco/PostSuCoReducers";
+import SearchSuCoReducers from "./suco/SearchSuCoReducers";
 
 
 const appStore = combineReducers({
@@ -50,7 +51,6 @@ const appStore = combineReducers({
     QuanHuyenReducers,
     KDTReducers,
     UpdateProfileReducers,
-    SuCoReducers,
     SocketReducers,
     MessagesReducers,
     MessagesDetailsReducers,
@@ -77,7 +77,9 @@ const appStore = combineReducers({
     RequestRegCodeReducers,
     SearchFaceHomeReducers,
     CreatePostReducers,
-    UploadImageReducers
+    UploadImageReducers,
+    PostSuCoReducers,
+    SearchSuCoReducers
 
 
 

@@ -11,7 +11,6 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import stylesContainer from "../../../components/style";
-import {callApiSearchSuCo} from "../../../actions/SuCoActions";
 import SuCoItem from "../../../components/baocaosuco/SuCoItem";
 
 class TiepNhanSuCoCuDan extends Component {
@@ -22,25 +21,25 @@ class TiepNhanSuCoCuDan extends Component {
             dataSuCo: []
         }
     }
-    componentWillMount(){
-        this.SearchSuCoKDT()
-
-    }
-    SearchSuCoKDT = (type) => {
-        const { callApiSearchSuCo,InfoUser  } = this.props;
-        if (InfoUser.length<=0){
-            return null;
-        }
-        callApiSearchSuCo(InfoUser[0].KDTID, type ).then(dataRes => {
-            dataRes = JSON.parse(dataRes)
-            dataRes = dataRes.Value,
-                this.setState({
-                    dataSuCo:dataRes,
-                })
-            console.log('datasuco', dataRes)
-        })
-
-    }
+    // componentWillMount(){
+    //     this.SearchSuCoKDT()
+    //
+    // }
+    // SearchSuCoKDT = (type) => {
+    //     const { callApiSearchSuCo,InfoUser  } = this.props;
+    //     if (InfoUser.length<=0){
+    //         return null;
+    //     }
+    //     callApiSearchSuCo(InfoUser[0].KDTID, type ).then(dataRes => {
+    //         dataRes = JSON.parse(dataRes)
+    //         dataRes = dataRes.Value,
+    //             this.setState({
+    //                 dataSuCo:dataRes,
+    //             })
+    //         console.log('datasuco', dataRes)
+    //     })
+    //
+    // }
     render(){
         const {navigation} = this.props;
         return(
@@ -77,18 +76,4 @@ class TiepNhanSuCoCuDan extends Component {
         )
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        InfoUser: state.GetProfileReducers,
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // addTodo: bindActionCreators(addTodo, dispatch),
-        callApiSearchSuCo: bindActionCreators(callApiSearchSuCo, dispatch)
-    }
-};
-
-TiepNhanSuCoCuDan = connect(mapStateToProps, mapDispatchToProps)(TiepNhanSuCoCuDan);
 export default TiepNhanSuCoCuDan;
