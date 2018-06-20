@@ -58,6 +58,19 @@ class TaiKhoanCuaBanCuDan extends Component {
                 }
             ],
             ArrToa: [],
+            ArrButton: [
+                {
+                    key: 1,
+                    value: 1,
+                    option: "Nam"
+                },
+                {
+                    key: 2,
+                    value: 2,
+                    option: "Nữ"
+                },
+            ],
+            itemSelected: 1, //button radio
         }
     }
     componentDidMount() {
@@ -74,6 +87,8 @@ class TaiKhoanCuaBanCuDan extends Component {
         CallApiThanhVienCanHo(InfoUser[0].UserID, 0).then(dataRes => {
             this.setState({
                 ArrToa: dataRes.Value ? dataRes.Value : null
+            }, () => {
+                console.log('ArrToa', this.state.ArrToa)
             })
 
         })
@@ -102,8 +117,40 @@ class TaiKhoanCuaBanCuDan extends Component {
                               value = "16/01/1995"/>
                 <ThongTinItem title = 'Số điện thoại'
                               value = "0963250395"/>
-                <ThongTinItem title = 'Giới tính'
-                              value = ""/>
+
+                <View style={{flexDirection: 'column', marginTop: 10}}>
+                    <FlatList
+                        data={this.state.ArrButton}
+                        horizontal={true}
+                        // style = {{marginLeft: 0}}
+                        renderItem={({item}) => {
+                            return (
+                                <View style = {{flexDirection:'row', alignItems:'center' , marginLeft: 20}}>
+                                    <TouchableOpacity onPress={() => {
+                                        this.setState({itemSelected: item.key}, () => {
+                                            console.log('itemselected', this.state.itemSelected)
+                                        })
+                                    }}>
+                                        <View style = {{borderWidth: 1, height: 18, width: 18, borderRadius:9, justifyContent: "center", alignItems:'center', borderColor: "#BDBDBD"}}>
+                                            <View style = {{borderWidth: 1, borderRadius: 5, width: 10, height: 10, backgroundColor: this.state.itemSelected === item.key ? '#616161' : '#BDBDBD', borderColor:"#BDBDBD"}}>
+
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <Text style = {{marginLeft: 10, color: "black", }}>{item.option}</Text>
+                                </View>
+                            )
+                        }}
+                        extraData={this.state}
+                        keyExtractor={(item, index) => index.toString()}
+
+                    />
+                    <View style = {{flexDirection:'row', marginLeft: 20}}>
+                        <Text>Giới tính</Text>
+                    </View>
+
+                </View>
+
                 <ThongTinItem title = 'Email'
                               value = "anhhieuuet@gmail.com"/>
 
@@ -120,19 +167,22 @@ class TaiKhoanCuaBanCuDan extends Component {
                 </View>
                 <TitleView titleText = "Căn hộ của bạn"
                            source = {images.thongtincoban}/>
-                <View style = {{flexDirection: 'row', marginTop: 10, marginLeft: 15}}>
-                    <Text style = {{color: '#039BE5', flex:2, fontWeight:'bold'}}>
-                        TSQ EUROLAND – T2B - P0908
-                    </Text>
-                    <Text  style = {{flex:1}}>Mã: ABCDEF</Text>
-                </View>
-                <View style = {{flexDirection: 'row', marginTop: 10, marginLeft: 15}}>
-                    <Text style = {{color: '#039BE5', flex:2, fontWeight:'bold'}}>
-                        TSQ EUROLAND – T2B - P0908
-                    </Text>
-                    <Text  style = {{flex:1}}>Mã: ABCDEF</Text>
-                </View>
-                <TouchableOpacity onPress = {()=> this.props.navigation.navigate("QuanLyCanHo")}>
+                <FlatList
+                    data={this.state.ArrToa}
+                    renderItem={({item}) => {
+                        ArrThanhVien = item.value ? item.value : []
+                        ArrThanhVien = JSON.parse(ArrThanhVien)
+                        // console.log('ArrThanhVien', ArrThanhVien)
+                        return (
+                            <View>
+                                <Text style = {{fontSize: 16, color: '#039BE5',fontWeight:'bold', marginLeft: 15, marginTop: 10}}>{item.KDT} - {item.Block} - {item.Floor} - {item.PartRoom}</Text>
+                            </View>
+
+                        )
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+                <TouchableOpacity onPress = {()=> this.props.navigation.navigate("QuanLyCanHo", {InfoHouse: this.state.ArrToa})}>
                     <View>
                         <View style = {{height: 30, width: 150, marginLeft: DEVICE_WIDTH/2,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
                             <Text>Quản lý căn hộ</Text>
@@ -144,11 +194,14 @@ class TaiKhoanCuaBanCuDan extends Component {
                 <FlatList
                     data={this.state.ArrToa}
                     renderItem={({item}) => {
+                        ArrThanhVien = item.value ? item.value : []
+                        ArrThanhVien = JSON.parse(ArrThanhVien)
+                        console.log('ArrThanhVien', ArrThanhVien)
                         return (
                             <View>
-                            <Text style = {{fontSize: 16, color: '#039BE5',fontWeight:'bold', marginLeft: 15, marginTop: 10}}>{item.KDT} - {item.Block} - {item.Floor}</Text>
+                            <Text style = {{fontSize: 16, color: '#039BE5',fontWeight:'bold', marginLeft: 15, marginTop: 10}}>{item.KDT} - {item.Block} - {item.Floor} - {ArrThanhVien[0].PartName}</Text>
                                 <FlatList
-                                    data={this.state.ArrThanhVien}
+                                    data={ArrThanhVien}
                                     numColumns={3}
                                     renderItem={(item) => {
                                         return (
@@ -166,13 +219,6 @@ class TaiKhoanCuaBanCuDan extends Component {
                     }}
                     keyExtractor={(item, index) => index.toString()}
                 />
-                {/*<Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>*/}
-                    {/*TSQ EUROLAND – T2B - P0908*/}
-                {/*</Text>*/}
-
-                {/*<Text style = {{color: '#039BE5', flex:2, marginLeft: 15, marginTop: 10}}>*/}
-                    {/*TSQ EUROLAND – T2B - P0908*/}
-                {/*</Text>*/}
                 <TitleView titleText = "Nhà cung cấp dịch vụ"
                            source = {images.thongtincoban}/>
                 <View style = {{marginHorizontal: 20, marginTop: 10,  marginBottom:10}}>
@@ -189,26 +235,30 @@ class TaiKhoanCuaBanCuDan extends Component {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <View style = {{flexDirection: 'row',marginTop: 10, alignItems:'center'}}>
-                    <Image
-                        source={
-                            require('../../../images/changephone.png')
-                        }
-                        style={styles.info}
-                        resizeMode="cover">
-                    </Image>
-                    <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi số điện thoại</Text>
-                </View>
-                <View style = {{flexDirection: 'row',marginTop: 5, alignItems:'center', marginBottom: 10}}>
-                    <Image
-                        source={
-                            require('../../../images/changepass.jpeg')
-                        }
-                        style={styles.info}
-                        resizeMode="cover">
-                    </Image>
-                    <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi mật khẩu</Text>
-                </View>
+                <TouchableOpacity>
+                    <View style = {{flexDirection: 'row',marginTop: 10, alignItems:'center'}}>
+                        <Image
+                            source={
+                                require('../../../images/changephone.png')
+                            }
+                            style={styles.info}
+                            resizeMode="cover">
+                        </Image>
+                        <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi số điện thoại</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <View style = {{flexDirection: 'row',marginTop: 5, alignItems:'center', marginBottom: 10}}>
+                        <Image
+                            source={
+                                require('../../../images/changepass.jpeg')
+                            }
+                            style={styles.info}
+                            resizeMode="cover">
+                        </Image>
+                        <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi mật khẩu</Text>
+                    </View>
+                </TouchableOpacity>
             </ScrollView>
 
         )

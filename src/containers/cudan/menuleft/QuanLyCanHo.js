@@ -64,6 +64,8 @@ class QuanLyCanHo extends Component {
     }
     render () {
         const { navigation } = this.props;
+        const { params } = this.props.navigation.state
+        // console.log('params.InfoHouse', params.InfoHouse)
         return (
             <View style = {stylesContainer.container}>
                 <View style = {{flexDirection: 'row', alignItems: 'center'}}>
@@ -83,46 +85,32 @@ class QuanLyCanHo extends Component {
 
 
                 </View>
-                <View style = {{flexDirection: 'row', marginTop: 10, marginLeft: 15}}>
-                    <Text style = {{color: '#039BE5', flex:2, fontWeight:'bold'}}>
-                        TSQ EUROLAND – T2B - P0908
-                    </Text>
-                    <Text  style = {{flex:1}}>Mã: ABCDEF</Text>
-                </View>
+                <FlatList
+                    data={params.InfoHouse}
+                    renderItem={({item}) => {
+                        return (
+                            <View>
+                                <Text style = {{fontSize: 16, color: '#039BE5',fontWeight:'bold', marginLeft: 15, marginTop: 10}}>{item.KDT} - {item.Block} - {item.Floor} - {item.PartRoom}</Text>
+                                <View style = {{flexDirection:'row'}}>
+                                    <TouchableOpacity>
+                                        <View style = {{height: 30, width: DEVICE_WIDTH/3-10, marginLeft: DEVICE_WIDTH/3,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
+                                            <Text>Rời khỏi</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity>
+                                        <View style = {{marginLeft: 10, height: 30, width: DEVICE_WIDTH/3-10,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
+                                            <Text>Căn hộ chính</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
 
-                    <View style = {{flexDirection:'row'}}>
-                        <TouchableOpacity>
-                        <View style = {{height: 30, width: DEVICE_WIDTH/3-10, marginLeft: DEVICE_WIDTH/3,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
-                            <Text>Rời khỏi</Text>
-                        </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                        <View style = {{marginLeft: 10, height: 30, width: DEVICE_WIDTH/3-10,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
-                            <Text>Căn hộ chính</Text>
-                        </View>
-                        </TouchableOpacity>
-                    </View>
+                        )
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                    />
 
-                <View style = {{flexDirection: 'row', marginTop: 10, marginLeft: 15}}>
-                    <Text style = {{color: '#039BE5', flex:2, fontWeight:'bold'}}>
-                        TSQ EUROLAND – T2B - P0908
-                    </Text>
-                    <Text  style = {{flex:1}}>Mã: ABCDEF</Text>
-                </View>
-                <View style = {{flexDirection:'row'}}>
-                    <TouchableOpacity>
-                        <View style = {{height: 30, width: DEVICE_WIDTH/3-10, marginLeft: DEVICE_WIDTH/3,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
-                            <Text>Rời khỏi</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style = {{marginLeft: 10, height: 30, width: DEVICE_WIDTH/3-10,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
-                            <Text>Căn hộ chính</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={{flexDirection: 'row', alignItems:'center', marginTop: 30, justifyContent:'center'}}>
+                <View style={{flexDirection: 'row', alignItems:'center', marginTop: 20, justifyContent:'center'}}>
                     <View style={{
                         borderWidth: 1,
                         borderColor: 'black',
@@ -147,7 +135,7 @@ class QuanLyCanHo extends Component {
                 <View style = {{marginHorizontal: 20, marginTop: 10}}>
                     <Text style = {{color: 'black'}}>
                         Trong trường hợp chưa có mã căn hộ bạn vui lòng liên hệ
-                        trực tiếp BQL tòa nhà để được cấp m ã hoặc tìm thông tin
+                        trực tiếp BQL tòa nhà để được cấp mã hoặc tìm thông tin
                         khu đô thị của bạn phía dưới và yêu cầu cấp mã. BQL sẽ xác
                         minh và gửi mã căn hộ cho bạn trong mục tin nhắn
                     </Text>

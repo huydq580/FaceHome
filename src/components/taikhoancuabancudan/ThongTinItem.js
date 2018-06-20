@@ -13,8 +13,8 @@ class ThongTinItem extends Component {
         return (
             <View style={{flexDirection: 'column', marginLeft: 20, marginTop: 10}}>
                 <Text style={{flex: 1, color: 'black'}}>{this.props.value}</Text>
-                <View style = {{flexDirection:'row'}}>
-                <Text>{this.props.title}</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <Text>{this.props.title}</Text>
                 </View>
 
             </View>

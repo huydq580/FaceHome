@@ -9,6 +9,7 @@ import {
 
 import MapView, { Marker, ProviderPropType } from 'react-native-maps';
 import flagPinkImg from '../../../images/insert.png';
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,9 +21,19 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 let id = 0;
 
 class DangKyNhaCungCap extends React.Component {
-    constructor(props) {
-        super(props);
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
 
+        return {
+            title:'Đăng kí nhà cung cấp',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
+    constructor(props) {
+        super(props)
         this.state = {
             region: {
                 latitude: LATITUDE,

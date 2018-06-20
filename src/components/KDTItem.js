@@ -19,9 +19,9 @@ export default class KDTItem extends Component {
         return (
             <TouchableOpacity onPress = {()=> {
                 if(fromDangNhap){
-                    navigation.navigate('GioiThieuKDT', {title: item.TenKDT.slice(0,12)})
+                    navigation.navigate('GioiThieuKDT', {title: item.TenKDT})
                 }else
-                    navigation.navigate('CapMaCanHo', {title: item.TenKDT.slice(0,12)});
+                    navigation.navigate('CapMaCanHo', {title: item.TenKDT});
             }}>
                 <View style={{ flexDirection: 'column', marginTop: 15, justifyContent:'center'}}>
                     <View style = {{ flexDirection:'column'}}>
