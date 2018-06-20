@@ -1,6 +1,6 @@
-import {Get_Message, URL_SOCKET} from "../components/Api";
+import {Get_Message, URL_SOCKET} from "../../components/Api";
 
-export const callApiGetMessage = (ProfileID, UserID, MsgGroupID, index) => {
+export const callApiGetMessage = (IntUserID, MsgGroupID, Index) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL_SOCKET + Get_Message, {
@@ -9,16 +9,15 @@ export const callApiGetMessage = (ProfileID, UserID, MsgGroupID, index) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    ProfileID: ProfileID,
-                    UserID:UserID,
+                    IntUserID: IntUserID,
                     MsgGroupID:MsgGroupID,
-                    Index: index,
+                    Index: Index,
                     Today: 1,
                 })
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                // console.log('data_message', data)
+                console.log('data_message', data)
                 dispatch({
                     type: 'MESSAGE_DETAILS',
                     payload: data.ObjectResult

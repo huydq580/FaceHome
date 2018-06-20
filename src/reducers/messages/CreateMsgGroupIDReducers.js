@@ -1,4 +1,4 @@
-const MsgGroupIDReducers = (state = [], action) => {
+const CreateMsgGroupIDReducers = (state = [], action) => {
     switch (action.type) {
         case 'MSGGROUPID':
             return {
@@ -9,4 +9,4 @@ const MsgGroupIDReducers = (state = [], action) => {
     }
 }
 
-export default MsgGroupIDReducers
+export default CreateMsgGroupIDReducers

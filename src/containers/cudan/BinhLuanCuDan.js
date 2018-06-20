@@ -115,7 +115,7 @@ class BinhLuanCuDan extends Component {
         })
 
     }
-    Comment =(text) => {
+    onReceiveTextInputClick =(text) => {
         const { params } = this.props.navigation.state
         const { callApiPostCmt, InfoUser } = this.props;
         if (InfoUser.length <=0){
@@ -164,7 +164,7 @@ class BinhLuanCuDan extends Component {
                 />
                 <TextInputChat
                     style={{marginTop:5}}
-                    Comment={this.Comment}
+                    onReceiveTextInputClick={this.onReceiveTextInputClick}
                 />
 
             </View>

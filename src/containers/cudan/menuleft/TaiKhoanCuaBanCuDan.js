@@ -79,7 +79,7 @@ class TaiKhoanCuaBanCuDan extends Component {
     }
 
     GetUserInHouse = () => {
-        console.log('hih')
+        // console.log('hih')
         const { InfoUser, CallApiThanhVienCanHo } = this.props
         if (InfoUser.length <= 0 ) {
             return null
@@ -87,8 +87,6 @@ class TaiKhoanCuaBanCuDan extends Component {
         CallApiThanhVienCanHo(InfoUser[0].UserID, 0).then(dataRes => {
             this.setState({
                 ArrToa: dataRes.Value ? dataRes.Value : null
-            }, () => {
-                console.log('ArrToa', this.state.ArrToa)
             })
 
         })
@@ -171,6 +169,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                     data={this.state.ArrToa}
                     renderItem={({item}) => {
                         ArrThanhVien = item.value ? item.value : []
+                        // console.log('ArrThanhVien', ArrThanhVien)
                         ArrThanhVien = JSON.parse(ArrThanhVien)
                         // console.log('ArrThanhVien', ArrThanhVien)
                         return (
@@ -196,7 +195,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                     renderItem={({item}) => {
                         ArrThanhVien = item.value ? item.value : []
                         ArrThanhVien = JSON.parse(ArrThanhVien)
-                        console.log('ArrThanhVien', ArrThanhVien)
+                        // console.log('ArrThanhVien', ArrThanhVien)
                         return (
                             <View>
                             <Text style = {{fontSize: 16, color: '#039BE5',fontWeight:'bold', marginLeft: 15, marginTop: 10}}>{item.KDT} - {item.Block} - {item.Floor} - {ArrThanhVien[0].PartName}</Text>

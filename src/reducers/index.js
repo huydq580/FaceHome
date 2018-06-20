@@ -12,8 +12,7 @@ import KDTReducers from './KDTReducers';
 import UpdateProfileReducers from './reducersBQl/UpdateProfileReducers'
 import SocketReducers from './SocketReducers';
 import MessagesReducers from './MessagesReducers';
-import MessagesDetailsReducers from './MessagesDetailsReducers';
-import MsgGroupIDReducers from './MsgGroupIDReducers'
+import MessagesDetailsReducers from './messages/MessagesDetailsReducers';
 import SearchPostReducers from './SearchPostReducers'
 import PostCmtReducers from './cudan/PostCmtReducers'
 import SearchCmtReducers from './SearchCmtReducers'
@@ -38,6 +37,7 @@ import CreatePostReducers from "./cudan/CreatePostReducers";
 import PostSuCoReducers from "./suco/PostSuCoReducers";
 import SearchSuCoReducers from "./suco/SearchSuCoReducers";
 import SearchCuDanReducers from "./cudan/SearchCuDanReducers"
+import CreateMsgGroupIDReducers from "./messages/CreateMsgGroupIDReducers";
 
 
 const appStore = combineReducers({
@@ -55,7 +55,6 @@ const appStore = combineReducers({
     SocketReducers,
     MessagesReducers,
     MessagesDetailsReducers,
-    MsgGroupIDReducers,
     SearchPostReducers,
     PostCmtReducers,
     SearchCmtReducers,
@@ -81,7 +80,8 @@ const appStore = combineReducers({
     UploadImageReducers,
     PostSuCoReducers,
     SearchSuCoReducers,
-    SearchCuDanReducers
+    SearchCuDanReducers,
+    CreateMsgGroupIDReducers
 
 
 

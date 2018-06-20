@@ -21,6 +21,10 @@ import images from "../../../components/images";
 import Header from "../../../components/taikhoancuabancudan/Header";
 import TitleView from "../../../components/taikhoancuabancudan/TitleView";
 import ThongTinItem from "../../../components/cudankhac/ThongTinItem";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {callApiCreateMsgGroupID} from "../../../actions/messages/CreateMsgGroupIDActions";
+import {MsgGroupID} from "../../../components/Api";
 
 class CuDanKhac extends Component {
     static navigationOptions = ({navigation}) => {
@@ -34,17 +38,55 @@ class CuDanKhac extends Component {
 
         }
     }
+    constructor(props){
+        super(props)
+        const { InfoUser } = this.props;
+        if (InfoUser.length <= 0) {
+            return null;
+        }
+        this.state = {
+            GroupMembers: [
+                {
+                    IntUserID: InfoUser[0].IntUserID,
+                    FullName: InfoUser[0].FullName,
+                    Avatar: InfoUser[0].Avatar ? InfoUser[0].Avatar : ""
+                }]
+        }
+    }
+    CreateMsgGroupID = () => {
+        const { params } = this.props.navigation.state
+        this.state.GroupMembers.push({
+            IntUserID: params.Info.IntUserID,
+            FullName:  params.Info.FullName,
+            Avatar:  params.Info.Avatar
+        })
+        const { callApiCreateMsgGroupID, InfoUser } = this.props
+        if (InfoUser.length <=0){
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        callApiCreateMsgGroupID(dataProfile[0].KDTID,InfoUser[0].IntUserID, this.state.GroupMembers,  params.Info.FullName, InfoUser[0].FullName, InfoUser[0].Avatar ).then(dataRes => {
+            MessagesGroupID  = dataRes.ObjectResult[0].MsgGroupID ? dataRes.ObjectResult[0].MsgGroupID : ""
+            this.props.navigation.navigate("TinNhanDetailsCuDan", {title: params.Info.FullName, MsgId: MessagesGroupID, Info: params.Info})
 
+        })
+    }
     render() {
+        const { params } = this.props.navigation.state
+        // console.log('params', params.Info)
         return (
             <ScrollView style={stylesContainer.container}>
                 <View style = {{flexDirection: 'row', justifyContent:'space-between', alignItems: 'flex-end'}}>
                     <Header
-                        source={{uri: "https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg"}}
-                        textName="Nguyễn Văn Hiệu"
+                        source={
+                            !params.Info.Avatar ? images.noavatar : params.Info.Avatar
+                        }
+                        textName= {params.Info.FullName}
                         Title=""/>
                     <TouchableOpacity onPress = {()=> {
-                        this.props.navigation.navigate("TinNhanDetailsCuDan", {title: "Nguyen Van Hieu"})
+
+                        this.CreateMsgGroupID()
                     }}>
                         <View style = {{marginRight: 15, borderRadius: 3, borderWidth: 1, height: 30, width: 90, alignItems: 'center', justifyContent: 'center', borderColor: "#616161", backgroundColor: "#EEEEEE" }}>
                             <Text>Nhắn tin</Text>
@@ -55,21 +97,21 @@ class CuDanKhac extends Component {
                            source={images.thongtincoban}/>
 
                 <ThongTinItem title='Họ tên'
-                              value="Nguyễn Văn Hiệu"/>
+                              value={params.Info.FullName}/>
                 <ThongTinItem title='Ngày sinh'
-                              value="16/01/1995"/>
+                              value={params.Info.BirdDate ? params.Info.BirdDate : ""}/>
                 <ThongTinItem title='Số điện thoại'
-                              value="0963250395"/>
+                              value={params.Info.Username}/>
                 <ThongTinItem title='Giới tính'
                               value=""/>
                 <ThongTinItem title='Email'
-                              value="Anhhieuuet@gmail.com"/>
+                              value= {params.Info.Email? params.Info.Email: ""}/>
 
                 <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10}}>
                     <Text style={{flex: 1, color: 'black'}}>Căn hộ</Text>
                     <View style={{flex: 3,}}>
 
-                        <Text style={{marginLeft: 5, fontWeight: 'bold'}}>TSQ EUROLAND – T2B - P0908</Text>
+                        <Text style={{marginLeft: 5, fontWeight: 'bold'}}>{params.Info.KDT} – {params.Info.Floor} - {params.Info.PartName}</Text>
 
 
                     </View>
@@ -95,6 +137,20 @@ class CuDanKhac extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        callApiCreateMsgGroupID: bindActionCreators(callApiCreateMsgGroupID, dispatch),
+    }
+};
+
+CuDanKhac = connect(mapStateToProps, mapDispatchToProps)(CuDanKhac);
 
 export default CuDanKhac
 const styles = StyleSheet.create({

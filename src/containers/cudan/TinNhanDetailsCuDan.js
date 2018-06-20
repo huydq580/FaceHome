@@ -17,9 +17,11 @@ import Dimensions from 'Dimensions';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
-import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
+import {callApiGetMessage} from "../../actions/messages/MessagesDetailsActions";
 import {SOCKET} from "../../components/Api";
 import ChatItem from "../../components/chatItem/ChatItem";
+import TextInputChat from "../../components/TextInputChat";
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 
 class TinNhanDetailsCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -28,10 +30,11 @@ class TinNhanDetailsCuDan extends Component {
 
         return {
             title: `${navigation.state.params.title}`,
-            headerTitleStyle: {textAlign: 'center', alignSelf: 'center'},
+            headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: TITLE_HEADER},
             headerStyle: {
-                backgroundColor: 'white',
+                backgroundColor: BACKGROUND_HEADER,
             },
+            headerTintColor: TITLE_HEADER,
             headerRight: <TouchableOpacity style={{marginRight: 10}}
                                            onPress={() => params.handleSave()}>
                 <Icon name="dots-vertical" size={25} color="#424242"/>
@@ -56,7 +59,6 @@ class TinNhanDetailsCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
-        console.log('params', params.MsgGroupID)
         //connect socket
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -74,11 +76,8 @@ class TinNhanDetailsCuDan extends Component {
             //join room
             // die when send fullname
             this.socket.emit('login', {
-                MsgGroupID: params.MsgGroupID,
-                UserID: InfoUser[0].UserID,
-                FullName: "",
-                Avartar: "",
-                ProfileID: InfoUser[0].ProfileID
+                MsgGroupID: params.MsgId,
+                IntUserID: InfoUser[0].IntUserID,
             })
             console.log('login ok')
         })
@@ -146,12 +145,14 @@ class TinNhanDetailsCuDan extends Component {
     //get old msg
     getOldMSG = () => {
         const {params} = this.props.navigation.state
-        const {InfoUser} = this.props;
-        if (InfoUser.length <= 0) {
+        const {InfoUser, MessageGroupID} = this.props;
+        if (InfoUser.length <= 0 && MessageGroupID.length <=0 ) {
             return null;
         }
+        // console.log('Mess', MessageGroupID)
         const {callApiGetMessage} = this.props;
-        callApiGetMessage(InfoUser[0].ProfileID, InfoUser[0].UserID, params.MsgGroupID, this.state.index).then(dataRes => {
+        callApiGetMessage(InfoUser[0].IntUserID, params.MsgId, this.state.index).then(dataRes => {
+            console.log('dataRes', dataRes)
             dataMessage = dataRes.ObjectResult;
             console.log('dataUser', dataMessage)
             this.setState({
@@ -173,56 +174,37 @@ class TinNhanDetailsCuDan extends Component {
         );
     };
     //socket event send message
-    sendMessage = () => {
+    onReceiveTextInputClick = (text) => {
         const {params} = this.props.navigation.state
-        console.log('params.item', params.item)
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
-        console.log('userid', InfoUser[0])
-        if (this.input_msg === "")
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+
+        if (text === "")
             return;
-        this.textInput.clear();
-        // console.log("msg:", this.input_msg);
+
         //object need send to server
-        console.log('userid gui di', InfoUser[0].UserID)
+        // console.log('userid gui di', InfoUser[0].UserID)
         let dataSend = {
-            MsgGroupID: params.MsgGroupID,
+            MsgGroupID: params.MsgId,
+            IntUserID: InfoUser[0].IntUserID,
             UserID: InfoUser[0].UserID,
             FullName: InfoUser[0].FullName,
-            Avartar: "",
-            RefUserID: params.item.UserID,
-            RefName: params.item.FullName,
-            RefAvartar: "",//co bug
-            RefProfileID: params.item.ProfileID,
-            Content: this.input_msg,
-            CreatedDate: "",
-            DayFlag: "",
-            KDTID: InfoUser[0].KDTID,
-            ProfileID: InfoUser[0].ProfileID,
-            GroupName: params.item.FullName,
+            Avartar: InfoUser[0].Avartar ? InfoUser[0].Avartar : "",
+            RefIntUserID: params.Info.IntUserID,
+            RefName: params.Info.FullName,
+            RefAvartar: params.Info.Avartar,
+            Content: text,
+            KDTID: dataProfile[0].KDTID
         }
+        console.log('dataSend', dataSend)
         this.socket.emit("msg", dataSend);
         // console.log('send ok')
-        dataMesSend = this.input_msg;
         let newMsg = this.state.dataChat;
-        newMsg.push({
-            Avartar: "",
-            Content: dataMesSend,
-            CreatedDate: "2018-02-05T09:29:35.383Z",
-            DayFlag: 20180205,
-            FullName: InfoUser[0].FullName,
-            KDTID: InfoUser[0].KDTID,
-            MessageID: "",
-            MsgGroupID: params.MsgGroupID,
-            RefAvartar: "",
-            RefName: "",
-            RefUserID: "",
-            UserID: InfoUser[0].UserID,
-            rowNumber: "1",
-            ProfileID: InfoUser[0].ProfileID,
-        });
+        newMsg.push(dataSend);
         this.setState({dataChat: newMsg});
     };
 
@@ -256,7 +238,7 @@ class TinNhanDetailsCuDan extends Component {
                             />
                         )
                     }}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     onEndReachedThreshold={100}
                     showsVerticalScrollIndicator={false}
                     ref={ref => this.flatList = ref}
@@ -272,54 +254,10 @@ class TinNhanDetailsCuDan extends Component {
 
 
                 />
-                <View style={{
-                    flexWrap: 'wrap',
-                    flexDirection: 'row',
-                    paddingBottom: 5,
-                    alignSelf: 'center',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <TouchableOpacity>
-                        <Image
-                            style={{
-                                width: 40,
-                                aspectRatio: 1,
-                                paddingBottom: 10,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                paddingTop: 10,
-                            }}
-                            source={require('../../images/camera.png')}
-                        />
-                    </TouchableOpacity>
-                    <TextInput
-                        style={{flex: 1}}
-                        placeholder={"Nhập vào đây..."}
-                        onChangeText={
-                            (text) => this.input_msg = text}
-                        ref={input => {
-                            this.textInput = input
-                        }}
-
-
-                    />
-                    <TouchableOpacity
-                        onPress={this.sendMessage}
-                    >
-                        <Image
-                            style={{
-                                width: 40,
-                                paddingBottom: 10,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                paddingTop: 10,
-                                aspectRatio: 1
-                            }}
-                            source={require('../../images/send.png')}
-                        />
-                    </TouchableOpacity>
-                </View>
+                <TextInputChat
+                    style={{marginTop:5}}
+                    onReceiveTextInputClick ={this.onReceiveTextInputClick}
+                />
             </View>
         );
     }
@@ -327,7 +265,7 @@ class TinNhanDetailsCuDan extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        Message: state.MessagesDetailsReducers,
+        MessageGroupID: state.MessagesDetailsReducers,
         InfoUser: state.GetProfileReducers,
     }
 };

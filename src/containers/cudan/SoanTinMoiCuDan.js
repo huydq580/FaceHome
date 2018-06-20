@@ -16,7 +16,6 @@ import stylesContainer from "../../components/style";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {callApiSearchDanCu} from "../../actions/actionsBQL/QLDanCuActions";
-import {callApiMsgGroupID} from "../../actions/MsgGroupIDActions";
 import {callApiGetBQL} from "../../actions/actionsBQL/BQLActions";
 class SoanTinMoiCuDan extends Component {
     constructor(props){
@@ -177,7 +176,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchDanCu: bindActionCreators(callApiSearchDanCu, dispatch),
         callApiGetBQL: bindActionCreators(callApiGetBQL, dispatch),
-        callApiMsgGroupID: bindActionCreators(callApiMsgGroupID, dispatch),
     }
 };
 

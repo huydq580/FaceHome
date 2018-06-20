@@ -15,6 +15,7 @@ import TextInputReset from 'react-native-text-input-reset';
 
 export default class TextInputChat extends Component {
 
+
     constructor(props) {
         super(props);
 
@@ -42,7 +43,7 @@ export default class TextInputChat extends Component {
     onClickSend = ()=>{
 
         console.log("data",this.state.textSubmit)
-        this.props.Comment(this.state.textSubmit);
+        this.props.onReceiveTextInputClick(this.state.textSubmit);
         // this.refs.textInput.clear();
         if(Platform.OS === 'android')
             TextInputReset.resetKeyboardInput(findNodeHandle(this.textInput))

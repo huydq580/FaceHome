@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
-import {callApiGetMessage} from "../../actions/MessagesDetailsActions";
+import {callApiGetMessage} from "../../actions/messages/MessagesDetailsActions";
 import ChatItem from "../../components/chatItem/ChatItem";
 import {SOCKET} from "../../components/Api";
 
