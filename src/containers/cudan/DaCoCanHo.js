@@ -76,7 +76,7 @@ class DaCoCanHo extends Component {
         }
         // console.log('InfoUser[0].ProfileID', InfoUser[0].ProfileID)
         // console.log('InfoUser[0].UserID', InfoUser[0].UserID)
-        callApiSubcribe(InfoUser[0].UserID, InfoUser[0].ProfileID, true).then(dataRes => {
+        callApiSubcribe(InfoUser[0].IntUserID, true).then(dataRes => {
             // console.log('dataSubcribe',dataRes )
 
         })

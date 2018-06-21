@@ -31,7 +31,7 @@ class CuDanKhac extends Component {
         const {params = {}} = navigation.state
 
         return {
-            title: 'Tài khoản của bạn',
+            title: `${navigation.state.params.title}`,
             headerStyle: {backgroundColor: BACKGROUND_HEADER},
             headerTitleStyle: {color: TITLE_HEADER},
             headerTintColor: TITLE_HEADER,
@@ -67,7 +67,9 @@ class CuDanKhac extends Component {
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         callApiCreateMsgGroupID(dataProfile[0].KDTID,InfoUser[0].IntUserID, this.state.GroupMembers,  params.Info.FullName, InfoUser[0].FullName, InfoUser[0].Avatar ).then(dataRes => {
-            MessagesGroupID  = dataRes.ObjectResult[0].MsgGroupID ? dataRes.ObjectResult[0].MsgGroupID : ""
+            console.log('dataMsgGroupId', dataRes)
+            MessagesGroupID  = dataRes.ObjectResult.MsgGroupID ? dataRes.ObjectResult.MsgGroupID : ""
+            console.log('MessagesGroupID', MessagesGroupID)
             this.props.navigation.navigate("TinNhanDetailsCuDan", {title: params.Info.FullName, MsgId: MessagesGroupID, Info: params.Info})
 
         })

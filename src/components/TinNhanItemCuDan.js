@@ -7,6 +7,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import moment from 'moment';
+import images from "./images";
 
 
 
@@ -30,15 +32,11 @@ export default class TinNhanItemCuDan extends Component {
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
-        // console.log('item', item)
-        // let chatTo = item.ChatTo !== 0 ? item.ChatTo : null
-        // datachatTo = JSON.parse(chatTo)
-        // console.log('datachatto', datachatTo)
         return (
 
             <TouchableOpacity
                 onPress={() => {
-                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {item: JSON.parse(item.ChatTo), title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) :
+                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {MsgId: item.MsgGroupID, title: item.FullNameOrGroupName, Info: item.ChatTo}) :
                         item.IsGroup == 1 ? navigation.navigate('ChatGroupCuDan', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
                 }}
             >
@@ -46,21 +44,23 @@ export default class TinNhanItemCuDan extends Component {
                       style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <Image style={styles.image_circle}
 
-                           source={{
-                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                           }}
+                           source={
+                               !item.ChatTo.Avartar ? images.noavatar : {uri: item.ChatTo.Avartar}
+                           }
                            resizeMode="cover"
                     >
                     </Image>
-                    <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, marginTop: 10, marginBottom: 10}}>
-                        <View style={{flex: 1, flexDirection: 'row'}}>
-                            <Text style={{flex: 2}} numberOfLines={1}
+                    <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, justifyContent:'center'}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <Text style={{color: '#42A5F5', fontWeight: "bold"}} numberOfLines={1}
                                   ellipsizeMode={'tail'}>{item.FullNameOrGroupName}</Text>
-                            <Text style={{flex: 1}}>17/01/2018</Text>
+                            <Text style = {{marginRight:5}}>{moment(item.CreatedDate).format("DD/MM/YYYY HH:mm")}</Text>
                         </View>
-                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.Content}</Text>
+                        <Text numberOfLines={1} ellipsizeMode={'tail'}>{item.Content}</Text>
                     </View>
+
                 </View>
+                <View style = {{height: 1,marginLeft: DEVICE_WIDTH / 5, backgroundColor: "#CED0CE"}}/>
 
             </TouchableOpacity>)
     }

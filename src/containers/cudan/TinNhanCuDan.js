@@ -15,13 +15,12 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Dimensions from 'Dimensions';
 import stylesContainer from "../../components/style";
-import {callApiGetUser} from "../../actions/MessagesActions";
 import TinNhanItemCuDan from "../../components/TinNhanItemCuDan";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
-import Modal from 'react-native-modalbox';
-import CreateGroupCuDan from "./CreateGroupCuDan";
+
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
+import {callApiGetUserMsg} from "../../actions/messages/GetUserMsgActions";
 
 class TinNhanCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -41,7 +40,7 @@ class TinNhanCuDan extends Component {
         this.state = {
             dataUser: '',
             refresh: false,
-            isLoading: true,
+            isLoading: false,
 
         }
 
@@ -53,17 +52,19 @@ class TinNhanCuDan extends Component {
     }
 
     getUser = () => {
+        this.setState({isLoading: true,refresh:true})
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
         console.log("InfoUser", InfoUser)
-        const {callApiGetUser} = this.props;
-        callApiGetUser(InfoUser[0].ProfileID, InfoUser[0].UserID).then(dataRes => {
+        const {callApiGetUserMsg} = this.props;
+        callApiGetUserMsg(InfoUser[0].IntUserID).then(dataRes => {
             dataUser = dataRes.ObjectResult
             this.setState({
                 dataUser: dataUser,
                 isLoading: false,
+                refresh: false
             })
             console.log('datauser', this.state.dataUser)
         })
@@ -122,80 +123,10 @@ class TinNhanCuDan extends Component {
                             />
                         )
                     }}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={this.renderSeparator}
                     style={{marginTop: 8}}
                 />
-                {/*<TouchableOpacity*/}
-                    {/*style={{*/}
-                        {/*borderWidth: 1,*/}
-                        {/*borderColor: '#01a699',*/}
-                        {/*alignItems: 'center',*/}
-                        {/*justifyContent: 'center',*/}
-                        {/*width: 70,*/}
-                        {/*position: 'absolute',*/}
-                        {/*bottom: 10,*/}
-                        {/*right: 10,*/}
-                        {/*height: 70,*/}
-                        {/*backgroundColor: '#fff',*/}
-                        {/*borderRadius: 100,*/}
-                    {/*}}*/}
-
-                    {/*onPress={() => this.refs.modal.open()}*/}
-
-                {/*>*/}
-                    {/*<Icon name="plus" size={30} color="#01a699"/>*/}
-                {/*</TouchableOpacity>*/}
-
-
-                {/*<Modal style={{*/}
-                    {/*height: 100,*/}
-                    {/*width: DEVICE_WIDTH - 50,*/}
-                {/*}}*/}
-                       {/*swipeArea={20}*/}
-                       {/*position={"center"} ref={"modal"} isDisabled={false}*/}
-
-
-                {/*>*/}
-                    {/*<TouchableOpacity*/}
-                        {/*style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}*/}
-
-                        {/*onPress={() => {*/}
-
-
-                            {/*this.refs.modal.close()*/}
-                            {/*if (Platform.OS === "ios") {*/}
-                                {/*setTimeout(() => {*/}
-                                    {/*navigation.navigate("SoanTinMoiCuDan");*/}
-                                {/*}, 500);*/}
-                            {/*} else {*/}
-                                {/*navigation.navigate("SoanTinMoiCuDan");*/}
-                            {/*}*/}
-
-
-                        {/*}}*/}
-
-                    {/*>*/}
-                        {/*<Text style={{color: 'black'}}>Tin nhắn mới</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<View style={{height: 1, backgroundColor: 'gray'}}></View>*/}
-                    {/*<TouchableOpacity*/}
-                        {/*style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}*/}
-                        {/*onPress={() => {*/}
-                            {/*this.refs.modal.close()*/}
-                            {/*if (Platform.OS === "ios") {*/}
-                                {/*setTimeout(() => {*/}
-                                    {/*navigation.navigate("CreateGroupCuDan");*/}
-                                {/*}, 500);*/}
-                            {/*} else {*/}
-                                {/*navigation.navigate("CreateGroupCuDan");*/}
-                            {/*}*/}
-                        {/*}}*/}
-
-                    {/*>*/}
-                        {/*<Text style={{color: 'black'}}>Nhóm mới</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                {/*</Modal>*/}
                 {this.state.isLoading ?
                     <View style={{
                         top: -10,
@@ -219,14 +150,12 @@ class TinNhanCuDan extends Component {
 const mapStateToProps = (state) => {
     return {
         InfoUser: state.GetProfileReducers,
-        SocketRef: state.SocketReducers,
-        dataUser: state.MessageReducers,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        callApiGetUser: bindActionCreators(callApiGetUser, dispatch),
+        callApiGetUserMsg: bindActionCreators(callApiGetUserMsg, dispatch),
     }
 };
 

@@ -35,10 +35,10 @@ class TinNhanDetailsCuDan extends Component {
                 backgroundColor: BACKGROUND_HEADER,
             },
             headerTintColor: TITLE_HEADER,
-            headerRight: <TouchableOpacity style={{marginRight: 10}}
-                                           onPress={() => params.handleSave()}>
-                <Icon name="dots-vertical" size={25} color="#424242"/>
-            </TouchableOpacity>
+            // headerRight: <TouchableOpacity style={{marginRight: 10}}
+            //                                onPress={() => params.handleSave()}>
+            //     <Icon name="dots-vertical" size={25} color="#424242"/>
+            // </TouchableOpacity>
         }
 
     };
@@ -55,6 +55,7 @@ class TinNhanDetailsCuDan extends Component {
         }
         this.input_msg = '';
         const {params} = this.props.navigation.state
+        console.log('params.MsgId', params.MsgId)
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
@@ -69,6 +70,7 @@ class TinNhanDetailsCuDan extends Component {
         // console.log('socket', this.socket)
         // // get old message
         this.getOldMSG();
+        console.log('IntUserID', InfoUser[0].IntUserID)
 
         this.socket.on('connect', () => {
 
@@ -88,22 +90,7 @@ class TinNhanDetailsCuDan extends Component {
             //set newMsg = messga receive
             let newMsg = this.state.dataChat;
             //add message to array
-            newMsg.push({
-                Avartar: dataReceive.Avartar,
-                Content: dataReceive.Content,
-                CreatedDate: dataReceive.CreatedDate,
-                DayFlag: dataReceive.DayFlag,
-                FullName: dataReceive.FullName,
-                KDTID: dataReceive.KDTID,
-                MessageID: dataReceive.MessageID,
-                MsgGroupID: dataReceive.MsgGroupID,
-                RefAvartar: dataReceive.RefAvartar,
-                RefName: dataReceive.RefName,
-                RefUserID: dataReceive.RefUserID,
-                UserID: dataReceive.UserID,
-                rowNumber: dataReceive.rowNumber,
-                ProfileID: dataReceive.ProfileID
-            });
+            newMsg.push(dataReceive);
             this.setState({dataChat: newMsg});
         })
 
@@ -127,17 +114,15 @@ class TinNhanDetailsCuDan extends Component {
             transports: ['websocket']
         });
 
-        const {params} = this.props.navigation.state
+        const { params } = this.props.navigation.state
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
         // console.log('userbql', InfoUser)
         let dataGroup = {
-            MsgGroupID: params.MsgGroupID,
-            UserID: InfoUser[0].UserID,
+            MsgGroupID: params.MsgId,
             IntUserID: InfoUser[0].IntUserID,
-            ProfileID: InfoUser[0].ProfileID
 
         }
         this.socket.emit("logout", dataGroup)
@@ -193,10 +178,10 @@ class TinNhanDetailsCuDan extends Component {
             IntUserID: InfoUser[0].IntUserID,
             UserID: InfoUser[0].UserID,
             FullName: InfoUser[0].FullName,
-            Avartar: InfoUser[0].Avartar ? InfoUser[0].Avartar : "",
+            Avatar: InfoUser[0].Avartar ? InfoUser[0].Avartar : "",
             RefIntUserID: params.Info.IntUserID,
             RefName: params.Info.FullName,
-            RefAvartar: params.Info.Avartar,
+            RefAvatar: params.Info.Avartar ? params.Info.Avartar : "" ,
             Content: text,
             KDTID: dataProfile[0].KDTID
         }

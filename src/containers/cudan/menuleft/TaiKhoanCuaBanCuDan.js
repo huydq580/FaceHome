@@ -43,20 +43,7 @@ class TaiKhoanCuaBanCuDan extends Component {
     constructor(props){
         super(props)
         this.state = {
-            ArrThanhVien: [
-                {
-                    avt: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg',
-                    username: 'Thủy Top'
-                },
-                {
-                    avt: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg',
-                    username: 'Thủy Top'
-                },
-                {
-                    avt: 'https://znews-photo-td.zadn.vn/w1024/Uploaded/unvjuas/2018_01_14/NGUYEN_BA_NGOC2312_ZING_2.jpg',
-                    username: 'Thủy Top'
-                }
-            ],
+            ArrThanhVien: [],
             ArrToa: [],
             ArrButton: [
                 {

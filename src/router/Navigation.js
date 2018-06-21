@@ -614,9 +614,6 @@ const Stack = StackNavigator ({
     },
     HuongDan: {
         screen: HuongDan,
-        navigationOptions: {
-            header: null
-        }
     }
 
 
