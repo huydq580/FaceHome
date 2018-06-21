@@ -87,13 +87,16 @@ class DaCoCanHo extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        // console.log('dataProfile', dataProfile)
 
         fetch(URL + UpdateProfile, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({
-                profile_id: InfoUser[0].ProfileID,
+                profile_id: dataProfile[0].ProfileID,
                 user_id: InfoUser[0].UserID,
                 field: "TokenKey",
                 value: token_APP,
@@ -101,6 +104,7 @@ class DaCoCanHo extends Component {
             })
         }).then((response) => response.json())
             .then(dataRes => {
+                console.log('dataRes', dataRes)
                 dataToken = JSON.parse(dataRes)
                 this.setState({
                     Token: dataToken.Message

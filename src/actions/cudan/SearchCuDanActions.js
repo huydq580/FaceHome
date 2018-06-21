@@ -23,15 +23,15 @@ export const callApiSearchCuDan = (keyword,kdt_id, block_id,floor_id, status) =>
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                data1 = JSON.parse(data);
+                // data1 = JSON.parse(data);
                 // console.log('hhh', data1.Value)
                 dispatch({
                     type: 'SEARCH_CUDAN',
-                    payload: data1.Value
+                    payload: data.Value
                 })
                 resolve(data);
             }).catch(e => {
-                console.log('exception')
+                console.log('exception', e)
             })
         })
     }

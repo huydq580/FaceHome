@@ -40,7 +40,7 @@ export const UpdateProfileNCC = "api/Ncc/UpdateProfile";
 
 export const RegisterCuDan = "api/dancu/register";
 export const GetProfileCuDan = "api/DanCu/GetProfile";
-export const SearchDanCu = "api/DanCu/SearchDanCu";
+export const SearchDanCu = "api/Users/SearchUser";
 export const ChuyenDiaDiem = "api/DanCu/ChuyenDiaDiem";
 export const ChangePasswordCuDan = "api/DanCu/ChangePassword";
 export const UpdateProfileCuDan = "api/DanCu/UpdateProfile";

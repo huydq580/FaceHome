@@ -55,6 +55,7 @@ class CuDanKhac extends Component {
     }
     CreateMsgGroupID = () => {
         const { params } = this.props.navigation.state
+
         this.state.GroupMembers.push({
             IntUserID: params.Info.IntUserID,
             FullName:  params.Info.FullName,
@@ -76,7 +77,7 @@ class CuDanKhac extends Component {
     }
     render() {
         const { params } = this.props.navigation.state
-        // console.log('params', params.Info)
+        console.log('params', params)
         return (
             <ScrollView style={stylesContainer.container}>
                 <View style = {{flexDirection: 'row', justifyContent:'space-between', alignItems: 'flex-end'}}>
@@ -103,7 +104,7 @@ class CuDanKhac extends Component {
                 <ThongTinItem title='Ngày sinh'
                               value={params.Info.BirdDate ? params.Info.BirdDate : ""}/>
                 <ThongTinItem title='Số điện thoại'
-                              value={params.Info.Username}/>
+                              value={params.Info.UserName}/>
                 <ThongTinItem title='Giới tính'
                               value=""/>
                 <ThongTinItem title='Email'
@@ -113,7 +114,7 @@ class CuDanKhac extends Component {
                     <Text style={{flex: 1, color: 'black'}}>Căn hộ</Text>
                     <View style={{flex: 3,}}>
 
-                        <Text style={{marginLeft: 5, fontWeight: 'bold'}}>{params.Info.KDT} – {params.Info.Floor} - {params.Info.PartName}</Text>
+                        <Text style={{marginLeft: 5, fontWeight: 'bold'}}>{params.Info.TenKDT} – {params.Info.Floor} - {params.Info.PartName}</Text>
 
 
                     </View>
@@ -137,7 +138,7 @@ class CuDanKhac extends Component {
                 </TouchableOpacity>
             </ScrollView>
         )
-    }
+    }Username
 }
 const mapStateToProps = (state) => {
     return {

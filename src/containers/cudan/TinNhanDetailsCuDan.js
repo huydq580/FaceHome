@@ -14,14 +14,12 @@ import SocketIOClient from 'socket.io-client';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import Dimensions from 'Dimensions';
-
-const DEVICE_WIDTH = Dimensions.get('window').width;
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import {callApiGetMessage} from "../../actions/messages/MessagesDetailsActions";
 import {SOCKET} from "../../components/Api";
 import ChatItem from "../../components/chatItem/ChatItem";
 import TextInputChat from "../../components/TextInputChat";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
+const DEVICE_WIDTH = Dimensions.get('window').width;
 
 class TinNhanDetailsCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -30,7 +28,7 @@ class TinNhanDetailsCuDan extends Component {
 
         return {
             title: `${navigation.state.params.title}`,
-            headerTitleStyle: {textAlign: 'center', alignSelf: 'center', color: TITLE_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
             headerStyle: {
                 backgroundColor: BACKGROUND_HEADER,
             },
@@ -55,7 +53,7 @@ class TinNhanDetailsCuDan extends Component {
         }
         this.input_msg = '';
         const {params} = this.props.navigation.state
-        console.log('params.MsgId', params.MsgId)
+        console.log('params.MsgId', params)
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
@@ -70,7 +68,7 @@ class TinNhanDetailsCuDan extends Component {
         // console.log('socket', this.socket)
         // // get old message
         this.getOldMSG();
-        console.log('IntUserID', InfoUser[0].IntUserID)
+        // console.log('IntUserID', InfoUser[0].IntUserID)
 
         this.socket.on('connect', () => {
 

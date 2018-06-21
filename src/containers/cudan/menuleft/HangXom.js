@@ -50,7 +50,8 @@ class HangXom extends Component {
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         callApiSearchCuDan("", dataProfile[0].KDTID, "", dataProfile[0].FloorID, 255).then(dataRes => {
-            dataRes = JSON.parse(dataRes)
+            console.log('datacudan', dataRes)
+            // dataRes = JSON.parse(dataRes)
             dataRes = dataRes.Value
             this.setState({
                 ArrThanhVienTang: dataRes

@@ -32,11 +32,13 @@ export default class TinNhanItemCuDan extends Component {
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
+        var chatTo = item.ChatTo ? item.ChatTo : []
+        chatTo = JSON.parse(chatTo)
         return (
 
             <TouchableOpacity
                 onPress={() => {
-                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {MsgId: item.MsgGroupID, title: item.FullNameOrGroupName, Info: item.ChatTo}) :
+                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {MsgId: item.MsgGroupID, title: item.FullNameOrGroupName, Info: chatTo}) :
                         item.IsGroup == 1 ? navigation.navigate('ChatGroupCuDan', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
                 }}
             >
@@ -54,7 +56,7 @@ export default class TinNhanItemCuDan extends Component {
                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                             <Text style={{color: '#42A5F5', fontWeight: "bold"}} numberOfLines={1}
                                   ellipsizeMode={'tail'}>{item.FullNameOrGroupName}</Text>
-                            <Text style = {{marginRight:5}}>{moment(item.CreatedDate).format("DD/MM/YYYY HH:mm")}</Text>
+                            <Text style = {{marginRight:5, color: 'black'}}>{moment(item.CreatedDate).format("DD/MM/YYYY")}</Text>
                         </View>
                         <Text numberOfLines={1} ellipsizeMode={'tail'}>{item.Content}</Text>
                     </View>
