@@ -123,7 +123,9 @@ class TinNhanDetailsCuDan extends Component {
             IntUserID: InfoUser[0].IntUserID,
 
         }
+        console.log('dataGroup', dataGroup)
         this.socket.emit("logout", dataGroup)
+        console.log('logut')
     }
     //get old msg
     getOldMSG = () => {
@@ -181,7 +183,8 @@ class TinNhanDetailsCuDan extends Component {
             RefName: params.Info.FullName,
             RefAvatar: params.Info.Avartar ? params.Info.Avartar : "" ,
             Content: text,
-            KDTID: dataProfile[0].KDTID
+            KDTID: dataProfile[0].KDTID,
+            GroupName: params.Info.FullName
         }
         console.log('dataSend', dataSend)
         this.socket.emit("msg", dataSend);
