@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     FlatList,
     ScrollView,
+    RefreshControl,
     ActivityIndicator,
     AsyncStorage, StyleSheet,
 
@@ -236,7 +237,15 @@ class DaCoCanHo extends Component {
         // }
         const {navigation} = this.props;
         return (
-            <View style={stylesContainer.container}>
+            <ScrollView style={stylesContainer.container}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refresh}
+                                onRefresh={() => {
+                                    this.fetchData()
+                                }}
+                            />}
+            >
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('SearchFaceHome')}>
                     <View style={{
                         flexDirection: 'row',
@@ -304,7 +313,7 @@ class DaCoCanHo extends Component {
                     </View>
                 }
 
-            </View>
+            </ScrollView>
         )
     }
 }

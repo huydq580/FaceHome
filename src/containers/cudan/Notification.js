@@ -52,12 +52,12 @@ class Notification extends Component {
     }
 
     componentWillMount() {
-        console.log('componentwillmount')
+        // console.log('componentwillmount')
         this.getNotifi()
     }
 
     getNotifi = () => {
-        console.log('getnotifi')
+        // console.log('getnotifi')
         this.setState({isLoading: true})
         const {InfoUser} = this.props
         if (InfoUser.length <= 0) {
@@ -80,7 +80,7 @@ class Notification extends Component {
                         listNoti: dataRes.ObjectResult,
                         isLoading: false
                     }, () => {
-                        console.log('listnoti', this.state.listNoti)
+                        // console.log('listnoti', this.state.listNoti)
                     })
             }).catch((erro) => {
             console.log('erro', erro);
