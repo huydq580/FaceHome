@@ -91,6 +91,8 @@ class BinhLuanCuDan extends Component {
     }
     sendCmt = ( DatePost, Content) => {
         const { params } = this.props.navigation.state
+        console.log('params binh luan', params)
+        console.log('params binh luan', params.InfoUserPost.KDTID)
         AsyncStorage.getItem("token").then(value => {
             console.log('value', value)
             const {InfoUser} = this.props;

@@ -65,7 +65,7 @@ class TinNhanDetailsCuDan extends Component {
             transports: ['websocket']
         });
         console.log('socket', this.socket)
-        // console.log('socket', this.socket)
+        // // console.log('socket', this.socket)
         // // get old message
         this.getOldMSG();
         // console.log('IntUserID', InfoUser[0].IntUserID)

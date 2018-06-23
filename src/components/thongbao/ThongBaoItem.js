@@ -7,6 +7,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import images from "../images";
+import moment from "moment/moment";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 export default class ThongBaoItem extends Component {
@@ -37,20 +39,18 @@ export default class ThongBaoItem extends Component {
                 }}
             >
                 <View key={item.index}
-                      style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',backgroundColor:item.isSeen?'white':'#b2ebf2'}}>
+                      style={{marginTop: 10, flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',backgroundColor:"white"}}>
                     <Image style={myStyle.image_circle}
 
-                           source={{
-                               uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                           }}
+                           source={
+                               !item.Avatar ? images.noavatar : {uri: item.Avatar}
+                           }
                            resizeMode="cover"
                     >
                     </Image>
                     <View style={{flex: 4, flexDirection: 'column', marginLeft: 10, marginTop: 10, marginBottom: 10}}>
-                        <Text style={{flex: 2}} numberOfLines={1}
-                              ellipsizeMode={'tail'}>{item.Content}</Text>
-                        {/*<Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.body}</Text>*/}
-                        <Text style={{flex: 1}} numberOfLines={1} ellipsizeMode={'tail'}>{item.SentAt}</Text>
+                        <Text style={{flex: 2}}>{item.Content}</Text>
+                        <Text style={{flex: 1}} ellipsizeMode={'tail'}>{moment(item.TimeCreate).format("HH:mm, DD-MM-YYYY")}</Text>
                     </View>
                 </View>
 
@@ -61,7 +61,7 @@ const myStyle = StyleSheet.create({
     image_circle: {
         height: DEVICE_WIDTH / 6,
         width: DEVICE_WIDTH / 6,
-        borderRadius: 0,
+        borderRadius: DEVICE_WIDTH / 12,
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 10,

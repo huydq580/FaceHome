@@ -32,14 +32,14 @@ class Notification extends Component {
         this.state = {
             listNoti:[]
         }
-        this.socket = SocketIOClient(SOCKET, {
-            pingTimeout: 30000,
-            pingInterval: 30000,
-            transports: ['websocket']
-        });
-        this.socket.on('notification', (dataReceive) => {
-            console.log('notification', dataReceive)
-        })
+        // this.socket = SocketIOClient(SOCKET, {
+        //     pingTimeout: 30000,
+        //     pingInterval: 30000,
+        //     transports: ['websocket']
+        // });
+        // this.socket.on('notification', (dataReceive) => {
+        //     console.log('notification', dataReceive)
+        // })
 
     }
     componentWillMount() {
@@ -54,8 +54,7 @@ class Notification extends Component {
 
             },
             body: JSON.stringify({
-                UserID: InfoUser[0].UserID,
-                ProfileID: InfoUser[0].ProfileID,
+                IntUserID: InfoUser[0].IntUserID,
             })
         })
             .then((response) => response.json())
