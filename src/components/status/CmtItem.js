@@ -32,8 +32,8 @@ class CmtItem extends Component {
                     <Text style = {styles.textCmt}>{item.Content}</Text>
                     <View style = {{flexDirection:'row'}}>
                         <Text>{moment(item.CreatedDate).format("HH:mm, DD-MM-YYYY")}</Text>
-                        <Text style = {{marginLeft:15, color:'black'}}>Like</Text>
-                        <Text style = {{marginLeft:15, color: 'black'}}>Reply</Text>
+                        {/*<Text style = {{marginLeft:15, color:'black'}}>Like</Text>*/}
+                        {/*<Text style = {{marginLeft:15, color: 'black'}}>Reply</Text>*/}
                     </View>
 
                 </View>

@@ -10,7 +10,7 @@ import {callApiGetProfile} from "../actions/GetProfileActions";
 
 class LoadData extends Component {
     constructor(props){
-        console.log('constructor')
+        // console.log('constructor')
         super(props)
         this.state = {
         }
@@ -18,7 +18,7 @@ class LoadData extends Component {
     }
     componentWillMount(){
         AsyncStorage.getItem('Type').then((value)=> {
-            console.log('type', value)
+            // console.log('type', value)
             setTimeout(() => {
                 if (value == 1) {
                     // this.props.navigation.navigate('TabBQL')
@@ -65,7 +65,7 @@ class LoadData extends Component {
         AsyncStorage.getItem('UserID').then((value)=> {
             const {callApiGetProfile} = this.props;
             callApiGetProfile(value, 100).then(dataRes => {
-                console.log('dataProfile', dataRes)
+                // console.log('dataProfile', dataRes)
                 // dataProfile = JSON.parse(dataRes);
                 // console.log('data', dataProfile)
             })

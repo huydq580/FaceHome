@@ -65,7 +65,7 @@ class ChuaDangNhap extends Component {
             this.setState({
                 ArrKDT: data.Value
             })
-            console.log('dataRes', data.Value)
+            // console.log('dataRes', data.Value)
         })
     }
     render () {

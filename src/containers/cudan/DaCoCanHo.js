@@ -139,7 +139,7 @@ class DaCoCanHo extends Component {
         FCM.requestPermissions().then(() => console.log('granted')).catch(() => console.log('notification permission rejected'));
 
         FCM.getFCMToken().then(token => {
-            console.log('token', token)
+            // console.log('token', token)
             AsyncStorage.setItem('token', token);
             this.pushDeviceToken(token);
             // store fcm token in your server

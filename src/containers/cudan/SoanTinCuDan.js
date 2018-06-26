@@ -191,6 +191,8 @@ class SoanTinCuDan extends Component {
             Poll: PollVote,
             Type: Type,
             Comments: [],
+            TotalLike: 0,
+            LikePost: [],
         }
         this.socket.emit("post", dataSendPost);
     }

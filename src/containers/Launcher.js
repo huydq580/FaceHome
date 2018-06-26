@@ -26,7 +26,7 @@ class Launcher extends Component{
     }
     pushScreen(){
         AsyncStorage.getItem('UserID').then((value)=>{
-            console.log('value', value)
+            // console.log('value', value)
             if(value){
                 this.props.navigation.navigate('LoadData')
             }

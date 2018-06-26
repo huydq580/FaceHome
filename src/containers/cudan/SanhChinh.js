@@ -27,23 +27,31 @@ class SanhChinh extends Component {
         }
 
     }
-    componentWillMount () {
+    _loadInitialState = async () => {
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
-        // console.log('InfoUser', InfoUser)
-        AsyncStorage.getItem('UserID').then((value)=> {
-            this.setState({
-                value: value,
-                LtProfile : InfoUser[0].LtProfile
+        try {
 
-            })
-        })
+            let value = await AsyncStorage.getItem("UserID");
+            if (value !== null){
+                this.setState({
+                    value: value,
+                    LtProfile : InfoUser[0].LtProfile
+
+                })
+            }
+        } catch (error) {
+            //
+        }
+    };
+    componentWillMount () {
+        this._loadInitialState().done();
     }
     renderGiaoDien = () => {
         console.log('this.state.value', this.state.value)
-        console.log('this.state.LtProfile', this.state.LtProfile)
+        // console.log('this.state.LtProfile', this.state.LtProfile)
         const { navigation } = this.props;
         if (this.state.value ) {
             if (this.state.LtProfile){

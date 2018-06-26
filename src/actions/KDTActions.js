@@ -24,7 +24,7 @@ export const callApiSearchKDT = (keyword,ma_vung ) => {
                 return response.json();
             }).then(data => {
                 data1 = JSON.parse(data);
-                console.log('data1', data1)
+                // console.log('data1', data1)
                 dispatch({
                     type: 'GET_KDT',
                     payload: data1.Value
