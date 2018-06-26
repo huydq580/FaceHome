@@ -164,7 +164,7 @@ class StatusItemCuDan extends Component {
         callApiSearchCmt(PostID).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            this.props.navigation.navigate('BinhLuanCuDan', {InfoUserPost: item})
+            this.props.navigation.navigate('BinhLuanCuDan', {postId: item.PostID})
         })
     }
 

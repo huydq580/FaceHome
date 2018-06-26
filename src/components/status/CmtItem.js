@@ -13,7 +13,7 @@ import images from "../images";
 class CmtItem extends Component {
     render (){
         const {item} = this.props.dataItem;
-        console.log('item', item)
+        // console.log('item', item)
         const { navigation } = this.props;
         return (
             <View style = {{flex:1}}>

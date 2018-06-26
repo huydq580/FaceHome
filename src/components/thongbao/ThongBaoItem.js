@@ -8,10 +8,13 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import images from "../images";
-import moment from "moment/moment";
+import moment from "moment";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {callApiSearchCmt} from "../../actions/SearchCmtActions";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-export default class ThongBaoItem extends Component {
+class ThongBaoItem extends Component {
 
     constructor(props) {
         super(props);
@@ -25,7 +28,15 @@ export default class ThongBaoItem extends Component {
         else
             return true;
     }
-
+    BinhLuan = (PostID) => {
+        const {callApiSearchCmt} = this.props
+        callApiSearchCmt(PostID).then(dataRes => {
+            console.log('dataRes', dataRes)
+            dataCmt = JSON.parse(dataRes)
+            dataCmt = dataCmt.Value
+            this.props.navigation.navigate('BinhLuanCuDan', {postId: PostID})
+        })
+    }
 
 
     render() {
@@ -34,9 +45,7 @@ export default class ThongBaoItem extends Component {
         return (
 
             <TouchableOpacity
-                onPress={() => {
-                    //  navigation.navigate('Chat', {dataUser: item});
-                }}
+                onPress={() => this.BinhLuan(item.ObjectID)}
             >
                 <View key={item.index}
                       style={{marginTop: 10, flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',backgroundColor:"white"}}>
@@ -57,6 +66,20 @@ export default class ThongBaoItem extends Component {
             </TouchableOpacity>)
     }
 };
+
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiSearchCmt: bindActionCreators(callApiSearchCmt, dispatch),
+    }
+};
+
+ThongBaoItem = connect(mapStateToProps, mapDispatchToProps)(ThongBaoItem);
+export default ThongBaoItem
 const myStyle = StyleSheet.create({
     image_circle: {
         height: DEVICE_WIDTH / 6,

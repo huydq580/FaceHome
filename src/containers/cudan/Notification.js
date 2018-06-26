@@ -126,20 +126,25 @@ class Notification extends Component {
                             </View>
 
 
-
                         </View> : <View style={{flex: 1}}>
-                            <FlatList
-                                data={this.state.listNoti}
-                                renderItem={(item) => {
-                                    return (
-                                        <ThongBaoItem
-                                            dataItem={item}
-                                            navigation={navigation}
-                                        />
-                                    )
-                                }}
-                                keyExtractor={(item, index) => index.toString()}
-                            />
+                            {
+                                this.state.listNoti ? <View style={{alignItems: "center", marginTop: 20}}>
+                                        <Text style = {{fontSize: 16}}>Không có thông báo</Text>
+                                    </View> :
+                                    <FlatList
+                                        data={this.state.listNoti}
+                                        renderItem={(item) => {
+                                            return (
+                                                <ThongBaoItem
+                                                    dataItem={item}
+                                                    navigation={navigation}
+                                                />
+                                            )
+                                        }}
+                                        keyExtractor={(item, index) => index.toString()}
+                                    />
+                            }
+
                         </View>
                 }
                 {this.state.isLoading ?

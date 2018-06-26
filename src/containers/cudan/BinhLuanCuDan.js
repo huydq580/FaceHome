@@ -54,6 +54,8 @@ class BinhLuanCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null;
         }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
@@ -61,11 +63,11 @@ class BinhLuanCuDan extends Component {
         });
         console.log('this.socket', this.socket)
         this.socket.emit('logincomment', {
-            PostID: params.InfoUserPost.PostID,
+            PostID: params.postId,
             IntUserID: InfoUser[0].IntUserID,
-            KDTID: params.InfoUserPost.KDTID,
+            KDTID: dataProfile[0].KDTID,
         })
-        console.log('so luong cmt', this.state.dataCmt)
+        // console.log('so luong cmt', this.state.dataCmt)
         this.socket.on('receivecomment', (dataReceive) => {
             console.log('receivecomment', dataReceive)
             dataPost = dataReceive.PostContent;
@@ -91,29 +93,30 @@ class BinhLuanCuDan extends Component {
     }
     sendCmt = ( DatePost, Content) => {
         const { params } = this.props.navigation.state
-        console.log('params binh luan', params)
-        console.log('params binh luan', params.InfoUserPost.KDTID)
+        // console.log('params binh luan', params)
         AsyncStorage.getItem("token").then(value => {
             console.log('value', value)
             const {InfoUser} = this.props;
             if (InfoUser.length <= 0) {
                 return null;
             }
+            let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+            dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
             // console.log("msg:", this.input_msg);
             //object need send to server
             let dataSendCmt = {
-                KDTID: params.InfoUserPost.KDTID,
+                KDTID: dataProfile[0].KDTID,
                 IntUserID: InfoUser[0].IntUserID,
-                PostID: params.InfoUserPost.PostID,
+                PostID: params.postId,
                 FullName:InfoUser[0].FullName ,
                 DatePost: DatePost,
                 Content: Content,
                 TokenDevice : value,
                 Avatar: InfoUser[0].Avatar ? InfoUser[0].Avatar : "",
-                IntUserIDPost: params.InfoUserPost.IntUserID
+                IntUserIDPost: 683
             }
             this.socket.emit("comment", dataSendCmt);
-            // console.log('dataSendCmt', dataSendCmt)
+            console.log('dataSendCmt', dataSendCmt)
         })
 
     }
@@ -123,7 +126,6 @@ class BinhLuanCuDan extends Component {
         if (InfoUser.length <=0){
             return null
         }
-        // console.log("params", params)
         if (text === "")
             return;
         let avt =  InfoUser[0].Avatar ? InfoUser[0].Avatar : ""
@@ -132,13 +134,13 @@ class BinhLuanCuDan extends Component {
         if (InfoUser.length <= 0) {
             return null
         }
-        callApiPostCmt(params.InfoUserPost.PostID, InfoUser[0].UserID,InfoUser[0].IntUserID, 2, InfoUser[0].FullName, SendCMT, avt).then(dataRes => {
+        callApiPostCmt(params.postId, InfoUser[0].UserID,InfoUser[0].IntUserID, 2, InfoUser[0].FullName, SendCMT, avt).then(dataRes => {
             data = JSON.parse(dataRes);
             this.sendCmt( data.Value.CreatedTime, SendCMT)
         })
     }
     render (){
-        console.log('dataCmt', this.state.dataCmt)
+        // console.log('dataCmt', this.state.dataCmt)
         return (
             <View style = {stylesContainer.container}>
                 <FlatList
