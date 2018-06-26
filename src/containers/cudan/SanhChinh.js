@@ -27,12 +27,12 @@ class SanhChinh extends Component {
         }
 
     }
-    componentDidMount () {
+    componentWillMount () {
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
         }
-        console.log('InfoUser', InfoUser)
+        // console.log('InfoUser', InfoUser)
         AsyncStorage.getItem('UserID').then((value)=> {
             this.setState({
                 value: value,
@@ -42,6 +42,8 @@ class SanhChinh extends Component {
         })
     }
     renderGiaoDien = () => {
+        console.log('this.state.value', this.state.value)
+        console.log('this.state.LtProfile', this.state.LtProfile)
         const { navigation } = this.props;
         if (this.state.value ) {
             if (this.state.LtProfile){

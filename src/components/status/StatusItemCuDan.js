@@ -159,12 +159,12 @@ class StatusItemCuDan extends Component {
     youUnChecked = () => {
 
     }
-    BinhLuan = (PostID, item) => {
+    BinhLuan = (PostID, IntUserIDPost) => {
         const {callApiSearchCmt} = this.props
         callApiSearchCmt(PostID).then(dataRes => {
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            this.props.navigation.navigate('BinhLuanCuDan', {postId: item.PostID})
+            this.props.navigation.navigate('BinhLuanCuDan', {postId: PostID, IntUserIDPost: IntUserIDPost})
         })
     }
 
@@ -295,7 +295,7 @@ class StatusItemCuDan extends Component {
                                 resizeMode="cover">
                             </Image>
                             <TouchableOpacity onPress={() => {
-                                this.BinhLuan(item.PostID, item)
+                                this.BinhLuan(item.PostID, item.IntUserID)
                             }}
                                               style={{
                                                   marginLeft: 10, flex: 1,
@@ -437,7 +437,7 @@ class StatusItemCuDan extends Component {
                                 resizeMode="cover">
                             </Image>
                             <TouchableOpacity onPress={() => {
-                                this.BinhLuan(item.PostID, item)
+                                this.BinhLuan(item.PostID, item.IntUserID)
                             }}
                                               style={{
                                                   marginLeft: 10, flex: 1,

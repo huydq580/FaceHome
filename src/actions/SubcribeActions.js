@@ -1,6 +1,6 @@
 import {LoginLogoutSubcribe, URL_SOCKET} from "../components/Api";
 
-export const callApiSubcribe = (UserID, ProfileID,  IsSubscribe) => {
+export const callApiSubcribe = (IntUserID,  IsSubscribe) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL_SOCKET + LoginLogoutSubcribe, {
@@ -9,8 +9,7 @@ export const callApiSubcribe = (UserID, ProfileID,  IsSubscribe) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    UserID: UserID,
-                    ProfileID: ProfileID,
+                    IntUserID: IntUserID,
                     IsSubscribe: IsSubscribe
 
 

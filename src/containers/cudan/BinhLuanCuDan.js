@@ -113,7 +113,7 @@ class BinhLuanCuDan extends Component {
                 Content: Content,
                 TokenDevice : value,
                 Avatar: InfoUser[0].Avatar ? InfoUser[0].Avatar : "",
-                IntUserIDPost: 683
+                IntUserIDPost: params.IntUserIDPost
             }
             this.socket.emit("comment", dataSendCmt);
             console.log('dataSendCmt', dataSendCmt)

@@ -28,13 +28,13 @@ class ThongBaoItem extends Component {
         else
             return true;
     }
-    BinhLuan = (PostID) => {
+    BinhLuan = (PostID, IntUserIDPost) => {
         const {callApiSearchCmt} = this.props
         callApiSearchCmt(PostID).then(dataRes => {
             console.log('dataRes', dataRes)
             dataCmt = JSON.parse(dataRes)
             dataCmt = dataCmt.Value
-            this.props.navigation.navigate('BinhLuanCuDan', {postId: PostID})
+            this.props.navigation.navigate('BinhLuanCuDan', {postId: PostID, IntUserIDPost: IntUserIDPost})
         })
     }
 
@@ -42,10 +42,14 @@ class ThongBaoItem extends Component {
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
+        let ObjectData = item.ObjectData
+        ObjectData1 = JSON.parse(ObjectData)
+
+
         return (
 
             <TouchableOpacity
-                onPress={() => this.BinhLuan(item.ObjectID)}
+                onPress={() => this.BinhLuan(item.ObjectID, ObjectData1.IntUserIDPost)}
             >
                 <View key={item.index}
                       style={{marginTop: 10, flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center',backgroundColor:"white"}}>
