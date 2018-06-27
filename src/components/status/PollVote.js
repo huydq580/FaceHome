@@ -15,7 +15,8 @@ class PollVote extends Component {
         super(props)
         this.countCheck = this.props.dataItem.item.TotalVote;
         this.state = {
-            countCheck: this.countCheck
+            countCheck: this.countCheck,
+            a: 1
         }
     }
     youChecked = (PostID, PollID) => {
@@ -94,11 +95,14 @@ class PollVote extends Component {
                 Alert.alert("Thông báo", "Có lỗi khi like");
             });
         }
-
+    onClick = (PostID, PollID) => {
+        data.checked = !data.checked;
+        data.checked? this.youChecked(PostID, PollID):this.youUnChecked(PostID, PollID)
+    }
     render () {
 
         const {item} = this.props.dataItem;
-        console.log('itempollvote', item)
+        // console.log('itempollvote', item)
         return (
             <View style={{
                 flexDirection: 'row',
@@ -116,7 +120,7 @@ class PollVote extends Component {
                 }}>
                     <CheckBox
                         style={{marginLeft: 2}}
-                        onClick={() => {this.youUnChecked(item.PostID, item.OptionID)}}
+                        onClick={() => this.onClick(item.PostID, item.OptionID)}
                         isChecked={data.checked}
                         // leftText={leftText}
                     />
