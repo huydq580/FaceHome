@@ -21,10 +21,14 @@ import images from "../../../components/images";
 import DichVuItem from "../../../components/dichvu/DichVuItem";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
 import ChoFaceHomeItem from "../../../components/chofacehome/ChoFaceHomeItem";
+import {callApiGetCategory} from "../../../actions/raovat/GetCategoryActions";
+import {bindActionCreators} from "redux";
+import {callApiSearchRaoVat} from "../../../actions/raovat/SearchRaoVatActions";
+import {connect} from "react-redux";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-export default class ChoFaceHome extends Component {
+class ChoFaceHome extends Component {
     static navigationOptions = ({ navigation }) => {
         const { params = {} } = navigation.state
 
@@ -41,51 +45,8 @@ export default class ChoFaceHome extends Component {
         super(props);
 
         this.state = {
-            itemSelected: 1,
-            ArrCategory: [
-                {
-                    key: 1,
-                    value: 1,
-                    icon: images.tatcadichvu,
-                    thumuc: "Tất cả"
-                },
-                {
-                    key: 2,
-                    value: 2,
-                    icon: images.tatcadichvu,
-                    thumuc: "Tin đăng của bạn"
-                },
-                {
-                    key: 3,
-                    value: 3,
-                    icon: images.tatcadichvu,
-                    thumuc: "Đồ diện tử"
-                },
-                {
-                    key: 4,
-                    value: 4,
-                    icon: images.tatcadichvu,
-                    thumuc: "Nội ngoại thất"
-                },
-                {
-                    key: 5,
-                    value: 5,
-                    icon: images.tatcadichvu,
-                    thumuc: "Thời trang mỹ phẩm"
-                },
-                {
-                    key: 6,
-                    value: 6,
-                    icon: images.tatcadichvu,
-                    thumuc: "Xe cộ"
-                },
-                {
-                    key: 7,
-                    value: 7,
-                    icon: images.tatcadichvu,
-                    thumuc: "Khác"
-                }
-            ],
+            itemSelected: 7,
+            ArrCategory: [],
             ArrAll: [
                 {
                     avt: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq44Xb-IAuYoK4nU0ua0HzmUXlwjS8cmVbMR5IkrmM7EZR44jRhw",
@@ -131,13 +92,29 @@ export default class ChoFaceHome extends Component {
 
         }
     }
+    componentWillMount() {
+        this.GetCategory()
+
+    }
+    GetCategory = () => {
+        const {callApiGetCategory} = this.props;
+        callApiGetCategory().then(dataRes => {
+            dataCategory = JSON.parse(dataRes)
+            dataCategory = dataCategory.Value
+            console.log('data', dataCategory)
+            this.setState({
+                ArrCategory: dataCategory
+            })
+        })
+    }
+
 
     _renderItem = ({item}) => {
         return (
             <TouchableOpacity
-                style={{backgroundColor: this.state.itemSelected === item.key ? '#FFCC80' : 'white'}}
+                style={{backgroundColor: this.state.itemSelected === item.CatID ? '#FFCC80' : 'white'}}
                 onPress={() => {
-                    this.setState({itemSelected: item.key}, () => {
+                    this.setState({itemSelected: item.CatID}, () => {
                         console.log('itemselected', this.state.itemSelected)
                     })
                 }}
@@ -145,14 +122,14 @@ export default class ChoFaceHome extends Component {
             >
                 <View style={{height: 30, alignItems: 'center', flexDirection:'row'}}>
                     <Image
-                        source={
-                            item.icon
-                        }
+                        source={{
+                            uri: item.Icon
+                        }}
                         style={styles.icondichvu}
                         resizeMode="cover">
                     </Image>
                     <View style = {{flex:1, justifyContent:'center', alignItems:'center'}}>
-                        <Text style={{color: 'black'}}>{item.thumuc}</Text>
+                        <Text style={{color: 'black'}}>{item.Name}</Text>
                     </View>
 
                 </View>
@@ -221,6 +198,21 @@ export default class ChoFaceHome extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        InfoUser: state.GetProfileReducers,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        callApiGetCategory: bindActionCreators(callApiGetCategory, dispatch),
+        callApiSearchRaoVat: bindActionCreators(callApiSearchRaoVat, dispatch),
+    }
+};
+
+ChoFaceHome = connect(mapStateToProps, mapDispatchToProps)(ChoFaceHome);
+export default ChoFaceHome
 const styles = StyleSheet.create({
     icondichvu: {
         marginLeft: 10,

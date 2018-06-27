@@ -43,6 +43,7 @@ class TinNhanCuDan extends Component {
             isLoading: false,
 
         }
+        this.dataSearchMsg = [];
 
 
     }
@@ -62,6 +63,7 @@ class TinNhanCuDan extends Component {
         const {callApiGetUserMsg} = this.props;
         callApiGetUserMsg(InfoUser[0].IntUserID).then(dataRes => {
             dataUser = dataRes.ObjectResult
+            this.dataSearchMsg = dataUser
             this.setState({
                 dataUser: dataUser,
                 isLoading: false,
@@ -83,6 +85,31 @@ class TinNhanCuDan extends Component {
         );
     }
 
+
+    search(text) {
+        if (!this.oldText || this.oldText != text) {
+            if (this.timeoutSearch) clearTimeout(this.timeoutSearch);
+            this.oldText = text;
+            this.timeoutSearch = setTimeout(() => {
+                const data = this.dataSearchMsg;
+                const textData = text.toLowerCase()
+                const inputSearch = data.filter(function (item) {
+                    const itemData = item.FullNameOrGroupName.toLowerCase()
+                    return itemData.indexOf(textData) > -1
+                })
+                this.setState({
+                    dataUser: inputSearch
+                })
+            }, 300);
+        }
+    }
+    SearchUser(text) {
+        this.setState({
+            text: text
+        }, () => {
+            this.search(this.state.text)
+        })
+    }
     render() {
         if (this.state.isLoading) {
             return (
@@ -104,7 +131,7 @@ class TinNhanCuDan extends Component {
                     <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
                     <TextInput placeholder='Tìm kiếm'
                                underlineColorAndroid="transparent"
-                               onChangeText={(TimKiem) => this.setState({TimKiem})}
+                               onChangeText={(text) => this.SearchUser(text)}
                                placeholderTextSize="20"
                                style = {{padding: 0, marginLeft: 10, flex:1}}
                                // returnKeyType={"search"}

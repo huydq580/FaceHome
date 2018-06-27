@@ -179,12 +179,12 @@ class TinNhanDetailsCuDan extends Component {
             UserID: InfoUser[0].UserID,
             FullName: InfoUser[0].FullName,
             Avatar: InfoUser[0].Avartar ? InfoUser[0].Avartar : "",
-            // RefIntUserID: params.Info.IntUserID,
-            // RefName: params.Info.FullName,
-            // RefAvatar: params.Info.Avartar ? params.Info.Avartar : "" ,
+            RefIntUserID: params.Info ? params.Info.IntUserID: "",
+            RefName: params.Info ? params.Info.FullName: "",
+            RefAvatar: params.Info ? params.Info.Avatar : "" ,
             Content: text,
             KDTID: dataProfile[0].KDTID,
-            // GroupName: params.Info.FullName
+            GroupName: params.title
         }
         console.log('dataSend', dataSend)
         this.socket.emit("msg", dataSend);
