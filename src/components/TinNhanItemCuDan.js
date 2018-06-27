@@ -21,33 +21,38 @@ export default class TinNhanItemCuDan extends Component {
 
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (JSON.stringify(nextProps.dataItem) === JSON.stringify(this.props.dataItem)) {
-            return false;
-        }
-
-        else
-            return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (JSON.stringify(nextProps.dataItem) === JSON.stringify(this.props.dataItem)) {
+    //         return false;
+    //     }
+    //
+    //     else
+    //         return true;
+    // }
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
-        var chatTo = item.ChatTo ? item.ChatTo : []
-        chatTo = JSON.parse(chatTo)
+        console.log('chatto',item.ChatTo)
+        var chatTo = item.ChatTo ? item.ChatTo : null
+        chatTo1 = JSON.parse(chatTo)
+        console.log('chatto1', chatTo1)
+
         return (
 
             <TouchableOpacity
                 onPress={() => {
-                    item.IsGroup == 0 ? navigation.navigate('TinNhanDetailsCuDan', {MsgId: item.MsgGroupID, title: item.FullNameOrGroupName, Info: chatTo}) :
-                        item.IsGroup == 1 ? navigation.navigate('ChatGroupCuDan', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
+                    navigation.navigate('TinNhanDetailsCuDan', {MsgId: item.MsgGroupID, title: item.FullNameOrGroupName, Info: item.ChatTo })
+                        // item.IsGroup == 1 ? navigation.navigate('ChatGroupCuDan', { title: item.FullNameOrGroupName, MsgGroupID: item.MsgGroupID}) : null
                 }}
+
             >
                 <View key={item.index}
                       style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <Image style={styles.image_circle}
 
                            source={
-                               !item.ChatTo.Avartar ? images.noavatar : {uri: item.ChatTo.Avartar}
+                               // !item.ChatTo && !item.ChatTo.Avatar ? images.noavatar : {uri: item.ChatTo.Avatar}
+                               images.noavatar
                            }
                            resizeMode="cover"
                     >

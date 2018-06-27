@@ -12,12 +12,13 @@ import moment from 'moment';
 import Dimensions from 'Dimensions';
 import Icon1 from 'react-native-vector-icons/EvilIcons';
 import SocketIOClient from "socket.io-client";
-import {LikePost, PollVote, SOCKET, URL, URL_SOCKET} from "../Api";
+import {LikePost, SOCKET, URL, URL_SOCKET} from "../Api";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmt} from "../../actions/SearchCmtActions";
 import images from "../images";
-import CheckBox from 'react-native-check-box'
+import PollVote from "./PollVote";
+
 
 class StatusItemCuDan extends Component {
     constructor(props) {
@@ -38,10 +39,11 @@ class StatusItemCuDan extends Component {
             countCheck: "",
         }
     }
-
+/*
     onClick = () => {
         console.log('hihi')
-    }
+        this.youChecked(PostID)
+    }*/
     likePost = (PostID) => {
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
@@ -119,46 +121,7 @@ class StatusItemCuDan extends Component {
 
     }
 
-    youChecked = (PostID, PollID) => {
-        const {InfoUser} = this.props;
-        if (InfoUser.length <= 0) {
-            return null
-        }
-        fetch(URL + PollVote, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                PostID: PostID,
-                PollID: PollID,
-                IntUser: InfoUser[0].IntUserID,
-                IsLike: 0,
-                isLog: 0,
-                lang_name: "vi_VN"
 
-
-            })
-        }).then(response => {
-            return response.json()
-        }).then(data => {
-            if (data.Error === null) {
-                let currentCheck = this.state.countCheck;
-                currentLike++;
-
-                this.setState({liked: false, countCheck: currentLike});
-            }
-            else {
-                Alert.alert("Thông báo", "có lỗi sảy ra");
-            }
-        }).catch(e => {
-            console.log("exception", e);
-            Alert.alert("Thông báo", "Có lỗi khi like");
-        });
-    }
-    youUnChecked = () => {
-
-    }
     BinhLuan = (PostID, IntUserIDPost) => {
         const {callApiSearchCmt} = this.props
         callApiSearchCmt(PostID).then(dataRes => {
@@ -186,7 +149,9 @@ class StatusItemCuDan extends Component {
         let dataPoll = (item.Poll) ? item.Poll : null
         Poll = dataPoll ? JSON.parse(dataPoll) : null;
         this.setState({
-            ArrPoll: Poll
+            ArrPoll: Poll,
+            // countCheck:  Poll.TotalVote
+
         })
     }
 
@@ -332,36 +297,12 @@ class StatusItemCuDan extends Component {
                         <FlatList
                             style={{marginTop: 5}}
                             data={this.state.ArrPoll}
-                            renderItem={({item}) => {
+                            renderItem={(item) => {
                                 return (
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                        marginTop: 5,
-                                        flexDirection: 'row'
-                                    }}>
-                                        <View style={{
-                                            marginLeft: 15,
-                                            flexDirection: 'row',
-                                            borderColor: '#E0E0E0',
-                                            borderWidth: 1, width: "80%",
-                                            backgroundColor: '#EEEEEE',
-                                            alignItems: 'center'
-                                        }}>
-                                            <CheckBox
-                                                style={{marginLeft: 2}}
-                                                onClick={() => this.onClick()}
-                                                isChecked={data.checked}
-                                                // leftText={leftText}
-                                            />
-                                            <Text style={{marginLeft: 10}}>{item.OptionContent}</Text>
+                                    <PollVote
+                                        dataItem={item}
+                                    />
 
-                                        </View>
-
-                                        <Text style={{marginLeft: 15, color: 'black'}}>{item.TotalVote + 1}</Text>
-
-
-                                    </View>
                                 )
                             }}
 

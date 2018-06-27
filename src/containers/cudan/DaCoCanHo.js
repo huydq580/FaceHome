@@ -190,9 +190,9 @@ class DaCoCanHo extends Component {
             dataBaiViet = JSON.parse(dataRes);
             dataBaiViet = dataBaiViet.Value
             console.log('bai viet sanh chinh', dataBaiViet)
-            if (dataBaiViet.length <= 0) {
-                return null
-            }
+            // if (dataBaiViet.length <= 0) {
+            //     return null
+            // }
             this.setState({
                 isLoading: false,
                 //save data

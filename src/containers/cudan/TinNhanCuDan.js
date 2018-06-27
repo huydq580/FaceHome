@@ -48,6 +48,7 @@ class TinNhanCuDan extends Component {
     }
 
     componentWillMount() {
+        console.log('componentwillmount')
         this.getUser()
     }
 

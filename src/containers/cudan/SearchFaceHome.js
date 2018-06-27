@@ -9,7 +9,8 @@ import {
     FlatList
 } from 'react-native';
 import ScrollableTabView, {DefaultTabBar,} from 'react-native-scrollable-tab-view';
-import Icon from 'react-native-vector-icons/EvilIcons';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Icon1 from 'react-native-vector-icons/Feather';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {CallApiSearchFaceHome} from "../../actions/cudan/SearchFaceHomeActions";
@@ -72,21 +73,28 @@ class SearchFaceHome extends Component {
         return (
             <View style={{flex: 1, backgroundColor: 'white'}}>
                 <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
-                    <TouchableOpacity onPress={() => {
-                        this.SearchFaceHome(),
-                            this.setState({
-                                isShow: true
-                            })
-                    }
-                    }>
-                        <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
+                    <TouchableOpacity onPress = {() => this.props.navigation.goBack()}>
+                         <Icon name="md-arrow-back" size={30} style={{marginLeft: 5}} color="black"/>
                     </TouchableOpacity>
-                    <TextInput
-                        style={{marginLeft: 5, flex: 1}}
+                        <TextInput
+                        style={{marginLeft: 15, flex: 1}}
                         placeholder='Tìm kiếm'
                         returnKeyType={"next"}
                         // underlineColorAndroid="transparent"
                         onChangeText={(TimKiem) => this.setState({TimKiem})}/>
+                    {
+                        this.state.TimKiem ?
+                            <TouchableOpacity onPress={() => {
+                                this.SearchFaceHome(),
+                                    this.setState({
+                                        isShow: true
+                                    })
+                            }
+                            }>
+                                <Icon1 name="search" size={30} style={{marginRight: 7}} color="black"/>
+                            </TouchableOpacity> : null
+
+                    }
                 </View>
 
                 {

@@ -15,14 +15,14 @@ export const callApiGetUserMsg = (IntUserID) => {
             }).then((response) => {
                 return response.json();
             }).then(data => {
-                // console.log('data_user',da   ta)
+                console.log('data_user',data)
                 dispatch({
                     type: 'MESSAGE',
                     payload: data.ObjectResult
                 })
                 resolve(data);
             }).catch(e => {
-                console.log('exception')
+                console.log('exception', e)
             })
         })
     }
