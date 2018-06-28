@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     AsyncStorage,
     Alert,
-    ActivityIndicator
+    ActivityIndicator, Platform
 } from 'react-native'
 import CheckBox from 'react-native-check-box'
 import {bindActionCreators} from "redux";
@@ -17,6 +17,7 @@ import {BACKGROUND_HEADER, TITLE_HEADER} from "../Constants";
 import {CallApiDangKy} from "../actions/cudan/DangKyActions";
 import UserInput from "../components/dangnhap/UserInput";
 import {CallApiLogin} from "../actions/actionsBQL/LoginActions";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 class DangNhap extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -36,6 +37,7 @@ class DangNhap extends Component {
             isLoading: false,
             SoDienThoai: "",
             MatKhau: "",
+            isCheck : false,
             imageSlider: [
                 {
                     thumbnail: 'http://file4.batdongsan.com.vn/2015/12/03/hmcVYWuR/20151203133249-f154.jpg'
@@ -50,54 +52,73 @@ class DangNhap extends Component {
         }
     }
     Login() {
-        this.setState({isLoading: true})
-        AsyncStorage.setItem('SoDienThoai', this.state.SoDienThoai)
-        const { CallApiLogin } = this.props;
-        CallApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
-            this.setState({
-                isLoading: false,
-            })
-            data = JSON.parse(dataLogin);
-
-            if(data.ErrorCode === "00"){
+        if (this.state.isCheck == false) {
+            Alert.alert(
+                'Thông báo',
+                "Bạn chưa đồng ý Điều khoản và dịch vụ",
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
+            )
+        }
+        else{
+            this.setState({isLoading: true})
+            AsyncStorage.setItem('SoDienThoai', this.state.SoDienThoai)
+            const { CallApiLogin } = this.props;
+            CallApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
+                this.setState({
+                    isLoading: false,
+                })
+                data = JSON.parse(dataLogin);
+                console.log('datalogin', data)
                 let userid = data.Value ? data.Value[0].UserID : null
-                // console.log('userid', userid)
+                console.log('userid', userid)
                 let dataLtProfile = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile : null
                 dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
-                // console.log("dataProfile", dataProfile)
-                // console.log("dataProfile0", dataProfile[0])
-                // console.log("dataProfile1", dataProfile[0].Type)
+                console.log("dataProfile", dataProfile)
+                console.log("dataProfile0", dataProfile[0])
+                console.log("dataProfile1", dataProfile[0].Type)
                 let type =  dataProfile[0].Type.toString()
-                // console.log('type', type)
+                console.log('type', type)
                 AsyncStorage.setItem('UserID', userid)
                 AsyncStorage.setItem('Type', type)
-                this.props.navigation.navigate('LoadData')
+                if(data.ErrorCode === "00"){
 
-            }
-            else if (data.ErrorCode === "02") {
-                this.props.navigation.navigate('DuyetTaiKhoan')
-            }
+                    this.props.navigation.navigate('LoadData')
 
-            else {
-                this.setState({
-                    loading: false,
-                    error: true
-                })
-                Alert.alert(
-                    'Thông báo',
-                    data.Message,
-                    [
-                        {text: 'OK', onPress: () => console.log('OK Pressed')},
-                    ],
-                    { cancelable: false }
-                )
-            }
-        })
+                }
+                else if (data.ErrorCode === "02") {
+                    this.props.navigation.navigate('DuyetTaiKhoan')
+                }
+
+                else {
+                    this.setState({
+                        loading: false,
+                        error: true
+                    })
+                    Alert.alert(
+                        'Thông báo',
+                        data.Message,
+                        [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                        ],
+                        { cancelable: false }
+                    )
+                }
+            })
+
+        }
 
     }
 
-    onClick = () => {
-        console.log('hihi')
+    onClick = (data) => {
+        data.checked = !data.checked;
+        data.checked? this.setState({
+            isCheck: true
+        }, ()=> console.log('checked', this.state.isCheck)):this.setState({
+            isCheck: false
+        },  ()=> console.log('checked', this.state.isCheck))
     }
 
 
@@ -105,6 +126,11 @@ class DangNhap extends Component {
         // var leftText = data.name;
 
         return (
+            <KeyboardAwareScrollView
+                style={{flex: 1}}
+                behavior={Platform.OS === 'ios' ? "padding" : null}
+                // keyboardVerticalOffset={64}
+            >
             <View style={{justifyContent: "space-between", flex: 1}}>
                 <View>
                     <SlideImage
@@ -137,8 +163,8 @@ class DangNhap extends Component {
                     <View style={{flexDirection: 'row', marginHorizontal: 70, alignItems: 'center', marginTop: 10}}>
                         <CheckBox
                         style={{}}
-                        onClick={() => this.onClick()}
-                        // isChecked={data.checked}
+                        onClick={() => this.onClick(data)}
+                        isChecked={data.checked}
                         // leftText={leftText}
                         />
                         <Text style={{marginLeft: 10, textDecorationLine: 'underline'}}>Điều khoản và dịch vụ</Text>
@@ -182,6 +208,7 @@ class DangNhap extends Component {
                 }
 
             </View>
+            </KeyboardAwareScrollView>
         )
 
     }

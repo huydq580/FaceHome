@@ -95,7 +95,7 @@ class PollVote extends Component {
                 Alert.alert("Thông báo", "Có lỗi khi like");
             });
         }
-    onClick = (PostID, PollID) => {
+    onClick = (PostID, PollID, data) => {
         data.checked = !data.checked;
         data.checked? this.youChecked(PostID, PollID):this.youUnChecked(PostID, PollID)
     }
@@ -120,7 +120,7 @@ class PollVote extends Component {
                 }}>
                     <CheckBox
                         style={{marginLeft: 2}}
-                        onClick={() => this.onClick(item.PostID, item.OptionID)}
+                        onClick={() => this.onClick(item.PostID, item.OptionID, data)}
                         isChecked={data.checked}
                         // leftText={leftText}
                     />

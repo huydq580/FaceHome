@@ -3,7 +3,9 @@ import {
     View,
     Text,
     TextInput,
-    TouchableOpacity, AsyncStorage, Alert,ActivityIndicator
+    KeyboardAvoidingView,
+    Platform,
+    TouchableOpacity, AsyncStorage, Alert, ActivityIndicator
 } from 'react-native'
 import SlideImage from "../../components/SlideImage";
 import CheckBox from 'react-native-check-box'
@@ -14,25 +16,27 @@ import {callApiPostCmt} from "../../actions/cudan/PostCmtActions";
 import {CallApiDangKy} from "../../actions/cudan/DangKyActions";
 import UserInput from "../../components/dangnhap/UserInput";
 import {NavigationActions} from "react-navigation";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 class DangKyCuDan extends Component {
-    static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
 
         return {
-            title:'Đăng kí tài khoản',
+            title: 'Đăng kí tài khoản',
             headerStyle: {backgroundColor: BACKGROUND_HEADER},
             headerTitleStyle: {color: TITLE_HEADER},
             headerTintColor: TITLE_HEADER,
 
         }
     }
+
     constructor(props) {
         super(props)
         this.state = {
             isLoading: false,
             SoDienThoai: "",
-
+            isCheck : false,
             FullName: "",
             MatKhau: "",
             MatKhauCF: "",
@@ -49,16 +53,35 @@ class DangKyCuDan extends Component {
             ],
         }
     }
+    onClick = (data) => {
+        data.checked = !data.checked;
+        data.checked? this.setState({
+            isCheck: true
+        }, ()=> console.log('checked', this.state.isCheck)):this.setState({
+            isCheck: false
+        },  ()=> console.log('checked', this.state.isCheck))
+    }
+
     DangKy = () => {
-        const { CallApiDangKy } = this.props
-        if (this.state.MatKhau !== this.state.MatKhauCF){
+        const {CallApiDangKy} = this.props
+        if (this.state.isCheck == false){
             Alert.alert(
                 'Thông báo',
-               "Mật khẩu không trùng khớp",
+                "Bạn chưa đồng ý Điều khoản và dịch vụ",
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
-                { cancelable: false }
+                {cancelable: false}
+            )
+        }
+        else if (this.state.MatKhau !== this.state.MatKhauCF) {
+            Alert.alert(
+                'Thông báo',
+                "Mật khẩu không trùng khớp",
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false}
             )
 
         }
@@ -69,12 +92,13 @@ class DangKyCuDan extends Component {
                     isLoading: false,
                 })
                 console.log('data', data)
-                if(data.ErrorCode === "00"){
+                if (data.ErrorCode === "00") {
                     Alert.alert(
                         'Thông báo',
                         data.Message,
                         [
-                            {text: 'OK', onPress: () => {
+                            {
+                                text: 'OK', onPress: () => {
                                     const resetAction = NavigationActions.reset({
                                         index: 0,
                                         actions: [
@@ -84,9 +108,10 @@ class DangKyCuDan extends Component {
                                         ]
                                     });
                                     this.props.navigation.dispatch(resetAction)
-                                }},
+                                }
+                            },
                         ],
-                        { cancelable: false }
+                        {cancelable: false}
                     )
 
 
@@ -98,18 +123,18 @@ class DangKyCuDan extends Component {
                         [
                             {text: 'OK', onPress: () => console.log('OK Pressed')},
                         ],
-                        { cancelable: false }
+                        {cancelable: false}
                     )
                 }
 
-                else if (data.ErrorCode === "04"){
+                else if (data.ErrorCode === "04") {
                     Alert.alert(
                         'Thông báo',
                         data.Message,
                         [
                             {text: 'OK', onPress: () => console.log('OK Pressed')},
                         ],
-                        { cancelable: false }
+                        {cancelable: false}
                     )
                 }
                 else {
@@ -123,7 +148,7 @@ class DangKyCuDan extends Component {
                         [
                             {text: 'OK', onPress: () => console.log('OK Pressed')},
                         ],
-                        { cancelable: false }
+                        {cancelable: false}
                     )
 
                 }
@@ -132,125 +157,138 @@ class DangKyCuDan extends Component {
 
     }
 
-    onClick = () => {
-        console.log('hihi')
+    onClick = (data) => {
+        data.checked = !data.checked;
+        data.checked? this.setState({
+            isCheck: true
+        }, ()=> console.log('checked', this.state.isCheck)):this.setState({
+            isCheck: false
+        },  ()=> console.log('checked', this.state.isCheck))
     }
-
     render() {
         // var leftText = data.name;
 
         return (
-            <View style={{justifyContent: "space-between", flex: 1}}>
-                <View>
-                    <SlideImage
-                        imageSlider={this.state.imageSlider}
+            <KeyboardAwareScrollView
+                style={{flex: 1}}
+                behavior={Platform.OS === 'ios' ? "padding" : null}
+                // keyboardVerticalOffset={64}
+            >
 
-                    />
-                    <View style = {{marginTop: 20}}>
-                    <UserInput
-                        keyboardType={'numeric'}
-                        placeholder={'Nhập họ tên'}
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        style = {{marginTop: 20}}
-                        onChangeText ={(FullName) => this.setState({FullName})}
-                    />
-                    <UserInput
-                        keyboardType={'numeric'}
-                        placeholder={'Nhập số điện thoại'}
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        style = {{marginTop: 20}}
-                        onChangeText ={(SoDienThoai) => this.setState({SoDienThoai})}
-                    />
-                    <UserInput
-                        keyboardType={'numeric'}
-                        placeholder={'Nhập mật khẩu'}
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        style = {{marginTop: 20}}
-                        onChangeText ={(MatKhau) => this.setState({MatKhau})}
-                    />
-                    <UserInput
-                        keyboardType={'numeric'}
-                        placeholder={'Nhập lại mật khẩu'}
-                        autoCapitalize={'none'}
-                        returnKeyType={'done'}
-                        autoCorrect={false}
-                        style = {{marginTop: 20}}
-                        onChangeText ={(MatKhauCF) => this.setState({MatKhauCF})}
-                    />
-                    </View>
-                    <View style={{flexDirection: 'row', marginHorizontal: 70, alignItems: 'center', marginTop: 10}}>
-                        <CheckBox
-                            style={{}}
-                            onClick={() => this.onClick()}
-                            isChecked={data.checked}
-                            // leftText={leftText}
+                <View style={{justifyContent: "space-between", flex: 1}}>
+                    <View>
+                        <SlideImage
+                            imageSlider={this.state.imageSlider}
+
                         />
-                        <Text style={{marginLeft: 10, textDecorationLine: 'underline'}}>Điều khoản và dịch vụ</Text>
-                    </View>
-                    <View style={{
-                        flexDirection: 'row',
-                        marginHorizontal: 70,
-                        marginTop: 10,
-                        justifyContent: 'space-between'
-                    }}>
-                        <TouchableOpacity onPress= {this.DangKy}>
-                            <View style={{
-                                borderWidth: 1,
-                                borderRadius: 5,
-                                backgroundColor: '#90CAF9',
-                                borderColor: 'black',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                height: 35,
-                                width: 90
-                            }}>
-                                <Text style={{color: "black"}}>Xác nhận</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <View style={{
-                                borderWidth: 1,
-                                borderRadius: 5,
-                                backgroundColor: '#90CAF9',
-                                borderColor: 'black',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                height: 35,
-                                width: 90
-                            }}>
-                                <Text style={{color: "black"}}>Hủy</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <View style={{marginTop: 20}}>
+                            <UserInput
+                                keyboardType={'numeric'}
+                                placeholder={'Nhập họ tên'}
+                                autoCapitalize={'none'}
+                                returnKeyType={'done'}
+                                autoCorrect={false}
+                                style={{marginTop: 20}}
+                                onChangeText={(FullName) => this.setState({FullName})}
+                            />
+                            <UserInput
+                                keyboardType={'numeric'}
+                                placeholder={'Nhập số điện thoại'}
+                                autoCapitalize={'none'}
+                                returnKeyType={'done'}
+                                autoCorrect={false}
+                                style={{marginTop: 20}}
+                                onChangeText={(SoDienThoai) => this.setState({SoDienThoai})}
+                            />
+                            <UserInput
+                                keyboardType={'numeric'}
+                                placeholder={'Nhập mật khẩu'}
+                                autoCapitalize={'none'}
+                                returnKeyType={'done'}
+                                autoCorrect={false}
+                                style={{marginTop: 20}}
+                                onChangeText={(MatKhau) => this.setState({MatKhau})}
+                            />
+                            <UserInput
+                                keyboardType={'numeric'}
+                                placeholder={'Nhập lại mật khẩu'}
+                                autoCapitalize={'none'}
+                                returnKeyType={'done'}
+                                autoCorrect={false}
+                                style={{marginTop: 20}}
+                                onChangeText={(MatKhauCF) => this.setState({MatKhauCF})}
+                            />
+                        </View>
+                        <View style={{flexDirection: 'row', marginHorizontal: 70, alignItems: 'center', marginTop: 10}}>
+                            <CheckBox
+                                style={{}}
+                                onClick={() => this.onClick(data)}
+                                isChecked={data.checked}
+                                // leftText={leftText}
+                            />
+                            <Text style={{marginLeft: 10, textDecorationLine: 'underline'}}>Điều khoản và dịch vụ</Text>
+                        </View>
+                        <View style={{
+                            flexDirection: 'row',
+                            marginHorizontal: 70,
+                            marginTop: 10,
+                            justifyContent: 'space-between'
+                        }}>
+                            <TouchableOpacity onPress={this.DangKy}>
+                                <View style={{
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    backgroundColor: '#90CAF9',
+                                    borderColor: 'black',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: 35,
+                                    width: 90
+                                }}>
+                                    <Text style={{color: "black"}}>Xác nhận</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={{
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    backgroundColor: '#90CAF9',
+                                    borderColor: 'black',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    height: 35,
+                                    width: 90
+                                }}>
+                                    <Text style={{color: "black"}}>Hủy</Text>
+                                </View>
+                            </TouchableOpacity>
 
+                        </View>
                     </View>
-                </View>
-                <View style={{marginBottom: 10, marginHorizontal: 20}}>
-                    <Text style={{fontSize: 13}}>*Số điện thoại được đùng để xác minh tài khoản qua tin nhắn OTP</Text>
-                    <Text style={{fontSize: 13}}>*Để được hỗ trợ vui lòng liên hệ qua fanpage</Text>
-                </View>
-                {this.state.isLoading ?
-                    <View style={{
-                        top: -10,
-                        bottom: -10,
-                        left: -10,
-                        right: -10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        zIndex: 1,
-                        backgroundColor: 'white'
-                    }}>
-                        <ActivityIndicator size="large" color="green"/>
-                    </View> : null
-                }
+                    <View style={{marginBottom: 10, marginHorizontal: 20}}>
+                        <Text style={{fontSize: 13}}>*Số điện thoại được đùng để xác minh tài khoản qua tin nhắn
+                            OTP</Text>
+                        <Text style={{fontSize: 13}}>*Để được hỗ trợ vui lòng liên hệ qua fanpage</Text>
+                    </View>
+                    {this.state.isLoading ?
+                        <View style={{
+                            top: -10,
+                            bottom: -10,
+                            left: -10,
+                            right: -10,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'absolute',
+                            zIndex: 1,
+                            backgroundColor: 'white'
+                        }}>
+                            <ActivityIndicator size="large" color="green"/>
+                        </View> : null
+                    }
 
-            </View>
+                </View>
+
+            </KeyboardAwareScrollView>
         )
 
     }
