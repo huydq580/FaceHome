@@ -67,11 +67,6 @@ class MenuLeftCuDan extends Component {
                               onPress = {() => this.props.navigation.navigate('LienLacNhanhBQL')}
                 />
 
-                {/*<ItemLeftMenu title ="Đăng kí dịch vụ KĐT"*/}
-                              {/*nameIcon = "lock-open"*/}
-                              {/*onPress = {()=>this.props.navigation.navigate('DangKyDichVuKDT')}*/}
-                {/*/>*/}
-
                 <ItemLeftMenu title ="Phản ánh sự cố"
                               nameIcon = "bell-ring"
                               onPress = {()=> this.props.navigation.navigate('BaoSuCoKDT')}
@@ -85,17 +80,13 @@ class MenuLeftCuDan extends Component {
                               onPress = {()=> this.props.navigation.navigate('BepAnGiaDinh')}
                 />
 
-                {/*<ItemLeftMenu title ="Cảnh báo cháy nhanh"*/}
-                              {/*nameIcon = "phone-in-talk"*/}
-                              {/*onPress = {()=> this.props.navigation.navigate('CanhBaoChayNhanhCuDan')}*/}
-                {/*/>*/}
                 <ItemLeftMenu title ="Hướng dẫn"
                               nameIcon = "bell-ring"
                               onPress = {()=> this.props.navigation.navigate('HuongDan')}
                 />
                 <ItemLeftMenu title ="Giới thiệu"
                               nameIcon = "bell-ring"
-                              onPress = {()=> thirops.navigation.navigate('GioiThieuCuDan')}
+                              onPress = {()=> this.props.navigation.navigate('GioiThieuCuDan')}
                 />
 
                 <ItemLeftMenu title ="Đăng xuất"
