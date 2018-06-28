@@ -36,7 +36,7 @@ class DangKyCuDan extends Component {
         this.state = {
             isLoading: false,
             SoDienThoai: "",
-            isCheck : false,
+            isCheck: false,
             FullName: "",
             MatKhau: "",
             MatKhauCF: "",
@@ -53,18 +53,19 @@ class DangKyCuDan extends Component {
             ],
         }
     }
+
     onClick = (data) => {
         data.checked = !data.checked;
-        data.checked? this.setState({
+        data.checked ? this.setState({
             isCheck: true
-        }, ()=> console.log('checked', this.state.isCheck)):this.setState({
+        }) : this.setState({
             isCheck: false
-        },  ()=> console.log('checked', this.state.isCheck))
+        })
     }
 
     DangKy = () => {
         const {CallApiDangKy} = this.props
-        if (this.state.isCheck == false){
+        if (this.state.isCheck == false) {
             Alert.alert(
                 'Thông báo',
                 "Bạn chưa đồng ý Điều khoản và dịch vụ",
@@ -159,12 +160,13 @@ class DangKyCuDan extends Component {
 
     onClick = (data) => {
         data.checked = !data.checked;
-        data.checked? this.setState({
+        data.checked ? this.setState({
             isCheck: true
-        }, ()=> console.log('checked', this.state.isCheck)):this.setState({
+        }, () => console.log('checked', this.state.isCheck)) : this.setState({
             isCheck: false
-        },  ()=> console.log('checked', this.state.isCheck))
+        }, () => console.log('checked', this.state.isCheck))
     }
+
     render() {
         // var leftText = data.name;
 

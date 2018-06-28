@@ -20,24 +20,25 @@ import {CallApiLogin} from "../actions/actionsBQL/LoginActions";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 class DangNhap extends Component {
-    static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
 
         return {
-            title:'Đăng nhập',
+            title: 'Đăng nhập',
             headerStyle: {backgroundColor: BACKGROUND_HEADER},
             headerTitleStyle: {color: TITLE_HEADER},
             headerTintColor: TITLE_HEADER,
 
         }
     }
+
     constructor(props) {
         super(props)
         this.state = {
             isLoading: false,
             SoDienThoai: "",
             MatKhau: "",
-            isCheck : false,
+            isCheck: false,
             imageSlider: [
                 {
                     thumbnail: 'http://file4.batdongsan.com.vn/2015/12/03/hmcVYWuR/20151203133249-f154.jpg'
@@ -51,6 +52,7 @@ class DangNhap extends Component {
             ],
         }
     }
+
     Login() {
         if (this.state.isCheck == false) {
             Alert.alert(
@@ -62,10 +64,10 @@ class DangNhap extends Component {
                 {cancelable: false}
             )
         }
-        else{
+        else {
             this.setState({isLoading: true})
             AsyncStorage.setItem('SoDienThoai', this.state.SoDienThoai)
-            const { CallApiLogin } = this.props;
+            const {CallApiLogin} = this.props;
             CallApiLogin(this.state.SoDienThoai, this.state.MatKhau).then(dataLogin => {
                 this.setState({
                     isLoading: false,
@@ -75,15 +77,15 @@ class DangNhap extends Component {
                 let userid = data.Value ? data.Value[0].UserID : null
                 console.log('userid', userid)
                 let dataLtProfile = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile : null
-                dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+                dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
                 console.log("dataProfile", dataProfile)
-                console.log("dataProfile0", dataProfile[0])
-                console.log("dataProfile1", dataProfile[0].Type)
-                let type =  dataProfile[0].Type.toString()
-                console.log('type', type)
+                // console.log("dataProfile0", dataProfile[0])
+                // console.log("dataProfile1", dataProfile[0].Type)
+                let type = dataProfile && dataProfile[0].Type ? dataProfile[0].Type : null
+                    console.log('type', type)
                 AsyncStorage.setItem('UserID', userid)
                 AsyncStorage.setItem('Type', type)
-                if(data.ErrorCode === "00"){
+                if (data.ErrorCode === "00") {
 
                     this.props.navigation.navigate('LoadData')
 
@@ -103,7 +105,7 @@ class DangNhap extends Component {
                         [
                             {text: 'OK', onPress: () => console.log('OK Pressed')},
                         ],
-                        { cancelable: false }
+                        {cancelable: false}
                     )
                 }
             })
@@ -114,11 +116,11 @@ class DangNhap extends Component {
 
     onClick = (data) => {
         data.checked = !data.checked;
-        data.checked? this.setState({
+        data.checked ? this.setState({
             isCheck: true
-        }, ()=> console.log('checked', this.state.isCheck)):this.setState({
+        }) : this.setState({
             isCheck: false
-        },  ()=> console.log('checked', this.state.isCheck))
+        })
     }
 
 
@@ -131,44 +133,44 @@ class DangNhap extends Component {
                 behavior={Platform.OS === 'ios' ? "padding" : null}
                 // keyboardVerticalOffset={64}
             >
-            <View style={{justifyContent: "space-between", flex: 1}}>
-                <View>
-                    <SlideImage
-                        imageSlider={this.state.imageSlider}
+                <View style={{justifyContent: "space-between", flex: 1}}>
+                    <View>
+                        <SlideImage
+                            imageSlider={this.state.imageSlider}
 
-                    />
-                    <View style = {{marginTop: 30}}>
-
-                    <UserInput
-                               keyboardType={'numeric'}
-                               placeholder={'Nhập số điện thoại'}
-                               autoCapitalize={'none'}
-                               returnKeyType={'done'}
-                               autoCorrect={false}
-                               style = {{marginTop: 20}}
-                               onChangeText ={(SoDienThoai) => this.setState({SoDienThoai})}
-                    />
-                    <UserInput
-                               secureTextEntry={this.state.showPass}
-                               placeholder='Nhập mật khẩu'
-                               returnKeyType={'done'}
-                               autoCapitalize={'none'}
-                               autoCorrect={false}
-                               style = {{marginTop : 20}}
-                               onChangeText ={(MatKhau) => {
-                                   this.setState({MatKhau})
-                               }}
-                    />
-                    </View>
-                    <View style={{flexDirection: 'row', marginHorizontal: 70, alignItems: 'center', marginTop: 10}}>
-                        <CheckBox
-                        style={{}}
-                        onClick={() => this.onClick(data)}
-                        isChecked={data.checked}
-                        // leftText={leftText}
                         />
-                        <Text style={{marginLeft: 10, textDecorationLine: 'underline'}}>Điều khoản và dịch vụ</Text>
-                    </View>
+                        <View style={{marginTop: 30}}>
+
+                            <UserInput
+                                keyboardType={'numeric'}
+                                placeholder={'Nhập số điện thoại'}
+                                autoCapitalize={'none'}
+                                returnKeyType={'done'}
+                                autoCorrect={false}
+                                style={{marginTop: 20}}
+                                onChangeText={(SoDienThoai) => this.setState({SoDienThoai})}
+                            />
+                            <UserInput
+                                secureTextEntry={this.state.showPass}
+                                placeholder='Nhập mật khẩu'
+                                returnKeyType={'done'}
+                                autoCapitalize={'none'}
+                                autoCorrect={false}
+                                style={{marginTop: 20}}
+                                onChangeText={(MatKhau) => {
+                                    this.setState({MatKhau})
+                                }}
+                            />
+                        </View>
+                        <View style={{flexDirection: 'row', marginHorizontal: 70, alignItems: 'center', marginTop: 10}}>
+                            <CheckBox
+                                style={{}}
+                                onClick={() => this.onClick(data)}
+                                isChecked={data.checked}
+                                // leftText={leftText}
+                            />
+                            <Text style={{marginLeft: 10, textDecorationLine: 'underline'}}>Điều khoản và dịch vụ</Text>
+                        </View>
 
                         <TouchableOpacity onPress={() => this.Login()}>
                             <View style={{
@@ -186,28 +188,29 @@ class DangNhap extends Component {
                             </View>
                         </TouchableOpacity>
 
-                </View>
-                <View style={{marginBottom: 10, marginHorizontal: 20}}>
-                    <Text style={{fontSize: 13}}>*Số điện thoại được đùng để xác minh tài khoản qua tin nhắn OTP</Text>
-                    <Text style={{fontSize: 13}}>*Để được hỗ trợ vui lòng liên hệ qua fanpage</Text>
-                </View>
-                {this.state.isLoading ?
-                    <View style={{
-                        top: -10,
-                        bottom: -10,
-                        left: -10,
-                        right: -10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        zIndex: 1,
-                        backgroundColor: 'white'
-                    }}>
-                        <ActivityIndicator size="large" color="green"/>
-                    </View> : null
-                }
+                    </View>
+                    <View style={{marginBottom: 10, marginHorizontal: 20}}>
+                        <Text style={{fontSize: 13}}>*Số điện thoại được đùng để xác minh tài khoản qua tin nhắn
+                            OTP</Text>
+                        <Text style={{fontSize: 13}}>*Để được hỗ trợ vui lòng liên hệ qua fanpage</Text>
+                    </View>
+                    {this.state.isLoading ?
+                        <View style={{
+                            top: -10,
+                            bottom: -10,
+                            left: -10,
+                            right: -10,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            position: 'absolute',
+                            zIndex: 1,
+                            backgroundColor: 'white'
+                        }}>
+                            <ActivityIndicator size="large" color="green"/>
+                        </View> : null
+                    }
 
-            </View>
+                </View>
             </KeyboardAwareScrollView>
         )
 
@@ -215,8 +218,7 @@ class DangNhap extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-    }
+    return {}
 };
 
 const mapDispatchToProps = (dispatch) => {
