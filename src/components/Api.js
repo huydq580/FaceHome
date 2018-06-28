@@ -89,6 +89,7 @@ export const URL_SOCKET = "http://192.168.0.200:9060/";
 export const Get_User = "messages/groupmessagebyuser";
 export const Get_Message = "messages/detailmessagebygroupuse";
 export const MsgGroupID = "msg_group/createupdatemsg_group";
+export const MsgGroupManager = "msg_group/creategrouptomanager";
 
 //notification
 export const LoginLogoutSubcribe = "pushnotification/loginlogoutsubcribe";

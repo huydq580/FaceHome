@@ -27,6 +27,7 @@ import {callApiCreatePost} from "../../actions/cudan/CreatePostActions";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 import {NavigationActions} from "react-navigation";
 import {callApiPostSuCo} from "../../actions/suco/PostSuCoActions";
+import {callApiCreateGrouptoManager} from "../../actions/cudan/CreateGrouptoManagerActions";
 
 class SoanTinCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -84,7 +85,7 @@ class SoanTinCuDan extends Component {
         }
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
-        console.log('dataProfile', dataProfile)
+        // console.log('dataProfile', dataProfile)
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
             pingInterval: 30000,
@@ -238,6 +239,17 @@ class SoanTinCuDan extends Component {
 
         })
 
+    }
+    chatToAdmin = () => {
+        const { callApiCreateGrouptoManager, InfoUser } = this.props
+        if (InfoUser.length<=0){
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        callApiCreateGrouptoManager(InfoUser[0].IntUserID,  dataProfile[0].KDTID).then(dataRes=> {
+            console.log('datachatoAdmin', dataRes)
+        })
     }
 
     PostSuCo = () => {
@@ -474,7 +486,7 @@ class SoanTinCuDan extends Component {
                         </TouchableOpacity>
 
                         <View style={{height: 1, backgroundColor: '#E0E0E0', marginTop: 7}}/>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress = {()=> this.chatToAdmin()}>
                             <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 7}}>
                                 <Image
                                     source={images.mess_admin}
@@ -695,6 +707,7 @@ const mapDispatchToProps = (dispatch) => {
         callApiUploadImage: bindActionCreators(callApiUploadImage, dispatch),
         callApiCreatePost: bindActionCreators(callApiCreatePost, dispatch),
         callApiPostSuCo: bindActionCreators(callApiPostSuCo, dispatch),
+        callApiCreateGrouptoManager: bindActionCreators(callApiCreateGrouptoManager, dispatch),
     }
 };
 

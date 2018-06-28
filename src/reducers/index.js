@@ -39,6 +39,7 @@ import SearchSuCoReducers from "./suco/SearchSuCoReducers";
 import SearchCuDanReducers from "./cudan/SearchCuDanReducers"
 import CreateMsgGroupIDReducers from "./messages/CreateMsgGroupIDReducers";
 import GetUserMsgReducers from "./messages/GetUserMsgReducers";
+import CreateGrouptoManagerReducers from "./cudan/CreateGrouptoManagerReducers";
 
 
 const appStore = combineReducers({
@@ -83,7 +84,8 @@ const appStore = combineReducers({
     SearchSuCoReducers,
     SearchCuDanReducers,
     CreateMsgGroupIDReducers,
-    GetUserMsgReducers
+    GetUserMsgReducers,
+    CreateGrouptoManagerReducers
 
 
 
