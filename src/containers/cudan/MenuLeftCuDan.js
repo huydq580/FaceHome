@@ -3,18 +3,28 @@ import {
     View,
     Text,
     ScrollView, TouchableOpacity, StyleSheet,
-    Image
+    Image, AsyncStorage
 
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import Modal from "react-native-modal";
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import ItemLeftMenu from "../../components/leftmenu/ItemLeftMenu";
 import {connect} from "react-redux";
 import {LINKIMG} from "../../components/Api";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
+import {bindActionCreators} from "redux";
+import {callApiSubcribe} from "../../actions/SubcribeActions";
+import {NavigationActions} from "react-navigation";
 
 class MenuLeftCuDan extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            visibleModal: null
+        };
+    }
     static navigationOptions = ({ navigation }) => {
         const { state } = navigation;
         return {
@@ -25,6 +35,16 @@ class MenuLeftCuDan extends Component {
 
         }
 
+    }
+    UnSubcribe = () =>  {
+        const {InfoUser, callApiSubcribe} = this.props;
+        if (InfoUser.length <=0) {
+            return null
+        }
+        callApiSubcribe(InfoUser[0].UserID, false).then(dataRes => {
+            // console.log('dataUnSubcribe',dataRes )
+
+        })
     }
     render (){
 
@@ -75,13 +95,47 @@ class MenuLeftCuDan extends Component {
                 />
                 <ItemLeftMenu title ="Giới thiệu"
                               nameIcon = "bell-ring"
-                              onPress = {()=> this.props.navigation.navigate('GioiThieuCuDan')}
+                              onPress = {()=> thirops.navigation.navigate('GioiThieuCuDan')}
                 />
 
-                <ItemLeftMenu title ="Quản lí tài khoản"
+                <ItemLeftMenu title ="Đăng xuất"
                               nameIcon = "web"
-                              onPress = {()=> this.props.navigation.navigate('QuanLyTaiKhoanCuDan')}
+                              onPress = {()=> this.setState({ visibleModal: 5 })}
                 />
+                <Modal
+                    isVisible={this.state.visibleModal === 5}
+                    style={styles.bottomModal}
+                >
+                    <View>
+                        <TouchableOpacity onPress =  {()=> {
+                            this.UnSubcribe()
+                            AsyncStorage.removeItem('UserID')
+                            const resetAction = NavigationActions.reset({
+                                index: 0,
+                                actions: [
+                                    NavigationActions.navigate({
+                                        routeName: 'DangNhap',
+                                    }),
+                                ]
+                            });
+                            this.props.navigation.dispatch(resetAction)}}>
+                            <View style = {styles.modalContent}>
+                                <Text style = {{fontSize:11}}>Bạn có muốn đăng xuất tài khoản này?</Text>
+                                <View style = {{height:1, backgroundColor: 'red'}}/>
+                                <Text style = {{color: 'red', fontSize:18, marginTop: 15}}>
+                                    Đăng xuất
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress = { ()=> this.setState({ visibleModal: null })}>
+                            <View style = {[styles.modalContent, {marginTop: 10}]}>
+                                <Text style = {{fontSize:18, color: '#2196F3'}}>
+                                    Hủy
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
                 <View style = {{alignItems: 'center', marginTop: 20, marginBottom: 20}}>
                     <TouchableOpacity>
                         <View style = {styles.canhbao}>
@@ -99,8 +153,18 @@ const mapStateToProps = (state) => {
     return {
         InfoUser: state.GetProfileReducers,
     }
+
 };
-MenuLeftCuDan = connect(mapStateToProps)(MenuLeftCuDan);
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        callApiSubcribe: bindActionCreators(callApiSubcribe, dispatch),
+
+
+    }
+};
+
+MenuLeftCuDan = connect(mapStateToProps, mapDispatchToProps)(MenuLeftCuDan);
 export default MenuLeftCuDan
 const styles = StyleSheet.create({
     image_circle: {
@@ -124,6 +188,29 @@ const styles = StyleSheet.create({
         backgroundColor: '#F57C00'
 
 
+    },
+    modalContent: {
+        flexDirection:'column',
+        backgroundColor: "white",
+        padding: 22,
+        // justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        marginHorizontal: 10,
+        borderColor: "rgba(0, 0, 0, 0.1)"
+    },
+    button: {
+        backgroundColor: "lightblue",
+        padding: 12,
+        margin: 16,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 4,
+        borderColor: "rgba(0, 0, 0, 0.1)"
+    },
+    bottomModal: {
+        justifyContent: "flex-end",
+        margin: 0
     }
 
 })

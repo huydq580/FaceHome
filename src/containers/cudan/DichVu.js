@@ -21,6 +21,7 @@ import stylesContainer from "../../components/style";
 import images from "../../components/images";
 import DichVuItem from "../../components/dichvu/DichVuItem";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
+import ChuaDangNhapKDT from "../../components/home/ChuaDangNhapKDT";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
@@ -140,32 +141,7 @@ export default class DichVu extends Component {
             <View style={{flex: 1}}>
                 {
                     !this.state.value ?
-                        <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
-                            <View style = {{justifyContent:'center', flex:4, alignItems:'center'}}>
-                                <Image
-                                    source={images.khongcothongbao}
-                                    style={styles.notification}
-                                    resizeMode="cover"
-                                >
-
-                                </Image>
-                                <Text style = {{fontSize: 16}}>Không có thông báo nào</Text>
-
-                            </View>
-                            <View style={{justifyContent: 'center', flex:1}}>
-                                <TouchableOpacity onPress = {() => this.props.navigation.navigate('DangNhap')}>
-                                    <View style={styles.viewDangNhap}>
-                                        <Text style={styles.textDangNhap}>Đăng nhập</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style = {{alignItems:'center'}}>
-
-                                    <Text style = {{fontSize: 18, marginTop: 5}}>Hãy đăng nhập vào chung cư của bạn</Text>
-                                </View>
-                            </View>
-
-
-                        </View> : <ScrollView style={stylesContainer.container}>
+                        <ChuaDangNhapKDT/> : <ScrollView style={stylesContainer.container}>
                             <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
                                 <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
                                 <TextInput

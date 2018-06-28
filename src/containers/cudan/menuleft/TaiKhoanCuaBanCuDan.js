@@ -99,9 +99,9 @@ class TaiKhoanCuaBanCuDan extends Component {
                               value = {InfoUser[0].FullName}
                               title = 'Họ tên'/>
                 <ThongTinItem title = 'Ngày sinh'
-                              value = "16/01/1995"/>
+                              value = ""/>
                 <ThongTinItem title = 'Số điện thoại'
-                              value = "0963250395"/>
+                              value = {InfoUser[0].Phone}/>
 
                 <View style={{flexDirection: 'column', marginTop: 10}}>
                     <FlatList
@@ -137,7 +137,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                 </View>
 
                 <ThongTinItem title = 'Email'
-                              value = "anhhieuuet@gmail.com"/>
+                              value = {InfoUser[0].Email}/>
 
                 <View style = {{flexDirection: 'row', marginLeft: 20,marginTop: 5}}>
                     <Text style = {{ color: 'black'}}>Avatar</Text>

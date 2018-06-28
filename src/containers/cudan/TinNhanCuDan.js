@@ -69,7 +69,7 @@ class TinNhanCuDan extends Component {
                 isLoading: false,
                 refresh: false
             })
-            console.log('datauser', this.state.dataUser)
+            // console.log('datauser', this.state.dataUser)
         })
     }
     renderSeparator = () => {

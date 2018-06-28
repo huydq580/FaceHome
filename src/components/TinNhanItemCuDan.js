@@ -32,10 +32,10 @@ export default class TinNhanItemCuDan extends Component {
     render() {
         const {navigation} = this.props;
         const {item} = this.props.dataItem;
-        console.log('chatto',item.ChatTo)
+        // console.log('chatto',item.ChatTo)
         var chatTo = item.ChatTo ? item.ChatTo : null
         chatTo1 = JSON.parse(chatTo)
-        console.log('chatto1', chatTo1)
+        // console.log('chatto1', chatTo1)
 
         return (
 
