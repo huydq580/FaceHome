@@ -58,16 +58,17 @@ class DangNhap extends Component {
                 isLoading: false,
             })
             data = JSON.parse(dataLogin);
-            let userid = data.Value ? data.Value[0].UserID : null
-            console.log('userid', userid)
-            let dataLtProfile = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile : null
-            dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
-            console.log("dataProfile", dataProfile)
-            console.log("dataProfile0", dataProfile[0])
-            console.log("dataProfile1", dataProfile[0].Type)
-            let type =  dataProfile[0].Type.toString()
-            console.log('type', type)
-            if(data.IsError === false && data.ErrorCode === "00"){
+
+            if(data.ErrorCode === "00"){
+                let userid = data.Value ? data.Value[0].UserID : null
+                // console.log('userid', userid)
+                let dataLtProfile = (data.Value && data.Value[0].LtProfile) ? data.Value[0].LtProfile : null
+                dataProfile = dataLtProfile ? JSON.parse(dataLtProfile): null;
+                // console.log("dataProfile", dataProfile)
+                // console.log("dataProfile0", dataProfile[0])
+                // console.log("dataProfile1", dataProfile[0].Type)
+                let type =  dataProfile[0].Type.toString()
+                // console.log('type', type)
                 AsyncStorage.setItem('UserID', userid)
                 AsyncStorage.setItem('Type', type)
                 this.props.navigation.navigate('LoadData')
@@ -174,7 +175,7 @@ class DangNhap extends Component {
                         alignItems: 'center',
                         position: 'absolute',
                         zIndex: 1,
-                        backgroundColor: 'rgba(52, 52, 52, 0.3)'
+                        backgroundColor: 'white'
                     }}>
                         <ActivityIndicator size="large" color="green"/>
                     </View> : null

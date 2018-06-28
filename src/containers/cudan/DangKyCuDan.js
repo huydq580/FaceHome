@@ -3,7 +3,7 @@ import {
     View,
     Text,
     TextInput,
-    TouchableOpacity,
+    TouchableOpacity, AsyncStorage, Alert,ActivityIndicator
 } from 'react-native'
 import SlideImage from "../../components/SlideImage";
 import CheckBox from 'react-native-check-box'
@@ -13,6 +13,7 @@ import {connect} from "react-redux";
 import {callApiPostCmt} from "../../actions/cudan/PostCmtActions";
 import {CallApiDangKy} from "../../actions/cudan/DangKyActions";
 import UserInput from "../../components/dangnhap/UserInput";
+import {NavigationActions} from "react-navigation";
 
 class DangKyCuDan extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -29,9 +30,12 @@ class DangKyCuDan extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            isLoading: false,
             SoDienThoai: "",
+
             FullName: "",
             MatKhau: "",
+            MatKhauCF: "",
             imageSlider: [
                 {
                     thumbnail: 'http://file4.batdongsan.com.vn/2015/12/03/hmcVYWuR/20151203133249-f154.jpg'
@@ -47,9 +51,85 @@ class DangKyCuDan extends Component {
     }
     DangKy = () => {
         const { CallApiDangKy } = this.props
-        CallApiDangKy("09632501950", "Đặng Minh Bảo", "123456").then(data => {
-            console.log('data', data)
-        })
+        if (this.state.MatKhau !== this.state.MatKhauCF){
+            Alert.alert(
+                'Thông báo',
+               "Mật khẩu không trùng khớp",
+                [
+                    {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+            )
+
+        }
+        else {
+            this.setState({isLoading: true})
+            CallApiDangKy(this.state.SoDienThoai, this.state.FullName, this.state.MatKhau).then(data => {
+                this.setState({
+                    isLoading: false,
+                })
+                console.log('data', data)
+                if(data.ErrorCode === "00"){
+                    Alert.alert(
+                        'Thông báo',
+                        data.Message,
+                        [
+                            {text: 'OK', onPress: () => {
+                                    const resetAction = NavigationActions.reset({
+                                        index: 0,
+                                        actions: [
+                                            NavigationActions.navigate({
+                                                routeName: 'DangNhap',
+                                            }),
+                                        ]
+                                    });
+                                    this.props.navigation.dispatch(resetAction)
+                                }},
+                        ],
+                        { cancelable: false }
+                    )
+
+
+                }
+                else if (data.ErrorCode === "404") {
+                    Alert.alert(
+                        'Thông báo',
+                        data.Message,
+                        [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                        ],
+                        { cancelable: false }
+                    )
+                }
+
+                else if (data.ErrorCode === "04"){
+                    Alert.alert(
+                        'Thông báo',
+                        data.Message,
+                        [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                        ],
+                        { cancelable: false }
+                    )
+                }
+                else {
+                    this.setState({
+                        loading: false,
+                        error: true
+                    })
+                    Alert.alert(
+                        'Thông báo',
+                        "Đăng nhập thất bại",
+                        [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                        ],
+                        { cancelable: false }
+                    )
+
+                }
+            })
+        }
+
     }
 
     onClick = () => {
@@ -101,7 +181,7 @@ class DangKyCuDan extends Component {
                         returnKeyType={'done'}
                         autoCorrect={false}
                         style = {{marginTop: 20}}
-                        onChangeText ={(MatKhau) => this.setState({MatKhau})}
+                        onChangeText ={(MatKhauCF) => this.setState({MatKhauCF})}
                     />
                     </View>
                     <View style={{flexDirection: 'row', marginHorizontal: 70, alignItems: 'center', marginTop: 10}}>
@@ -119,7 +199,7 @@ class DangKyCuDan extends Component {
                         marginTop: 10,
                         justifyContent: 'space-between'
                     }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('XacNhanCuDan')}>
+                        <TouchableOpacity onPress= {this.DangKy}>
                             <View style={{
                                 borderWidth: 1,
                                 borderRadius: 5,
@@ -133,7 +213,7 @@ class DangKyCuDan extends Component {
                                 <Text style={{color: "black"}}>Xác nhận</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress = {this.DangKy}>
+                        <TouchableOpacity>
                             <View style={{
                                 borderWidth: 1,
                                 borderRadius: 5,
@@ -154,6 +234,21 @@ class DangKyCuDan extends Component {
                     <Text style={{fontSize: 13}}>*Số điện thoại được đùng để xác minh tài khoản qua tin nhắn OTP</Text>
                     <Text style={{fontSize: 13}}>*Để được hỗ trợ vui lòng liên hệ qua fanpage</Text>
                 </View>
+                {this.state.isLoading ?
+                    <View style={{
+                        top: -10,
+                        bottom: -10,
+                        left: -10,
+                        right: -10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        zIndex: 1,
+                        backgroundColor: 'white'
+                    }}>
+                        <ActivityIndicator size="large" color="green"/>
+                    </View> : null
+                }
 
             </View>
         )
