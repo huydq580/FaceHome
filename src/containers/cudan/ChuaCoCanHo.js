@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -13,13 +13,15 @@ import KDTItem from "../../components/KDTItem";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchKDT} from "../../actions/KDTActions";
+import Modal from 'react-native-modalbox';
+import ShowModal from "../../components/modal/ShowModal";
 
 class ChuaCoCanHo extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             TimKiem: "",
-
+            isShow: false,
             ArrKDT: [],
             ArrRaoVat: [
                 {
@@ -39,12 +41,49 @@ class ChuaCoCanHo extends Component {
                 }
             ]
         }
+        this.handlerModal = this.handlerModal.bind(this)
     }
-    componentDidMount () {
+
+    componentDidMount() {
         this.getKDT()
+        setTimeout(()=> {
+            this.setState({
+                isShow: true
+            })
+            this.refs.modal.open()
+        }, 1000)
+
     }
+    handlerModal(){
+        this.setState({
+            isShow: false
+        }, console.log('isshow', this.state.isShow))
+
+    }
+    showModal(){
+        const {navigation} = this.props
+        // const isShow = this.state.isShow
+        return (
+            <Modal style={{
+                height: DEVICE_WIDTH-120,
+                width: DEVICE_WIDTH-50,
+                borderRadius:10,
+                backgroundColor: '#E1F5FE'
+
+
+            }}
+                   swipeArea={20}
+                   position={"center"} ref = {"modal"} isDisabled={false}
+            >
+                <ShowModal
+                    navigation = {navigation}
+                    handlerModal = {this.handlerModal}/>
+            </Modal>
+        )
+    }
+
     getKDT = () => {
-        const { callApiSearchKDT} = this.props
+        const {callApiSearchKDT} = this.props
         callApiSearchKDT('', '').then(dataRes => {
             data = JSON.parse(dataRes)
             this.setState({
@@ -53,12 +92,13 @@ class ChuaCoCanHo extends Component {
             console.log('dataRes', data.Value)
         })
     }
-    render () {
-        const { navigation } = this.props
+
+    render() {
+        const {navigation} = this.props
         return (
-            <View>
-                <Text style = {{fontSize:15, color: "#9CCC65", marginLeft:17, marginTop:10}}>CỘNG ĐỒNG FACEHOME</Text>
-                <View style = {{backgroundColor:'black', marginHorizontal:15, height:1}}/>
+            <View style = {{flex:1}}>
+                <Text style={{fontSize: 15, color: "#9CCC65", marginLeft: 17, marginTop: 10}}>CỘNG ĐỒNG FACEHOME</Text>
+                <View style={{backgroundColor: 'black', marginHorizontal: 15, height: 1}}/>
                 <FlatList
                     data={this.state.ArrKDT}
                     numColumns={3}
@@ -74,15 +114,15 @@ class ChuaCoCanHo extends Component {
                     keyExtractor={(item, index) => index.toString()}
 
                 />
-                <Text style = {{fontSize:15, color: "#9CCC65", marginLeft:17, marginTop:10}}>CHỢ FACEHOME</Text>
-                <View style = {{backgroundColor:'black', marginHorizontal:15, height:1}}/>
+                <Text style={{fontSize: 15, color: "#9CCC65", marginLeft: 17, marginTop: 10}}>CHỢ FACEHOME</Text>
+                <View style={{backgroundColor: 'black', marginHorizontal: 15, height: 1}}/>
                 <FlatList
                     data={this.state.ArrRaoVat}
-                    renderItem={({ item }) =>
+                    renderItem={({item}) =>
 
                         <TouchableOpacity>
-                            <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center' }}>
-                                <Image style={[styles.image_circle, {flex:1}]}
+                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                <Image style={[styles.image_circle, {flex: 1}]}
 
                                        source={{
                                            // uri: item.Avartar
@@ -91,8 +131,13 @@ class ChuaCoCanHo extends Component {
                                        resizeMode="cover"
                                 >
                                 </Image>
-                                <Text style = {{flex:3, marginLeft: 5, fontWeight:'bold', color: "#448AFF"}}>{item.username}</Text>
-                                <Text style = {{flex:6, marginLeft:5}}>{item.content}</Text>
+                                <Text style={{
+                                    flex: 3,
+                                    marginLeft: 5,
+                                    fontWeight: 'bold',
+                                    color: "#448AFF"
+                                }}>{item.username}</Text>
+                                <Text style={{flex: 6, marginLeft: 5}}>{item.content}</Text>
                             </View>
                         </TouchableOpacity>
 
@@ -100,14 +145,17 @@ class ChuaCoCanHo extends Component {
                     }
                     keyExtractor={(item, index) => index.toString()}
                 />
+                {
+                    this.state.isShow ==true ? this.showModal() : null
+                }
             </View>
 
         )
     }
 }
+
 const mapStateToProps = (state) => {
-    return {
-    }
+    return {}
 };
 
 const mapDispatchToProps = (dispatch) => {
