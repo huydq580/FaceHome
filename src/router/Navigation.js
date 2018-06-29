@@ -339,10 +339,6 @@ const Stack = StackNavigator ({
     },
     LienLacNhanhBQL: {
         screen: LienLacNhanhBQL,
-        navigationOptions: {
-            title: 'Liên lạc nhanh BQL'
-
-        }
     },
     DangKyDichVuKDT: {
         screen: DangKyDichVuKDT,

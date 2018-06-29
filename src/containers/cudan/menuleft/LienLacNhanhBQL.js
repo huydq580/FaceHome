@@ -7,8 +7,20 @@ import {
 } from 'react-native'
 import stylesContainer from "../../../components/style";
 import Communications from 'react-native-communications';
+import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
 
 export default class LienLacNhanhBQL extends Component {
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state
+
+        return {
+            title:'Liên hệ Ban Quản Lý',
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
+            headerTintColor: TITLE_HEADER,
+
+        }
+    }
     render(){
         return(
             <View style = {stylesContainer.container}>

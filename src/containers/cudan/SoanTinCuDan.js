@@ -27,7 +27,7 @@ import {callApiCreatePost} from "../../actions/cudan/CreatePostActions";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 import {NavigationActions} from "react-navigation";
 import {callApiPostSuCo} from "../../actions/suco/PostSuCoActions";
-import {callApiCreateGrouptoManager} from "../../actions/cudan/CreateGrouptoManagerActions";
+import {callApiCreateGrouptoManager} from "../../actions/messages/CreateGrouptoManagerActions";
 
 class SoanTinCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -250,7 +250,7 @@ class SoanTinCuDan extends Component {
         callApiCreateGrouptoManager(InfoUser[0].IntUserID,  dataProfile[0].KDTID).then(dataRes=> {
             // console.log('datachatoAdmin', dataRes)
             if (dataRes.Error == null){
-                this.props.navigation.navigate("TinNhanDetailsCuDan", {MsgId: dataRes.ObjectResult.MsgGroupID, title: "Tang 10", Info: null })
+                this.props.navigation.navigate("TinNhanDetailsCuDan", {MsgId: dataRes.ObjectResult.MsgGroupID, title: dataRes.ObjectResult.GroupName, Info: null })
             }
         })
     }

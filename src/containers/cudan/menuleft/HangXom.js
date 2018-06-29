@@ -17,19 +17,21 @@ import {connect} from "react-redux";
 import {callApiSearchCuDan} from "../../../actions/cudan/SearchCuDanActions";
 import images from "../../../components/images";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../../Constants";
+import {callApiCreateGroupFloor} from "../../../actions/messages/MsgGroupFloorActions";
 
 class HangXom extends Component {
-    static navigationOptions = ({ navigation }) => {
-        const { params = {} } = navigation.state
+    static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state
 
         return {
-            title:'Hàng xóm',
+            title: 'Hàng xóm',
             headerStyle: {backgroundColor: BACKGROUND_HEADER},
             headerTitleStyle: {color: TITLE_HEADER},
             headerTintColor: TITLE_HEADER,
 
         }
     }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -40,6 +42,20 @@ class HangXom extends Component {
 
     componentDidMount() {
         this.SearchCuDan()
+    }
+    ThaoLuanTang = () => {
+        const { callApiCreateGroupFloor, InfoUser } = this.props
+        if (InfoUser.length<=0){
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        callApiCreateGroupFloor(InfoUser[0].IntUserID,  dataProfile[0].KDTID).then(dataRes=> {
+            console.log('datachatang', dataRes)
+            if (dataRes.Error == null){
+                this.props.navigation.navigate("TinNhanDetailsCuDan", {MsgId: dataRes.ObjectResult[0].MsgGroupID, title: dataRes.ObjectResult[0].GroupName, Info: null })
+            }
+        })
     }
 
     SearchCuDan = () => {
@@ -60,6 +76,7 @@ class HangXom extends Component {
 
     }
 
+
     render() {
         const {navigation, InfoUser} = this.props
         if (InfoUser.length <= 0) {
@@ -68,39 +85,28 @@ class HangXom extends Component {
 
         return (
             <View style={stylesContainer.container}>
-                <View style={{ flex: 1}}>
-                    <Text style={{marginLeft: 15, color: '#0091EA', marginTop: 5, fontWeight:'bold', fontSize: 13}}>GÓC THẢO LUẬN GIAO LƯU TẦNG</Text>
+                <TouchableOpacity onPress = {()=> this.ThaoLuanTang()}>
+                    <Text style={{
+                        marginRight: 15,
+                        color: '#0091EA',
+                        marginTop: 5,
+                        fontWeight: 'bold',
+                        fontSize: 13,
+                        textDecorationLine: 'underline',
+                        textDecorationColor: "#0091EA",
+                        textAlign: 'right'
+                    }}>THẢO LUẬN GIAO LƯU TẦNG</Text>
 
-                    <View style={{height: 1, backgroundColor: 'black', marginHorizontal: 10}}/>
-                    <View style = {{flex:1, borderWidth:1, borderColor: '#BDBDBD',marginTop: 5, marginHorizontal: 5}}>
-                    </View>
-                    <View style={{flexDirection: 'row', marginTop: 5, marginRight: 15, alignItems: 'center'}}>
-                        <Image
-                            source={
-                                // uri: InfoUser[0].Avatar
-                                !InfoUser[0].Avatar ? images.noavatar : {uri: InfoUser[0].Avatar}
-                            }
-                            style={styles.image_circle}
-                            resizeMode="cover">
-                        </Image>
-                        <TouchableOpacity style={{
-                            marginLeft: 10, flex: 1,
-                            backgroundColor: '#F5F5F5', borderRadius: 50,
-                            borderWidth: 1,
-                            borderColor: '#9E9E9E',
-                            paddingLeft: 10,
-                            paddingRight: 10,
-                            paddingTop: 5,
-                            paddingBottom: 5,
-                        }}>
-                            <View>
-                                <Text>Nhập tin nhắn ...</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={{flex: 1}}>
-                    <Text style={{marginLeft: 15, color: '#0091EA', marginTop: 15, fontWeight:'bold', fontSize: 13}}>THÀNH VIÊN</Text>
+                </TouchableOpacity>
+                <View>
+                    <Text style={{
+                        marginLeft: 15,
+                        color: '#0091EA',
+                        marginTop: 15,
+                        fontWeight: 'bold',
+                        fontSize: 13
+                    }}>
+                        THÀNH VIÊN</Text>
                     <View style={{height: 1, backgroundColor: 'black', marginHorizontal: 10}}/>
                     <FlatList
                         style={{marginTop: 10}}
@@ -132,6 +138,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         callApiSearchCuDan: bindActionCreators(callApiSearchCuDan, dispatch),
+        callApiCreateGroupFloor: bindActionCreators(callApiCreateGroupFloor, dispatch),
     }
 };
 

@@ -240,10 +240,11 @@ class TinNhanDetailsCuDan extends Component {
 
 
                 />
+                <View style = {{marginTop: 30}}>
                 <TextInputChat
-                    style={{marginTop:5}}
                     onReceiveTextInputClick ={this.onReceiveTextInputClick}
                 />
+                </View>
             </View>
         );
     }

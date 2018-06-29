@@ -90,6 +90,7 @@ export const Get_User = "messages/groupmessagebyuser";
 export const Get_Message = "messages/detailmessagebygroupuse";
 export const MsgGroupID = "msg_group/createupdatemsg_group";
 export const MsgGroupManager = "msg_group/creategrouptomanager";
+export const MsgGroup_Kdtpart = "msg_group/msggroup_kdtpart";
 
 //notification
 export const LoginLogoutSubcribe = "pushnotification/loginlogoutsubcribe";
