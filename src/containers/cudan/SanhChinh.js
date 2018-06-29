@@ -40,7 +40,7 @@ class SanhChinh extends Component {
                     value: value,
                     LtProfile : InfoUser[0].LtProfile
 
-                })
+                }, console.log('valueLoad', this.state.value))
             }
         } catch (error) {
             //
@@ -53,7 +53,7 @@ class SanhChinh extends Component {
         console.log('this.state.value', this.state.value)
         // console.log('this.state.LtProfile', this.state.LtProfile)
         const { navigation } = this.props;
-        if (this.state.value ) {
+        if (this.state.value) {
             if (this.state.LtProfile){
                 return (
                     <DaCoCanHo

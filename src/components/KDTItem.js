@@ -23,17 +23,15 @@ export default class KDTItem extends Component {
                 }else
                     navigation.navigate('CapMaCanHo', {title: item.TenKDT});
             }}>
-                <View style={{ flexDirection: 'column', marginTop: 15, justifyContent:'center'}}>
-                    <View style = {{ flexDirection:'column'}}>
-                        <Image style={styles.image_circle}
-                               source={
-                                   require('../images/Commercial_buy_online_cart_sell_sale_offer.png')
-                               }
-                               resizeMode="cover"
-                        >
-                        </Image>
-                        <Text>{item.TenKDT}</Text>
-                    </View>
+                <View style = {{ flexDirection:'column', alignItems:'center'}}>
+                    <Image style={styles.image_circle}
+                           source={
+                               require('../images/Commercial_buy_online_cart_sell_sale_offer.png')
+                           }
+                           resizeMode="cover"
+                    >
+                    </Image>
+                    <Text>{item.TenKDT}</Text>
                 </View>
             </TouchableOpacity>
         )

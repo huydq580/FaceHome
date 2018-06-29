@@ -81,8 +81,8 @@ class DangNhap extends Component {
                 console.log("dataProfile", dataProfile)
                 // console.log("dataProfile0", dataProfile[0])
                 // console.log("dataProfile1", dataProfile[0].Type)
-                let type = dataProfile && dataProfile[0].Type ? dataProfile[0].Type : null
-                    console.log('type', type)
+                let type = dataProfile && dataProfile[0].Type ? dataProfile[0].Type.toString() : null
+                console.log('type', type)
                 AsyncStorage.setItem('UserID', userid)
                 AsyncStorage.setItem('Type', type)
                 if (data.ErrorCode === "00") {
