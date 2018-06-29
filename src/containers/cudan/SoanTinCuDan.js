@@ -241,23 +241,27 @@ class SoanTinCuDan extends Component {
 
     }
     chatToAdmin = () => {
-        const { callApiCreateGrouptoManager, InfoUser } = this.props
-        if (InfoUser.length<=0){
+        const {callApiCreateGrouptoManager, InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
-        callApiCreateGrouptoManager(InfoUser[0].IntUserID,  dataProfile[0].KDTID).then(dataRes=> {
+        callApiCreateGrouptoManager(InfoUser[0].IntUserID, dataProfile[0].KDTID).then(dataRes => {
             // console.log('datachatoAdmin', dataRes)
-            if (dataRes.Error == null){
-                this.props.navigation.navigate("TinNhanDetailsCuDan", {MsgId: dataRes.ObjectResult.MsgGroupID, title: dataRes.ObjectResult.GroupName, Info: null })
+            if (dataRes.Error == null) {
+                this.props.navigation.navigate("TinNhanDetailsCuDan", {
+                    MsgId: dataRes.ObjectResult.MsgGroupID,
+                    title: dataRes.ObjectResult.GroupName,
+                    Info: null
+                })
             }
         })
     }
 
     PostSuCo = () => {
-        const { callApiPostSuCo, InfoUser } = this.props
-        if (InfoUser.length <=0){
+        const {callApiPostSuCo, InfoUser} = this.props
+        if (InfoUser.length <= 0) {
             return null
         }
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
@@ -276,7 +280,6 @@ class SoanTinCuDan extends Component {
             0,
             this.state.Status,
             "",
-
         ).then(dataRes => {
             data = JSON.parse(dataRes);
             console.log('thong bao postbai', data)
@@ -489,7 +492,7 @@ class SoanTinCuDan extends Component {
                         </TouchableOpacity>
 
                         <View style={{height: 1, backgroundColor: '#E0E0E0', marginTop: 7}}/>
-                        <TouchableOpacity onPress = {()=> this.chatToAdmin()}>
+                        <TouchableOpacity onPress={() => this.chatToAdmin()}>
                             <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 7}}>
                                 <Image
                                     source={images.mess_admin}
@@ -555,26 +558,42 @@ class SoanTinCuDan extends Component {
                         </View>
 
                     </View> : this.state.isCheckToolBar == 3 ? <View>
-                        <View style = {{flexDirection:'row', alignItems:'center'}}>
-                            <Text style = {{marginLeft: 10}}>Loại phản ánh</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Text style={{marginLeft: 10}}>Loại phản ánh</Text>
                             <FlatList
                                 data={this.state.ArrButton}
                                 horizontal={true}
                                 renderItem={({item}) => {
                                     return (
-                                        <View style = {{flexDirection:'row', alignItems:'center'}}>
+                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                             <TouchableOpacity onPress={() => {
                                                 this.setState({itemSelected: item.key}, () => {
                                                     console.log('itemselected', this.state.itemSelected)
                                                 })
                                             }}>
-                                            <View style = {{marginLeft: 10, borderWidth: 1, height: 18, width: 18, borderRadius:9, justifyContent: "center", alignItems:'center', borderColor: "#BDBDBD"}}>
-                                                <View style = {{borderWidth: 1, borderRadius: 5, width: 10, height: 10, backgroundColor: this.state.itemSelected === item.key ? '#616161' : '#BDBDBD', borderColor:"#BDBDBD"}}>
+                                                <View style={{
+                                                    marginLeft: 10,
+                                                    borderWidth: 1,
+                                                    height: 18,
+                                                    width: 18,
+                                                    borderRadius: 9,
+                                                    justifyContent: "center",
+                                                    alignItems: 'center',
+                                                    borderColor: "#BDBDBD"
+                                                }}>
+                                                    <View style={{
+                                                        borderWidth: 1,
+                                                        borderRadius: 5,
+                                                        width: 10,
+                                                        height: 10,
+                                                        backgroundColor: this.state.itemSelected === item.key ? '#616161' : '#BDBDBD',
+                                                        borderColor: "#BDBDBD"
+                                                    }}>
 
+                                                    </View>
                                                 </View>
-                                            </View>
                                             </TouchableOpacity>
-                                           <Text style = {{marginLeft: 10}}>{item.option}</Text>
+                                            <Text style={{marginLeft: 10}}>{item.option}</Text>
                                         </View>
                                     )
                                 }}

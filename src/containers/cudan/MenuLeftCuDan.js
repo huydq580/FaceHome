@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     View,
     Text,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import Modal from "react-native-modal";
+
 const DEVICE_WIDTH = Dimensions.get('window').width;
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import ItemLeftMenu from "../../components/leftmenu/ItemLeftMenu";
@@ -17,28 +18,48 @@ import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 import {bindActionCreators} from "redux";
 import {callApiSubcribe} from "../../actions/SubcribeActions";
 import {NavigationActions} from "react-navigation";
+import {callApiCreateGrouptoManager} from "../../actions/messages/CreateGrouptoManagerActions";
 
 class MenuLeftCuDan extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             visibleModal: null
         };
     }
-    static navigationOptions = ({ navigation }) => {
-        const { state } = navigation;
+
+    static navigationOptions = ({navigation}) => {
+        const {state} = navigation;
         return {
 
-            headerStyle: { backgroundColor: BACKGROUND_HEADER },
-            headerTitleStyle: { color: TITLE_HEADER },
+            headerStyle: {backgroundColor: BACKGROUND_HEADER},
+            headerTitleStyle: {color: TITLE_HEADER},
             title: 'Menu'
 
         }
 
     }
-    UnSubcribe = () =>  {
+    chatToAdmin = () => {
+        const {callApiCreateGrouptoManager, InfoUser} = this.props
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        callApiCreateGrouptoManager(InfoUser[0].IntUserID, dataProfile[0].KDTID).then(dataRes => {
+            // console.log('datachatoAdmin', dataRes)
+            if (dataRes.Error == null) {
+                this.props.navigation.navigate("TinNhanDetailsCuDan", {
+                    MsgId: dataRes.ObjectResult.MsgGroupID,
+                    title: dataRes.ObjectResult.GroupName,
+                    Info: null
+                })
+            }
+        })
+    }
+    UnSubcribe = () => {
         const {InfoUser, callApiSubcribe} = this.props;
-        if (InfoUser.length <=0) {
+        if (InfoUser.length <= 0) {
             return null
         }
         callApiSubcribe(InfoUser[0].UserID, false).then(dataRes => {
@@ -46,59 +67,60 @@ class MenuLeftCuDan extends Component {
 
         })
     }
-    render (){
+
+    render() {
 
         return (
-            <ScrollView style = {{flexDirection:'column', backgroundColor:'white'}}>
-                <ItemLeftMenu title ="Tài khoản của bạn"
-                              nameIcon = "home"
-                              onPress = {()=> this.props.navigation.navigate('TaiKhoanCuaBanCuDan')}
+            <ScrollView style={{flexDirection: 'column', backgroundColor: 'white'}}>
+                <ItemLeftMenu title="Tài khoản của bạn"
+                              nameIcon="home"
+                              onPress={() => this.props.navigation.navigate('TaiKhoanCuaBanCuDan')}
                 />
-                <ItemLeftMenu title ="Hàng xóm của bạn"
-                              nameIcon = "home"
-                              onPress = {()=> this.props.navigation.navigate('HangXom')}
+                <ItemLeftMenu title="Hàng xóm của bạn"
+                              nameIcon="home"
+                              onPress={() => this.props.navigation.navigate('HangXom')}
                 />
-                <ItemLeftMenu title ="Thông tin cần biết quanh khu đô thị"
-                              nameIcon = "account-multiple"
-                              onPress = {() => this.props.navigation.navigate('ThongTinKDTCuDan')}
+                <ItemLeftMenu title="Thông tin cần biết quanh khu đô thị"
+                              nameIcon="account-multiple"
+                              onPress={() => this.props.navigation.navigate('ThongTinKDTCuDan')}
                 />
-                <ItemLeftMenu title ="Liên hệ Ban Quản Lý"
-                              nameIcon = "contacts"
-                              onPress = {() => this.props.navigation.navigate('LienLacNhanhBQL')}
-                />
-
-                <ItemLeftMenu title ="Phản ánh sự cố"
-                              nameIcon = "bell-ring"
-                              onPress = {()=> this.props.navigation.navigate('BaoSuCoKDT')}
-                />
-                <ItemLeftMenu title ="Chợ FaceHome"
-                              nameIcon = "bell-ring"
-                              onPress = {()=> this.props.navigation.navigate('ChoFaceHome')}
-                />
-                <ItemLeftMenu title ="Bếp ăn gia đình"
-                              nameIcon = "bell-ring"
-                              onPress = {()=> this.props.navigation.navigate('BepAnGiaDinh')}
+                <ItemLeftMenu title="Liên hệ Ban Quản Lý"
+                              nameIcon="contacts"
+                              onPress={() => this.chatToAdmin()}
                 />
 
-                <ItemLeftMenu title ="Hướng dẫn"
-                              nameIcon = "bell-ring"
-                              onPress = {()=> this.props.navigation.navigate('HuongDan')}
+                <ItemLeftMenu title="Phản ánh sự cố"
+                              nameIcon="bell-ring"
+                              onPress={() => this.props.navigation.navigate('BaoSuCoKDT')}
                 />
-                <ItemLeftMenu title ="Giới thiệu"
-                              nameIcon = "bell-ring"
-                              onPress = {()=> this.props.navigation.navigate('GioiThieuCuDan')}
+                <ItemLeftMenu title="Chợ FaceHome"
+                              nameIcon="bell-ring"
+                              onPress={() => this.props.navigation.navigate('ChoFaceHome')}
+                />
+                <ItemLeftMenu title="Bếp ăn gia đình"
+                              nameIcon="bell-ring"
+                              onPress={() => this.props.navigation.navigate('BepAnGiaDinh')}
                 />
 
-                <ItemLeftMenu title ="Đăng xuất"
-                              nameIcon = "web"
-                              onPress = {()=> this.setState({ visibleModal: 5 })}
+                <ItemLeftMenu title="Hướng dẫn"
+                              nameIcon="bell-ring"
+                              onPress={() => this.props.navigation.navigate('HuongDan')}
+                />
+                <ItemLeftMenu title="Giới thiệu"
+                              nameIcon="bell-ring"
+                              onPress={() => this.props.navigation.navigate('GioiThieuCuDan')}
+                />
+
+                <ItemLeftMenu title="Đăng xuất"
+                              nameIcon="web"
+                              onPress={() => this.setState({visibleModal: 5})}
                 />
                 <Modal
                     isVisible={this.state.visibleModal === 5}
                     style={styles.bottomModal}
                 >
                     <View>
-                        <TouchableOpacity onPress =  {()=> {
+                        <TouchableOpacity onPress={() => {
                             this.UnSubcribe()
                             AsyncStorage.removeItem('UserID')
                             const resetAction = NavigationActions.reset({
@@ -109,28 +131,29 @@ class MenuLeftCuDan extends Component {
                                     }),
                                 ]
                             });
-                            this.props.navigation.dispatch(resetAction)}}>
-                            <View style = {styles.modalContent}>
-                                <Text style = {{fontSize:11}}>Bạn có muốn đăng xuất tài khoản này?</Text>
-                                <View style = {{height:1, backgroundColor: 'red'}}/>
-                                <Text style = {{color: 'red', fontSize:18, marginTop: 15}}>
+                            this.props.navigation.dispatch(resetAction)
+                        }}>
+                            <View style={styles.modalContent}>
+                                <Text style={{fontSize: 11}}>Bạn có muốn đăng xuất tài khoản này?</Text>
+                                <View style={{height: 1, backgroundColor: 'red'}}/>
+                                <Text style={{color: 'red', fontSize: 18, marginTop: 15}}>
                                     Đăng xuất
                                 </Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress = { ()=> this.setState({ visibleModal: null })}>
-                            <View style = {[styles.modalContent, {marginTop: 10}]}>
-                                <Text style = {{fontSize:18, color: '#2196F3'}}>
+                        <TouchableOpacity onPress={() => this.setState({visibleModal: null})}>
+                            <View style={[styles.modalContent, {marginTop: 10}]}>
+                                <Text style={{fontSize: 18, color: '#2196F3'}}>
                                     Hủy
                                 </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </Modal>
-                <View style = {{alignItems: 'center', marginTop: 20, marginBottom: 20}}>
+                <View style={{alignItems: 'center', marginTop: 20, marginBottom: 20}}>
                     <TouchableOpacity>
-                        <View style = {styles.canhbao}>
-                            <Text style = {{color: "black", fontWeight:'bold'}}>CẢNH BÁO KHẨN CẤP</Text>
+                        <View style={styles.canhbao}>
+                            <Text style={{color: "black", fontWeight: 'bold'}}>CẢNH BÁO KHẨN CẤP</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -140,6 +163,7 @@ class MenuLeftCuDan extends Component {
         );
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         InfoUser: state.GetProfileReducers,
@@ -150,6 +174,7 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         callApiSubcribe: bindActionCreators(callApiSubcribe, dispatch),
+        callApiCreateGrouptoManager: bindActionCreators(callApiCreateGrouptoManager, dispatch),
 
 
     }
@@ -171,17 +196,17 @@ const styles = StyleSheet.create({
     canhbao: {
         width: DEVICE_WIDTH / 2,
         height: 35,
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 1,
         borderRadius: 3,
-        borderColor:'#EF6C00',
+        borderColor: '#EF6C00',
         backgroundColor: '#F57C00'
 
 
     },
     modalContent: {
-        flexDirection:'column',
+        flexDirection: 'column',
         backgroundColor: "white",
         padding: 22,
         // justifyContent: "center",
