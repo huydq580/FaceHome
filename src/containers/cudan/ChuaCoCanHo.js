@@ -46,38 +46,40 @@ class ChuaCoCanHo extends Component {
 
     componentDidMount() {
         this.getKDT()
-        setTimeout(()=> {
+        setTimeout(() => {
             this.setState({
                 isShow: true
             })
             this.refs.modal.open()
-        }, 1000)
+        }, 2000)
 
     }
-    handlerModal(){
+
+    handlerModal() {
         this.setState({
             isShow: false
-        }, console.log('isshow', this.state.isShow))
+        }, () => console.log('isshow', this.state.isShow))
 
     }
-    showModal(){
+
+    showModal() {
         const {navigation} = this.props
         // const isShow = this.state.isShow
         return (
             <Modal style={{
-                height: DEVICE_WIDTH-120,
-                width: DEVICE_WIDTH-50,
-                borderRadius:10,
+                height: DEVICE_WIDTH - 120,
+                width: DEVICE_WIDTH - 50,
+                borderRadius: 10,
                 backgroundColor: '#E1F5FE'
 
 
             }}
                    swipeArea={20}
-                   position={"center"} ref = {"modal"} isDisabled={false}
+                   position={"center"} ref={"modal"} isDisabled={false}
             >
                 <ShowModal
-                    navigation = {navigation}
-                    handlerModal = {this.handlerModal}/>
+                    navigation={navigation}
+                    handlerModal={this.handlerModal}/>
             </Modal>
         )
     }
@@ -89,19 +91,22 @@ class ChuaCoCanHo extends Component {
             this.setState({
                 ArrKDT: data.Value
             })
-            console.log('dataRes', data.Value)
+            // console.log('dataRes', data.Value)
         })
     }
 
     render() {
         const {navigation} = this.props
+        // console.log('this.ArrKDT', this.state.ArrKDT)
         return (
-            <View style = {{flex:1}}>
+            <View style={{flex: 1}}>
                 <Text style={{fontSize: 15, color: "#9CCC65", marginLeft: 17, marginTop: 10}}>CỘNG ĐỒNG FACEHOME</Text>
                 <View style={{backgroundColor: 'black', marginHorizontal: 15, height: 1}}/>
+                <View>
                 <FlatList
                     data={this.state.ArrKDT}
                     numColumns={3}
+                    style = {{marginTop: 10}}
                     renderItem={(item) => {
                         return (
                             <KDTItem
@@ -114,6 +119,7 @@ class ChuaCoCanHo extends Component {
                     keyExtractor={(item, index) => index.toString()}
 
                 />
+                </View>
                 <Text style={{fontSize: 15, color: "#9CCC65", marginLeft: 17, marginTop: 10}}>CHỢ FACEHOME</Text>
                 <View style={{backgroundColor: 'black', marginHorizontal: 15, height: 1}}/>
                 <FlatList
@@ -146,7 +152,7 @@ class ChuaCoCanHo extends Component {
                     keyExtractor={(item, index) => index.toString()}
                 />
                 {
-                    this.state.isShow ==true ? this.showModal() : null
+                    this.state.isShow == true ? this.showModal() : null
                 }
             </View>
 

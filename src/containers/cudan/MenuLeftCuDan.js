@@ -7,9 +7,11 @@ import {
 
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import Modal from "react-native-modal";
+// import Modal from "react-native-modal";
+import Modal from 'react-native-modalbox';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
+const DEVICE_HEIGHT = Dimensions.get('window').height;
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import ItemLeftMenu from "../../components/leftmenu/ItemLeftMenu";
 import {connect} from "react-redux";
@@ -19,13 +21,18 @@ import {bindActionCreators} from "redux";
 import {callApiSubcribe} from "../../actions/SubcribeActions";
 import {NavigationActions} from "react-navigation";
 import {callApiCreateGrouptoManager} from "../../actions/messages/CreateGrouptoManagerActions";
+import ShowModal from "../../components/modal/ShowModal";
 
 class MenuLeftCuDan extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            visibleModal: null
+            visibleModal: null,
+            isShow: false,
+            Profile: ""
+
         };
+        this.handlerModal = this.handlerModal.bind(this)
     }
 
     static navigationOptions = ({navigation}) => {
@@ -39,6 +46,25 @@ class MenuLeftCuDan extends Component {
         }
 
     }
+
+
+    componentDidMount() {
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        this.setState({
+            Profile: dataProfile
+        })
+    }
+    handlerModal() {
+        this.refs.modal.close()
+
+    }
+
+
     chatToAdmin = () => {
         const {callApiCreateGrouptoManager, InfoUser} = this.props
         if (InfoUser.length <= 0) {
@@ -69,7 +95,7 @@ class MenuLeftCuDan extends Component {
     }
 
     render() {
-
+        const {navigation} = this.props
         return (
             <ScrollView style={{flexDirection: 'column', backgroundColor: 'white'}}>
                 <ItemLeftMenu title="Tài khoản của bạn"
@@ -78,7 +104,9 @@ class MenuLeftCuDan extends Component {
                 />
                 <ItemLeftMenu title="Hàng xóm của bạn"
                               nameIcon="home"
-                              onPress={() => this.props.navigation.navigate('HangXom')}
+                              onPress={() => {
+                                  this.state.Profile ? this.props.navigation.navigate('HangXom') : this.refs.modal.open()
+                              }}
                 />
                 <ItemLeftMenu title="Thông tin cần biết quanh khu đô thị"
                               nameIcon="account-multiple"
@@ -86,12 +114,19 @@ class MenuLeftCuDan extends Component {
                 />
                 <ItemLeftMenu title="Liên hệ Ban Quản Lý"
                               nameIcon="contacts"
-                              onPress={() => this.chatToAdmin()}
+                              onPress={() => {
+                                  // this.chatToAdmin()
+                                  this.state.Profile ? this.chatToAdmin() : this.refs.modal.open()
+                              }}
+
                 />
 
                 <ItemLeftMenu title="Phản ánh sự cố"
                               nameIcon="bell-ring"
-                              onPress={() => this.props.navigation.navigate('BaoSuCoKDT')}
+                              onPress={() => {
+                                  // this.props.navigation.navigate('BaoSuCoKDT')
+                                  this.state.Profile ? this.props.navigation.navigate('BaoSuCoKDT') : this.refs.modal.open()
+                              }}
                 />
                 <ItemLeftMenu title="Chợ FaceHome"
                               nameIcon="bell-ring"
@@ -99,7 +134,10 @@ class MenuLeftCuDan extends Component {
                 />
                 <ItemLeftMenu title="Bếp ăn gia đình"
                               nameIcon="bell-ring"
-                              onPress={() => this.props.navigation.navigate('BepAnGiaDinh')}
+                              onPress={() => {
+                                  // this.props.navigation.navigate('BepAnGiaDinh')
+                                  this.state.Profile ? this.props.navigation.navigate('BepAnGiaDinh') : this.refs.modal.open()
+                              }}
                 />
 
                 <ItemLeftMenu title="Hướng dẫn"
@@ -113,43 +151,21 @@ class MenuLeftCuDan extends Component {
 
                 <ItemLeftMenu title="Đăng xuất"
                               nameIcon="web"
-                              onPress={() => this.setState({visibleModal: 5})}
+                              onPress={() => {
+                                  this.UnSubcribe()
+                                  AsyncStorage.removeItem('UserID')
+                                  const resetAction = NavigationActions.reset({
+                                      index: 0,
+                                      actions: [
+                                          NavigationActions.navigate({
+                                              routeName: 'DangNhap',
+                                          }),
+                                      ]
+                                  });
+                                  this.props.navigation.dispatch(resetAction)
+                              }}
                 />
-                <Modal
-                    isVisible={this.state.visibleModal === 5}
-                    style={styles.bottomModal}
-                >
-                    <View>
-                        <TouchableOpacity onPress={() => {
-                            this.UnSubcribe()
-                            AsyncStorage.removeItem('UserID')
-                            const resetAction = NavigationActions.reset({
-                                index: 0,
-                                actions: [
-                                    NavigationActions.navigate({
-                                        routeName: 'DangNhap',
-                                    }),
-                                ]
-                            });
-                            this.props.navigation.dispatch(resetAction)
-                        }}>
-                            <View style={styles.modalContent}>
-                                <Text style={{fontSize: 11}}>Bạn có muốn đăng xuất tài khoản này?</Text>
-                                <View style={{height: 1, backgroundColor: 'red'}}/>
-                                <Text style={{color: 'red', fontSize: 18, marginTop: 15}}>
-                                    Đăng xuất
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.setState({visibleModal: null})}>
-                            <View style={[styles.modalContent, {marginTop: 10}]}>
-                                <Text style={{fontSize: 18, color: '#2196F3'}}>
-                                    Hủy
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </Modal>
+
                 <View style={{alignItems: 'center', marginTop: 20, marginBottom: 20}}>
                     <TouchableOpacity>
                         <View style={styles.canhbao}>
@@ -158,6 +174,21 @@ class MenuLeftCuDan extends Component {
                     </TouchableOpacity>
 
                 </View>
+                <Modal style={{
+                    height: DEVICE_WIDTH - 120,
+                    width: DEVICE_WIDTH - 50,
+                    borderRadius: 10,
+                    backgroundColor: '#E1F5FE'
+
+
+                }}
+                       swipeArea={20}
+                       position={"center"} ref={"modal"} isDisabled={false}
+                >
+                    <ShowModal
+                        navigation={navigation}
+                        handlerModal={this.handlerModal}/>
+                </Modal>
 
             </ScrollView>
         );
@@ -215,18 +246,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         borderColor: "rgba(0, 0, 0, 0.1)"
     },
-    button: {
-        backgroundColor: "lightblue",
-        padding: 12,
-        margin: 16,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 4,
-        borderColor: "rgba(0, 0, 0, 0.1)"
-    },
     bottomModal: {
-        justifyContent: "flex-end",
-        margin: 0
+        height: DEVICE_HEIGHT/4,
+        borderRadius: 5,
+        marginLeft: 10,
+        marginRight: 10,
     }
 
 })

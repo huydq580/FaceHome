@@ -18,6 +18,10 @@ import {connect} from "react-redux";
 import SocketIOClient from "socket.io-client";
 import images from "../../components/images";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
+import ChuaDangNhapItem from "../../components/chuadangnhap/ChuaDangNhapItem";
+import Modal from 'react-native-modalbox';
+import ShowModal from "../../components/modal/ShowModal";
+import ChuaCoCanHoItem from "../../components/chuadangnhap/ChuaCoCanHoItem";
 
 class Notification extends Component {
     static navigationOptions = ({navigation}) => {
@@ -38,7 +42,8 @@ class Notification extends Component {
         this.state = {
             listNoti: [],
             value: "",
-            isLoading: false
+            isLoading: false,
+            LtProfile :  ""
         }
         this.socket = SocketIOClient(SOCKET, {
             pingTimeout: 30000,
@@ -48,6 +53,7 @@ class Notification extends Component {
         this.socket.on('notification', (dataReceive) => {
             console.log('notification', dataReceive)
         })
+
 
     }
 
@@ -76,92 +82,95 @@ class Notification extends Component {
             .then((response) => response.json())
             .then((dataRes) => {
                 console.log('data12', dataRes)
-                    this.setState({
-                        listNoti: dataRes.ObjectResult,
-                        isLoading: false
-                    }, () => {
-                        // console.log('listnoti', this.state.listNoti)
-                    })
+                this.setState({
+                    listNoti: dataRes.ObjectResult,
+                    isLoading: false
+                }, () => {
+                    // console.log('listnoti', this.state.listNoti)
+                })
             }).catch((erro) => {
             console.log('erro', erro);
         })
     }
 
     componentDidMount() {
+
         AsyncStorage.getItem('UserID').then((value) => {
             this.setState({
                 value: value
             })
         })
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        // let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        // dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        this.setState({
+            LtProfile : InfoUser[0].LtProfile
+        })
     }
+    renderGiaoDien = () => {
+        console.log('this.state.value', this.state.value)
+        // console.log('this.state.LtProfile', this.state.LtProfile)
+        const { navigation } = this.props;
+        if (this.state.value) {
+            if (this.state.LtProfile){
+                return (
+                    <FlatList
+                        data={this.state.listNoti}
+                        renderItem={(item) => {
+                            return (
+                                <ThongBaoItem
+                                    dataItem={item}
+                                    navigation={navigation}
+                                />
+                            )
+                        }}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                )
+            }
+            else {
+                return (
+                    <ChuaCoCanHoItem
+                        navigation={navigation}/>
+                )
+            }
+
+        }
+        else {
+            return (
+                <ChuaDangNhapItem
+                    navigation={navigation}/>
+            )
+        }
+
+    }
+
 
     render() {
         const {navigation} = this.props;
         return (
             <View style={{flex: 1}}>
                 {
-                    !this.state.value ?
-                        <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
-                            <View style={{justifyContent: 'center', flex: 4, alignItems: 'center'}}>
-                                <Image
-                                    source={images.khongcothongbao}
-                                    style={styles.notification}
-                                    resizeMode="cover"
-                                >
-
-                                </Image>
-                                <Text style={{fontSize: 16}}>Không có thông báo nào</Text>
-
-                            </View>
-                            <View style={{justifyContent: 'center', flex: 1}}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DangNhap')}>
-                                    <View style={styles.viewDangNhap}>
-                                        <Text style={styles.textDangNhap}>Đăng nhập</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <View style={{alignItems: 'center'}}>
-
-                                    <Text style={{fontSize: 18, marginTop: 5}}>Hãy đăng nhập vào chung cư của bạn</Text>
-                                </View>
-                            </View>
-
-
-                        </View> : <View style={{flex: 1}}>
-                            {
-                                this.state.listNoti ? <FlatList
-                                    data={this.state.listNoti}
-                                    renderItem={(item) => {
-                                        return (
-                                            <ThongBaoItem
-                                                dataItem={item}
-                                                navigation={navigation}
-                                            />
-                                        )
-                                    }}
-                                    keyExtractor={(item, index) => index.toString()}
-                                /> : <View style={{alignItems: "center", marginTop: 20}}>
-                                    <Text style = {{fontSize: 16}}>Không có thông báo</Text>
-                                </View>
-
-                            }
-
-                        </View>
+                    this.renderGiaoDien()
                 }
-                {this.state.isLoading ?
-                    <View style={{
-                        top: -10,
-                        bottom: -10,
-                        left: -10,
-                        right: -10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        zIndex: 1,
-                        backgroundColor: "white"
-                    }}>
-                        <ActivityIndicator size="large" color="green"/>
-                    </View> : null
-                }
+                {/*{this.state.isLoading ?*/}
+                    {/*<View style={{*/}
+                        {/*top: -10,*/}
+                        {/*bottom: -10,*/}
+                        {/*left: -10,*/}
+                        {/*right: -10,*/}
+                        {/*justifyContent: 'center',*/}
+                        {/*alignItems: 'center',*/}
+                        {/*position: 'absolute',*/}
+                        {/*zIndex: 1,*/}
+                        {/*backgroundColor: "white"*/}
+                    {/*}}>*/}
+                        {/*<ActivityIndicator size="large" color="green"/>*/}
+                    {/*</View> : null*/}
+                {/*}*/}
 
             </View>
         );
