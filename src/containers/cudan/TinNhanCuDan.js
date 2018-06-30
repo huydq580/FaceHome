@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     Platform,
-    TextInput
+    TextInput, AsyncStorage
 
 } from 'react-native'
 import TinNhanItem from "../../components/TinNhanItem";
@@ -21,6 +21,8 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 import {callApiGetUserMsg} from "../../actions/messages/GetUserMsgActions";
+import ChuaCoCanHoItem from "../../components/chuadangnhap/ChuaCoCanHoItem";
+import ChuaDangNhapItem from "../../components/chuadangnhap/ChuaDangNhapItem";
 
 class TinNhanCuDan extends Component {
     static navigationOptions = ({navigation}) => {
@@ -41,6 +43,7 @@ class TinNhanCuDan extends Component {
             dataUser: '',
             refresh: false,
             isLoading: false,
+            LtProfile : ""
 
         }
         this.dataSearchMsg = [];
@@ -51,6 +54,99 @@ class TinNhanCuDan extends Component {
     componentWillMount() {
         console.log('componentwillmount')
         this.getUser()
+    }
+    componentDidMount() {
+
+        AsyncStorage.getItem('UserID').then((value) => {
+            this.setState({
+                value: value
+            })
+        })
+        const {InfoUser} = this.props
+        if (InfoUser.length <= 0) {
+            return null
+        }
+        // let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
+        // dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
+        this.setState({
+            LtProfile : InfoUser[0].LtProfile
+        })
+    }
+    renderGiaoDien = () => {
+        console.log('this.state.value', this.state.value)
+        // console.log('this.state.LtProfile', this.state.LtProfile)
+        const { navigation } = this.props;
+        if (this.state.value) {
+            if (this.state.LtProfile){
+                return (
+                    <View style={stylesContainer.container}>
+                        <View style={{
+                            flexDirection: 'row',
+                            marginHorizontal: 20,
+                            alignItems: 'center',
+                            borderWidth: 1,
+                            borderColor: '#FCE4EC'
+                        }}>
+                            <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
+                            <TextInput placeholder='Tìm kiếm'
+                                       underlineColorAndroid="transparent"
+                                       onChangeText={(text) => this.SearchUser(text)}
+                                       placeholderTextSize="20"
+                                       style = {{padding: 0, marginLeft: 10, flex:1}}
+                                // returnKeyType={"search"}
+                            />
+                        </View>
+                        <FlatList
+                            refreshing={this.state.refresh}
+                            onRefresh={() => {
+                                this.getUser()
+                            }}
+                            data={this.state.dataUser}
+                            renderItem={(item) => {
+                                return (
+                                    <TinNhanItemCuDan
+                                        dataItem={item}
+                                        navigation={navigation}
+                                    />
+                                )
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                            ItemSeparatorComponent={this.renderSeparator}
+                            style={{marginTop: 8}}
+                        />
+                        {/*{this.state.isLoading ?*/}
+                            {/*<View style={{*/}
+                                {/*top: -10,*/}
+                                {/*bottom: -10,*/}
+                                {/*left: -10,*/}
+                                {/*right: -10,*/}
+                                {/*justifyContent: 'center',*/}
+                                {/*alignItems: 'center',*/}
+                                {/*position: 'absolute',*/}
+                                {/*zIndex: 1,*/}
+                                {/*backgroundColor: 'rgba(52, 52, 52, 0.3)'*/}
+                            {/*}}>*/}
+                                {/*<ActivityIndicator size="large" color="green"/>*/}
+                            {/*</View> : null*/}
+                        {/*}*/}
+                    </View>
+                )
+            }
+            else {
+                return (
+                    <ChuaCoCanHoItem
+                        navigation={navigation}/>
+                )
+            }
+
+        }
+        else {
+            return (
+                <ChuaDangNhapItem
+                    navigation={navigation}/>
+            )
+        }
+
     }
 
     getUser = () => {
@@ -111,66 +207,19 @@ class TinNhanCuDan extends Component {
         })
     }
     render() {
-        if (this.state.isLoading) {
-            return (
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
-                    <ActivityIndicator size="large" color="white"/>
-                </View>
-            );
-        }
+        // if (this.state.isLoading) {
+        //     return (
+        //         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#718792'}}>
+        //             <ActivityIndicator size="large" color="white"/>
+        //         </View>
+        //     );
+        // }
         const {navigation} = this.props;
         return (
-            <View style={stylesContainer.container}>
-                <View style={{
-                    flexDirection: 'row',
-                    marginHorizontal: 20,
-                    alignItems: 'center',
-                    borderWidth: 1,
-                    borderColor: '#FCE4EC'
-                }}>
-                    <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
-                    <TextInput placeholder='Tìm kiếm'
-                               underlineColorAndroid="transparent"
-                               onChangeText={(text) => this.SearchUser(text)}
-                               placeholderTextSize="20"
-                               style = {{padding: 0, marginLeft: 10, flex:1}}
-                               // returnKeyType={"search"}
-                    />
-                </View>
-                <FlatList
-                    refreshing={this.state.refresh}
-                    onRefresh={() => {
-                        this.getUser()
-                    }}
-                    data={this.state.dataUser}
-                    renderItem={(item) => {
-                        return (
-                            <TinNhanItemCuDan
-                                dataItem={item}
-                                navigation={navigation}
-                            />
-                        )
-                    }}
-                    keyExtractor={(item, index) => index.toString()}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    style={{marginTop: 8}}
-                />
-                {this.state.isLoading ?
-                    <View style={{
-                        top: -10,
-                        bottom: -10,
-                        left: -10,
-                        right: -10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'absolute',
-                        zIndex: 1,
-                        backgroundColor: 'rgba(52, 52, 52, 0.3)'
-                    }}>
-                        <ActivityIndicator size="large" color="green"/>
-                    </View> : null
-                }
+            <View style = {{flex:1}}>
+                {this.renderGiaoDien()}
             </View>
+
         );
     }
 }
