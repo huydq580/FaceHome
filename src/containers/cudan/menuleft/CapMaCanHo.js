@@ -3,7 +3,7 @@ import {
     View,
     Text,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity, Alert
 } from 'react-native';
 import Dimensions from 'Dimensions';
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -75,7 +75,16 @@ class CapMaCanHo extends Component {
                             onChangeText={(Ho) => this.setState({Ho})}/>
                     </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress = {() => {
+                    Alert.alert(
+                        'Thông báo',
+                        "Chức năng chưa được hoàn thiện",
+                        [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                        ],
+                        {cancelable: false}
+                    )
+                }}>
                     <View style = {{justifyContent:'center', alignItems:'center', marginTop:10}}>
                         <View style = {{height: 30,backgroundColor:'#E0E0E0', width: DEVICE_WIDTH/3,alignItems:'center',  borderWidth: 1, borderRadius: 5, justifyContent: 'center', marginTop: 10}}>
                             <Text>Yêu cầu cấp mã</Text>

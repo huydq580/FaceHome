@@ -29,7 +29,8 @@ class MenuLeftCuDan extends Component {
         this.state = {
             visibleModal: null,
             isShow: false,
-            Profile: ""
+            Profile: "",
+            value: ""
 
         };
         this.handlerModal = this.handlerModal.bind(this)
@@ -49,6 +50,11 @@ class MenuLeftCuDan extends Component {
 
 
     componentDidMount() {
+        AsyncStorage.getItem('UserID').then((value) => {
+            this.setState({
+                value: value
+            })
+        })
         const {InfoUser} = this.props
         if (InfoUser.length <= 0) {
             return null
@@ -100,7 +106,10 @@ class MenuLeftCuDan extends Component {
             <ScrollView style={{flexDirection: 'column', backgroundColor: 'white'}}>
                 <ItemLeftMenu title="Tài khoản của bạn"
                               nameIcon="home"
-                              onPress={() => this.props.navigation.navigate('TaiKhoanCuaBanCuDan')}
+                              onPress={() => {
+                                  // this.props.navigation.navigate('TaiKhoanCuaBanCuDan')
+                                  this.state.value ? this.props.navigation.navigate('TaiKhoanCuaBanCuDan') : this.refs.modal.open()
+                              }}
                 />
                 <ItemLeftMenu title="Hàng xóm của bạn"
                               nameIcon="home"

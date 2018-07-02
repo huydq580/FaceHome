@@ -22,6 +22,7 @@ import images from "../../components/images";
 import DichVuItem from "../../components/dichvu/DichVuItem";
 import {BACKGROUND_HEADER, TITLE_HEADER} from "../../Constants";
 import ChuaDangNhapKDT from "../../components/home/ChuaDangNhapKDT";
+import ChuaDangNhapItem from "../../components/chuadangnhap/ChuaDangNhapItem";
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
@@ -141,7 +142,9 @@ export default class DichVu extends Component {
             <View style={{flex: 1}}>
                 {
                     !this.state.value ?
-                        <ChuaDangNhapKDT/> : <ScrollView style={stylesContainer.container}>
+                        <ChuaDangNhapItem
+                            navigation={navigation}
+                        /> : <ScrollView style={stylesContainer.container}>
                             <View style={{flexDirection: 'row', marginHorizontal: 20, alignItems: 'center'}}>
                                 <Icon name="search" size={30} style={{marginLeft: 7}} color="black"/>
                                 <TextInput
