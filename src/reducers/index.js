@@ -16,7 +16,7 @@ import MessagesDetailsReducers from './messages/MessagesDetailsReducers';
 import SearchPostReducers from './SearchPostReducers'
 import PostCmtReducers from './cudan/PostCmtReducers'
 import SearchCmtReducers from './SearchCmtReducers'
-import CmtSuCoReducers from './CmtSuCoReducers'
+import CmtSuCoReducers from './suco/CmtSuCoReducers'
 import SearchCmtSuCoReducers from './SearchCmtSuCoReducers';
 import UpdateStatusReducers from './UpdateStatusReducers';
 import ChuyenDiaDiemReducers from './reducersCuDan/ChuyenDiaDiemReducers';

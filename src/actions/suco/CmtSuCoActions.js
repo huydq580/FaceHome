@@ -1,6 +1,6 @@
-    import { SaveComment, URL} from "../components/Api";
+import { SaveComment, URL} from "../../components/Api";
 
-export const callApiPostCmtSuCo = (kdt_id, suco_id, user_id, profile_id, full_name,content ) => {
+export const callApiPostCmtSuCo = (kdt_id, suco_id, user_id, full_name,avatar, content ) => {
     return dispatch => {
         return new Promise((resolve, reject) => {
             fetch(URL + SaveComment, {
@@ -12,9 +12,8 @@ export const callApiPostCmtSuCo = (kdt_id, suco_id, user_id, profile_id, full_na
                     kdt_id: kdt_id,
                     suco_id: suco_id,
                     user_id: user_id,
-                    profile_id: profile_id,
                     full_name: full_name,
-                    avatar: "",
+                    avatar: avatar,
                     picture: "",
                     content:content ,
                     lang_name: "vi_VN"

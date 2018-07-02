@@ -18,7 +18,7 @@ import SocketIOClient from "socket.io-client";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmtSuco} from "../../../actions/SearchCmtSuCoActions";
-import {callApiPostCmtSuCo} from "../../../actions/CmtSuCoActions";
+import {callApiPostCmtSuCo} from "../../../actions/suco/CmtSuCoActions";
 import moment from "moment/moment";
 import {NavigationActions} from "react-navigation";
 

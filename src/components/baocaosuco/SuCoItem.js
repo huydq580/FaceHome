@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {callApiSearchCmtSuco} from "../../actions/SearchCmtSuCoActions";
 import images from "../images";
+import Icon1 from 'react-native-vector-icons/EvilIcons';
 
 class SuCoItem extends Component {
     constructor(props) {
@@ -19,24 +20,6 @@ class SuCoItem extends Component {
         this.state = {}
     }
 
-    // ClickItemSuCo = (SuCoID, itemsuco)=> {
-    //     const {fromBQL} = this.props
-    //     const { callApiSearchCmtSuco, InfoUser } = this.props
-    //     if (InfoUser.length <= 0) {
-    //         return null
-    //     }
-    //     console.log('kdt id', InfoUser[0].KDTID)
-    //     console.log('SuCoID', SuCoID)
-    //     callApiSearchCmtSuco(InfoUser[0].KDTID, SuCoID).then(dataRes => {
-    //         if (fromBQL) {
-    //             this.props.navigation.navigate('ChiTietSuCo', {SuCoId: SuCoID, ItemSuCo: itemsuco})
-    //         }
-    //         else {
-    //             this.props.navigation.navigate('ChiTietSuCoCuDan', {SuCoId: SuCoID, ItemSuCo: itemsuco})
-    //         }
-    //     })
-    //
-    // }
     render() {
         const {item} = this.props.dataItem;
         return (
@@ -57,15 +40,36 @@ class SuCoItem extends Component {
                 <View style={{marginHorizontal: 10, marginTop: 10}}>
                     <Text style={{color: '#212121'}}>{item.Content}</Text>
                 </View>
-                <View style={{marginHorizontal: 10}}>
-                    <Image source={
-                        item.Media == "" ? null : {uri: item.Media}
-                    }
-                           style={styles.imagePost}
-                           resizeMode="cover">
-                    </Image>
+
+                <Image source={
+                    item.Media == "" || item.Media == "http://192.168.0.200:9051/" ? null : {uri: item.Media}
+                }
+                       style={styles.imagePost}
+                       resizeMode="cover">
+                </Image>
+                {
+                    item.Media == "" || item.Media == "http://192.168.0.200:9051/" ?
+                        <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 10}}/> : null
+
+                }
+                <View style={{flexDirection: 'row', marginTop: 10, justifyContent: 'space-between'}}>
+                    <View style={{flexDirection: 'row', marginLeft: 20}}>
+                        <Icon1 name="like" size={25} color="#424242"/>
+                        <TouchableOpacity>
+                            <Text>Thích</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <TouchableOpacity onPress = {()=> this.props.navigation.navigate("BinhLuanSuCo", {SuCoID: item.SuCoID, IntUserIDPost: item.IntUserID})}>
+                        <View style={{flexDirection: 'row', marginRight: 20}}>
+                            <Icon1 name="comment" size={25} color="#424242"/>
+
+                            <Text style={{color: '#424242'}}>Bình luận</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-                <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 15, marginHorizontal: 10}}/>
+                <View style={{height: 1, backgroundColor: '#cccccc', marginTop: 10}}/>
+                <View style={{height: 7, backgroundColor: '#EEEEEE'}}></View>
+
             </View>
         );
     }

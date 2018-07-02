@@ -18,7 +18,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {SOCKET} from "../../../components/Api";
 import {callApiSearchCmtSuco} from "../../../actions/SearchCmtSuCoActions";
-import {callApiPostCmtSuCo} from "../../../actions/CmtSuCoActions";
+import {callApiPostCmtSuCo} from "../../../actions/suco/CmtSuCoActions";
 
 class ChiTietSuCoCuDan extends Component {
     constructor(props){
