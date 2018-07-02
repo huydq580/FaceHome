@@ -74,7 +74,7 @@ class BinhLuanSuCo extends Component {
                 IntUserID :dataReceive.IntUserID,
                 IntUserIDPost: dataReceive.IntUserIDPost,
                 KDTID:dataReceive.KDTID,
-                PostID: dataReceive.PostID
+                SuCoID: dataReceive.SuCoID
             });
             this.setState({dataCmt: newCmt});
 
@@ -98,7 +98,7 @@ class BinhLuanSuCo extends Component {
             let dataSendCmt = {
                 KDTID: dataProfile[0].KDTID,
                 IntUserID: InfoUser[0].IntUserID,
-                PostID: params.SuCoID,
+                SuCoID: params.SuCoID,
                 FullName:InfoUser[0].FullName ,
                 DatePost: DatePost,
                 Content: Content,
