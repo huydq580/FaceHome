@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     FlatList,
     Image,
-    StyleSheet
+    StyleSheet, Alert
 } from 'react-native';
 import Dimensions from 'Dimensions';
 
@@ -40,6 +40,28 @@ class QuanLyCanHo extends Component {
         console.log("InfoUser", InfoUser)
         CallApiThemCanHo(InfoUser[0].IntUserID, InfoUser[0].UserID, InfoUser[0].Username, this.state.MaCanHo, InfoUser[0].Email).then(dataRes => {
             console.log('themcanho', dataRes)
+            if (dataRes.ErrorCode == "00"){
+                Alert.alert(
+                    'Thông báo',
+                    "Thêm căn hộ thành công",
+                    [
+                        {text: 'OK', onPress: () => {
+                                this.props.navigation.navigate('LoadData')
+                            }},
+                    ],
+                    {cancelable: false}
+                )
+            }
+           else {
+                Alert.alert(
+                    'Thông báo',
+                    "Mã căn hộ không hợp lệ",
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    {cancelable: false}
+                )
+            }
         })
     }
 
