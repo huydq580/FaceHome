@@ -205,6 +205,7 @@ class DangKyCuDan extends Component {
                             <UserInput
                                 keyboardType={'numeric'}
                                 placeholder={'Nhập mật khẩu'}
+                                secureTextEntry={true}
                                 autoCapitalize={'none'}
                                 returnKeyType={'done'}
                                 autoCorrect={false}
@@ -214,6 +215,7 @@ class DangKyCuDan extends Component {
                             <UserInput
                                 keyboardType={'numeric'}
                                 placeholder={'Nhập lại mật khẩu'}
+                                secureTextEntry={true}
                                 autoCapitalize={'none'}
                                 returnKeyType={'done'}
                                 autoCorrect={false}

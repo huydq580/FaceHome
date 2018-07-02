@@ -151,7 +151,7 @@ class DangNhap extends Component {
                                 onChangeText={(SoDienThoai) => this.setState({SoDienThoai})}
                             />
                             <UserInput
-                                secureTextEntry={this.state.showPass}
+                                secureTextEntry={true}
                                 placeholder='Nhập mật khẩu'
                                 returnKeyType={'done'}
                                 autoCapitalize={'none'}

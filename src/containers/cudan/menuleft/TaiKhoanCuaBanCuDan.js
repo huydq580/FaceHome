@@ -84,6 +84,7 @@ class TaiKhoanCuaBanCuDan extends Component {
         if (InfoUser.length <= 0 ) {
             return null
         }
+        console.log('InfoUser[0].Avatar', InfoUser[0].Avatar)
         const { navigation } = this.props;
         return (
             <ScrollView style = {stylesContainer.container}>
@@ -99,7 +100,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                               value = {InfoUser[0].FullName}
                               title = 'Họ tên'/>
                 <ThongTinItem title = 'Ngày sinh'
-                              value = ""/>
+                              value = "Chưa cập nhật"/>
                 <ThongTinItem title = 'Số điện thoại'
                               value = {InfoUser[0].Phone}/>
 
@@ -142,10 +143,9 @@ class TaiKhoanCuaBanCuDan extends Component {
                 <View style = {{flexDirection: 'row', marginLeft: 20,marginTop: 5}}>
                     <Text style = {{ color: 'black'}}>Avatar</Text>
                     <Image
-                        source={{
-                            // uri: item.Avatar
-                            uri: 'https://znews-photo-td.zadn.vn/w820/Uploaded/kcwvouvs/2017_04_18/15624155_1264609093595675_8005514290339512320_n.jpg'
-                        }}
+                        source={
+                            InfoUser[0].Avatar == null ? images.noavatar : {uri: InfoUser[0].Avatar}
+                        }
                         style={styles.image_circle}
                         resizeMode="cover">
                     </Image>
@@ -211,7 +211,9 @@ class TaiKhoanCuaBanCuDan extends Component {
                     <Text style = {{color: "black"}}>Trở thành nhà cung cấp dịch vụ để khách hàng xung
                         quanh bạn có thể nhìn thấy và sử dụng dịch vụ của bạn</Text>
                 </View>
-                <TouchableOpacity onPress = {()=> this.props.navigation.navigate('DangKyNhaCungCap')}>
+                <TouchableOpacity
+                    // onPress = {()=> this.props.navigation.navigate('DangKyNhaCungCap')}
+                >
                     <View style = {{justifyContent:'center',
                         alignItems:'center', borderWidth: 1,
                         borderRadius: 3, height: 30,marginLeft: DEVICE_WIDTH/2,
@@ -233,7 +235,7 @@ class TaiKhoanCuaBanCuDan extends Component {
                         <Text style ={{marginLeft: 10,marginTop: 10, color: 'black'}}>Đổi số điện thoại</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress  = {()=> this.props.navigation.navigate('ThayDoiMatKhauCuDan')}>
                     <View style = {{flexDirection: 'row',marginTop: 5, alignItems:'center', marginBottom: 10}}>
                         <Image
                             source={
