@@ -14,14 +14,15 @@ const DEVICE_HEIGHT = Dimensions.get('window').height;
 export default class KDTItem extends Component {
     render() {
         const { item } = this.props.dataItem;
-        const {navigation, fromDangNhap} = this.props
+        const {navigation, fromCapMa} = this.props
 
         return (
             <TouchableOpacity onPress = {()=> {
-                if(fromDangNhap){
-                    navigation.navigate('GioiThieuKDT', {title: item.TenKDT})
-                }else
+                if(fromCapMa){
                     navigation.navigate('CapMaCanHo', {title: item.TenKDT});
+                } else
+
+                navigation.navigate('GioiThieuKDT', {title: item.TenKDT})
             }}>
                 <View style = {{ flexDirection:'column', alignItems:'center'}}>
                     <Image style={styles.image_circle}

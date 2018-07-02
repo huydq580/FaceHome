@@ -214,7 +214,7 @@ class QuanLyCanHo extends Component {
                             <KDTItem
                                 dataItem={item}
                                 navigation={navigation}
-                                fromCapMa={false}
+                                fromCapMa={true}
                             />
                         )
                     }}

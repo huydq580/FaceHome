@@ -137,6 +137,7 @@ class SearchFaceHome extends Component {
                                                         <KDTItem
                                                             dataItem={item}
                                                             navigation={navigation}
+                                                            fromSearch = {true}
                                                         />
                                                     )
                                                 }}
@@ -193,7 +194,9 @@ class SearchFaceHome extends Component {
                                 }
                             </ScrollView>
                             <ScrollView tabLabel='Rao vặt'>
-                                <Text>content</Text>
+                                <View style={{alignItems: 'center', marginTop: 10}}>
+                                    <Text>Không có dữ liệu hiển thị</Text>
+                                </View>
                             </ScrollView>
                         </ScrollableTabView> : null
                 }
