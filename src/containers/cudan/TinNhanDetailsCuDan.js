@@ -161,6 +161,7 @@ class TinNhanDetailsCuDan extends Component {
     //socket event send message
     onReceiveTextInputClick = (text) => {
         const {params} = this.props.navigation.state
+        console.log('params', params)
         const {InfoUser} = this.props;
         if (InfoUser.length <= 0) {
             return null;
@@ -240,11 +241,10 @@ class TinNhanDetailsCuDan extends Component {
 
 
                 />
-                <View style = {{marginTop: 30}}>
+
                 <TextInputChat
                     onReceiveTextInputClick ={this.onReceiveTextInputClick}
                 />
-                </View>
             </View>
         );
     }

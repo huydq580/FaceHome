@@ -79,7 +79,7 @@ class MenuLeftCuDan extends Component {
         let dataLtProfile = (InfoUser[0].LtProfile) ? InfoUser[0].LtProfile : null
         dataProfile = dataLtProfile ? JSON.parse(dataLtProfile) : null;
         callApiCreateGrouptoManager(InfoUser[0].IntUserID, dataProfile[0].KDTID).then(dataRes => {
-            // console.log('datachatoAdmin', dataRes)
+            console.log('datachatoAdmin', dataRes)
             if (dataRes.Error == null) {
                 this.props.navigation.navigate("TinNhanDetailsCuDan", {
                     MsgId: dataRes.ObjectResult.MsgGroupID,
